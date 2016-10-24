@@ -1,1 +1,59 @@
 Business Rules 
+
+Group Rules
+  Multiple allowed:
+    UserID's
+    Lists
+    Locations
+    Bills
+  Only One allowed:
+    Name
+    ID
+    
+User Rules
+  Multiple allowed:
+    Bills
+  Only one allowed:
+    UserID
+    UserName
+    Email
+    Password
+    SettingsID
+    Bills
+    
+Settings Rules:
+  Multiple Allowed:
+    LocationsSet
+  Only One allowed:
+    SettingsID
+    PushNotifications
+
+Lists Rules:
+  Multiple Allowed:
+    Items
+  Only One allowed:
+    ListsID
+    UserID
+    
+Message Board Rules:
+  Multiple Allowed:
+    PostID
+  Only One allowed:
+    MessageBoardID
+    
+Locations Rules:
+  Multiple Allowed:
+    
+  Only One allowed:
+    LocationID
+    SSID
+    Name
+  
+Post Rules:
+  Multiple Allowed:
+    ResponseID
+  Only One allowed:
+    PostID
+    UserID
+    Message
+    Time
