@@ -1,59 +1,22 @@
-Business Rules 
-
-Group Rules
-  Multiple allowed:
-    UserID's
-    Lists
-    Locations
-    Bills
-  Only One allowed:
-    Name
-    ID
-    
-User Rules
-  Multiple allowed:
-    Bills
-  Only one allowed:
-    UserID
-    UserName
-    Email
-    Password
-    SettingsID
-    Bills
-    
-Settings Rules:
-  Multiple Allowed:
-    LocationsSet
-  Only One allowed:
-    SettingsID
-    PushNotifications
-
-Lists Rules:
-  Multiple Allowed:
-    Items
-  Only One allowed:
-    ListsID
-    UserID
-    
-Message Board Rules:
-  Multiple Allowed:
-    PostID
-  Only One allowed:
-    MessageBoardID
-    
-Locations Rules:
-  Multiple Allowed:
-    
-  Only One allowed:
-    LocationID
-    SSID
-    Name
-  
-Post Rules:
-  Multiple Allowed:
-    ResponseID
-  Only One allowed:
-    PostID
-    UserID
-    Message
-    Time
+Use of the application’s components requires a user to login to an account.
+Every account must have a username, password, and email.
+Everyone must have their own unique username and password.
+A user can change their account’s email or password at any point.
+Anyone can belong to any number of groups.
+Any user can create a new group.
+The creator of the group can remove any member from that group.
+Any user can join any group as long as they’re invited by someone in the group.
+Any members of the group can leave at any point.
+Any location (WiFi connection) can be added to the group’s location list by any member of the
+    group.
+A WiFi connection can only be listed once (no duplicate connections).
+Any name can be chosen for a connection, even duplicate names.
+Any of the group’s connections can be removed by any member at any time.
+Any member of a group can create a start a new messageboard post.
+Any member of a group can reply to a message board post.
+Any member can delete their own posts in a message board.
+The title of a message board topic cannot be empty, but the contents can be.
+Any replies to a message board topic cannot be empty.
+Any member can create a new list.
+Any member can add new items to a list.
+Any member can mark items on a list as completed or not yet completed.
