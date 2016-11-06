@@ -1,31 +1,39 @@
 USE WHOSHOME;
 
-DROP TABLE IF EXISTS User_Group, Bills, Groups, Lists, Items, MessageBoard,
-  Posts, Users, Locations;
+DROP TABLE IF EXISTS SharedLocations, UserLocations, User_Group, Bills, Groups, Lists, Items, MessageBoard,
+  Posts, Users;
 
-CREATE TABLE Locations(
+CREATE TABLE SharedLocations(
 	LocationsID INT NOT NULL AUTO_INCREMENT,
 	SSID varchar(32),
 	NetName varchar(32),
-	Active BOOL,
   PRIMARY KEY (LocationsID)
 ) ENGINE=INNODB;
 
 CREATE TABLE Users(
 	UserID INT NOT NULL AUTO_INCREMENT,
 	LocationsID INT,
-  Foreign Key (LocationsID)
-        REFERENCES Locations (LocationsID),
-	UserName varchar(20),
+	UserName varchar(20) NOT NULL UNIQUE,
 	FirstName varchar(56),
 	LastName varchar(56),
-	Email varchar(50),
+	Email varchar(50) NOT NULL UNIQUE,
 	Pass varchar(50),
 	Active BOOL,
 	PushNot BOOL,
   PRIMARY KEY (UserID)
 ) ENGINE=INNODB;
 
+CREATE TABLE UserLocations(
+  UserID INT,
+  FOREIGN KEY (UserID)
+    REFERENCES Users (UserID),
+  LocationsID INT,
+  FOREIGN KEY (LocationsID)
+    REFERENCES SharedLocations (LocationsID),
+	InRange BOOL,
+  Active  BOOL,
+  PRIMARY KEY(UserID, LocationsID)
+) ENGINE=INNODB;
 
 CREATE TABLE Posts(
 	PostID INT NOT NULL AUTO_INCREMENT,
