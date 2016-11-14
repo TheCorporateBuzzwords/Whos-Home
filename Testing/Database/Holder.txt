@@ -1,2 +1,0 @@
-Adding gitignore before commiting java database testing project
- 
