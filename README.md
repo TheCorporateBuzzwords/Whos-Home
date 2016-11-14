@@ -4,7 +4,7 @@
 Who's Home is a mobile application that is centered around household communication. The app allows roommates (or family members) to create a shared space where all can view and create tasks that need to be completed for the house. Who's Home also allow users to track bills and communicate with a simple messaging system. 
 
 <b>Technologies:</b><br />
-SQL, Node.js, C# (Xamarin)
+MySQL, Node.js, C# (Xamarin), Java, Python
 
 <b>Screenshots:</b><br />
 Who's Home is still in development and no screenshots are currently available.
