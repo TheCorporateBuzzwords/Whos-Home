@@ -1,4 +1,5 @@
 #!/usr/bin/python
+#CSV's pulled from Mockaroo
 import csv
 import MySQLdb
 import pdb
