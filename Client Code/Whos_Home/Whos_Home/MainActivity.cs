@@ -15,6 +15,8 @@ namespace Whos_Home
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
+            //SetContentView(Resource.Layout.MessageBoard);
+            
 
             //create instances of buttons, define their functions
 
@@ -24,9 +26,16 @@ namespace Whos_Home
 
             //Creates instance of Sign in button
             BSignIn = FindViewById<Button>(Resource.Id.buttonSignIn);
-            BSignIn.Click += BSignIn_Click;
-          
-            
+            //BSignIn.Click += BSignIn_Click;
+
+            //load message board to test
+            BSignIn.Click += delegate {
+                StartActivity(typeof(MessageBoard));
+            };
+
+
+
+
         }
 
         //Function is called when sign in button is clicked
@@ -47,6 +56,8 @@ namespace Whos_Home
             CreateAccountDialog.Show(transaction, "dialog fragment create account");
             //throw new System.NotImplementedException();
         }
+
+        
     }
 
     [Activity(Label = "ButtonStyle", MainLauncher = true, Icon = "@drawable/icon")]

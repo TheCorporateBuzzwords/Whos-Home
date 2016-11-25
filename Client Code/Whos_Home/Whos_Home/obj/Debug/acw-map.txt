@@ -6,6 +6,10 @@ Whos_Home.Activity1, Whos_Home;md597e6dc5a29c792ed6e4d361cd7d651f7.Activity1
 Whos_Home.Activity1, Whos_Home, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md597e6dc5a29c792ed6e4d361cd7d651f7.Activity1
 Whos_Home.Activity1;md597e6dc5a29c792ed6e4d361cd7d651f7.Activity1
 whos_home.Activity1;md597e6dc5a29c792ed6e4d361cd7d651f7.Activity1
+Whos_Home.MessageBoard, Whos_Home;md597e6dc5a29c792ed6e4d361cd7d651f7.MessageBoard
+Whos_Home.MessageBoard, Whos_Home, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md597e6dc5a29c792ed6e4d361cd7d651f7.MessageBoard
+Whos_Home.MessageBoard;md597e6dc5a29c792ed6e4d361cd7d651f7.MessageBoard
+whos_home.MessageBoard;md597e6dc5a29c792ed6e4d361cd7d651f7.MessageBoard
 Whos_Home.SignIn_Dialog, Whos_Home;md597e6dc5a29c792ed6e4d361cd7d651f7.SignIn_Dialog
 Whos_Home.SignIn_Dialog, Whos_Home, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md597e6dc5a29c792ed6e4d361cd7d651f7.SignIn_Dialog
 Whos_Home.SignIn_Dialog;md597e6dc5a29c792ed6e4d361cd7d651f7.SignIn_Dialog
