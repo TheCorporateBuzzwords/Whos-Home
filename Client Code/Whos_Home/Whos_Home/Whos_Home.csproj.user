@@ -3,6 +3,6 @@
   <PropertyGroup>
     <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
     <AndroidDesignerPreferredTheme>Theme.Material</AndroidDesignerPreferredTheme>
-    <SelectedDevice>5" KitKat %284.4%29 XXHDPI Phone</SelectedDevice>
+    <SelectedDevice>5.7" Marshmallow %286.0.0%29 XHDPI Phone</SelectedDevice>
   </PropertyGroup>
 </Project>
