@@ -21,28 +21,16 @@ namespace Whos_Home
 
             var view = inflater.Inflate(Resource.Layout.sign_up, container, false);
             confirm = view.FindViewById<Button>(Resource.Id.buttonConfirm);
-            
-
-            return view;
-
-        }
-
-        public override void OnResume()
-        {
             confirm.Click += new EventHandler(delegate (object sender, System.EventArgs e)
             {
-                var view = this.Activity;
                 var email = view.FindViewById<EditText>(Resource.Id.emailtext).Text;
                 var username = view.FindViewById<EditText>(Resource.Id.usernametext).Text;
-                var password = view.FindViewById<EditText>(Resource.Id.textpassword).Text;
+                var password = view.FindViewById<EditText>(Resource.Id.passwordtext).Text;
                 var passCheck = view.FindViewById<EditText>(Resource.Id.repeatpasswordtext).Text;
 
                 AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
                 alert.SetTitle("Information");
-                alert.SetMessage(string.Format("Email: {0}", email));
-                alert.SetMessage(string.Format("User Name: {0}", username));
-                alert.SetMessage(string.Format("Pass 1: {0}", password));
-                alert.SetMessage(string.Format("Pass 2: {0}", passCheck));
+                alert.SetMessage(string.Format("Email: {0}\nUser Name: {1}\nPass 1: {2}\nPass 2: {3}", email, username, password, passCheck));
 
                 alert.SetPositiveButton("Continue", (senderAlert, args) =>
                 {
@@ -57,7 +45,15 @@ namespace Whos_Home
                 Dialog dialog = alert.Create();
                 dialog.Show();
             });
+            
 
+            return view;
+
+        }
+
+        public override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
 
         }
 
