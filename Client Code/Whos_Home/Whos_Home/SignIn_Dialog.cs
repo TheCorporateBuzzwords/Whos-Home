@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Whos_Home
 {
-    class SignIn_Dialog :DialogFragment
+    class SignIn_Dialog : DialogFragment
     {
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {

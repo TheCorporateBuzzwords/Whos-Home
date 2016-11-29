@@ -19,10 +19,16 @@
         android:text="New Post"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
+        android:layout_weight="8"
         android:gravity="center_horizontal"
-        android:id="@+id/buttonSignIn"
+        android:id="@+id/NewPostButton"
         android:layout_marginLeft="15px"
         android:layout_marginRight="15px"
         android:textSize="15sp" />
+  
+      <ListView
+        android:id="@+id/messagelistview"
+        android:layout_width="fill_parent"
+        android:layout_weight="80"
+        android:layout_height="0dp" />    
 </LinearLayout>

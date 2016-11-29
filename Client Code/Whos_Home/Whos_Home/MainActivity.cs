@@ -15,10 +15,6 @@ namespace Whos_Home
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
-            //SetContentView(Resource.Layout.MessageBoard);
-            
-
-            //create instances of buttons, define their functions
 
             //Creates instance of Create Account button
             BCreateAccount = FindViewById<Button>(Resource.Id.buttonCreateAccount);

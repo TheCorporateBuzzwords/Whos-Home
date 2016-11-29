@@ -41,5 +41,6 @@ C:\Users\Caleb\Documents\Visual Studio 2015\Projects\Whos_Home\Whos_Home\obj\Deb
 C:\Users\Caleb\Documents\Visual Studio 2015\Projects\Whos_Home\Whos_Home\obj\Debug\res\layout\sign_up.xml
 C:\Users\Caleb\Documents\Visual Studio 2015\Projects\Whos_Home\Whos_Home\obj\Debug\res\layout\sign_in.xml
 C:\Users\Caleb\Documents\Visual Studio 2015\Projects\Whos_Home\Whos_Home\obj\Debug\res\layout\messageboard.xml
+C:\Users\Caleb\Documents\Visual Studio 2015\Projects\Whos_Home\Whos_Home\obj\Debug\res\layout\newmessage.xml
 C:\Users\Caleb\Documents\Visual Studio 2015\Projects\Whos_Home\Whos_Home\obj\Debug\Whos_Home.dll.mdb
 C:\Users\Caleb\Documents\Visual Studio 2015\Projects\Whos_Home\Whos_Home\bin\Debug\Whos_Home.dll.mdb
