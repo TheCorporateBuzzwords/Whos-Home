@@ -99,6 +99,7 @@ class MonoPackageManager_Resources {
 	public static final String[] Assemblies = new String[]{
 		/* We need to ensure that "Whos_Home.dll" comes first in this list. */
 		"Whos_Home.dll",
+		"Newtonsoft.Json.dll",
 		"System.Threading.dll",
 		"System.Runtime.dll",
 		"System.Collections.dll",

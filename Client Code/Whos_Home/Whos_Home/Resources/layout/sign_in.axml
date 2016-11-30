@@ -12,9 +12,9 @@
         android:layout_height="0dp"
         android:textColor="#368DEB"
         android:layout_weight="10"
-        android:id="@+id/textusername" />
+        android:id="@+id/textviewusername" />
     <EditText
-        android:id="@+id/usernametext"
+        android:id="@+id/signinusername"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 <!--Password field-->
@@ -26,9 +26,9 @@
         android:layout_height="0dp"
         android:textColor="#368DEB"
         android:layout_weight="10"
-        android:id="@+id/textpassword" />
+        android:id="@+id/textviewpassword" />
     <EditText
-        android:id="@+id/passwordtext"
+        android:id="@+id/signinpassword"
         android:layout_width="fill_parent"
         android:inputType="textPassword"
         android:layout_height="wrap_content" />

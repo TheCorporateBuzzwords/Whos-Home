@@ -3,6 +3,34 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+<!--First Name field-->
+  <TextView
+        android:text="Enter First Name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textColor="#368DEB"
+        android:layout_weight="10"
+        android:id="@+id/textfirstname" />
+    <EditText
+        android:id="@+id/firstnametext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+  <!--LastName field-->
+  <TextView
+        android:text="Enter Last Name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textColor="#368DEB"
+        android:layout_weight="10"
+        android:id="@+id/textlastname" />
+    <EditText
+        android:id="@+id/lastnametext"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 <!--Username field-->
     <TextView
         android:text="Enter desired username"

@@ -2,7 +2,7 @@
 <xs:schema xmlns:android="http://schemas.android.com/apk/res/android" attributeFormDefault="qualified" elementFormDefault="unqualified" targetNamespace="http://schemas.android.com/apk/res/android" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>v23</xs:documentation>
-    <xs:documentation>11/26/2016 9:45:19 PM</xs:documentation>
+    <xs:documentation>11/29/2016 4:41:06 PM</xs:documentation>
   </xs:annotation>
   <xs:attribute name="accessibilityLiveRegion">
     <xs:annotation>
@@ -16814,18 +16814,26 @@
             <xs:enumeration value="@id/edittextmessage" />
             <xs:enumeration value="@id/edittexttitle" />
             <xs:enumeration value="@id/emailtext" />
+            <xs:enumeration value="@id/firstnametext" />
+            <xs:enumeration value="@id/lastnametext" />
             <xs:enumeration value="@id/messagelistview" />
             <xs:enumeration value="@id/NewPostButton" />
             <xs:enumeration value="@id/passwordtext" />
             <xs:enumeration value="@id/repeatpasswordtext" />
+            <xs:enumeration value="@id/signinpassword" />
+            <xs:enumeration value="@id/signinusername" />
             <xs:enumeration value="@id/textconfirmpassword" />
             <xs:enumeration value="@id/textCreateAccount" />
             <xs:enumeration value="@id/textemail" />
+            <xs:enumeration value="@id/textfirstname" />
+            <xs:enumeration value="@id/textlastname" />
             <xs:enumeration value="@id/textmessage" />
             <xs:enumeration value="@id/textOR" />
             <xs:enumeration value="@id/textpassword" />
             <xs:enumeration value="@id/texttitle" />
             <xs:enumeration value="@id/textusername" />
+            <xs:enumeration value="@id/textviewpassword" />
+            <xs:enumeration value="@id/textviewusername" />
             <xs:enumeration value="@id/usernametext" />
             <xs:enumeration value="@android:id/accessibilityActionContextClick" />
             <xs:enumeration value="@android:id/accessibilityActionScrollDown" />

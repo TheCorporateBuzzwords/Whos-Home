@@ -17,26 +17,34 @@ public final class R {
     }
     public static final class id {
         public static final int NewPostButton=0x7f060004;
-        public static final int buttonConfirm=0x7f060014;
+        public static final int buttonConfirm=0x7f06001c;
         public static final int buttonCreateAccount=0x7f060003;
         public static final int buttonCreateMessage=0x7f06000a;
         public static final int buttonSignIn=0x7f060001;
         public static final int buttonlogin=0x7f06000f;
         public static final int edittextmessage=0x7f060009;
         public static final int edittexttitle=0x7f060007;
-        public static final int emailtext=0x7f060013;
+        public static final int emailtext=0x7f06001b;
+        public static final int firstnametext=0x7f060011;
+        public static final int lastnametext=0x7f060013;
         public static final int messagelistview=0x7f060005;
-        public static final int passwordtext=0x7f06000e;
-        public static final int repeatpasswordtext=0x7f060011;
+        public static final int passwordtext=0x7f060017;
+        public static final int repeatpasswordtext=0x7f060019;
+        public static final int signinpassword=0x7f06000e;
+        public static final int signinusername=0x7f06000c;
         public static final int textCreateAccount=0x7f060000;
         public static final int textOR=0x7f060002;
-        public static final int textconfirmpassword=0x7f060010;
-        public static final int textemail=0x7f060012;
+        public static final int textconfirmpassword=0x7f060018;
+        public static final int textemail=0x7f06001a;
+        public static final int textfirstname=0x7f060010;
+        public static final int textlastname=0x7f060012;
         public static final int textmessage=0x7f060008;
-        public static final int textpassword=0x7f06000d;
+        public static final int textpassword=0x7f060016;
         public static final int texttitle=0x7f060006;
-        public static final int textusername=0x7f06000b;
-        public static final int usernametext=0x7f06000c;
+        public static final int textusername=0x7f060014;
+        public static final int textviewpassword=0x7f06000d;
+        public static final int textviewusername=0x7f06000b;
+        public static final int usernametext=0x7f060015;
     }
     public static final class layout {
         public static final int main=0x7f030000;

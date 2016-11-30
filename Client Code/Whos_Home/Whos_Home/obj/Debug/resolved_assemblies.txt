@@ -6,6 +6,7 @@ C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\De
 C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.dll
 C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.Xml.dll
 C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.Xml.Linq.dll
+C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\Newtonsoft.Json.dll
 C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.Threading.dll
 C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.Runtime.dll
 C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.ComponentModel.Composition.dll
@@ -20,3 +21,7 @@ C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\De
 C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.Net.Http.dll
 C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.Runtime.Serialization.dll
 C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.ServiceModel.Internals.dll
+C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.Numerics.dll
+C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.Data.dll
+C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\Mono.Data.Tds.dll
+C:\Users\Caleb\Documents\JP\GIT\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.Transactions.dll

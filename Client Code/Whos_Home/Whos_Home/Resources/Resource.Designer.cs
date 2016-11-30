@@ -69,8 +69,8 @@ namespace Whos_Home
 			// aapt resource value: 0x7f060004
 			public const int NewPostButton = 2131099652;
 			
-			// aapt resource value: 0x7f060014
-			public const int buttonConfirm = 2131099668;
+			// aapt resource value: 0x7f06001c
+			public const int buttonConfirm = 2131099676;
 			
 			// aapt resource value: 0x7f060003
 			public const int buttonCreateAccount = 2131099651;
@@ -90,17 +90,29 @@ namespace Whos_Home
 			// aapt resource value: 0x7f060007
 			public const int edittexttitle = 2131099655;
 			
+			// aapt resource value: 0x7f06001b
+			public const int emailtext = 2131099675;
+			
+			// aapt resource value: 0x7f060011
+			public const int firstnametext = 2131099665;
+			
 			// aapt resource value: 0x7f060013
-			public const int emailtext = 2131099667;
+			public const int lastnametext = 2131099667;
 			
 			// aapt resource value: 0x7f060005
 			public const int messagelistview = 2131099653;
 			
-			// aapt resource value: 0x7f06000e
-			public const int passwordtext = 2131099662;
+			// aapt resource value: 0x7f060017
+			public const int passwordtext = 2131099671;
 			
-			// aapt resource value: 0x7f060011
-			public const int repeatpasswordtext = 2131099665;
+			// aapt resource value: 0x7f060019
+			public const int repeatpasswordtext = 2131099673;
+			
+			// aapt resource value: 0x7f06000e
+			public const int signinpassword = 2131099662;
+			
+			// aapt resource value: 0x7f06000c
+			public const int signinusername = 2131099660;
 			
 			// aapt resource value: 0x7f060000
 			public const int textCreateAccount = 2131099648;
@@ -108,26 +120,38 @@ namespace Whos_Home
 			// aapt resource value: 0x7f060002
 			public const int textOR = 2131099650;
 			
+			// aapt resource value: 0x7f060018
+			public const int textconfirmpassword = 2131099672;
+			
+			// aapt resource value: 0x7f06001a
+			public const int textemail = 2131099674;
+			
 			// aapt resource value: 0x7f060010
-			public const int textconfirmpassword = 2131099664;
+			public const int textfirstname = 2131099664;
 			
 			// aapt resource value: 0x7f060012
-			public const int textemail = 2131099666;
+			public const int textlastname = 2131099666;
 			
 			// aapt resource value: 0x7f060008
 			public const int textmessage = 2131099656;
 			
-			// aapt resource value: 0x7f06000d
-			public const int textpassword = 2131099661;
+			// aapt resource value: 0x7f060016
+			public const int textpassword = 2131099670;
 			
 			// aapt resource value: 0x7f060006
 			public const int texttitle = 2131099654;
 			
-			// aapt resource value: 0x7f06000b
-			public const int textusername = 2131099659;
+			// aapt resource value: 0x7f060014
+			public const int textusername = 2131099668;
 			
-			// aapt resource value: 0x7f06000c
-			public const int usernametext = 2131099660;
+			// aapt resource value: 0x7f06000d
+			public const int textviewpassword = 2131099661;
+			
+			// aapt resource value: 0x7f06000b
+			public const int textviewusername = 2131099659;
+			
+			// aapt resource value: 0x7f060015
+			public const int usernametext = 2131099669;
 			
 			static Id()
 			{
