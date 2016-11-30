@@ -38,22 +38,17 @@ namespace Whos_Home
 
                 //create an alert box to show data that was entered (For testing)
                 AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
-                alert.SetTitle("Information");
-                alert.SetMessage(string.Format(firstname + '\n' + lastname + '\n' + email + '\n' + username + '\n' + password + '\n' + passCheck));
+
+                Console.WriteLine("INFO:");
+                Console.WriteLine("First Name: " + firstname);
+                Console.WriteLine("Last Name: " + lastname);
+                Console.WriteLine("Email: " + email);
+                Console.WriteLine("Password1: " + password);
+                Console.WriteLine("Password2: " + passCheck);
 
                 //create an instance of a user and initialize it
                 User user = new User(firstname, lastname, username, email, password);
                 string json = JsonConvert.SerializeObject(user);
-
-                //uploads json string to server
-                //(new WebClient()).UploadString(url + "/users/", "PUT", json);
-
-
-                //alert.SetPositiveButton("Continue", (senderAlert, args) =>
-                //{
-                //    Toast.MakeText(this.Context, "Deleted!", ToastLength.Short).Show();
-                //});
-
 
                 Dialog dialog = alert.Create();
                 dialog.Show();
