@@ -11,13 +11,15 @@ using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
 using System.Net;
+using RestSharp;
 
 namespace Whos_Home
 {
     class SignUp_Dialog : DialogFragment
     {
         private Button confirm;
-        private string url = "96.41.173.205:8080";
+        private string url = "https://jsonplaceholder.typicode.com";
+        private string url1 = "http://96.41.173.205:8080";
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
@@ -26,9 +28,17 @@ namespace Whos_Home
             confirm = view.FindViewById<Button>(Resource.Id.buttonConfirm);
 
             //sets click function for the confirm button;
-            confirm.Click += new EventHandler(delegate (object sender, System.EventArgs e)
-            {
-                //retrieves data from dialog box
+            confirm.Click += testDel;
+
+            return view;
+
+        }
+
+
+        public async void testDel(object sender, System.EventArgs e)
+        {
+            //retrieves data from dialog box
+                View view = this.View;
                 var firstname = view.FindViewById<EditText>(Resource.Id.firstnametext).Text;
                 var lastname = view.FindViewById<EditText>(Resource.Id.lastnametext).Text;
                 var email = view.FindViewById<EditText>(Resource.Id.emailtext).Text;
@@ -46,44 +56,23 @@ namespace Whos_Home
                 Console.WriteLine("Password1: " + password);
                 Console.WriteLine("Password2: " + passCheck);
 
-                //create an instance of a user and initialize it
-                User user = new User(firstname, lastname, username, email, password);
-                string json = JsonConvert.SerializeObject(user);
+                if(firstname != null && lastname != null && email != null && password != null && password == passCheck)
+                {
+                    User user = new User(firstname, lastname, username, email, password);
+                    string json = JsonConvert.SerializeObject(user);
 
+                    var client = new RestClient(url);
+
+                    var request = new RestRequest(url + "/users", Method.POST);
+                    request.AddObject(user);
+                    var response = await client.ExecuteTaskAsync(request);
+                    Console.WriteLine("RESPONSE: " + response.Content);
+                }
+
+                //create an instance of a user and initialize it
                 Dialog dialog = alert.Create();
                 dialog.Show();
-            });
-
-            return view;
-
-        }
-
-
-        public void testDel(object sender, System.EventArgs e)
-        {
-            var view = this.Activity;
-            var email = view.FindViewById<EditText>(Resource.Id.emailtext);
-            var username = view.FindViewById<EditText>(Resource.Id.usernametext);
-            var password = view.FindViewById<EditText>(Resource.Id.textpassword);
-            var passCheck = view.FindViewById<EditText>(Resource.Id.repeatpasswordtext);
-
-            AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
-            alert.SetTitle("Information");
-            alert.SetMessage(string.Format("Email: {0}", email));
-            alert.SetMessage(string.Format("User Name: {0}", username));
-            alert.SetMessage(string.Format("Pass 1: {0}", password));
-            alert.SetMessage(string.Format("Pass 2: {0}", passCheck));
-
-            alert.SetPositiveButton("Continue", (senderAlert, args) =>
-            {
-                Toast.MakeText(this.Context, "Deleted!", ToastLength.Short).Show();
-            });
-
-
-
-            Dialog dialog = alert.Create();
-            dialog.Show();
-
-        }
+            }
+        
     }
 }

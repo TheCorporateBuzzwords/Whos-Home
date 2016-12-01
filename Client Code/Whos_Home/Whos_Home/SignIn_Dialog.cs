@@ -11,13 +11,15 @@ using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
 using System.Net;
+using RestSharp;
 
 namespace Whos_Home
 {
     class SignIn_Dialog : DialogFragment
     {
         private Button SignIn;
-        private string url = "96.41.173.205:8080";
+        private string url = "https://jsonplaceholder.typicode.com";
+        private string url1 = "https://96.41.173.205:8080";
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
@@ -26,37 +28,36 @@ namespace Whos_Home
             SignIn = view.FindViewById<Button>(Resource.Id.buttonlogin);
 
             //sets click function for the sign in button;
-            SignIn.Click += new EventHandler(delegate (object sender, System.EventArgs e)
-            {
-                //retrieves data from dialog box
-                var username = view.FindViewById<EditText>(Resource.Id.signinusername).Text;
-                var password = view.FindViewById<EditText>(Resource.Id.signinpassword).Text;
-
-                //create an alert box to show data that was entered (For testing)
-                AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
-                alert.SetTitle("Information");
-                alert.SetMessage(string.Format(username + '\n' + password));
-
-                //create an instance of a user and initialize it
-                User user = new User(username, password);
-                string json = JsonConvert.SerializeObject(user);
-
-                //uploads json string to server
-                //(new WebClient()).UploadString(url + "/users/", "PUT", json);
-
-
-                //alert.SetPositiveButton("Continue", (senderAlert, args) =>
-                //{
-                //    Toast.MakeText(this.Context, "Deleted!", ToastLength.Short).Show();
-                //});
-
-
-                Dialog dialog = alert.Create();
-                dialog.Show();
-            });
+            SignIn.Click += testDel;
 
             return view;
 
         }
+        public async void testDel(object sender, System.EventArgs e)
+        {
+            //retrieves data from dialog box
+                View view = this.View;
+                var username = view.FindViewById<EditText>(Resource.Id.signinusername).Text;
+                var password = view.FindViewById<EditText>(Resource.Id.signinpassword).Text;
+
+                Console.WriteLine("INFO:");
+                Console.WriteLine("User Name: " + username);
+                Console.WriteLine("Password: " + password);
+
+                if(password != null && username != null)
+                {
+                    User user = new User(username, password);
+                    string json = JsonConvert.SerializeObject(user);
+
+                    var client = new RestClient(url);
+
+                    var request = new RestRequest(url + "/users", Method.GET);
+                    request.AddObject(user);
+                    var response = await client.ExecuteTaskAsync(request);
+                    Console.WriteLine("RESPONSE: " + response.Content);
+                }
+
+                //create an instance of a user and initialize it
+            }
     }
 }
