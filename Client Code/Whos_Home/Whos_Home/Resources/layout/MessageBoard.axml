@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100">
+    <TextView
+        android:text="Message Board"
+        android:layout_width="match_parent"
+        android:layout_weight="10"
+        android:layout_height="0dp"
+        android:textColor="#368DEB"
+        android:gravity="center_horizontal"
+        android:id="@+id/textCreateAccount"
+        android:textStyle="bold"
+        android:textSize="26sp" />
+    <Button
+        android:background="@drawable/blue_button"
+        android:text="New Post"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:gravity="center_horizontal"
+        android:id="@+id/NewPostButton"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:textSize="15sp" />
+  
+      <ListView
+        android:id="@+id/messagelistview"
+        android:layout_width="fill_parent"
+        android:layout_weight="80"
+        android:layout_height="0dp" />    
+</LinearLayout>
