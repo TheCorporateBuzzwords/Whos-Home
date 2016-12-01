@@ -99,6 +99,7 @@ class MonoPackageManager_Resources {
 	public static final String[] Assemblies = new String[]{
 		/* We need to ensure that "Whos_Home.dll" comes first in this list. */
 		"Whos_Home.dll",
+		"Java.Interop.dll",
 		"Newtonsoft.Json.dll",
 		"System.Threading.dll",
 		"System.Runtime.dll",
@@ -110,8 +111,9 @@ class MonoPackageManager_Resources {
 		"System.Runtime.InteropServices.dll",
 		"System.Runtime.Extensions.dll",
 		"System.Reflection.Extensions.dll",
+		"System.ServiceModel.Internals.dll",
 	};
 	public static final String[] Dependencies = new String[]{
 	};
-	public static final String ApiPackageName = "Mono.Android.Platform.ApiLevel_24";
+	public static final String ApiPackageName = "Mono.Android.Platform.ApiLevel_23";
 }
