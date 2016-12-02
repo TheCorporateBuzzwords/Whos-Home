@@ -12,7 +12,17 @@ using Android.Widget;
 
 namespace Whos_Home
 {
-    class SideMenu
+    [Activity(Label = "Bills")]
+    class Bills : Activity
     {
+        protected override void OnCreate(Bundle bundle)
+        {
+            SetContentView(Resource.Layout.Bills);
+
+           
+
+            
+        }
     }
+   
 }
