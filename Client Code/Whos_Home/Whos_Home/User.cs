@@ -14,15 +14,16 @@ namespace Whos_Home
 {
     class User
     {
-        private string firstname, lastname, username, email, password;
+        private string firstname, lastname, username, email, password, confirm;
 
-        public User(string fn, string ln, string un, string e, string pass)
+        public User(string fn, string ln, string un, string e, string pass, string conf)
         {
             firstname = fn;
             lastname = ln;
             username = un;
             email = e;
             password = pass;
+            confirm = conf;
         }
 
         //constructor used for login information
@@ -97,6 +98,19 @@ namespace Whos_Home
             set
             {
                 username = value;
+            }
+        }
+
+        public string Confirm
+        {
+            get
+            {
+                return confirm;
+            }
+
+            set
+            {
+                confirm = value;
             }
         }
     }

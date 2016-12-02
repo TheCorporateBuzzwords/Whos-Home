@@ -18,8 +18,7 @@ namespace Whos_Home
     class SignUp_Dialog : DialogFragment
     {
         private Button confirm;
-        private string url = "https://jsonplaceholder.typicode.com";
-        private string url1 = "http://96.41.173.205:8080";
+        private string url = "http://96.41.173.205:3000";
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
@@ -58,12 +57,12 @@ namespace Whos_Home
 
                 if(firstname != null && lastname != null && email != null && password != null && password == passCheck)
                 {
-                    User user = new User(firstname, lastname, username, email, password);
+                User user = new User(firstname, lastname, username, email, password, passCheck);
                     string json = JsonConvert.SerializeObject(user);
 
                     var client = new RestClient(url);
 
-                    var request = new RestRequest(url + "/users", Method.POST);
+                    var request = new RestRequest("/users", Method.POST);
                     request.AddObject(user);
                     var response = await client.ExecuteTaskAsync(request);
                     Console.WriteLine("RESPONSE: " + response.Content);
