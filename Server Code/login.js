@@ -43,15 +43,20 @@ app.post('/login/', function (req, res) {
                 callback(null);
             }
             else {
-                callback(new Error('Missing parameter in POST request'));
+                res.status(400);
+                res.send('Missing parameter in POST request');
                 return;
             }
         },
         function getSalt(callback) {
             getHashRequest = 'SELECT Salt FROM Users WHERE UserName = "' + req.body.Username + '"';
             con.query(getHashRequest, function(err, results) {
-                console.log(results[0].Salt);
-                callback(err, results[0].Salt);
+                if(results.length)
+                    callback(err, results[0].Salt);
+                else
+                    res.status(409);
+                    res.send("Incorrect username or password.");
+                    return;
             });
         },
         function getHash(saltData, callback) {
@@ -62,14 +67,13 @@ app.post('/login/', function (req, res) {
         function checkLogin(hash, callback) {
             checkLoginRequest = 'SELECT UserName FROM Users WHERE UserName = "' + req.body.Username + '" AND Pass = "' + hash + '"';
             con.query(checkLoginRequest, function(err, results) {
-                console.log(checkLoginRequest);
-                if (results.length)
-                {
-                    console.log("true");
+                if (!results.length) {
+                    res.status(409);
+                    res.send("Incorrect username or password.");
+                    return;
                 }
-                else
-                {
-                    console.log("false");
+                else {
+                    callback(err);
                 }
             });
         }
@@ -77,7 +81,10 @@ app.post('/login/', function (req, res) {
     function complete(err)
     {
         if(err)
-            console.log("error: ", err);
+            console.log(err);
+        else
+            res.status(200);
+            res.send("Sign in successful.");
         con.end(function (err) {
             console.log(err);
         });
@@ -85,13 +92,7 @@ app.post('/login/', function (req, res) {
 });
 
 function hashPassword(password, salt, callback) {
-    console.log("salt: ", salt);
-    var testSalt = new Buffer(salt, "hex");
-    console.log("test salt: ", testSalt);
-    testSalt.toString('hex');
-    console.log("final: ", testSalt.toString('hex'));
     crypto.pbkdf2(password, new Buffer(salt, "hex"), config.iterations, config.hashBytes, config.digest, function (err, hash) {
-        console.log("hasha: ", hash);
         callback(err, hash.toString('hex'));
     });
 }
