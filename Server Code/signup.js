@@ -45,13 +45,15 @@ app.post('/users/', function (req, res) {
                 }
                 else {
                     //callback(new Error('Passwords do not match'));
+                    res.status(409);
                     res.send("Passwords do not match.");
                     return;
                 }
             }
             else {
                 //callback(new Error('Missing parameter in POST request'));
-                res.send("Missing parameter(s) in POST request.")
+                res.status(400);
+                res.send("Missing parameter(s) in POST request.");
                 return;
             }
         },
@@ -64,6 +66,7 @@ app.post('/users/', function (req, res) {
                 }
                 else {
                     //callback(new Error('Username already in use'));
+                    res.status(409);
                     res.send("Username already in use.");
                     return;
                 }
@@ -77,6 +80,7 @@ app.post('/users/', function (req, res) {
                 }
                 else {
                     //callback(new Error('Email already in use'));
+                    res.status(409);
                     res.send("Email already in use.");
                     return;
                 }
@@ -97,6 +101,7 @@ app.post('/users/', function (req, res) {
         if(err)
             console.log("error: ", err);
         else
+            res.status(201);
             res.send("Sign up successful.");
         con.end(function (err) {
             console.log(err);
