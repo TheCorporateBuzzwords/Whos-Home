@@ -57,20 +57,28 @@ namespace Whos_Home
 
                 if(firstname != null && lastname != null && email != null && password != null && password == passCheck)
                 {
-                User user = new User(firstname, lastname, username, email, password, passCheck);
+                    User user = new User(firstname, lastname, username, email, password, passCheck);
                     string json = JsonConvert.SerializeObject(user);
 
                     var client = new RestClient(url);
 
                     var request = new RestRequest("/users", Method.POST);
                     request.AddObject(user);
-                    var response = await client.ExecuteTaskAsync(request);
+                    IRestResponse response = await client.ExecuteTaskAsync(request);
+                    if((int)response.StatusCode == 201)
+                    {
+                        Toast.MakeText(this.Context, "Account Created!", ToastLength.Long).Show();
+                    }
+                    else
+                    {
+                        AlertDialog.Builder Alert = new AlertDialog.Builder(this.Context);
+                        alert.SetTitle("Signup Failed");
+                        alert.SetMessage(response.Content);
+                        
+                    }
                     Console.WriteLine("RESPONSE: " + response.Content);
                 }
 
-                //create an instance of a user and initialize it
-                Dialog dialog = alert.Create();
-                dialog.Show();
             }
         
     }
