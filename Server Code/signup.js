@@ -23,16 +23,18 @@ var config = {
     digest: 'sha512'
 };   
 
+var connectionInfo = {
+    host: "96.41.173.205",
+    user: "limited",
+    password: "Speci@login$$$69$$$",
+    database: "WHOSHOME"
+}
+
 app.listen(3000);
 
 
 app.post('/users/', function (req, res) {
-    var con = mysql.createConnection({
-        host: "96.41.173.205",
-        user: "limited",
-        password: "Speci@login$$$69$$$",
-        database: "WHOSHOME"
-    }); 
+    var con = mysql.createConnection(connectionInfo); 
     async.waterfall([
         function checkValidData(callback) {
             if (req.body.Username && req.body.Email && req.body.Password && req.body.Confirm && req.body.Firstname && req.body.Lastname) {
