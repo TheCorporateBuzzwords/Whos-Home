@@ -25,13 +25,14 @@ var config = {
 app.listen(3000);
 
 
-app.post('/login/', function (req, res) {
+app.get('/users/', function (req, res) {
     var con = mysql.createConnection({
         host: "96.41.173.205",
         user: "limited",
         password: "Speci@login$$$69$$$",
         database: "WHOSHOME"
     });  
+    console.log(req);
     async.waterfall([
         function checkValidData(callback) {
             if (req.body.Username && req.body.Password) {
