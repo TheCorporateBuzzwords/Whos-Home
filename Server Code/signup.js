@@ -21,22 +21,18 @@ var config = {
     // second
     iterations: 872791,
     digest: 'sha512'
-};
-var con = mysql.createConnection({
-    host: "96.41.173.205",
-    user: "limited",
-    password: "Speci@login$$$69$$$",
-    database: "WHOSHOME"
-});    
-
+};   
 
 app.listen(3000);
 
 
 app.post('/users/', function (req, res) {
-    con.connect(function(err) {
-        console.log("connected");
-    });
+    var con = mysql.createConnection({
+        host: "96.41.173.205",
+        user: "limited",
+        password: "Speci@login$$$69$$$",
+        database: "WHOSHOME"
+    }); 
     async.waterfall([
         function checkValidData(callback) {
             if (req.body.Username && req.body.Email && req.body.Password && req.body.Confirm && req.body.Firstname && req.body.Lastname) {
@@ -60,7 +56,6 @@ app.post('/users/', function (req, res) {
         function checkUsername(callback) {
             console.log(mysql.escape(req.body.Username));
             con.query('SELECT UserName FROM Users WHERE UserName = "' +  req.body.Username + '"', function (err, result, field) {
-                console.log("result: ", result);
                 if (!result.length) {
                     callback(err);
                 }
@@ -74,7 +69,6 @@ app.post('/users/', function (req, res) {
         },
         function checkEmail(callback) {
             con.query('SELECT UserName FROM Users WHERE Email = "' + req.body.Email + '"', function (err, result, field) {
-                console.log(result);
                 if (!result.length) {
                     callback(err);
                 }
@@ -99,10 +93,14 @@ app.post('/users/', function (req, res) {
     function complete(err)
     {
         if(err)
+        {
             console.log("error: ", err);
+        }
         else
+        {
             res.status(201);
             res.send("Sign up successful.");
+        }
         con.end(function (err) {
             console.log(err);
         });

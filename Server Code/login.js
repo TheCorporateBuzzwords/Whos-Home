@@ -22,21 +22,16 @@ var config = {
     iterations: 872791,
     digest: 'sha512'
 };
-var con = mysql.createConnection({
-    host: "96.41.173.205",
-    user: "limited",
-    password: "Speci@login$$$69$$$",
-    database: "WHOSHOME"
-});    
-
-
 app.listen(3000);
 
 
 app.post('/login/', function (req, res) {
-    con.connect(function(err) {
-        console.log("connected");
-    });
+    var con = mysql.createConnection({
+        host: "96.41.173.205",
+        user: "limited",
+        password: "Speci@login$$$69$$$",
+        database: "WHOSHOME"
+    });  
     async.waterfall([
         function checkValidData(callback) {
             if (req.body.Username && req.body.Password) {
@@ -45,18 +40,25 @@ app.post('/login/', function (req, res) {
             else {
                 res.status(400);
                 res.send('Missing parameter in POST request');
+                res.end();
                 return;
             }
         },
         function getSalt(callback) {
             getHashRequest = 'SELECT Salt FROM Users WHERE UserName = "' + req.body.Username + '"';
             con.query(getHashRequest, function(err, results) {
-                if(results.length)
+                if(err) {
+                    console.log(err);
+                }
+                else if(results.length) {
                     callback(err, results[0].Salt);
-                else
+                }
+                else {
                     res.status(409);
                     res.send("Incorrect username or password.");
+                    res.end();
                     return;
+                }
             });
         },
         function getHash(saltData, callback) {
@@ -70,6 +72,7 @@ app.post('/login/', function (req, res) {
                 if (!results.length) {
                     res.status(409);
                     res.send("Incorrect username or password.");
+                    res.end();
                     return;
                 }
                 else {
@@ -83,11 +86,16 @@ app.post('/login/', function (req, res) {
         if(err)
             console.log(err);
         else
+        {
             res.status(200);
             res.send("Sign in successful.");
-        con.end(function (err) {
+            res.end();
+        }
+        con.end();
+        console.log("connection ended");
+        /*con.end(function (err) {
             console.log(err);
-        });
+        });*/
     });
 });
 
