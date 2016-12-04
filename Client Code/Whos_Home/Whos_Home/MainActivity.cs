@@ -4,7 +4,7 @@ using Android.OS;
 
 namespace Whos_Home
 {
-    [Activity(Label = "Whos_Home", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "Who\'s Home?", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         private Button BCreateAccount; //CreateAccount button
@@ -23,12 +23,9 @@ namespace Whos_Home
 
             //Creates instance of Sign in button
             BSignIn = FindViewById<Button>(Resource.Id.buttonSignIn);
-            //BSignIn.Click += BSignIn_Click;
+            BSignIn.Click += BSignIn_Click;
 
             //load message board to test
-            BSignIn.Click += delegate {
-                StartActivity(typeof(MessageBoard));
-            };
 
         }
 

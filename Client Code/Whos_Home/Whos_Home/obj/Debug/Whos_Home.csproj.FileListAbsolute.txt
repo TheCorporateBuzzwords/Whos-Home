@@ -242,5 +242,6 @@ C:\Users\Cristopher\Desktop\WhosHome\Client Code\Whos_Home\Whos_Home\obj\Debug\a
 C:\Users\Cristopher\Desktop\WhosHome\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.Xml.dll.mdb
 C:\Users\Cristopher\Desktop\WhosHome\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.Xml.Linq.dll.mdb
 C:\Users\Cristopher\Desktop\WhosHome\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\Whos_Home.dll.mdb
+C:\Users\Cristopher\Desktop\WhosHome\Client Code\Whos_Home\Whos_Home\obj\Debug\res\drawable\whoshomeicon.jpg
 C:\Users\Cristopher\Desktop\WhosHome\Client Code\Whos_Home\Whos_Home\obj\Debug\Whos_Home.dll.mdb
 C:\Users\Cristopher\Desktop\WhosHome\Client Code\Whos_Home\Whos_Home\bin\Debug\Whos_Home.dll.mdb

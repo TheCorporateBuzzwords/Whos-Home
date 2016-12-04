@@ -21,6 +21,7 @@ public final class R {
         public static final int ic_menu_search_holo_dark=0x7f020007;
         public static final int icon=0x7f020008;
         public static final int whoshome=0x7f020009;
+        public static final int whoshomeicon=0x7f02000a;
     }
     public static final class id {
         public static final int NewPostButton=0x7f070007;

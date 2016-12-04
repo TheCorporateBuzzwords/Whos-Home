@@ -74,6 +74,9 @@ namespace Whos_Home
 			// aapt resource value: 0x7f020009
 			public const int WhosHome = 2130837513;
 			
+			// aapt resource value: 0x7f02000a
+			public const int WhosHomeIcon = 2130837514;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

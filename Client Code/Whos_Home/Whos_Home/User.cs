@@ -32,6 +32,7 @@ namespace Whos_Home
             firstname = null;
             lastname = null;
             email = null;
+            confirm = null;
             username = user;
             password = pass;
         }
