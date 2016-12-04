@@ -1,6 +1,5 @@
-module.exports = 
-{
-    config: {
+module.exports = {
+    cryptoConfig: {
         hashBytes: 64,
         saltBytes: 16,
         // more iterations means an attacker has to take longer to brute force an
@@ -11,9 +10,9 @@ module.exports =
         digest: 'sha512'
     },   
     connectionInfo: {
-        host: "96.41.173.205",
-        user: "limited",
-        password: "Speci@login$$$69$$$",
-        database: "WHOSHOME"
+        host: ".",
+        user: ".",
+        password: ".",
+        database: "."
     }
 }

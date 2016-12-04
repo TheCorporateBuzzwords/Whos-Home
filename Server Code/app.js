@@ -6,9 +6,9 @@ app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var login = require('./login');
+var login = require('./session/login');
 
-var signup = require('./signup');
+var signup = require('./users/signup');
 
 app.listen(3000);
 
