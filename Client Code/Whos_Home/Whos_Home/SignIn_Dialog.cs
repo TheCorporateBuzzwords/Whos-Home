@@ -88,7 +88,6 @@ namespace Whos_Home
                 alert.SetPositiveButton("Retry", (senderAlert, args) => { });
 
                 alert.SetNegativeButton("Cancel", (senderAlert, args) => {
-                    this.Activity.FragmentManager.Dispose();
                     Dismiss();
                 });
                 Dialog dialog = alert.Create();
