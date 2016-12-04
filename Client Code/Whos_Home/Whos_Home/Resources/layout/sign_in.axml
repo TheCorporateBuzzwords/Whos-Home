@@ -15,6 +15,7 @@
         android:id="@+id/textviewusername" />
     <EditText
         android:id="@+id/signinusername"
+        android:minWidth="400dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 <!--Password field-->

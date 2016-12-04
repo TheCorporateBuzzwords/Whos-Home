@@ -1,0 +1,1 @@
+<resources><style name="MyTheme" parent="@android:style/Theme.Material"><item name="android:windowNoTitle">true</item><item name="android:windowActionBar">false</item><item name="android:colorPrimary">#0347b5</item><item name="android:colorAccent">#0347b5</item></style></resources>

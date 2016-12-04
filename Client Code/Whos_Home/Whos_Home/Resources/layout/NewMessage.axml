@@ -6,7 +6,7 @@
     android:weightSum="100">
 <!--Message Title-->
     <TextView
-        android:text="Message Title"
+        android:text="            Bulletin Title            "
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:gravity="center"
         android:layout_width="match_parent"
@@ -16,10 +16,11 @@
     <EditText
         android:id="@+id/edittexttitle"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:minWidth="400dp" />
 <!--Message Title-->
     <TextView
-        android:text="Message Body"
+        android:text="Bulletin Body"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:gravity="center"
         android:layout_width="match_parent"
