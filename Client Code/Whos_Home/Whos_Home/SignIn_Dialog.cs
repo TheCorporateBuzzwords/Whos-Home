@@ -73,6 +73,7 @@ namespace Whos_Home
                     alert.SetPositiveButton("Retry", (senderAlert, args) => { });
 
                     alert.SetNegativeButton("Cancel", (senderAlert, args) => {
+                        Dismiss();
                     });
                     Dialog dialog = alert.Create();
                     dialog.Show();
@@ -88,6 +89,7 @@ namespace Whos_Home
 
                 alert.SetNegativeButton("Cancel", (senderAlert, args) => {
                     this.Activity.FragmentManager.Dispose();
+                    Dismiss();
                 });
                 Dialog dialog = alert.Create();
                 dialog.Show();

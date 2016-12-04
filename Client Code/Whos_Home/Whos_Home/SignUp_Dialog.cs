@@ -83,6 +83,7 @@ namespace Whos_Home
                     alert.SetNegativeButton("Cancel", (senderAlert, args) =>
                     {
                         this.Activity.Finish();
+                        Dismiss();
                     });
                     Dialog dialog = alert.Create();
                     dialog.Show();
@@ -97,6 +98,7 @@ namespace Whos_Home
 
                 alert.SetNegativeButton("Cancel", (senderAlert, args) =>
                 {
+                    Dismiss();
                 });
                 Dialog dialog = alert.Create();
                 dialog.Show();
