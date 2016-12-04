@@ -1,20 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @crislaney
- Watch 3
-  Star 0
- Fork 1 TheCorporateBuzzwords/Whos-Home
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Pulse  Graphs
-Branch: master Find file Copy pathWhos-Home/.gitignore
-ef336ac  17 days ago
-@FireOnTop FireOnTop Update gitignore
-1 contributor
-RawBlameHistory     
-225 lines (175 sloc)  3.03 KB
 # Eclipse .gitignore for database testing project
 .metadata
 bin/
@@ -239,5 +222,3 @@ _TeamCity*
 # Visual Studio code coverage results
 *.coverage
 *.coveragexml
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status Help
