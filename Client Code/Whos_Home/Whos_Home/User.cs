@@ -114,5 +114,16 @@ namespace Whos_Home
                 confirm = value;
             }
         }
+
+        public Dictionary<String, Object> CreateDict()
+        {
+            return new Dictionary<String, Object>()
+            {
+                { "Firstname", Firstname },
+                { "Lastname", firstname },
+                { "Username", lastname },
+                { "Email", email }
+            };
+        }
     }
 }

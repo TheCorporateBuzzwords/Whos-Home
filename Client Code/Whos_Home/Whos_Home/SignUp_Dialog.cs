@@ -12,6 +12,7 @@ using Android.Widget;
 using Newtonsoft.Json;
 using System.Net;
 using RestSharp;
+using Couchbase.Lite;
 
 namespace Whos_Home
 {
@@ -67,6 +68,9 @@ namespace Whos_Home
                 {
                     Toast.MakeText(this.Context, "Account Created!", ToastLength.Long).Show();
                     this.Activity.StartActivity(typeof(MessageBoard));
+
+                    var db = Manager.SharedInstance.GetDatabase("UserInfo");
+                    
                 }
                 else
                 {
