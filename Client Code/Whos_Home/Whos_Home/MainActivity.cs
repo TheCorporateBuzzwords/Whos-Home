@@ -9,6 +9,7 @@ namespace Whos_Home
     {
         private Button BCreateAccount; //CreateAccount button
         private Button BSignIn; //Sign in button
+        private Button BTest; //Button used exclusively for testing
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -25,8 +26,9 @@ namespace Whos_Home
             BSignIn = FindViewById<Button>(Resource.Id.buttonSignIn);
             BSignIn.Click += BSignIn_Click;
 
-            //load message board to test
-
+            //Creates instance of the Test button REMOVE IN DEPLOYMENTS
+            BTest = FindViewById<Button>(Resource.Id.buttonTest);
+            BTest.Click += BTest_Click;
         }
 
         //Function is called when sign in button is clicked
@@ -48,7 +50,12 @@ namespace Whos_Home
             //throw new System.NotImplementedException();
         }
 
-        
+        private void BTest_Click(object sender, System.EventArgs e)
+        {
+            this.StartActivity(typeof(SettingsMenu));
+
+        }
+
     }
 
     [Activity(Label = "ButtonStyle", MainLauncher = true, Icon = "@drawable/icon")]

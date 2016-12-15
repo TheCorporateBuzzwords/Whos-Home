@@ -97,6 +97,8 @@
     <Compile Include="NewMessage_Dialog.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsMenu.cs" />
+    <Compile Include="SettingsMenuListAdapter.cs" />
     <Compile Include="SignIn_Dialog.cs" />
     <Compile Include="SignUp_Dialog.cs" />
     <Compile Include="User.cs" />
@@ -126,6 +128,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Bills.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SettingsMenu.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

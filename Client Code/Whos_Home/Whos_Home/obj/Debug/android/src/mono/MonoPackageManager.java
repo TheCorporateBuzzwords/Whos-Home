@@ -99,22 +99,31 @@ class MonoPackageManager_Resources {
 	public static final String[] Assemblies = new String[]{
 		/* We need to ensure that "Whos_Home.dll" comes first in this list. */
 		"Whos_Home.dll",
-		"Java.Interop.dll",
+		"Couchbase.Lite.dll",
+		"Couchbase.Lite.Storage.SystemSQLite.dll",
+		"ICSharpCode.SharpZipLib.Portable.dll",
 		"Newtonsoft.Json.dll",
 		"RestSharp.dll",
-		"System.Threading.dll",
+		"SQLitePCL.raw.dll",
+		"SQLitePCL.ugly.dll",
+		"Stateless.dll",
+		"System.Net.Http.WebRequest.dll",
+		"websocket-sharp.dll",
 		"System.Runtime.dll",
+		"System.IO.dll",
 		"System.Collections.dll",
-		"System.Collections.Concurrent.dll",
-		"System.Diagnostics.Debug.dll",
-		"System.Reflection.dll",
-		"System.Linq.dll",
-		"System.Runtime.InteropServices.dll",
+		"System.Text.Encoding.dll",
 		"System.Runtime.Extensions.dll",
+		"System.Linq.dll",
+		"System.Text.RegularExpressions.dll",
+		"System.Threading.dll",
+		"System.Reflection.dll",
+		"System.Diagnostics.Debug.dll",
+		"System.Collections.Concurrent.dll",
+		"System.Runtime.InteropServices.dll",
 		"System.Reflection.Extensions.dll",
-		"System.ServiceModel.Internals.dll",
 	};
 	public static final String[] Dependencies = new String[]{
 	};
-	public static final String ApiPackageName = "Mono.Android.Platform.ApiLevel_23";
+	public static final String ApiPackageName = "Mono.Android.Platform.ApiLevel_24";
 }

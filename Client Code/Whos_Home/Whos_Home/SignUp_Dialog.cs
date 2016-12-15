@@ -20,7 +20,7 @@ namespace Whos_Home
     {
         private Button SignUpButton;
         private string url = "http://96.41.173.205:3000";
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public override Android.Views.View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
 
@@ -38,7 +38,7 @@ namespace Whos_Home
         public async void SignUpAttempt(object sender, System.EventArgs e)
         {
             //retrieves data from dialog box
-            View view = this.View;
+            Android.Views.View view = this.View;
             var firstname = view.FindViewById<EditText>(Resource.Id.firstnametext).Text;
             var lastname = view.FindViewById<EditText>(Resource.Id.lastnametext).Text;
             var email = view.FindViewById<EditText>(Resource.Id.emailtext).Text;
