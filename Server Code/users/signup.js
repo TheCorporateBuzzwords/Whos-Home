@@ -16,40 +16,55 @@ module.exports = function(app) {
                         //callback(new Error('Passwords do not match'));
                         res.status(409);
                         res.send("Passwords do not match.");
-                        return;
+                        res.end();
                     }
                 }
                 else {
                     //callback(new Error('Missing parameter in POST request'));
                     res.status(400);
                     res.send("Missing parameter(s) in POST request.");
-                    return;
+                    res.end();
                 }
             },
             function checkUsername(callback) {
                 console.log(mysql.escape(req.body.Username));
                 con.query('SELECT UserName FROM Users WHERE UserName = "' +  req.body.Username + '"', function (err, result, field) {
-                    if (!result.length) {
+                    if(!result) {
+                        res.status(502);
+                        res.json({
+                            status: "error",
+                            message: "failed to connect to SQL server"
+                        });
+                        res.end();
+                    }
+                    else if (!result.length) {
                         callback(err);
                     }
                     else {
                         //callback(new Error('Username already in use'));
                         res.status(409);
                         res.send("Username already in use.");
-                        return;
+                        res.end();
                     }
                 });
             },
             function checkEmail(callback) {
                 con.query('SELECT UserName FROM Users WHERE Email = "' + req.body.Email + '"', function (err, result, field) {
-                    if (!result.length) {
+                    if (!result) {
+                        res.status(502);
+                        res.json({
+                            status: "error",
+                            message: "failed to connect to SQL server"
+                        });
+                    }
+                    else if (!result.length) {
                         callback(err);
                     }
                     else {
                         //callback(new Error('Email already in use'));
                         res.status(409);
                         res.send("Email already in use.");
-                        return;
+                        res.end();
                     }
                 });
             },
@@ -57,8 +72,19 @@ module.exports = function(app) {
                 hashPassword(req.body.Password, function (err, hash, salt) {
                     //console.log(hash.length);
                     var request = 'INSERT INTO Users (LocationsID, UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot) values (null, "' +  req.body.Username + '", "' + req.body.Firstname + '", "' + req.body.Lastname + '", "' + req.body.Email + '", "' + hash + '", "' + salt + '", false, false);';
-                    con.query(request, function (err) {
-                        callback(err);
+                    con.query(request, function (err, result) {
+                        if(!result)
+                        {
+                            res.status(502);
+                            res.json({
+                                status: "error",
+                                message: "failed to connect to SQL server"
+                            });
+                            res.end();
+                        }
+                        else {
+                            callback(err);
+                        }
                     });
                 });
             }
@@ -73,6 +99,7 @@ module.exports = function(app) {
             {
                 res.status(201);
                 res.send("Sign up successful.");
+                res.end();
             }
             con.end(function (err) {
                 console.log(err);

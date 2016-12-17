@@ -16,23 +16,29 @@ module.exports = function(app) {
                     res.status(400);
                     res.send('Missing parameter in POST request');
                     res.end();
-                    return;
                 }
             },
             function getSalt(callback) {
                 getHashRequest = 'SELECT Salt FROM Users WHERE UserName = "' + req.body.Username + '"';
-                con.query(getHashRequest, function(err, results) {
-                    if(err) {
+                con.query(getHashRequest, function(err, result) {
+                    if(!result) {
+                        res.status(502);
+                        res.json({
+                            status: "error",
+                            message: "failed to connect to SQL server"
+                        });
+                        res.end();
+                    }
+                    else if(err) {
                         console.log(err);
                     }
-                    else if(results.length) {
-                        callback(err, results[0].Salt);
+                    else if(result.length) {
+                        callback(err, result[0].Salt);
                     }
                     else {
                         res.status(409);
                         res.send("Incorrect username or password.");
                         res.end();
-                        return;
                     }
                 });
             },
@@ -43,12 +49,19 @@ module.exports = function(app) {
             },
             function checkLogin(hash, callback) {
                 checkLoginRequest = 'SELECT UserName FROM Users WHERE UserName = "' + req.body.Username + '" AND Pass = "' + hash + '"';
-                con.query(checkLoginRequest, function(err, results) {
-                    if (!results.length) {
+                con.query(checkLoginRequest, function(err, result) {
+                    if(!result) {
+                        res.status(502);
+                        res.json({
+                            status: "error",
+                            message: "failed to connect to SQL server"
+                        });
+                        res.end();
+                    }
+                    else if (!result.length) {
                         res.status(409);
                         res.send("Incorrect username or password.");
                         res.end();
-                        return;
                     }
                     else {
                         callback(err);
