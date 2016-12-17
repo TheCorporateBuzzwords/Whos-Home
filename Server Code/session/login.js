@@ -19,7 +19,7 @@ module.exports = function(app) {
                 }
             },
             function getSalt(callback) {
-                getHashRequest = 'SELECT Salt FROM Users WHERE UserName = "' + req.body.Username + '"';
+                getHashRequest = 'SELECT Salt FROM Users WHERE UserName = ' + con.escape(req.body.Username);
                 con.query(getHashRequest, function(err, result) {
                     if(!result) {
                         res.status(502);
@@ -48,7 +48,7 @@ module.exports = function(app) {
                 });
             },
             function checkLogin(hash, callback) {
-                checkLoginRequest = 'SELECT UserName FROM Users WHERE UserName = "' + req.body.Username + '" AND Pass = "' + hash + '"';
+                checkLoginRequest = 'SELECT UserName FROM Users WHERE UserName = ' + con.escape(req.body.Username) + ' AND Pass = \'' + hash + '\'';
                 con.query(checkLoginRequest, function(err, result) {
                     if(!result) {
                         res.status(502);
