@@ -11,6 +11,7 @@ module.exports = {
     },   
     connectionInfo: {
         host: ".",
+        port: 0,
         user: ".",
         password: ".",
         database: "."

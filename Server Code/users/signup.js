@@ -28,7 +28,7 @@ module.exports = function(app) {
             },
             function checkUsername(callback) {
                 console.log(mysql.escape(req.body.Username));
-                con.query('SELECT UserName FROM Users WHERE UserName = "' +  req.body.Username + '"', function (err, result, field) {
+                con.query('SELECT UserName FROM Users WHERE UserName = ' +  con.escape(req.body.Username), function (err, result, field) {
                     if(!result) {
                         res.status(502);
                         res.json({
@@ -49,7 +49,7 @@ module.exports = function(app) {
                 });
             },
             function checkEmail(callback) {
-                con.query('SELECT UserName FROM Users WHERE Email = "' + req.body.Email + '"', function (err, result, field) {
+                con.query('SELECT UserName FROM Users WHERE Email = ' + con.escape(req.body.Email), function (err, result, field) {
                     if (!result) {
                         res.status(502);
                         res.json({
@@ -71,7 +71,7 @@ module.exports = function(app) {
             function insertIntoDB(callback) {
                 hashPassword(req.body.Password, function (err, hash, salt) {
                     //console.log(hash.length);
-                    var request = 'INSERT INTO Users (LocationsID, UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot) values (null, "' +  req.body.Username + '", "' + req.body.Firstname + '", "' + req.body.Lastname + '", "' + req.body.Email + '", "' + hash + '", "' + salt + '", false, false);';
+                    var request = 'INSERT INTO Users (LocationsID, UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot) values (null, ' +  con.escape(req.body.Username) + ', ' + con.escape(req.body.Firstname) + ', ' + con.escape(req.body.Lastname) + ', ' + con.escape(req.body.Email) + ', \'' + hash + '\', \'' + salt + '\', false, false);';
                     con.query(request, function (err, result) {
                         if(!result)
                         {
