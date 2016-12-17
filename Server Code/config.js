@@ -10,10 +10,10 @@ module.exports = {
         digest: 'sha512'
     },   
     connectionInfo: {
-        host: ".",
-        port: 0,
-        user: ".",
-        password: ".",
-        database: "."
+        host: "96.41.173.205",
+        port: 3306,
+        user: "limited",
+        password: "$t@ched&&CA$H3D",
+        database: "WHOSHOME"
     }
 }

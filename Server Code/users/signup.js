@@ -27,26 +27,36 @@ module.exports = function(app) {
                 }
             },
             function checkUsername(callback) {
-                console.log(mysql.escape(req.body.Username));
-                con.query('SELECT UserName FROM Users WHERE UserName = ' +  con.escape(req.body.Username), function (err, result, field) {
-                    if(!result) {
-                        res.status(502);
-                        res.json({
-                            status: "error",
-                            message: "failed to connect to SQL server"
-                        });
-                        res.end();
-                    }
-                    else if (!result.length) {
-                        callback(err);
-                    }
-                    else {
-                        //callback(new Error('Username already in use'));
-                        res.status(409);
-                        res.send("Username already in use.");
-                        res.end();
-                    }
-                });
+                if(!/^[a-z0-9]+$/i.test(req.body.Username)) {
+                    res.status(409);
+                    res.send("Username contains invalid characters.");
+                    res.end();
+                }
+                else if (req.body.Username.length > 20) {
+                    res.status(409);
+                    res.send("Username is too long.");
+                    res.end();
+                } 
+                else {
+                    con.query('SELECT UserName FROM Users WHERE UserName = ' +  con.escape(req.body.Username), function (err, result, field) {
+                        if(!result) {
+                            res.status(502);
+                            res.json({
+                                status: "error",
+                                message: "failed to connect to SQL server"
+                            });
+                            res.end();
+                        }
+                        else if (!result.length) {
+                            callback(err);
+                        }
+                        else {
+                            res.status(409);
+                            res.send("Username already in use.");
+                            res.end();
+                        }
+                    });
+                }
             },
             function checkEmail(callback) {
                 con.query('SELECT UserName FROM Users WHERE Email = ' + con.escape(req.body.Email), function (err, result, field) {
