@@ -15,29 +15,23 @@ namespace Whos_Home
 {
     public class MessageBoardListAdapter : BaseAdapter<List<string>>
     {
-        List<string> items;
+        List<string> titles;
+        List<string> messages;
         Activity context;
 
         //overloaded constructor to accept values for the list
-        public MessageBoardListAdapter(Activity context, List<string> items) : base()
+        public MessageBoardListAdapter(Activity context, List<string> t, List<string> m) : base()
         {
             this.context = context;
-            this.items = items;
+            titles = t;
+            messages = m;
         }
-        
-        //public override bool HasStableIds
-        //{
-        //    get
-        //    {
-        //        throw new NotImplementedException();
-        //    }
-        //}
-
+       
         public override int Count
         {
             get
             {
-                return items.Count;
+                return titles.Count;
             }
         }
 
@@ -45,7 +39,7 @@ namespace Whos_Home
         {
             get
             {
-                return items;
+                return titles;
             }
         }
 
@@ -58,9 +52,21 @@ namespace Whos_Home
         {
             View view = convertView; // re-use an existing view, if one is supplied
             if (view == null) // otherwise create a new one
-                view = context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItem1, null);
+                view = context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItem2, null);
             // set view properties to reflect data for the given row
-            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = items[position];
+            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = titles[position];
+
+            string temp;
+            //limit the size of the message preview to 100 characters
+            if(messages[position].Count<char>() > 100)
+            {
+               temp = messages[position].Substring(0, 99);
+               temp += "...";
+               view.FindViewById<TextView>(Android.Resource.Id.Text2).Text = temp;
+
+            }
+            else
+                view.FindViewById<TextView>(Android.Resource.Id.Text2).Text = messages[position];
             // return the view, populated with data, for display
             return view;
         }

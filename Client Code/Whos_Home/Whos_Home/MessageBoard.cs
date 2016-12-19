@@ -32,6 +32,8 @@ namespace Whos_Home
 
         }
         List<string> titles = new List<string>();
+        List<string>messages = new List<string>();
+
         //Assigns values to NewPostButton and ListView
         private void InitializeFormat()
         {
@@ -40,6 +42,8 @@ namespace Whos_Home
             for (int i = 0; i < 50; ++i)
             {
                 titles.Add("Title" + i.ToString());
+                messages.Add("Messageaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" + i.ToString());
+
 
             }
             NewPostButton = FindViewById<Button>(Resource.Id.NewPostButton);
@@ -47,7 +51,8 @@ namespace Whos_Home
 
 
             listView = FindViewById<ListView>(Resource.Id.messagelistview);
-            listView.Adapter = new MessageBoardListAdapter(this, titles);
+            listView.Adapter = new MessageBoardListAdapter(this, titles, messages);
+            
             
         }
 
@@ -59,7 +64,7 @@ namespace Whos_Home
             NewMessage_Dialog NewMessageDialog = new NewMessage_Dialog();
             NewMessageDialog.Show(transaction, "dialog fragment new message");
 
-            listView.Adapter = new MessageBoardListAdapter(this, titles);
+            listView.Adapter = new MessageBoardListAdapter(this, titles, messages);
 
            
         }
