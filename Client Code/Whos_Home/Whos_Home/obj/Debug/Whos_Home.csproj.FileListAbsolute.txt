@@ -441,5 +441,6 @@ C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\Couchbase.Lite.Storage.SystemSQLite.dll.mdb
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\websocket-sharp.dll.mdb
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\res\layout\settingsmenu.xml
+C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\res\layout\bulletin.xml
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\Whos_Home.dll.mdb
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\Whos_Home.dll.mdb

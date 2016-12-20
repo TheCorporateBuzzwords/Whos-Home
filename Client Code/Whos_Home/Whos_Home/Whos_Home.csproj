@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bills.cs" />
+    <Compile Include="Bulletin.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MessageBoard.cs" />
     <Compile Include="MessageBoardListAdapter.cs" />
@@ -131,6 +132,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\SettingsMenu.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Bulletin.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

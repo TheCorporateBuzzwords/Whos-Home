@@ -2,7 +2,7 @@
 <xs:schema xmlns:android="http://schemas.android.com/apk/res/android" attributeFormDefault="qualified" elementFormDefault="unqualified" targetNamespace="http://schemas.android.com/apk/res/android" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>v23</xs:documentation>
-    <xs:documentation>12/15/2016 2:16:59 PM</xs:documentation>
+    <xs:documentation>12/19/2016 4:59:30 PM</xs:documentation>
   </xs:annotation>
   <xs:attribute name="accessibilityLiveRegion">
     <xs:annotation>
@@ -17178,6 +17178,7 @@
           <xs:restriction base="xs:string">
             <xs:enumeration value="@+id/" />
             <xs:enumeration value="@+id/checkBox1" />
+            <xs:enumeration value="@id/BulletinCommentsListView" />
             <xs:enumeration value="@id/buttonConfirm" />
             <xs:enumeration value="@id/buttonCreateAccount" />
             <xs:enumeration value="@id/buttonCreateMessage" />
@@ -17214,6 +17215,8 @@
             <xs:enumeration value="@id/texttitle" />
             <xs:enumeration value="@id/textusername" />
             <xs:enumeration value="@id/textviewBills" />
+            <xs:enumeration value="@id/textviewBulletinMessage" />
+            <xs:enumeration value="@id/textviewBulletinTitle" />
             <xs:enumeration value="@id/textviewMessageBoard" />
             <xs:enumeration value="@id/textviewpassword" />
             <xs:enumeration value="@id/textviewSettingsMenu" />
