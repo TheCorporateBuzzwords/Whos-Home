@@ -66,7 +66,7 @@ namespace Whos_Home
             s.CheckedChange += ToggleLocations;
         }
 
-
+        //Function is called when a location is selected in the settings menu
         void OnLocationItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             var listView = sender as ListView;

@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Content.Res;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace Whos_Home
 {
@@ -31,7 +32,9 @@ namespace Whos_Home
 
 
         }
-        List<string> titles = new List<string>();
+        //titles and messsages will be stored and can be accessed when loading
+        //a bulletin in a separate window.
+        List<string>titles = new List<string>();
         List<string>messages = new List<string>();
 
         //Assigns values to NewPostButton and ListView
@@ -53,7 +56,8 @@ namespace Whos_Home
             listView = FindViewById<ListView>(Resource.Id.messagelistview);
             listView.Adapter = new MessageBoardListAdapter(this, titles, messages);
             
-            
+            listView.ItemClick += OnMessageItemClick;
+
         }
 
         //Click method for NewPostButton
@@ -67,6 +71,25 @@ namespace Whos_Home
             listView.Adapter = new MessageBoardListAdapter(this, titles, messages);
 
            
+        }
+
+        //function is called when a message title is selected from the message board
+        //the function opens the message in a new activity (Bulletin.cs)
+        void OnMessageItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var listView = sender as ListView;
+            var position = e.Position;
+
+            //creates an intent for a Bulletin activity
+            Intent i = new Intent(Application.Context, typeof(Bulletin));
+
+            //Serializes the title and message of the selected list item into json
+            //This will be later deserialized in the bulletin.cs activity
+            i.PutExtra("Title", JsonConvert.SerializeObject(titles[position]));
+            i.PutExtra("Message", JsonConvert.SerializeObject(messages[position]));
+
+            StartActivity(i);
+
         }
 
         private void InitializeToolbars()

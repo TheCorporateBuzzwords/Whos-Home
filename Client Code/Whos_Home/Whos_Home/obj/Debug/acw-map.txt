@@ -6,6 +6,10 @@ Whos_Home.Bulletin, Whos_Home;md597e6dc5a29c792ed6e4d361cd7d651f7.Bulletin
 Whos_Home.Bulletin, Whos_Home, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md597e6dc5a29c792ed6e4d361cd7d651f7.Bulletin
 Whos_Home.Bulletin;md597e6dc5a29c792ed6e4d361cd7d651f7.Bulletin
 whos_home.Bulletin;md597e6dc5a29c792ed6e4d361cd7d651f7.Bulletin
+Whos_Home.BulletinFragment, Whos_Home;md597e6dc5a29c792ed6e4d361cd7d651f7.BulletinFragment
+Whos_Home.BulletinFragment, Whos_Home, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md597e6dc5a29c792ed6e4d361cd7d651f7.BulletinFragment
+Whos_Home.BulletinFragment;md597e6dc5a29c792ed6e4d361cd7d651f7.BulletinFragment
+whos_home.BulletinFragment;md597e6dc5a29c792ed6e4d361cd7d651f7.BulletinFragment
 Whos_Home.MainActivity, Whos_Home;md597e6dc5a29c792ed6e4d361cd7d651f7.MainActivity
 Whos_Home.MainActivity, Whos_Home, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md597e6dc5a29c792ed6e4d361cd7d651f7.MainActivity
 Whos_Home.MainActivity;md597e6dc5a29c792ed6e4d361cd7d651f7.MainActivity

@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Newtonsoft.Json;
 
 namespace Whos_Home
 {
@@ -16,7 +17,23 @@ namespace Whos_Home
     public class Bulletin : Activity
     {
         ListView messagelistview, commentlistview;
-        TextView message;
+        TextView message, tvTitle;
+        string msg, title;
+
+        //overloaded constructor that initializes bulletin title and message
+        [JsonConstructor]
+        public Bulletin(string t, string m)
+        {
+            title = t;
+            msg = m;
+        }
+
+        public Bulletin()
+        {
+            //title = "This is a sample message title";
+            //msg = "Message a;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajs";
+
+        }
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -28,14 +45,22 @@ namespace Whos_Home
 
         private void InitializeFormat()
         {
-            string msg = "Message a;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajsa;lskdfjl;asjdfl;as;kdfjl;asjdf;kajs;fkjas;kdfj;alskjdflkasjdf;kajs";
             List<string> comments = new List<string>();
+            
+            //deserializes the title and message that were converted to json in the messageboard.cs
+            title = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Title"));
+            msg = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Message"));
+
 
             //generate fake comments
             for (int i = 1; i < 16; ++i)
             {
                 comments.Add("Comment " + i.ToString());
             }
+
+
+            tvTitle = FindViewById<TextView>(Resource.Id.textviewBulletinTitle);
+            tvTitle.Text = title;
 
             //find the two views for message body and comment listview
             message = FindViewById<TextView>(Resource.Id.textviewBulletinMessage);
@@ -45,7 +70,20 @@ namespace Whos_Home
             message.Text = msg;
             commentlistview.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, comments);
 
+            //set onClick method for message that will open the full message text in another window
+            message.Click += TextViewClick;
+
         }
+
+        private void TextViewClick(object sender, System.EventArgs e)
+        {
+            //create the dialog fragment
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            //pass in the title and message of the bulletin to be displayed
+            BulletinFragment FullMessage= new BulletinFragment(title, msg);
+            FullMessage.Show(transaction, "dialog fragment show full message");
+        }
+
 
         private void InitializeToolbars()
         {
