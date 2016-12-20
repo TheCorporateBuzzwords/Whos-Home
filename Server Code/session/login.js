@@ -2,10 +2,12 @@ var config = require("./../config");
 var mysql = require("mysql");
 var async = require('async');
 var crypto = require('crypto');
+var jwt = require('jsonwebtoken');
 
 module.exports = function(app) {
     app.post('/session/', function (req, res) {
         var con = mysql.createConnection(config.connectionInfo);
+        var email, firstName, last;
         console.log(req.body);
         async.waterfall([
             function checkValidData(callback) {
@@ -48,7 +50,7 @@ module.exports = function(app) {
                 });
             },
             function checkLogin(hash, callback) {
-                checkLoginRequest = 'SELECT UserName FROM Users WHERE UserName = ' + con.escape(req.body.Username) + ' AND Pass = \'' + hash + '\'';
+                checkLoginRequest = 'SELECT Email, FirstName, LastName FROM Users WHERE UserName = ' + con.escape(req.body.Username) + ' AND Pass = \'' + hash + '\'';
                 con.query(checkLoginRequest, function(err, result) {
                     if(!result) {
                         res.status(502);
@@ -64,6 +66,9 @@ module.exports = function(app) {
                         res.end();
                     }
                     else {
+                        email = result[0].Email;
+                        first = result[0].FirstName;
+                        last = result[0].LastName;
                         callback(err);
                     }
                 });
@@ -75,15 +80,16 @@ module.exports = function(app) {
                 console.log(err);
             else
             {
+                var token = jwt.sign({ Username: req.body.Username,
+                                       First: first,
+                                       Email: email,
+                                       Last: last }, config.JWTInfo.secret);   
                 res.status(200);
-                res.send("Sign in successful.");
+                res.json({ status: "success",
+                           token: token });
                 res.end();
             }
             con.end();
-            console.log("connection ended");
-            /*con.end(function (err) {
-                console.log(err);
-            });*/
         });
     });
 }

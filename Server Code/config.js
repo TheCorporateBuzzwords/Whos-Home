@@ -10,9 +10,13 @@ module.exports = {
         digest: 'sha512'
     },   
     connectionInfo: {
-        host: ".",
-        user: ".",
-        password: ".",
-        database: "."
+        host: "96.41.173.205",
+        port: 3306,
+        user: "limited",
+        password: "$t@ched&&CA$H3D",
+        database: "WHOSHOME"
+    },
+    JWTInfo: {
+        secret: "Wh0'SHoM3jWt$3cR3t^&*)!@'#+-4m^qs7ET5pQhkw!wE2W#KE"
     }
 }

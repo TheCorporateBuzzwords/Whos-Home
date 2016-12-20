@@ -3,9 +3,11 @@ var mysql = require("mysql");
 var async = require('async');
 var crypto = require('crypto'); 
 var validator = require('validator');
+var jwt = require('jsonwebtoken');
 
 module.exports = function(app) {
     app.post('/users/', function (req, res) {
+        var token;
         var con = mysql.createConnection(config.connectionInfo); 
         async.waterfall([
             //Check to see if passwords match and if all of the needed parameters were passed.
@@ -91,8 +93,7 @@ module.exports = function(app) {
                 hashPassword(req.body.Password, function (err, hash, salt) {
                     var request = 'INSERT INTO Users (LocationsID, UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot) values (null, ' +  con.escape(req.body.Username) + ', ' + con.escape(req.body.Firstname) + ', ' + con.escape(req.body.Lastname) + ', ' + con.escape(req.body.Email) + ', \'' + hash + '\', \'' + salt + '\', false, false);';
                     con.query(request, function (err, result) {
-                        if(!result)
-                        {
+                        if(!result) {
                             res.status(502);
                             res.json({
                                 status: "error",
@@ -109,19 +110,20 @@ module.exports = function(app) {
         ],
         function complete(err)
         {
-            if(err)
-            {
+            if(err) {
                 console.log("error: ", err);
             }
-            else
-            {
+            else {
+                var token = jwt.sign({ Username: req.body.Username, 
+                                       Email: req.body.Email,
+                                       First: req.body.First,
+                                       Last: req.body.Last }, config.JWTInfo.secret);   
                 res.status(201);
-                res.send("Sign up successful.");
+                res.json({ status: "success",
+                           token: token });
                 res.end();
             }
-            con.end(function (err) {
-                console.log(err);
-            });
+            con.end();
         });
     });
 
