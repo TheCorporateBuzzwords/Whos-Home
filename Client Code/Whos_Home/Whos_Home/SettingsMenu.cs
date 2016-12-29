@@ -98,6 +98,7 @@ namespace Whos_Home
                     listview.SetItemChecked(i, false);
             }
         }
+
         private void InitializeToolbars()
         {
             //initialize top toolbar
@@ -107,11 +108,17 @@ namespace Whos_Home
 
             //initialize bottom toolbar
             var editToolbar = FindViewById<Toolbar>(Resource.Id.edit_toolbar);
-            //editToolbar.Title = "Navigate";
             editToolbar.InflateMenu(Resource.Menu.edit_menus);
-            editToolbar.MenuItemClick += (sender, e) => {
-                Toast.MakeText(this, "Bottom toolbar tapped: " + e.Item.TitleFormatted, ToastLength.Short).Show();
-            };
+            editToolbar.MenuItemClick += NavigateMenu;
+        }
+
+        //Method is used to navigate between activities using the bottom toolbar
+        private void NavigateMenu(object sender, Toolbar.MenuItemClickEventArgs e)
+        {
+            //Start the bulletin activity
+            if (e.Item.ToString() == "Bulletins")
+                this.StartActivity(typeof(MessageBoard));
+
         }
 
         //called to specify menu resources for an activity
@@ -126,6 +133,15 @@ namespace Whos_Home
         {
             Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
                 ToastLength.Short).Show();
+
+            //Loads settings menu if preferences is selected
+            if (item.ToString() == "Preferences")
+                this.StartActivity(typeof(SettingsMenu));
+
+            //Loads Groups menu if selected
+            if (item.ToString() == "Groups")
+                this.StartActivity(typeof(Groups));
+
             return base.OnOptionsItemSelected(item);
         }
     }

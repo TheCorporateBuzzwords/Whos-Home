@@ -10,6 +10,14 @@ Whos_Home.BulletinFragment, Whos_Home;md597e6dc5a29c792ed6e4d361cd7d651f7.Bullet
 Whos_Home.BulletinFragment, Whos_Home, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md597e6dc5a29c792ed6e4d361cd7d651f7.BulletinFragment
 Whos_Home.BulletinFragment;md597e6dc5a29c792ed6e4d361cd7d651f7.BulletinFragment
 whos_home.BulletinFragment;md597e6dc5a29c792ed6e4d361cd7d651f7.BulletinFragment
+Whos_Home.GroupListAdapter, Whos_Home;md597e6dc5a29c792ed6e4d361cd7d651f7.GroupListAdapter
+Whos_Home.GroupListAdapter, Whos_Home, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md597e6dc5a29c792ed6e4d361cd7d651f7.GroupListAdapter
+Whos_Home.GroupListAdapter;md597e6dc5a29c792ed6e4d361cd7d651f7.GroupListAdapter
+whos_home.GroupListAdapter;md597e6dc5a29c792ed6e4d361cd7d651f7.GroupListAdapter
+Whos_Home.Groups, Whos_Home;md597e6dc5a29c792ed6e4d361cd7d651f7.Groups
+Whos_Home.Groups, Whos_Home, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md597e6dc5a29c792ed6e4d361cd7d651f7.Groups
+Whos_Home.Groups;md597e6dc5a29c792ed6e4d361cd7d651f7.Groups
+whos_home.Groups;md597e6dc5a29c792ed6e4d361cd7d651f7.Groups
 Whos_Home.MainActivity, Whos_Home;md597e6dc5a29c792ed6e4d361cd7d651f7.MainActivity
 Whos_Home.MainActivity, Whos_Home, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md597e6dc5a29c792ed6e4d361cd7d651f7.MainActivity
 Whos_Home.MainActivity;md597e6dc5a29c792ed6e4d361cd7d651f7.MainActivity

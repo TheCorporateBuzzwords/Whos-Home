@@ -25,6 +25,10 @@ namespace Whos_Home
             this.context = context;
             titles = t;
             messages = m;
+
+            //Reverses list order to display most recent posts first.
+            t.Reverse();
+            m.Reverse();
         }
        
         public override int Count

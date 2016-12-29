@@ -7,6 +7,7 @@
   <application android:label="@string/ApplicationName" android:theme="@style/MyTheme" android:name="android.app.Application" android:allowBackup="true" android:debuggable="true">
     <activity android:label="Bills" android:name="md597e6dc5a29c792ed6e4d361cd7d651f7.Bills" />
     <activity android:label="Bulletin" android:name="md597e6dc5a29c792ed6e4d361cd7d651f7.Bulletin" />
+    <activity android:label="Groups" android:name="md597e6dc5a29c792ed6e4d361cd7d651f7.Groups" />
     <activity android:icon="@drawable/icon" android:label="Who's Home?" android:name="md597e6dc5a29c792ed6e4d361cd7d651f7.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
