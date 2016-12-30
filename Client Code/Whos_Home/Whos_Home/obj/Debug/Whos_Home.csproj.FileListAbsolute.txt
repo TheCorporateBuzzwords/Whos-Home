@@ -445,5 +445,6 @@ C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\res\layout\bulletindialog.xml
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\res\layout\groups.xml
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\res\layout\customgroupview.xml
+C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\res\layout\groupdialog.xml
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\Whos_Home.dll.mdb
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\Whos_Home.dll.mdb

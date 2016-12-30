@@ -38,6 +38,20 @@ namespace Whos_Home
 
             listView = FindViewById<ListView>(Resource.Id.listviewGroups);
             listView.Adapter = new GroupListAdapter(this, groupnames, nummembers);
+
+            //Set itemclick function for when a group is selected
+            listView.ItemClick += OnGroupItemClick;
+
+        }
+
+        private void OnGroupItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var listView = sender as ListView;
+            var position = e.Position;
+
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            GroupSelectDialog Dialog = new GroupSelectDialog();
+            Dialog.Show(transaction, "dialog fragment new message");
         }
 
         private void InitializeToolbars()
