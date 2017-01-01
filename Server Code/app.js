@@ -10,8 +10,12 @@ var login = require('./session/login');
 
 var signup = require('./users/signup');
 
+var groupinfo = require('./groups/groupinfo');
+
 app.listen(3000);
 
 login(app);
 
 signup(app);
+
+groupinfo(app);
