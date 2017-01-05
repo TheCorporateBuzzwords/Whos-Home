@@ -72,7 +72,7 @@ module.exports = function(app) {
                         email = result[0].Email;
                         first = result[0].FirstName;
                         last = result[0].LastName;
-                        id = results[0].UserID;
+                        id = result[0].UserID;
                         callback(err);
                     }
                 });
