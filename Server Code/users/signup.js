@@ -1,14 +1,14 @@
 var config = require("./../config");
 var mysql = require("mysql");
 var async = require('async');
-var crypto = require('crypto'); 
+var crypto = require('crypto');
 var validator = require('validator');
 var jwt = require('jsonwebtoken');
 
-module.exports = function(app) {
+module.exports = function (app) {
     app.post('/users/', function (req, res) {
         var token;
-        var con = mysql.createConnection(config.connectionInfo); 
+        var con = mysql.createConnection(config.connectionInfo);
         async.waterfall([
             //Check to see if passwords match and if all of the needed parameters were passed.
             function checkValidData(callback) {
@@ -30,7 +30,7 @@ module.exports = function(app) {
             },
             //Check to make sure the username isn't in use and that it meets the requirements
             function checkUsername(callback) {
-                if(!/^[a-z0-9]+$/i.test(req.body.Username)) {
+                if (!/^[a-z0-9]+$/i.test(req.body.Username)) {
                     res.status(409);
                     res.send("Username contains invalid characters.");
                     res.end();
@@ -39,10 +39,10 @@ module.exports = function(app) {
                     res.status(409);
                     res.send("Username is too long.");
                     res.end();
-                } 
+                }
                 else {
-                    con.query('SELECT UserName FROM Users WHERE UserName = ' +  con.escape(req.body.Username), function (err, result, field) {
-                        if(!result) {
+                    con.query('SELECT UserName FROM Users WHERE UserName = ' + con.escape(req.body.Username), function (err, result, field) {
+                        if (!result) {
                             res.status(502);
                             res.json({
                                 status: "error",
@@ -91,7 +91,7 @@ module.exports = function(app) {
             //Insert the user into the database
             function insertIntoDB(callback) {
                 hashPassword(req.body.Password, function (err, hash, salt) {
-                    var request = 'INSERT INTO Users (LocationsID, UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot) values (null, ' +  con.escape(req.body.Username) + ', ' + con.escape(req.body.Firstname) + ', ' + con.escape(req.body.Lastname) + ', ' + con.escape(req.body.Email) + ', \'' + hash + '\', \'' + salt + '\', false, false);';
+                    var request = 'INSERT INTO Users (LocationsID, UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot) values (null, ' + con.escape(req.body.Username) + ', ' + con.escape(req.body.Firstname) + ', ' + con.escape(req.body.Lastname) + ', ' + con.escape(req.body.Email) + ', \'' + hash + '\', \'' + salt + '\', false, false);';
                     con.query(request, function (err, result) {
                         if(!result) {
                             res.status(502);
@@ -106,25 +106,36 @@ module.exports = function(app) {
                         }
                     });
                 });
+            },
+            function getLatestID(callback) {
+                var UserID;
+                con.query("SELECT LAST_INSERT_ID() AS id", function (err, result, field) {
+                    UserID = result[0].id;
+                    callback(err, UserID);
+                });
             }
         ],
-        function complete(err)
-        {
-            if(err) {
-                console.log("error: ", err);
-            }
-            else {
-                var token = jwt.sign({ Username: req.body.Username, 
-                                       Email: req.body.Email,
-                                       First: req.body.First,
-                                       Last: req.body.Last }, config.JWTInfo.secret);   
-                res.status(201);
-                res.json({ status: "success",
-                           token: token });
-                res.end();
-            }
-            con.end();
-        });
+            function complete(err, UserID) {
+                if (err) {
+                    console.log("error: ", err);
+                }
+                else {
+                    var token = jwt.sign({
+                        Username: req.body.Username,
+                        Email: req.body.Email,
+                        First: req.body.Firstname,
+                        Last: req.body.Lastname,
+                        UserID: UserID
+                    }, config.JWTInfo.secret);
+                    res.status(201);
+                    res.json({
+                        status: "success",
+                        token: token
+                    });
+                    res.end();
+                }
+                con.end();
+            });
     });
 
     function hashPassword(password, callback) {

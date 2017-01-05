@@ -7,7 +7,7 @@ var jwt = require('jsonwebtoken');
 module.exports = function(app) {
     app.post('/session/', function (req, res) {
         var con = mysql.createConnection(config.connectionInfo);
-        var email, firstName, last;
+        var email, firstName, last, id;
         console.log(req.body);
         async.waterfall([
             function checkValidData(callback) {
@@ -53,7 +53,7 @@ module.exports = function(app) {
                 });
             },
             function checkLogin(hash, callback) {
-                checkLoginRequest = 'SELECT Email, FirstName, LastName FROM Users WHERE UserName = ' + con.escape(req.body.Username) + ' AND Pass = \'' + hash + '\'';
+                checkLoginRequest = 'SELECT UserID, Email, FirstName, LastName FROM Users WHERE UserName = ' + con.escape(req.body.Username) + ' AND Pass = \'' + hash + '\'';
                 con.query(checkLoginRequest, function(err, result) {
                     if(!result) {
                         res.status(502);
@@ -72,6 +72,7 @@ module.exports = function(app) {
                         email = result[0].Email;
                         first = result[0].FirstName;
                         last = result[0].LastName;
+                        id = results[0].UserID;
                         callback(err);
                     }
                 });
@@ -86,7 +87,8 @@ module.exports = function(app) {
                 var token = jwt.sign({ Username: req.body.Username,
                                        First: first,
                                        Email: email,
-                                       Last: last }, config.JWTInfo.secret);   
+                                       Last: last,
+                                       UserID: id }, config.JWTInfo.secret);   
                 res.status(200);
                 res.json({ status: "success",
                            token: token });
