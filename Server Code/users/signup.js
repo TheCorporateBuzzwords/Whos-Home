@@ -30,7 +30,7 @@ module.exports = function (app) {
             },
             //Check to make sure the username isn't in use and that it meets the requirements
             function checkUsername(callback) {
-                if (!/^[a-z0-9]+$/i.test(req.body.Username)) {
+                if (!/^[a-z][a-z0-9]*$/i.test(req.body.Username)) {//(!/^[a-z0-9]+$/i.test(req.body.Username)) {
                     res.status(409);
                     res.send("Username contains invalid characters.");
                     res.end();
