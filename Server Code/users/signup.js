@@ -13,7 +13,7 @@ module.exports = function (app) {
             //Check to see if passwords match and if all of the needed parameters were passed.
             function checkValidData(callback) {
                 if (req.body.Username && req.body.Email && req.body.Password && req.body.Confirm && req.body.Firstname && req.body.Lastname) {
-                    if (req.body.Password == req.body.Confirm) {
+                    if (req.body.Password === req.body.Confirm) {
                         callback(null);
                     }
                     else {
@@ -32,7 +32,7 @@ module.exports = function (app) {
             function checkUsername(callback) {
                 if (!/^[a-z][a-z0-9]*$/i.test(req.body.Username)) {//(!/^[a-z0-9]+$/i.test(req.body.Username)) {
                     res.status(409);
-                    res.send("Username contains invalid characters.");
+                    res.send("Username contains invalid characters or begins with a number.");
                     res.end();
                 }
                 else if (req.body.Username.length > 20) {
