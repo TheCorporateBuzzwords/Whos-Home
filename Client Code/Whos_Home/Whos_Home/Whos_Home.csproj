@@ -96,6 +96,7 @@
     <Compile Include="GroupListAdapter.cs" />
     <Compile Include="Groups.cs" />
     <Compile Include="GroupSelectDialog.cs" />
+    <Compile Include="Locations.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MessageBoard.cs" />
     <Compile Include="MessageBoardListAdapter.cs" />
@@ -151,6 +152,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\GroupDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Locations.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

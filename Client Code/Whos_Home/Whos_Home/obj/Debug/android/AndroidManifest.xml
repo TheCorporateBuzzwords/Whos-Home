@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="Whos_Home.Whos_Home" android:versionCode="1" android:versionName="1.0">
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
   <!--suppress UsesMinSdkAttributes-->
   <uses-sdk android:minSdkVersion="16" />
   <uses-permission android:name="android.permission.INTERNET" />
@@ -8,6 +9,7 @@
     <activity android:label="Bills" android:name="md597e6dc5a29c792ed6e4d361cd7d651f7.Bills" />
     <activity android:label="Bulletin" android:name="md597e6dc5a29c792ed6e4d361cd7d651f7.Bulletin" />
     <activity android:label="Groups" android:name="md597e6dc5a29c792ed6e4d361cd7d651f7.Groups" />
+    <activity android:label="Locations" android:name="md597e6dc5a29c792ed6e4d361cd7d651f7.Locations" />
     <activity android:icon="@drawable/icon" android:label="Who's Home?" android:name="md597e6dc5a29c792ed6e4d361cd7d651f7.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

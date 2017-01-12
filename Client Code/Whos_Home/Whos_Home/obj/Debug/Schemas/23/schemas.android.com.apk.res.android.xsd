@@ -2,7 +2,7 @@
 <xs:schema xmlns:android="http://schemas.android.com/apk/res/android" attributeFormDefault="qualified" elementFormDefault="unqualified" targetNamespace="http://schemas.android.com/apk/res/android" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>v23</xs:documentation>
-    <xs:documentation>12/30/2016 11:56:26 AM</xs:documentation>
+    <xs:documentation>1/11/2017 10:05:16 PM</xs:documentation>
   </xs:annotation>
   <xs:attribute name="accessibilityLiveRegion">
     <xs:annotation>
@@ -17196,6 +17196,7 @@
             <xs:enumeration value="@id/GroupText2" />
             <xs:enumeration value="@id/lastnametext" />
             <xs:enumeration value="@id/listviewGroups" />
+            <xs:enumeration value="@id/locationlistview" />
             <xs:enumeration value="@id/menu_Bills" />
             <xs:enumeration value="@id/menu_Lists" />
             <xs:enumeration value="@id/menu_Locations" />
@@ -17203,6 +17204,7 @@
             <xs:enumeration value="@id/menu_preferences" />
             <xs:enumeration value="@id/messagelistview" />
             <xs:enumeration value="@id/NewGroupButton" />
+            <xs:enumeration value="@id/NewLocationButton" />
             <xs:enumeration value="@id/NewPostButton" />
             <xs:enumeration value="@id/passwordtext" />
             <xs:enumeration value="@id/repeatpasswordtext" />
@@ -17228,6 +17230,7 @@
             <xs:enumeration value="@id/textviewBulletinTitleDialog" />
             <xs:enumeration value="@id/textviewGroupDialog" />
             <xs:enumeration value="@id/textviewGroups" />
+            <xs:enumeration value="@id/textviewLocations" />
             <xs:enumeration value="@id/textviewMessageBoard" />
             <xs:enumeration value="@id/textviewpassword" />
             <xs:enumeration value="@id/textviewSettingsMenu" />

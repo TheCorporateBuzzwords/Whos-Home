@@ -119,6 +119,10 @@ namespace Whos_Home
             if(e.Item.ToString() == "Bulletins")
                 this.StartActivity(typeof(MessageBoard));
 
+            //Start the Locations activity
+            if (e.Item.ToString() == "Locations")
+                this.StartActivity(typeof(Locations));
+
         }
 
         //called to specify menu resources for an activity
