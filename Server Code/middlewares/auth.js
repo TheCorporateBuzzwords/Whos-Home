@@ -8,7 +8,6 @@ module.exports =
     {
         CheckAuthToken: function (req, res, next) {
             console.log(req.body);
-            console.log("first middleware");
             var token = req.body.token || req.query.token || req.headers['x-access-token'];
             if (token) {
                 jwt.verify(token, config.JWTInfo.secret, function (error, decoded) {
@@ -27,7 +26,6 @@ module.exports =
                 });
             }
             else {
-                console.log("no token found");
                 next();
             }
         },

@@ -17,10 +17,22 @@ module.exports = function (app) {
                     console.log(err);
                 }
                 else {
-                    res.json(result);
+                    res.status(200);
+                    res.json({
+                        status: "success",
+                        message: "succesfully added location" 
+                    });
                     res.end();
                 }
             });
+        }
+        else {
+            res.status();
+            res.json({
+                status: "error",
+                message: "missing parameter in POST request"
+            });
+            res.end();
         }
     });
 }
