@@ -7,6 +7,8 @@ var jwt = require('jsonwebtoken');
 module.exports =
     {
         CheckAuthToken: function (req, res, next) {
+            console.log(req.body);
+            console.log("first middleware");
             var token = req.body.token || req.query.token || req.headers['x-access-token'];
             if (token) {
                 jwt.verify(token, config.JWTInfo.secret, function (error, decoded) {
@@ -19,12 +21,30 @@ module.exports =
                         res.end();
                     } else {
                         req.body.decoded = decoded;
+                        console.log("decoded", decoded);
                         next();
                     }
                 });
-            } 
+            }
             else {
+                console.log("no token found");
                 next();
+            }
+        },
+        CheckInGroup: function (req, res, next) {
+            var groupid = req.body.groupid || req.params.groupid || req.query.groupid;
+            var con = mysql.createConnection(config.connectionInfo);
+            if (groupid) {
+                var checkInGroupQuery = "SELECT * FROM User_Group WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + groupid;
+                con.query(checkInGroupQuery, function (err, result) {
+                    if (err) {
+                        console.log(err);
+                    } else if (result.length) {
+                        next();
+                    } else {
+                        console.log("error");
+                    }
+                });
             }
         }
     }

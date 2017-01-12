@@ -42,15 +42,7 @@ module.exports = function (app) {
                 }
                 else {
                     con.query('SELECT UserName FROM Users WHERE UserName = ' + con.escape(req.body.Username), function (err, result, field) {
-                        if (!result) {
-                            res.status(502);
-                            res.json({
-                                status: "error",
-                                message: "failed to connect to SQL server"
-                            });
-                            res.end();
-                        }
-                        else if (!result.length) {
+                        if (!result.length) {
                             callback(err);
                         }
                         else {
