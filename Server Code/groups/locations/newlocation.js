@@ -27,7 +27,7 @@ module.exports = function (app) {
             });
         }
         else {
-            res.status();
+            res.status(400);
             res.json({
                 status: "error",
                 message: "missing parameter in POST request"

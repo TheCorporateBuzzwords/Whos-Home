@@ -38,7 +38,7 @@ module.exports = function (app) {
                 });
             }
             else {
-                res.status(200);
+                res.status(401);
                 res.json({
                     status: "error",
                     message: "you do not have permission to accept this invite"
