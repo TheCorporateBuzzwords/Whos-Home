@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 
 module.exports = function (app) {
     //Authenticated route to receive an invite token to add someone to a group.
-    app.get('/groups/invitation/:id(\\d+)', auth.CheckAuthToken, function (req, res) {
+    app.get('/groups/:id(\\d+)/invitation/', auth.CheckAuthToken, function (req, res) {
         var con = mysql.createConnection(config.connectionInfo);
         if (req.query.Recipient) {
             var recipient = req.query.Recipient;
