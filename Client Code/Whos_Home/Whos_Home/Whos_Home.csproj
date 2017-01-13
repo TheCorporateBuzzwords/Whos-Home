@@ -90,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddLocationFragment.cs" />
     <Compile Include="Bills.cs" />
     <Compile Include="Bulletin.cs" />
     <Compile Include="BulletinFragment.cs" />
@@ -155,6 +156,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Locations.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\AddLocation.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

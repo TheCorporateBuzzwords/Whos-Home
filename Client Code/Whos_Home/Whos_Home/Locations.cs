@@ -16,6 +16,7 @@ namespace Whos_Home
     [Activity(Label = "Locations")]
     public class Locations : Activity
     {
+        private Button AddLocation;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -24,13 +25,18 @@ namespace Whos_Home
             InitializeToolbars();
             InitializeFormat();
         }
-
         private void InitializeFormat()
         {
-            WifiManager wifimanager = (WifiManager)GetSystemService(Context.WifiService);
+            AddLocation = FindViewById<Button>(Resource.Id.NewLocationButton);
+            AddLocation.Click += AddLocation_Click;
 
-            WifiInfo wifi_info = wifimanager.ConnectionInfo;
+        }
 
+        private void AddLocation_Click(object sender, EventArgs e)
+        {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            AddLocationFragment CreateAccountDialog = new AddLocationFragment();
+            CreateAccountDialog.Show(transaction, "dialog fragment create account");
         }
 
         private void InitializeToolbars()
