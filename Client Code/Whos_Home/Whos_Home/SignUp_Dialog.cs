@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net;
 using RestSharp;
 using Couchbase.Lite;
@@ -19,7 +20,7 @@ namespace Whos_Home
     class SignUp_Dialog : DialogFragment
     {
         private Button SignUpButton;
-        private string url = "http://96.41.173.205:3000";
+        private string url = "http://75.142.141.235:3000";
         public override Android.Views.View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
@@ -45,6 +46,7 @@ namespace Whos_Home
             var username = view.FindViewById<EditText>(Resource.Id.usernametext).Text;
             var password = view.FindViewById<EditText>(Resource.Id.passwordtext).Text;
             var passCheck = view.FindViewById<EditText>(Resource.Id.repeatpasswordtext).Text;
+
             bool fname_valid = (firstname != null && firstname != "");
             bool lname_valid = (lastname != null && lastname != "");
             bool email_valid = (email != null && email != "");
@@ -69,31 +71,41 @@ namespace Whos_Home
                     Toast.MakeText(this.Context, "Account Created!", ToastLength.Long).Show();
                     this.Activity.StartActivity(typeof(MessageBoard));
 
-                    var db = Manager.SharedInstance.GetDatabase("UserInfo");
-                    
+                    InsertInDB(username, email, firstname, response);
                 }
                 else
                 {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
-                    alert.SetTitle("Signup Failed");
-
-                    if (response.Content != "")
-                        alert.SetMessage(response.Content);
-                    else
-                        alert.SetMessage("Connection Error");
-
-                    alert.SetPositiveButton("Retry", (senderAlert, args) => { });
-
-                    alert.SetNegativeButton("Cancel", (senderAlert, args) =>
-                    {
-                        Dismiss();
-                    });
-                    Dialog dialog = alert.Create();
-                    dialog.Show();
+                    InvalidResponse(response);
                 }
             }
             else
             {
+                InvalidInput();
+            }
+        }
+
+        private void InvalidResponse(IRestResponse response)
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
+            alert.SetTitle("Signup Failed");
+
+            if (response.Content != "")
+                alert.SetMessage(response.Content);
+            else
+                alert.SetMessage("Connection Error");
+
+            alert.SetPositiveButton("Retry", (senderAlert, args) => { });
+
+            alert.SetNegativeButton("Cancel", (senderAlert, args) =>
+            {
+                Dismiss();
+            });
+            Dialog dialog = alert.Create();
+            dialog.Show();
+
+        }
+        private void InvalidInput()
+        {
                 AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
                 alert.SetTitle("Signup Failed");
                 alert.SetTitle("Cannot leave any field blank");
@@ -103,9 +115,61 @@ namespace Whos_Home
                 {
                     Dismiss();
                 });
+
                 Dialog dialog = alert.Create();
                 dialog.Show();
+        }
+        private void InsertInDB(string username, string email, string firstname, IRestResponse response)
+        {
+            var db = Manager.SharedInstance.GetDatabase("userinfo");
+
+            Console.WriteLine(response.Content);
+
+            JObject respJson = JObject.Parse(response.Content);
+
+            string token = (string)respJson["token"];
+
+            var vals = new Dictionary<String, Object>
+                    {
+                        {"username", username },
+                        {"email", email },
+                        {"firstname", firstname },
+                        {"token", token }
+                    };
+
+            var doc = db.CreateDocument();
+
+            try
+            {
+                doc.PutProperties(vals);
             }
+            catch (CouchbaseLiteException)
+            {
+                throw new ApplicationException("Database Failure");
+            }
+
+
+            //Test Retrieval
+            var view = db.GetView("token");
+
+            view.SetMap((docret, emit) =>
+            {
+                emit(docret["token"], docret["token"]);
+            }, "1");
+
+            var query = db.GetView("token").CreateQuery();
+
+            query.Descending = true;
+            query.Limit = 1;
+            var rows = query.Run();
+            foreach (var row in rows)
+            {
+                var name = row.Key;
+                var tok = row.Value;
+
+                Console.WriteLine("DB Q: {0}, {1}", name, tok);
+            }
+
         }
     }
 }
