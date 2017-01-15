@@ -121,54 +121,17 @@ namespace Whos_Home
         }
         private void InsertInDB(string username, string email, string firstname, IRestResponse response)
         {
-            var db = Manager.SharedInstance.GetDatabase("userinfo");
+            //DB_Singleton InitDB
 
-            Console.WriteLine(response.Content);
+            DB_Singleton instance = DB_Singleton.Instance;
+
+            instance.InitDB();
 
             JObject respJson = JObject.Parse(response.Content);
 
             string token = (string)respJson["token"];
 
-            var vals = new Dictionary<String, Object>
-                    {
-                        {"username", username },
-                        {"email", email },
-                        {"firstname", firstname },
-                        {"token", token }
-                    };
-
-            var doc = db.CreateDocument();
-
-            try
-            {
-                doc.PutProperties(vals);
-            }
-            catch (CouchbaseLiteException)
-            {
-                throw new ApplicationException("Database Failure");
-            }
-
-
-            //Test Retrieval
-            var view = db.GetView("token");
-
-            view.SetMap((docret, emit) =>
-            {
-                emit(docret["token"], docret["token"]);
-            }, "1");
-
-            var query = db.GetView("token").CreateQuery();
-
-            query.Descending = true;
-            query.Limit = 1;
-            var rows = query.Run();
-            foreach (var row in rows)
-            {
-                var name = row.Key;
-                var tok = row.Value;
-
-                Console.WriteLine("DB Q: {0}, {1}", name, tok);
-            }
+            instance.InitialInsert(token, username, email, firstname);
 
         }
     }
