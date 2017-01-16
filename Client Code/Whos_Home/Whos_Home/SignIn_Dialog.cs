@@ -14,6 +14,7 @@ using System.Net;
 using RestSharp;
 using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
+using System.Text.RegularExpressions;
 
 
 
@@ -66,7 +67,7 @@ namespace Whos_Home
                 {
                     Toast.MakeText(this.Context, "Login Successful", ToastLength.Long).Show();
                     this.Activity.StartActivity(typeof(MessageBoard));
-                    InsertInDB(GetToken(response));
+                    InsertInDB(DecodeToken(response));
                 }
                 else
                 {
@@ -79,25 +80,42 @@ namespace Whos_Home
             }
         }
 
-        private string GetToken(IRestResponse response)
+        private string[] DecodeToken(IRestResponse response)
         {
             JObject respJson = JObject.Parse(response.Content);
 
             string token = (string)respJson["token"];
 
-            //JwtSecurityToken decode_tok = new JwtSecurityTokenHandler().CreateToken(token);
+            JwtSecurityToken jwtToken = new JwtSecurityToken(token);
 
-            return token;
+            string pattern = @"{.*?}";
+            string decodedJwt = jwtToken.ToString();
+            List<string> regResults = new List<string>();
+
+            foreach(Match m in Regex.Matches(decodedJwt, pattern))
+            {
+                regResults.Add(m.ToString());
+            }
+
+            JObject json = JObject.Parse(regResults[1]);
+            string username = (string)json["Username"];
+            string email = (string)json["Email"];
+            string firstname = (string)json["First"];
+
+            string[] decodedToken = { token, username, email, firstname };
+
+            return decodedToken;
         }
 
-        private void InsertInDB(string token)
+        private void InsertInDB(string[] decodedToken)
         {
             
             DB_Singleton instance = DB_Singleton.Instance;
 
             instance.InitDB();
 
-            //instance.InitialInsert(token, username, email, firstname);
+            instance.InitialInsert(decodedToken[0], decodedToken[1],
+                decodedToken[2], decodedToken[3]);
         }
 
         private void InvalidResponse(IRestResponse response)
