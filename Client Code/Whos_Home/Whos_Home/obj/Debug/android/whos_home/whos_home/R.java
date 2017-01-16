@@ -114,6 +114,7 @@ public final class R {
         public static final int ApplicationName=0x7f040002;
         public static final int Hello=0x7f040001;
         public static final int library_name=0x7f040000;
+        public static final int url=0x7f040003;
     }
     public static final class style {
         public static final int MyTheme=0x7f050000;

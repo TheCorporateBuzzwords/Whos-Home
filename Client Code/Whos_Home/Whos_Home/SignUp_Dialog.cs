@@ -20,12 +20,15 @@ namespace Whos_Home
     class SignUp_Dialog : DialogFragment
     {
         private Button SignUpButton;
-        private string url = "http://75.142.141.235:3000";
+        private string url = null;
         public override Android.Views.View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
 
             var view = inflater.Inflate(Resource.Layout.sign_up, container, false);
+
+            url = Context.Resources.GetString(Resource.String.url);
+
             SignUpButton = view.FindViewById<Button>(Resource.Id.buttonConfirm);
 
             //sets click function for the confirm button;

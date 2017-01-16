@@ -12,18 +12,24 @@ using Android.Widget;
 using Newtonsoft.Json;
 using System.Net;
 using RestSharp;
+using Newtonsoft.Json.Linq;
+using System.IdentityModel.Tokens.Jwt;
+
+
 
 namespace Whos_Home
 {
     class SignIn_Dialog : DialogFragment
     {
         private Button SignInButton;
-        private string url = "http://96.41.173.205:3000";
+        private string url = null;
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
 
             var view = inflater.Inflate(Resource.Layout.sign_in, container, false);
+
+            url = Context.Resources.GetString(Resource.String.url);
             SignInButton = view.FindViewById<Button>(Resource.Id.buttonlogin);
 
             //sets click function for the sign in button;
@@ -55,45 +61,78 @@ namespace Whos_Home
                 var response = await client.ExecuteTaskAsync(request);
                 HttpStatusCode code = response.StatusCode;
                 int code_num = (int)code;
+
                 if (code_num == 200)
                 {
                     Toast.MakeText(this.Context, "Login Successful", ToastLength.Long).Show();
                     this.Activity.StartActivity(typeof(MessageBoard));
+                    InsertInDB(GetToken(response));
                 }
                 else
                 {
-                    AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
-                    alert.SetTitle("Login Failed");
-
-                    if (response.Content != "")
-                        alert.SetMessage(response.Content);
-                    else
-                        alert.SetMessage("Connection Error");
-
-                    alert.SetPositiveButton("Retry", (senderAlert, args) => { });
-
-                    alert.SetNegativeButton("Cancel", (senderAlert, args) => {
-                        Dismiss();
-                    });
-                    Dialog dialog = alert.Create();
-                    dialog.Show();
+                    InvalidResponse(response);
                 }
             }
             else
             {
-                AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
-                alert.SetTitle("Login Failed");
-                alert.SetMessage("Cannot leave either field blank");
-
-                alert.SetPositiveButton("Retry", (senderAlert, args) => { });
-
-                alert.SetNegativeButton("Cancel", (senderAlert, args) => {
-                    Dismiss();
-                });
-                Dialog dialog = alert.Create();
-                dialog.Show();
-
+                InvalidInput();
             }
+        }
+
+        private string GetToken(IRestResponse response)
+        {
+            JObject respJson = JObject.Parse(response.Content);
+
+            string token = (string)respJson["token"];
+
+            JwtSecurityToken decode_tok = new JwtSecurityTokenHandler().CreateToken(token);
+
+            return token;
+        }
+
+        private void InsertInDB(string token)
+        {
+            
+            DB_Singleton instance = DB_Singleton.Instance;
+
+            instance.InitDB();
+
+            instance.InitialInsert(token, username, email, firstname);
+        }
+
+        private void InvalidResponse(IRestResponse response)
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
+            alert.SetTitle("Login Failed");
+
+            if (response.Content != "")
+                alert.SetMessage(response.Content);
+            else
+                alert.SetMessage("Connection Error");
+
+            alert.SetPositiveButton("Retry", (senderAlert, args) => { });
+
+            alert.SetNegativeButton("Cancel", (senderAlert, args) => {
+                Dismiss();
+            });
+            Dialog dialog = alert.Create();
+            dialog.Show();
+        }
+
+        private void InvalidInput()
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
+            alert.SetTitle("Login Failed");
+            alert.SetMessage("Cannot leave either field blank");
+
+            alert.SetPositiveButton("Retry", (senderAlert, args) => { });
+
+            alert.SetNegativeButton("Cancel", (senderAlert, args) => {
+                Dismiss();
+            });
+            Dialog dialog = alert.Create();
+            dialog.Show();
+
         }
     }
 }
