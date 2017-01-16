@@ -85,7 +85,7 @@ namespace Whos_Home
 
             string token = (string)respJson["token"];
 
-            JwtSecurityToken decode_tok = new JwtSecurityTokenHandler().CreateToken(token);
+            //JwtSecurityToken decode_tok = new JwtSecurityTokenHandler().CreateToken(token);
 
             return token;
         }
@@ -97,7 +97,7 @@ namespace Whos_Home
 
             instance.InitDB();
 
-            instance.InitialInsert(token, username, email, firstname);
+            //instance.InitialInsert(token, username, email, firstname);
         }
 
         private void InvalidResponse(IRestResponse response)

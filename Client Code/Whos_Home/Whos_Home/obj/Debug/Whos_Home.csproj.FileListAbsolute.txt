@@ -448,7 +448,6 @@ C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\res\layout\groupdialog.xml
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\res\layout\locations.xml
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\res\layout\addlocation.xml
-C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\Whos_Home.dll.mdb
 C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\Whos_Home.dll.config
 C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\Whos_Home.dll
 C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\Whos_Home.pdb
@@ -527,3 +526,13 @@ C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\o
 C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\uploadflags.txt
 C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\Whos_Home.dll.mdb
 C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\Whos_Home.dll.mdb
+C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\crypto.dll
+C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\JWT.dll
+C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\crypto.xml
+C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\Microsoft.IdentityModel.Tokens.xml
+C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\Whos_Home.dll.mdb
+C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\Whos_Home.dll.mdb

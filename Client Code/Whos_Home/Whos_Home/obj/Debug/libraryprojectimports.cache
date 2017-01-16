@@ -2,11 +2,11 @@
 <Paths>
   <Jars></Jars>
   <ResolvedResourceDirectories>
-    <ResolvedResourceDirectory>C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\Couchbase.Lite\library_project_imports\res</ResolvedResourceDirectory>
-    <ResolvedResourceDirectory>C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\Couchbase.Lite.Storage.SystemSQLite\library_project_imports\res</ResolvedResourceDirectory>
-    <ResolvedResourceDirectory>C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\RestSharp\library_project_imports\res</ResolvedResourceDirectory>
-    <ResolvedResourceDirectory>C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\SQLitePCL.raw\library_project_imports\res</ResolvedResourceDirectory>
-    <ResolvedResourceDirectory>C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\websocket-sharp\library_project_imports\res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\Couchbase.Lite\library_project_imports\res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\Couchbase.Lite.Storage.SystemSQLite\library_project_imports\res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\RestSharp\library_project_imports\res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\SQLitePCL.raw\library_project_imports\res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\websocket-sharp\library_project_imports\res</ResolvedResourceDirectory>
   </ResolvedResourceDirectories>
   <ResolvedAssetDirectories>
     <ResolvedAssetDirectory>obj\Debug\__library_projects__\Couchbase.Lite\library_project_imports\assets</ResolvedAssetDirectory>
@@ -17,10 +17,10 @@
   </ResolvedAssetDirectories>
   <ResolvedEnvironmentFiles />
   <ResolvedResourceDirectoryStamps>
-    <ResolvedResourceDirectoryStamp>C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\Couchbase.Lite.stamp</ResolvedResourceDirectoryStamp>
-    <ResolvedResourceDirectoryStamp>C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\Couchbase.Lite.Storage.SystemSQLite.stamp</ResolvedResourceDirectoryStamp>
-    <ResolvedResourceDirectoryStamp>C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\RestSharp.stamp</ResolvedResourceDirectoryStamp>
-    <ResolvedResourceDirectoryStamp>C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\SQLitePCL.raw.stamp</ResolvedResourceDirectoryStamp>
-    <ResolvedResourceDirectoryStamp>C:\Users\Cristopher\Desktop\WhosHome\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\websocket-sharp.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\Couchbase.Lite.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\Couchbase.Lite.Storage.SystemSQLite.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\RestSharp.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\SQLitePCL.raw.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\__library_projects__\websocket-sharp.stamp</ResolvedResourceDirectoryStamp>
   </ResolvedResourceDirectoryStamps>
 </Paths>
