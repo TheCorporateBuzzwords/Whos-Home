@@ -6,24 +6,30 @@
     android:minHeight="400dp"
     android:weightSum="100">
     <TextView
-        android:text="Group Name"
+        android:text="Enter Group Name:"
         android:minWidth="400dp"
         android:layout_width="match_parent"
-        android:layout_weight="10"
+        android:layout_weight="5"
         android:layout_height="0dp"
         android:textColor="#368DEB"
         android:gravity="center_horizontal"
-        android:id="@+id/textviewGroupDialog"
+        android:id="@+id/textviewNewGroup"
         android:textStyle="bold"
-        android:textSize="26sp" />
-    <TextView
-        android:text="Group Description or members or something will go here"
-        android:layout_width="match_parent"
-        android:layout_weight="90"
+        android:textSize="15sp" />
+    <EditText
+        android:id="@+id/edittextNewGroup"
+        android:minWidth="400dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:background="@drawable/blue_button"
+        android:text="Add User to Group"
+        android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:textColor="#368DEB"
-        android:gravity="center_horizontal"
-        android:id="@+id/textviewGroupDialog"
+        android:layout_weight="10"
+        android:id="@+id/buttonSelectGroup"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
         android:textSize="15sp" />
     <LinearLayout
         android:layout_width="fill_parent"
@@ -31,11 +37,11 @@
         android:orientation="horizontal">
         <Button
             android:background="@drawable/blue_button"
-            android:text="Select Group"
+            android:text="Create Group"
             android:layout_width="200dp"
             android:layout_height="45dp"
             android:layout_weight="10"
-            android:id="@+id/buttonSelectGroup"
+            android:id="@+id/buttonCreateGroup"
             android:layout_marginLeft="15px"
             android:layout_marginRight="15px"
             android:textSize="15sp" />
@@ -46,7 +52,7 @@
             android:layout_width="200dp"
             android:layout_height="45dp"
             android:layout_weight="10"
-            android:id="@+id/buttonCancelSelectGroup"
+            android:id="@+id/buttonCancelCreateGroup"
             android:layout_marginLeft="15px"
             android:layout_marginRight="15px"
             android:textSize="15sp" />

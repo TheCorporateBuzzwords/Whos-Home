@@ -15,6 +15,7 @@ namespace Whos_Home
     [Activity(Label = "Groups")]
     public class Groups : Activity
     {
+        private Button BCreateGroup;
         private ListView listView;
         private List<string> groupnames = new List<string>();
         private List<string> nummembers = new List<string>();
@@ -42,6 +43,14 @@ namespace Whos_Home
             //Set itemclick function for when a group is selected
             listView.ItemClick += OnGroupItemClick;
 
+            BCreateGroup = FindViewById<Button>(Resource.Id.buttonCreateGroup);
+            BCreateGroup.Click += BCreateGroup_Click;
+
+        }
+
+        private void BCreateGroup_Click(object sender, EventArgs e)
+        {
+            //this.StartActivity(typeof(MessageBoard));
         }
 
         private void OnGroupItemClick(object sender, AdapterView.ItemClickEventArgs e)
