@@ -10,8 +10,8 @@ module.exports = function (app) {
         if (req.body.invite_token) {
             jwt.verify(req.body.invite_token, config.JWTInfo.secret, function (error, invite_token_decoded) {
                 if (req.body.decoded.UserID === invite_token_decoded.invitee) {
-                    var insertQuery = "INSERT INTO User_Group (UserID, GroupID) VALUES (" + invite_token_decoded.invitee + ", " + invite_token_decoded.group + ");";
-                    var checkDupeQuery = "SELECT * FROM User_Group WHERE UserID = " + invite_token_decoded.invitee + " AND GroupID = " + invite_token_decoded.group;
+                    var insertQuery = "INSERT INTO User_Groups (UserID, GroupID) VALUES (" + invite_token_decoded.invitee + ", " + invite_token_decoded.group + ");";
+                    var checkDupeQuery = "SELECT * FROM User_Groups WHERE UserID = " + invite_token_decoded.invitee + " AND GroupID = " + invite_token_decoded.group;
                     con.query(checkDupeQuery, function (err, result) {
                         if (result.length) {
                             res.status(409);

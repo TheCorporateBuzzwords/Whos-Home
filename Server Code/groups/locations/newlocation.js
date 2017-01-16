@@ -9,9 +9,9 @@ var auth = require('./../../middlewares/auth');
 module.exports = function (app) {
     app.post('/groups/:groupid(\\d+)/location/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         var con = mysql.createConnection(config.connectionInfo);
-        if(req.body.ssid && req.body.locationName)
+        if(req.body.groupID && req.body.ssid && req.body.locationName)
         {
-            var insertRequest = "INSERT INTO SharedLocations (SSID, NetName) values (" + con.escape(req.body.ssid) + ", " + con.escape(req.body.locationName) + ");";
+            var insertRequest = "INSERT INTO Group_Locations (GroupID, SSID, NetName) values (" + con.escape(req.body.groupID) + ", " + con.escape(req.body.ssid) + ", " + con.escape(req.body.locationName) + ");";
             con.query(insertRequest, function(err, result) {
                 if(err) {
                     console.log(err);

@@ -18,7 +18,7 @@ module.exports = function (app) {
                 res.end();
             } else {
                 var getUseridQuery = "SELECT UserID FROM Users WHERE UserName = " + con.escape(recipient);
-                var checkInGroupQuery = "SELECT * FROM User_Group WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + req.params.id;
+                var checkInGroupQuery = "SELECT * FROM User_Groups WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + req.params.id;
                 con.query(checkInGroupQuery, function (err, result1) {
                     if (err) {
                         console.log(err);

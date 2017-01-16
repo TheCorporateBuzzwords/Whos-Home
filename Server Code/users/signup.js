@@ -41,6 +41,7 @@ module.exports = function (app) {
                     res.end();
                 }
                 else {
+                    //Get the username of a user from the users table using the new username. This is a check for if the username is already taken
                     con.query('SELECT UserName FROM Users WHERE UserName = ' + con.escape(req.body.Username), function (err, result, field) {
                         if (!result.length) {
                             callback(err);
@@ -61,6 +62,7 @@ module.exports = function (app) {
                     res.end();
                 }
                 else {
+                    //Get the email of a user from the users table using the new email. This is a check for if the email is already taken
                     con.query('SELECT UserName FROM Users WHERE Email = ' + con.escape(req.body.Email), function (err, result, field) {
                         if (!result) {
                             res.status(502);
@@ -83,7 +85,7 @@ module.exports = function (app) {
             //Insert the user into the database
             function insertIntoDB(callback) {
                 hashPassword(req.body.Password, function (err, hash, salt) {
-                    var request = 'INSERT INTO Users (LocationsID, UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot) values (null, ' + con.escape(req.body.Username) + ', ' + con.escape(req.body.Firstname) + ', ' + con.escape(req.body.Lastname) + ', ' + con.escape(req.body.Email) + ', \'' + hash + '\', \'' + salt + '\', false, false);';
+                    var request = 'INSERT INTO Users (UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot) values (' + con.escape(req.body.Username) + ', ' + con.escape(req.body.Firstname) + ', ' + con.escape(req.body.Lastname) + ', ' + con.escape(req.body.Email) + ', \'' + hash + '\', \'' + salt + '\', false, false);';
                     con.query(request, function (err, result) {
                         if(!result) {
                             res.status(502);

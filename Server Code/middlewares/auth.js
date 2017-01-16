@@ -33,7 +33,8 @@ module.exports =
             var groupid = req.body.groupid || req.params.groupid || req.query.groupid;
             var con = mysql.createConnection(config.connectionInfo);
             if (groupid) {
-                var checkInGroupQuery = "SELECT * FROM User_Group WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + groupid;
+                //MySQL statement for making sure some user is in some group acording to the linking table
+                var checkInGroupQuery = "SELECT * FROM User_Groups WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + groupid;
                 con.query(checkInGroupQuery, function (err, result) {
                     if (err) {
                         console.log(err);
