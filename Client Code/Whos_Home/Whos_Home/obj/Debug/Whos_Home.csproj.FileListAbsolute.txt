@@ -539,5 +539,6 @@ C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.IdentityModel.dll.mdb
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\android\assets\System.Runtime.InteropServices.RuntimeInformation.dll.mdb
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\res\layout\newgroup.xml
+C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\res\layout\addusertogroup.xml
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\obj\Debug\Whos_Home.dll.mdb
 C:\Users\Caleb\Documents\JP\GIT_Client\Whos-Home\Client Code\Whos_Home\Whos_Home\bin\Debug\Whos_Home.dll.mdb

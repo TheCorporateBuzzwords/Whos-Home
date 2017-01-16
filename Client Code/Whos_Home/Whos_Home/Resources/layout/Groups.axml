@@ -17,7 +17,7 @@
         android:id="@+id/textviewGroups"
         android:textStyle="bold"
         android:textSize="26sp" />
-  <TextView
+    <TextView
         android:text="Current Group: "
         android:layout_width="match_parent"
         android:layout_weight="8"

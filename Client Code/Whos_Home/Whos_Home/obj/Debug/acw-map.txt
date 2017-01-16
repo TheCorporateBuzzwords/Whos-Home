@@ -1,3 +1,7 @@
+Whos_Home.NewGroup, Whos_Home;md597e6dc5a29c792ed6e4d361cd7d651f7.NewGroup
+Whos_Home.NewGroup, Whos_Home, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md597e6dc5a29c792ed6e4d361cd7d651f7.NewGroup
+Whos_Home.NewGroup;md597e6dc5a29c792ed6e4d361cd7d651f7.NewGroup
+whos_home.NewGroup;md597e6dc5a29c792ed6e4d361cd7d651f7.NewGroup
 Whos_Home.AddLocationFragment, Whos_Home;md597e6dc5a29c792ed6e4d361cd7d651f7.AddLocationFragment
 Whos_Home.AddLocationFragment, Whos_Home, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md597e6dc5a29c792ed6e4d361cd7d651f7.AddLocationFragment
 Whos_Home.AddLocationFragment;md597e6dc5a29c792ed6e4d361cd7d651f7.AddLocationFragment
