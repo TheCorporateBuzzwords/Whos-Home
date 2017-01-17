@@ -10,6 +10,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Net.Wifi;
+using Android.Support.V4.App;
+using Android;
+using Android.Content.PM;
 
 namespace Whos_Home
 {
@@ -30,11 +33,20 @@ namespace Whos_Home
             AddLocation = FindViewById<Button>(Resource.Id.NewLocationButton);
             AddLocation.Click += AddLocation_Click;
 
+            string permission = Manifest.Permission.AccessFineLocation;
+            if (CheckSelfPermission(permission) != (int)Permission.Granted)
+            {
+                string[] poop = new string[1];
+                poop[0] = Manifest.Permission.AccessFineLocation;
+                ActivityCompat.RequestPermissions(this, poop, 0);
+            }
         }
 
         private void AddLocation_Click(object sender, EventArgs e)
         {
-            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+           
+
+            Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
             AddLocationFragment AddLocationDialog = new AddLocationFragment();
             AddLocationDialog.Show(transaction, "dialog fragment create account");
         }

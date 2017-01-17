@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Net.Wifi;
+using Android;
+using Android.Content.PM;
 
 namespace Whos_Home
 {
@@ -32,16 +34,25 @@ namespace Whos_Home
             BCancel.Click += BCancel_Click;
             NetworkList.ItemClick += NetworkList_ItemClick;
 
-            //Set up a wifimanager to gather wifi scan results
-            WifiManager wifimanager = (WifiManager)Context.GetSystemService(Context.WifiService);
-            var InRange = wifimanager.ScanResults;
+
+
+             //Set up a wifimanager to gather wifi scan results
+             WifiManager wifimanager = (WifiManager)Context.GetSystemService(Context.WifiService);
 
             //Add each SSID of networks in range to the list of wifi networks
-            foreach (ScanResult network in InRange)
+            string permission = Manifest.Permission.AccessFineLocation;
+            if (view.Context.CheckSelfPermission(permission) == (int)Permission.Granted)
             {
-                WifiNetworks.Add(network.Ssid);
-                WifiNetworkKey.Add(network.Bssid);
+                var InRange = wifimanager.ScanResults;
+                
+                
+                foreach (ScanResult network in InRange)
+                {
+                    WifiNetworks.Add(network.Ssid);
+                    WifiNetworkKey.Add(network.Bssid);
+                }
             }
+
 
             //Places scanned SSID values into the listview
             NetworkList.Adapter = new ArrayAdapter<string>(Context, Android.Resource.Layout.SimpleListItem1, WifiNetworks);
