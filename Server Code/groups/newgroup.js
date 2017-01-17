@@ -1,9 +1,5 @@
 var config = require("./../../config");
 var mysql = require("mysql");
-var async = require('async');
-var crypto = require('crypto');
-var validator = require('validator');
-var jwt = require('jsonwebtoken');
 var auth = require('./../../middlewares/auth');
 
 //Export for creating a new group
@@ -40,7 +36,7 @@ module.exports = function (app) {
             res.status(400);
             res.json({
                 status: "error",
-                message: "missing paramater in POST request"
+                message: "missing parameter in POST request"
             });            
         }
     });
