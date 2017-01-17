@@ -40,6 +40,7 @@ namespace Whos_Home
         }
 
         //Should only be called once to initialize db
+        //cris is dumb
         public void InitDB()
         {
             if (db != null)
