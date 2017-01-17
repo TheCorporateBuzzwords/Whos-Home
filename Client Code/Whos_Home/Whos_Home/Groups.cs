@@ -43,14 +43,16 @@ namespace Whos_Home
             //Set itemclick function for when a group is selected
             listView.ItemClick += OnGroupItemClick;
 
-            BCreateGroup = FindViewById<Button>(Resource.Id.buttonCreateGroup);
+            BCreateGroup = FindViewById<Button>(Resource.Id.NewGroupButton);
             BCreateGroup.Click += BCreateGroup_Click;
 
         }
 
         private void BCreateGroup_Click(object sender, EventArgs e)
         {
-            //this.StartActivity(typeof(MessageBoard));
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            NewGroup Dialog = new NewGroup();
+            Dialog.Show(transaction, "dialog fragment new group");
         }
 
         private void OnGroupItemClick(object sender, AdapterView.ItemClickEventArgs e)

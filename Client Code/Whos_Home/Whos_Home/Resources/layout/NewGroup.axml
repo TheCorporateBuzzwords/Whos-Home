@@ -19,26 +19,19 @@
     <EditText
         android:id="@+id/edittextNewGroup"
         android:minWidth="400dp"
+        android:layout_weight="8"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-    <Button
-        android:background="@drawable/blue_button"
-        android:text="Add User to Group"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:id="@+id/buttonSelectGroup"
-        android:layout_marginLeft="15px"
-        android:layout_marginRight="15px"
-        android:textSize="15sp" />
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="87"
         android:orientation="horizontal">
         <Button
             android:background="@drawable/blue_button"
             android:text="Create Group"
             android:layout_width="200dp"
+            android:layout_gravity="bottom"
             android:layout_height="45dp"
             android:layout_weight="10"
             android:id="@+id/buttonCreateGroup"

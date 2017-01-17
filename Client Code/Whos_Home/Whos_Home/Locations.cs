@@ -35,8 +35,8 @@ namespace Whos_Home
         private void AddLocation_Click(object sender, EventArgs e)
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            AddLocationFragment CreateAccountDialog = new AddLocationFragment();
-            CreateAccountDialog.Show(transaction, "dialog fragment create account");
+            AddLocationFragment AddLocationDialog = new AddLocationFragment();
+            AddLocationDialog.Show(transaction, "dialog fragment create account");
         }
 
         private void InitializeToolbars()
