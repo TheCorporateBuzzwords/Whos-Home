@@ -5,9 +5,10 @@ var jwt = require('jsonwebtoken');
 
 module.exports = function (app) {
     //Authenticated route to receive an invite token to add someone to a group.
-    app.get('/groups/:id(\\d+)/invitation/', auth.CheckAuthToken, function (req, res) {
+    app.get('/groups/:groupid(\\d+)/invitation/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         var con = mysql.createConnection(config.connectionInfo);
         if (req.query.Recipient) {
+            console.log("test");
             var recipient = req.query.Recipient;
             if (!/^[a-z][a-z0-9]*$/i.test(recipient)) { //make sure it's a valid username. Should make a module for this.
                 res.status(409);
@@ -18,39 +19,40 @@ module.exports = function (app) {
                 res.end();
             } else {
                 var getUseridQuery = "SELECT UserID FROM Users WHERE UserName = " + con.escape(recipient);
-                var checkInGroupQuery = "SELECT * FROM User_Groups WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + req.params.id;
-                con.query(checkInGroupQuery, function (err, result1) {
+                //var checkInGroupQuery = "SELECT * FROM User_Groups WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + req.params.id;
+                con.query(getUseridQuery, function (err, result) {
                     if (err) {
                         console.log(err);
-                    } else if (result1.length) {
-                        con.query(getUseridQuery, function (err, result2) {
-                            if (err) {
-                                console.log(err);
-                            }
-                            else if (result2.length) {
-                                var token = jwt.sign({ 
-                                    inviter: req.body.decoded.UserID,
-                                    invitee: result2[0].UserID,
-                                    group: req.params.id }, config.JWTInfo.secret);   
-                                res.status(200);
-                                res.json({ status: "success",
-                                           invite_token: token });
-                                res.end();
-                            }
-                            else {
-                                //USER DOESN'T EXIST, FIX
-                                console.log("user doesn't exist");
-                            }
+                    }
+                    else if (result.length) {
+                        var token = jwt.sign({ //create new jwt token for invitation
+                            inviter: req.body.decoded.UserID,
+                            invitee: result[0].UserID,
+                            group: req.params.groupID
+                        }, config.JWTInfo.secret);
+                        res.status(200);
+                        res.json({
+                            status: "success",
+                            invite_token: token
                         });
-                    } else {
-                        //FIX
-                        console.log("error");
+                        res.end();
+                    }
+                    else {
+                        res.status(409);
+                        res.json({
+                            status: "error",
+                            message: "user you tried inviting doesn't exist"
+                        });
                     }
                 });
             }
         }
         else {
-            console.log("invalid username");
+            res.status(400);
+            res.json({
+                    status: "error",
+                    message: "missing parameter"
+            });
         }
     });
 }
