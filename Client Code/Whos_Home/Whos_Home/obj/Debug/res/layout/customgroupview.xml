@@ -1,0 +1,7 @@
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:padding="8dp" xmlns:android="http://schemas.android.com/apk/res/android"><LinearLayout android:id="@+id/Text" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingLeft="10dip"><TextView android:id="@+id/GroupText1" android:text="GroupName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#368DEB" android:textSize="20dip" android:textStyle="italic" /><TextView android:id="@+id/GroupText2" android:text="Num Members" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="14dip" android:textColor="#FFFFFF" android:paddingLeft="150dip" /></LinearLayout><!--<ImageView
+        android:id="@+id/GroupImageGroupView"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="5dp"
+        android:src="@drawable/icon"
+        android:layout_alignParentRight="true" />--></RelativeLayout>
