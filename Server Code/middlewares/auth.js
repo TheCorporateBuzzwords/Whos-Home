@@ -34,7 +34,7 @@ module.exports =
             var con = mysql.createConnection(config.connectionInfo);
             if (groupid) {
                 //MySQL statement for making sure some user is in some group acording to the linking table
-                var checkInGroupQuery = "SELECT * FROM User_Group WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + con.escape(groupid);
+                var checkInGroupQuery = "SELECT * FROM User_Groups WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + con.escape(groupid);
                 con.query(checkInGroupQuery, function (err, result) {
                     if (err) {
                         console.log(err);
