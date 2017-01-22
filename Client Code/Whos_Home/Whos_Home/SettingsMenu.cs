@@ -104,7 +104,7 @@ namespace Whos_Home
             //initialize top toolbar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
-            ActionBar.Title = "Options";
+            ActionBar.Title = "Preferences";
 
             //initialize bottom toolbar
             var editToolbar = FindViewById<Toolbar>(Resource.Id.edit_toolbar);
@@ -117,7 +117,7 @@ namespace Whos_Home
         {
             //Start the bulletin activity
             if (e.Item.ToString() == "Bulletins")
-                this.StartActivity(typeof(MessageBoard));
+                this.StartActivity(typeof(BulletinBoard));
 
         }
 

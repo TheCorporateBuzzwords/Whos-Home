@@ -140,9 +140,10 @@
     <Compile Include="GroupSelectDialog.cs" />
     <Compile Include="Locations.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="MessageBoard.cs" />
+    <Compile Include="BulletinBoard.cs" />
     <Compile Include="MessageBoardListAdapter.cs" />
     <Compile Include="NewMessage_Dialog.cs" />
+    <Compile Include="Notifications.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SettingsMenu.cs" />

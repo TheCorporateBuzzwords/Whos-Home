@@ -8,16 +8,6 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
     <TextView
-        android:text="Groups"
-        android:layout_width="match_parent"
-        android:layout_weight="10"
-        android:layout_height="0dp"
-        android:textColor="#368DEB"
-        android:gravity="center_horizontal"
-        android:id="@+id/textviewGroups"
-        android:textStyle="bold"
-        android:textSize="26sp" />
-    <TextView
         android:text="Current Group: "
         android:layout_width="match_parent"
         android:layout_weight="8"
@@ -40,7 +30,7 @@
     <ListView
         android:id="@+id/listviewGroups"
         android:layout_width="fill_parent"
-        android:layout_weight="72"
+        android:layout_weight="82"
         android:layout_height="0dp" />
     <Toolbar
         android:id="@+id/edit_toolbar"

@@ -7,20 +7,10 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
-    <TextView
-        android:text="Notifications"
-        android:layout_width="match_parent"
-        android:layout_weight="10"
-        android:layout_height="0dp"
-        android:textColor="#368DEB"
-        android:gravity="center_horizontal"
-        android:id="@+id/textviewNotifications"
-        android:textStyle="bold"
-        android:textSize="26sp" />
     <ListView
         android:id="@+id/notificationslistview"
         android:layout_width="fill_parent"
-        android:layout_weight="90"
+        android:layout_weight="100"
         android:layout_height="0dp" />
     <Toolbar
         android:id="@+id/edit_toolbar"

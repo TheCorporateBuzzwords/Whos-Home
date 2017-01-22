@@ -8,16 +8,6 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
     <TextView
-        android:text="Settings"
-        android:layout_width="match_parent"
-        android:layout_weight="10"
-        android:layout_height="0dp"
-        android:textColor="#368DEB"
-        android:gravity="center_horizontal"
-        android:id="@+id/textviewSettingsMenu"
-        android:textStyle="bold"
-        android:textSize="26sp" />
-    <TextView
         android:text="Username:"
         android:layout_width="match_parent"
         android:layout_weight="8"
@@ -48,23 +38,21 @@
         android:textStyle="bold"
         android:textSize="20sp" />
 <!--Toggle button for location service-->
-      <Switch
+    <Switch
         android:id="@+id/SwitchSettingsMenu"
         android:text="Toggle Locations"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="6"
-        android:checked="true"
+        android:checked="false"
         android:textOn="ON"
         android:textOff="OFF" />
     <ListView
         android:id="@+id/SettingsMenuListView"
         android:layout_width="fill_parent"
-        android:layout_weight="60"
-        android:layout_height="0dp">
-       
-    </ListView>
+        android:layout_weight="70"
+        android:layout_height="0dp" />
     <Toolbar
         android:id="@+id/edit_toolbar"
         android:minHeight="?android:attr/actionBarSize"

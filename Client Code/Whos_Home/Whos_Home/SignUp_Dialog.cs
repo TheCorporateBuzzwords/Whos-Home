@@ -72,7 +72,7 @@ namespace Whos_Home
                 if (code_num == 201)
                 {
                     Toast.MakeText(this.Context, "Account Created!", ToastLength.Long).Show();
-                    this.Activity.StartActivity(typeof(MessageBoard));
+                    this.Activity.StartActivity(typeof(BulletinBoard));
 
                     InsertInDB(username, email, firstname, response);
                 }

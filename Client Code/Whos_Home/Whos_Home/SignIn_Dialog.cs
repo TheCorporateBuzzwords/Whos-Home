@@ -66,7 +66,7 @@ namespace Whos_Home
                 if (code_num == 200)
                 {
                     Toast.MakeText(this.Context, "Login Successful", ToastLength.Long).Show();
-                    this.Activity.StartActivity(typeof(MessageBoard));
+                    this.Activity.StartActivity(typeof(BulletinBoard));
                     InsertInDB(DecodeToken(response));
                 }
                 else
