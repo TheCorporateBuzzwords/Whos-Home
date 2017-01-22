@@ -9,10 +9,18 @@ var auth = require('./../../middlewares/auth');
 module.exports = function (app) {
     app.post('/groups/:groupid(\\d+)/location/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         var con = mysql.createConnection(config.connectionInfo);
-        if(req.body.groupID && req.body.ssid && req.body.locationName)
+        if(req.params.groupid)
+            console.log("found id");
+        if(req.body.ssid)
+            console.log("found ssid");
+        if(req.body.locationName)
+            console.log("found aaa");
+        if(req.params.groupid && req.body.ssid && req.body.locationName)
         {
-            var insertRequest = "INSERT INTO Group_Locations (GroupID, SSID, NetName) values (" + con.escape(req.body.groupID) + ", " + con.escape(req.body.ssid) + ", " + con.escape(req.body.locationName) + ");";
+            console.log("executing");
+            var insertRequest = "INSERT INTO Group_Locations (GroupID, SSID, NetName) values (" + con.escape(req.params.groupid) + ", " + con.escape(req.body.ssid) + ", " + con.escape(req.body.locationName) + ");";
             con.query(insertRequest, function(err, result) {
+                console.log("Executed");
                 if(err) {
                     console.log(err);
                 }

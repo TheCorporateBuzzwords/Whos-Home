@@ -1,6 +1,6 @@
-var config = require("./../../config");
+var config = require("./../config");
 var mysql = require("mysql");
-var auth = require('./../../middlewares/auth');
+var auth = require('./../middlewares/auth');
 
 //Export for creating a new group
 module.exports = function (app) {
@@ -9,9 +9,9 @@ module.exports = function (app) {
         var con = mysql.createConnection(config.connectionInfo);
 
         //Check for valid information in incoming JSON
-        if (req.body.groupName && req.body.userID) {
+        if (req.body.groupName) {
             //Call the add group procedure
-            var insertRequest = "Call addGroup(" + con.escape(req.body.groupName) + ", " + con.escape(req.body.userID) + ")";
+            var insertRequest = "Call addGroup(" + con.escape(req.body.groupName) + ", " + con.escape(req.body.decoded.UserID) + ")";
 
             //Question: Validate the token before creating a group? Or is that done in the app.post auth.CheckAuthToken?
             //Perform the request
