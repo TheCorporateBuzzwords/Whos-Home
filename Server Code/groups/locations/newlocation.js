@@ -9,12 +9,6 @@ var auth = require('./../../middlewares/auth');
 module.exports = function (app) {
     app.post('/groups/:groupid(\\d+)/location/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         var con = mysql.createConnection(config.connectionInfo);
-        if(req.params.groupid)
-            console.log("found id");
-        if(req.body.ssid)
-            console.log("found ssid");
-        if(req.body.locationName)
-            console.log("found aaa");
         if(req.params.groupid && req.body.ssid && req.body.locationName)
         {
             console.log("executing");
