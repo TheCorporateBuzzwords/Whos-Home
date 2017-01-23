@@ -48,6 +48,7 @@ namespace Whos_Home
             //Send new location information to database
             alert.SetPositiveButton("Confirm", (senderAlert, args) => 
             {
+                CreateGroup(View.FindViewById<EditText>(Resource.Id.edittextNewGroup).Text);
                 Dismiss();
             });
 
@@ -57,6 +58,12 @@ namespace Whos_Home
 
             Dialog dialog = alert.Create();
             dialog.Show();
+        }
+
+        private void CreateGroup(string groupname)
+        {
+            
+            //Send group name and token;
         }
     }
 }

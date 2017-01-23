@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using System.Net;
 using RestSharp;
 using Couchbase.Lite;
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
@@ -60,13 +61,11 @@ namespace Whos_Home
             if (all_valid && password == passCheck)
             {
                 User user = new User(firstname, lastname, username, email, password, passCheck);
-                string json = JsonConvert.SerializeObject(user);
 
-                var client = new RestClient(url);
+                RequestHandler request = new RequestHandler(Context);
 
-                var request = new RestRequest("/users", Method.POST);
-                request.AddObject(user);
-                var response = await client.ExecuteTaskAsync(request);
+                IRestResponse response = await request.SignUp(user);
+
                 HttpStatusCode code = response.StatusCode;
                 int code_num = (int)code;
                 if (code_num == 201)

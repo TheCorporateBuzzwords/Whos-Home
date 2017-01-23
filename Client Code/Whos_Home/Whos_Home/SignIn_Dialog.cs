@@ -15,22 +15,19 @@ using RestSharp;
 using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text.RegularExpressions;
-
-
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
     class SignIn_Dialog : DialogFragment
     {
         private Button SignInButton;
-        private string url = null;
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
 
             var view = inflater.Inflate(Resource.Layout.sign_in, container, false);
 
-            url = Context.Resources.GetString(Resource.String.url);
             SignInButton = view.FindViewById<Button>(Resource.Id.buttonlogin);
 
             //sets click function for the sign in button;
@@ -46,38 +43,32 @@ namespace Whos_Home
             var username = view.FindViewById<EditText>(Resource.Id.signinusername).Text;
             var password = view.FindViewById<EditText>(Resource.Id.signinpassword).Text;
 
-            Console.WriteLine("INFO:");
-            Console.WriteLine("User Name: " + username);
-            Console.WriteLine("Password: " + password);
-
             if (password != null && username != null && password != "" && username != "")
             {
                 User user = new User(username, password);
-                string json = JsonConvert.SerializeObject(user);
 
-                var client = new RestClient(url);
+                RequestHandler request = new RequestHandler(Context);
+                
+                var response = await request.SignIn(user);
 
-                var request = new RestRequest("/session", Method.POST);
-                request.AddObject(user);
-                var response = await client.ExecuteTaskAsync(request);
                 HttpStatusCode code = response.StatusCode;
                 int code_num = (int)code;
 
                 if (code_num == 200)
-                {
-                    Toast.MakeText(this.Context, "Login Successful", ToastLength.Long).Show();
-                    this.Activity.StartActivity(typeof(BulletinBoard));
-                    InsertInDB(DecodeToken(response));
-                }
+                    Success(response);
                 else
-                {
                     InvalidResponse(response);
-                }
             }
             else
-            {
                 InvalidInput();
-            }
+        }
+
+        public void Success(IRestResponse response)
+        {
+            Toast.MakeText(this.Context, "Login Successful", ToastLength.Long).Show();
+            this.Activity.StartActivity(typeof(BulletinBoard));
+            InsertInDB(DecodeToken(response));
+
         }
 
         private string[] DecodeToken(IRestResponse response)
