@@ -46,9 +46,18 @@ namespace Whos_Home.Helpers
             request.AddObject(user);
 
             return await client.ExecuteTaskAsync(request);
-            
         }
 
+        public async Task<IRestResponse> CreateGroup(string token, string groupName)
+        {
+            request = new RestRequest("/groups", Method.POST);
+
+            request.AddHeader("token", token);
+
+            request.AddParameter("groupName", groupName);
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
 
     }
 }

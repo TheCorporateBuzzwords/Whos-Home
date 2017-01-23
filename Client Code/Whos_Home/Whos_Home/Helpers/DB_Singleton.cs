@@ -82,13 +82,15 @@ namespace Whos_Home.Helpers
             }
         }
 
+        
+
         public string Retrieve(string key)
         {
             //This is messy, bad, and brute forced and NEEDS to be refactored at some point
             try
             {
                 UserDB user = new UserDB();
-                List<UserDB> result = db.Query<UserDB>(string.Format("SELECT {0} FROM UserDB WHERE 1=1", key));
+                List<UserDB> result = db.Query<UserDB>("SELECT * FROM UserDB WHERE 1=1");
                 if (key == "Email")
                     return result.First().Email;
                 if (key == "UserName")

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
@@ -9,6 +10,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
@@ -40,15 +43,30 @@ namespace Whos_Home
             Dismiss();
         }
 
-        private void BConfirm_Click(object sender, EventArgs e)
+        private async void BConfirm_Click(object sender, EventArgs e)
         {
+            //CreateGroup(View.FindViewById<EditText>(Resource.Id.edittextNewGroup).Text);
+            string groupname = View.FindViewById<EditText>(Resource.Id.edittextNewGroup).Text;
+            RequestHandler request = new RequestHandler(Context);
+
+            DB_Singleton db = DB_Singleton.Instance;
+            string token = db.Retrieve("Token");
+                var response = await request.CreateGroup(token, groupname);
+
+                if ((int)response.StatusCode != 200)
+                {
+                    Success();
+                }
+
+                Failure();
+            /*
             AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
             alert.SetTitle("Create the new group " + EditTextGroupName.Text + "?");
 
             //Send new location information to database
             alert.SetPositiveButton("Confirm", (senderAlert, args) => 
             {
-                CreateGroup(View.FindViewById<EditText>(Resource.Id.edittextNewGroup).Text);
+//                Task create = CreateGroup().Text);
                 Dismiss();
             });
 
@@ -58,12 +76,35 @@ namespace Whos_Home
 
             Dialog dialog = alert.Create();
             dialog.Show();
+            */
         }
 
-        private void CreateGroup(string groupname)
+        private async void CreateGroup(string groupname)
         {
-            
+
             //Send group name and token;
+            RequestHandler request = new RequestHandler(Context);
+
+            DB_Singleton db = DB_Singleton.Instance;
+            string token = db.Retrieve("Token");
+                var response = await request.CreateGroup(groupname, token);
+
+                if ((int)response.StatusCode != 200)
+                {
+                    Success();
+                }
+
+                Failure();
+        }
+
+        public void Success()
+        {
+            Toast.MakeText(this.Context, "Login Successful", ToastLength.Long).Show();
+        }
+
+        public void Failure()
+        {
+            Toast.MakeText(this.Context, "Group Creation Failed, Please Try Again Later", ToastLength.Long).Show();
         }
     }
 }
