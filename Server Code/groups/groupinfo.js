@@ -13,10 +13,12 @@ module.exports = function (app) {
         var con = mysql.createConnection(config.connectionInfo);
         if(req.body.decoded)
         {
-            var request = "SELECT u.UserName, g.GroupName \
+            var request = "SELECT u.UserName, g.GroupName, ul.NetName \
                             FROM Users u \
+                            INNER JOIN User_Locations ul ON u.UserID = ul.UserID \
                             INNER JOIN User_Groups ug ON u.UserID = ug.UserID \
                             INNER JOIN Groups g ON ug.GroupID = g.GroupID \
+                            INNER JOIN Group_Locations gl ON g.GroupID = gl.GroupID \
                             WHERE g.GroupID = " + con.escape(req.params.id); + " \
                             AND u.UserID = " + req.body.decoded.UserID;
             con.query(request, function(err, result) {
