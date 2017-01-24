@@ -3,40 +3,35 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minHeight="400dp"
-    android:minWidth="400dp"
     android:weightSum="100">
     <TextView
-        android:text="Group Name"
+        android:text="Enter Username To Add:"
         android:minWidth="400dp"
         android:layout_width="match_parent"
-        android:layout_weight="10"
+        android:layout_weight="5"
         android:layout_height="0dp"
         android:textColor="#368DEB"
         android:gravity="center_horizontal"
-        android:id="@+id/textviewGroupDialog"
+        android:id="@+id/textviewAddUserToGroupDialog"
         android:textStyle="bold"
-        android:textSize="26sp" />
-    <TextView
-        android:text="Group Description or members or something will go here"
-        android:layout_width="match_parent"
-        android:layout_weight="90"
-        android:layout_height="0dp"
-        android:textColor="#368DEB"
-        android:gravity="center_horizontal"
-        android:id="@+id/textviewGroupDialog"
         android:textSize="15sp" />
+    <EditText
+        android:id="@+id/edittextAddUserToGroupDialog"
+        android:minWidth="400dp"
+        android:layout_weight="8"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
             android:background="@drawable/blue_button"
-            android:text="Select Group"
+            android:text="Cancel"
             android:layout_width="200dp"
             android:layout_height="45dp"
             android:layout_weight="10"
-            android:id="@+id/buttonSelectGroup"
+            android:id="@+id/buttonCancelAddUserToGroup"
             android:layout_marginLeft="15px"
             android:layout_marginRight="15px"
             android:textSize="15sp" />
@@ -47,21 +42,9 @@
             android:layout_width="200dp"
             android:layout_height="45dp"
             android:layout_weight="10"
-            android:id="@+id/buttonAddUserToGroup"
+            android:id="@+id/buttonConfirmAddUserToGroup"
             android:layout_marginLeft="15px"
             android:layout_marginRight="15px"
             android:textSize="15sp" />
     </LinearLayout>
-    <Button
-        android:background="@drawable/blue_button"
-        android:text="Cancel"
-        android:layout_marginTop="5dip"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="200dp"
-        android:layout_height="45dp"
-        android:layout_weight="10"
-        android:id="@+id/buttonCancelSelectGroup"
-        android:layout_marginLeft="15px"
-        android:layout_marginRight="15px"
-        android:textSize="15sp" />
 </LinearLayout>

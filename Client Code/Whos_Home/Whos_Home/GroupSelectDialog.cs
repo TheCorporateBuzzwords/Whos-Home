@@ -16,6 +16,7 @@ namespace Whos_Home
     {
         private Button Select;
         private Button Cancel;
+        private Button AddUser;
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
@@ -24,9 +25,27 @@ namespace Whos_Home
 
             Select = view.FindViewById<Button>(Resource.Id.buttonSelectGroup);
             Cancel = view.FindViewById<Button>(Resource.Id.buttonCancelSelectGroup);
+            AddUser = view.FindViewById<Button>(Resource.Id.buttonAddUserToGroup);
+
+            //Add click functions for buttons
+            Cancel.Click += Cancel_Click;
+            AddUser.Click += AddUser_Click;
 
             return view;
 
+        }
+
+        private void AddUser_Click(object sender, EventArgs e)
+        {
+            Dismiss();
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            AddUserToGroupDialog Dialog = new AddUserToGroupDialog();
+            Dialog.Show(transaction, "dialog fragment add user");
+        }
+
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            Dismiss();
         }
     }
 }

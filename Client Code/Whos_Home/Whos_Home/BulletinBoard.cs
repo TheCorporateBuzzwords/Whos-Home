@@ -30,6 +30,8 @@ namespace Whos_Home
             InitializeToolbars();
             InitializeFormat();
 
+            Intent intent = new Intent(this, typeof(BulletinBoard));
+            Notification(intent,"A new message has been posted in ", "groupname", 0 , 0);
 
         }
         //titles and messsages will be stored and can be accessed when loading
@@ -90,6 +92,30 @@ namespace Whos_Home
 
             StartActivity(i);
 
+        }
+
+        private void Notification(Intent activity, string text, string group, int intent_id, int notification_id)
+        {
+            //creates a Pending intent with the activity sent to the notification
+            PendingIntent pendingIntent =
+                PendingIntent.GetActivity(this, intent_id, activity, PendingIntentFlags.OneShot);
+
+            //creates a notification based on the intent and message of the notification
+            Notification.Builder builder = new Notification.Builder(this);
+            builder.SetContentIntent(pendingIntent);
+            builder.SetContentTitle("Who's Home?");
+            builder.SetContentText(text + group);
+            builder.SetSmallIcon(Resource.Drawable.ic_action_content_save);
+
+            // Build the notification
+            Notification notification = builder.Build();
+
+            // Get the notification manager:
+            NotificationManager notificationManager =
+                GetSystemService(Context.NotificationService) as NotificationManager;
+
+            // Publish the notification:
+            notificationManager.Notify(notification_id, notification);
         }
 
         private void InitializeToolbars()

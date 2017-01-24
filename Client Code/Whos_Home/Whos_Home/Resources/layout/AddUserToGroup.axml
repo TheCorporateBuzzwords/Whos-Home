@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-  <TextView
+    android:layout_height="match_parent">
+    <TextView
         android:text="Enter Username To Add:"
         android:minWidth="400dp"
         android:layout_width="match_parent"
@@ -14,9 +14,9 @@
         android:id="@+id/textviewNewGroup"
         android:textStyle="bold"
         android:textSize="15sp" />
-  <EditText
-      android:id="@+id/edittextNewGroup"
-      android:minWidth="400dp"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/edittextNewGroup"
+        android:minWidth="400dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

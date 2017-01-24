@@ -32,7 +32,9 @@ namespace Whos_Home
         private void InitializeFormat()
         {
             List<string> comments = new List<string>();
-            
+            List<string> usernames = new List<string>();
+
+
             //deserializes the title and message that were converted to json in the messageboard.cs
             title = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Title"));
             msg = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Message"));
@@ -42,6 +44,7 @@ namespace Whos_Home
             for (int i = 1; i < 16; ++i)
             {
                 comments.Add("Comment " + i.ToString());
+                usernames.Add("User " + i.ToString());
             }
 
 
@@ -54,7 +57,7 @@ namespace Whos_Home
 
             //set values for testing
             message.Text = msg;
-            commentlistview.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, comments);
+            commentlistview.Adapter = new BulletinCommentListAdapter(this, usernames, comments);
 
             //set onClick method for message that will open the full message text in another window
             message.Click += TextViewClick;
