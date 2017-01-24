@@ -10,7 +10,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-using SQLite;
 
 namespace Whos_Home.Helpers
 {
@@ -26,7 +25,7 @@ namespace Whos_Home.Helpers
             Token = token;
         }
 
-        [PrimaryKey, AutoIncrement]
+        //[PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
         public string FirstName { get; set; }

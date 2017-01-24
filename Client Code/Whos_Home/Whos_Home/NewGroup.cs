@@ -52,13 +52,15 @@ namespace Whos_Home
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");
                 var response = await request.CreateGroup(token, groupname);
-
-                if ((int)response.StatusCode != 200)
+            int statusCode = (int)response.StatusCode;
+                if ((int)response.StatusCode == 200)
                 {
                     Success();
                 }
-
+                else
+            {
                 Failure();
+            }
             /*
             AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
             alert.SetTitle("Create the new group " + EditTextGroupName.Text + "?");
