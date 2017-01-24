@@ -48,7 +48,7 @@ Create Table Users (
   , Salt            char(32)      not null
   , Active          bool
   , PushNot         bool
-  , LocationID      bigint        not null
+  , LocationID      bigint
   , LocationActive  bool
   , foreign key (LocationID) references Group_Locations(LocationID)
   , primary key (UserID)

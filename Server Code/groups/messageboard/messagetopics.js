@@ -40,9 +40,33 @@ module.exports = function (app) {
                 message: "missing parameter in POST request"
             });   
         }
-
     });
 
-    //Get for retreiving all messageboard topics for a group
 
+    //Get for retreiving all messageboard topics for a group
+    app.get('/groups/:groupid(\\d+)/messagetopic', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+        //Get a connection
+        var con = mysql.createConnection(config.connectionInfo);
+
+        //Check that all required information is passed
+        if(req.params.groupid)
+        {
+            //Create a var that has the call to the procedure
+
+            //Perform the request
+
+                //If an error happens, log
+
+                //Return message board topics and meta information
+        }
+        //If all required information is not present, send back an error message
+        else
+        {
+            res.status(400);
+            res.json({
+                status: "error",
+                message: "missing parameter in GET request"
+            });   
+        }
+    });
 }
