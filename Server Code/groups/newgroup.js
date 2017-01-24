@@ -17,7 +17,7 @@ module.exports = function (app) {
             //Perform the request
             con.query(insertRequest, function(err, result) {
                 if(err) {
-                    //If error, log and handle
+                    //If error, log and handle  
                     console.log(err);
                 }
                 else {

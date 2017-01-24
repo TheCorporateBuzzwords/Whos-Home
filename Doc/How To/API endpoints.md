@@ -57,3 +57,17 @@ POST /groups/{groupid}/location/ (authenticated)
 \*ssid: ssid for connection
 
 \*locationName: name of new location
+
+##Groups/messageboard
+### Create a messageboard post topic
+POST /groups/{groupid}/messagetopic/ (authenticated)
+
+\*title: Title of the message board post (50 char limit)
+
+\*msg: Content of the message board post (1024 char limit)
+
+### Get all messageboard post topics
+
+### Respond to a messageboard poast
+
+### Get responses to a single post topic
