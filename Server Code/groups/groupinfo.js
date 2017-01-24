@@ -1,9 +1,5 @@
 var config = require("./../config");
 var mysql = require("mysql");
-var async = require('async');
-var crypto = require('crypto');
-var validator = require('validator');
-var jwt = require('jsonwebtoken');
 var auth = require('./../middlewares/auth');
 
 module.exports = function (app) {

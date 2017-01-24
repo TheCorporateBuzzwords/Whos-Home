@@ -12,22 +12,28 @@ module.exports = function (app) {
         if (req.body.groupName) {
             //Call the add group procedure
             var insertRequest = "Call addGroup(" + con.escape(req.body.groupName) + ", " + con.escape(req.body.decoded.UserID) + ")";
-
             //Question: Validate the token before creating a group? Or is that done in the app.post auth.CheckAuthToken?
             //Perform the request
-            con.query(insertRequest, function(err, result) {
-                if(err) {
+            con.query(insertRequest, function (err, result) {
+                if (err) {
                     //If error, log and handle
                     console.log(err);
                 }
                 else {
-                    //If the group was added, pass back success message
-                    res.status(200);
-                    res.json({
-                        status: "success",
-                        message: "Successfully created group and added founding member"
+                    con.query("SELECT LAST_INSERT_ID() AS id", function (err, result, field) {
+                        UserID = result[0].id;
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            res.status(200);
+                            res.json({
+                                status: "success",
+                                groupID: UserID
+                            });
+                            res.end();
+                        }
                     });
-                    res.end();
+                    //If the group was added, pass back success message
                 }
             })
         }
@@ -37,7 +43,7 @@ module.exports = function (app) {
             res.json({
                 status: "error",
                 message: "missing parameter in POST request"
-            });            
+            });
         }
     });
 }
