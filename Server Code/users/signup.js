@@ -85,7 +85,7 @@ module.exports = function (app) {
             //Insert the user into the database
             function insertIntoDB(callback) {
                 hashPassword(req.body.Password, function (err, hash, salt) {
-                    var request = 'INSERT INTO Users (UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot) values (' + con.escape(req.body.Username) + ', ' + con.escape(req.body.Firstname) + ', ' + con.escape(req.body.Lastname) + ', ' + con.escape(req.body.Email) + ', \'' + hash + '\', \'' + salt + '\', false, false);';
+                    var request = 'INSERT INTO Users (UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot, LocationID, LocationActive) values (' + con.escape(req.body.Username) + ', ' + con.escape(req.body.Firstname) + ', ' + con.escape(req.body.Lastname) + ', ' + con.escape(req.body.Email) + ', \'' + hash + '\', \'' + salt + '\', false, false, null, false);';
                     con.query(request, function (err, result) {
                         if(!result) {
                             res.status(502);
