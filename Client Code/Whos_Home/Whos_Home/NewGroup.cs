@@ -52,7 +52,7 @@ namespace Whos_Home
 
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");
-                var response = await request.CreateGroup(groupname, token);
+            var response = await request.CreateGroup(groupname, token);
             int statusCode = (int)response.StatusCode;
                 if ((int)response.StatusCode == 200)
                 {
