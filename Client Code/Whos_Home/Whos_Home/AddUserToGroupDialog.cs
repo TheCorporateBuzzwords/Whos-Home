@@ -28,13 +28,13 @@ namespace Whos_Home
             Cancel = view.FindViewById<Button>(Resource.Id.buttonCancelAddUserToGroup);
 
             //add click functions for buttons
-            Confirm.Click = Confirm_Click;
+            Confirm.Click += Confirm_Click;
             Cancel.Click += Cancel_Click;
 
             return view;
         }
 
-        private void Confirm_Click()
+        private void Confirm_Click(object sender, EventArgs e)
         {
 
         }

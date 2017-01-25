@@ -47,6 +47,8 @@ namespace Whos_Home.Helpers
 
         public List<UserGroup> UserGroups = new List<UserGroup>();
 
+        public List<UserLocation> UserLocations = new List<UserLocation>();
+
         public override string ToString()
         {
             return string.Format("[Person: ID={0}, FirstName={1}, UserName={2}, Email={3}, Token={4}", ID, FirstName, UserName, Email, Token);
