@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+using Whos_Home.Helpers;
+
 namespace Whos_Home
 {
     class AddUserToGroupDialog : DialogFragment
@@ -34,6 +36,13 @@ namespace Whos_Home
         private void Cancel_Click(object sender, EventArgs e)
         {
             Dismiss();
+        }
+
+        private async void Invite(string username, string groupname)
+        {
+            RequestHandler request = new RequestHandler(Context);
+            DB_Singleton db = DB_Singleton.Instance;
+            await request.InviteToGroup(db.SearchGroup(groupname).GroupID, username, db.Retrieve("Token"));
         }
     }
 }

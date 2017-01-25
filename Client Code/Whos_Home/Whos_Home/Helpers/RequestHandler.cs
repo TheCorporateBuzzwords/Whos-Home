@@ -66,12 +66,20 @@ namespace Whos_Home.Helpers
         {
 
         }
-        
-        public async Task<IRestResponse> InviteToGroup(string groupID, string username)
+        */
+        public async Task<IRestResponse> InviteToGroup(string groupID, string username, string token)
         {
+            request = new RestRequest("/groups/{groupid}/invitation/?{recipient}", Method.GET);
+            request.AddUrlSegment("groupid", groupID);
+            request.AddUrlSegment("recipient", username);
+            request.AddHeader("x-access-token", token);
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
 
         }
 
+        /*
         public async Task<IRestResponse> AcceptInvite()
         {
 

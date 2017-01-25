@@ -155,6 +155,14 @@ namespace Whos_Home
             return resultList;
         }
 
+        public UserGroup SearchGroup(string groupname)
+        {
+            if (!GetUserGroups().Exists(check => check.GroupName == groupname)) 
+                return null;
+
+            return GetUserGroups().Find(find => find.GroupName == groupname);
+        }
+
         
 
         public void AddGroup(string groupName, string groupID)
