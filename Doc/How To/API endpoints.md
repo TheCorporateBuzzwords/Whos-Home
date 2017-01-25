@@ -18,6 +18,9 @@ POST /users
 
 \*Confirm: Repeated password to confirm it's matched
 
+### Get information for all groups a user belongs to
+GET /users/groups (authenticated)
+
 ## Session
 ### Login
 POST /session

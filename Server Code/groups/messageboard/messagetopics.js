@@ -27,7 +27,7 @@ module.exports = function (app) {
                         status: "success",
                         message: "Topic successfully added to group's message board."
                     });
-                    res.end;
+                    res.end();
                 }
             })
         }
