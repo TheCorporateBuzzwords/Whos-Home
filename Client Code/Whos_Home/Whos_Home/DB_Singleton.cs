@@ -12,6 +12,11 @@ using Android.Views;
 using Android.Widget;
 
 using Couchbase.Lite;
+using Android.Content.Res;
+using Whos_Home.Helpers;
+using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 
 namespace Whos_Home
 {
@@ -19,8 +24,9 @@ namespace Whos_Home
     {
         private static DB_Singleton instance = null;
         private static readonly object db_lock = new object();
-        private static Database db = null;
-        private static string docID = null;
+        private static string fileName = "userinfo.json";
+        private static string filePath = null;
+        private static string fullPath = null;
         DB_Singleton()
         {
 
@@ -44,6 +50,18 @@ namespace Whos_Home
         //Should only be called once to initialize db
         public void InitDB()
         {
+            string getFilePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            filePath = getFilePath;
+
+            fullPath = Path.Combine(filePath, fileName);
+
+            if(File.Exists(fullPath))
+            {
+
+            }
+
+            
+            /*
             Manager manager = Manager.SharedInstance;
 
             try
@@ -58,31 +76,26 @@ namespace Whos_Home
             {
                 Console.WriteLine(e.Message);
             }
-
-            //Old SQLite Code
-            /*
-            if (db != null)
-                throw new Exception("Database already initialized");
-            else
-            {
-                try
-                {
-                    db = new SQLiteConnection(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "userdb.db"));
-
-                    db.CreateTable<UserDB>();
-                }
-                catch (SQLiteException e)
-                {
-                    Console.WriteLine(e);
-                }
-            }
             */
+
 
         }
 
         //Should only be called once to initialize db
         public void InitialInsert(string token, string username, string email, string firstname)
         {
+            string json = Newtonsoft.Json.JsonConvert.SerializeObject(new UserDB(firstname, username, email, token));
+            Console.WriteLine(json);
+
+            File.WriteAllText(fullPath, json);
+
+            /*using (var streamWriter = new StreamWriter(fullPath, true))
+            {
+                streamWriter.WriteLine(json);
+            }
+            */
+
+            /*
             Dictionary<string, object> properties = new Dictionary<string, object>
             {
                 {"username", username },
@@ -95,23 +108,6 @@ namespace Whos_Home
             Document document = db.CreateDocument();
             document.PutProperties(properties);
             docID = document.Id;
-            /*
-            UserDB user = new UserDB(firstname, username, email, token);
-            if (db == null)
-                throw new Exception("Database does not yet exist");
-            else
-            {
-                try
-                {
-                    db.Execute("DELETE FROM UserDB WHERE 1=1");
-                    db.Insert(new UserDB(firstname, username, email, token));
-                }
-                catch (SQLiteException e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-
-            }
             */
         }
 
@@ -119,36 +115,61 @@ namespace Whos_Home
 
         public string Retrieve(string key)
         {
+            string json = null;
+            using (var streamReader = new StreamReader(fullPath))
+            {
+                json = streamReader.ReadToEnd();
+                Console.WriteLine(json);
+            }
+
+            return (string)JObject.Parse(json)[key];
+            /*
             var doc = db.GetDocument(docID);
             string result = (string)doc.Properties[key];
             Console.WriteLine(result);
             return result;
-            //This is messy, bad, and brute forced and NEEDS to be refactored at some point
-            /*
-            try
-            {
-                UserDB user = new UserDB();
-                List<UserDB> result = db.Query<UserDB>("SELECT * FROM UserDB WHERE 1=1");
-                if (key == "Email")
-                    return result.First().Email;
-                if (key == "UserName")
-                    return result.First().UserName;
-                if (key == "Token")
-                    return result.First().Token;
-                if (key == "FirstName")
-                    return result.First().FirstName;
-
-                return null;
-
-            }
-            catch (SQLiteException e)
-            {
-                Console.WriteLine(e.Message);
-                return "null";
-            }
             */
+        }
 
+        public List<UserGroup> GetUserGroups()
+        {
+            string json = null;
+            using (var streamReader = new StreamReader(fullPath))
+            {
+                json = streamReader.ReadToEnd();
+                Console.WriteLine(json);
+            }
 
+            string teststring = (string)JObject.Parse(json)["UserGroups"].ToString();
+
+            JArray usergroups = JArray.Parse(teststring);
+
+            List<UserGroup> resultList = new List<UserGroup>();
+            foreach(JObject idk in usergroups)
+            {
+                string key = Regex.Split(idk["GroupName"].ToString(), ", ")[0];
+                string value = Regex.Split(idk["GroupID"].ToString(), ", ")[0];
+                resultList.Add(new UserGroup(key, value));
+            }
+
+            return resultList;
+        }
+
+        
+
+        public void AddGroup(string groupName, string groupID)
+        {
+            string json = null;
+            using (var streamReader = new StreamReader(fullPath))
+            {
+                json = streamReader.ReadToEnd();
+                Console.WriteLine(json);
+            }
+
+            UserDB tempUser = Newtonsoft.Json.JsonConvert.DeserializeObject<UserDB>(json);
+            tempUser.AddGroup(groupName, groupID);
+            string jsonConversiton = (string)Newtonsoft.Json.JsonConvert.SerializeObject(tempUser);
+            File.WriteAllText(fullPath, jsonConversiton);
         }
 
     }

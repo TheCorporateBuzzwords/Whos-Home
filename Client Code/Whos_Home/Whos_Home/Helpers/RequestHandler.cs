@@ -49,7 +49,7 @@ namespace Whos_Home.Helpers
             return await client.ExecuteTaskAsync(request);
         }
 
-        public async Task<IRestResponse> CreateGroup(string token, string groupName)
+        public async Task<IRestResponse> CreateGroup(string groupName, string token)
         {
             request = new RestRequest("/groups", Method.POST);
 

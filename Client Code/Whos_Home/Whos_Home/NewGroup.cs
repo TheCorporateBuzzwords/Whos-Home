@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 
 using Whos_Home.Helpers;
+using Newtonsoft.Json.Linq;
 
 namespace Whos_Home
 {
@@ -51,10 +52,11 @@ namespace Whos_Home
 
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");
-                var response = await request.CreateGroup(token, groupname);
+                var response = await request.CreateGroup(groupname, token);
             int statusCode = (int)response.StatusCode;
                 if ((int)response.StatusCode == 200)
                 {
+                    CreateGroup(groupname);
                     Success();
                 }
                 else
@@ -90,18 +92,24 @@ namespace Whos_Home
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");
                 var response = await request.CreateGroup(groupname, token);
-
-                if ((int)response.StatusCode != 200)
-                {
-                    Success();
-                }
-
+            string content = response.Content.ToString();
+            JObject jobjjjj = JObject.Parse(response.Content.ToString());
+            string jobj = (string)JObject.Parse(response.Content)["groupID"];
+            if ((int)response.StatusCode == 200)
+            {
+                Success();
+                db.AddGroup(groupname, (string)JObject.Parse(response.Content)["groupID"]);
+                List<Tuple<string, string>> allUserGroups = db.GetUserGroups();
+            }
+            else
+            {
                 Failure();
+            }
         }
 
         public void Success()
         {
-            Toast.MakeText(this.Context, "Login Successful", ToastLength.Long).Show();
+            Toast.MakeText(this.Context, "Group Successfully Created", ToastLength.Long).Show();
         }
 
         public void Failure()

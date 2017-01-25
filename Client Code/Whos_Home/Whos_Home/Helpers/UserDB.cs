@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+using Newtonsoft.Json.Linq;
+using Whos_Home.Helpers;
 
 namespace Whos_Home.Helpers
 {
@@ -17,12 +19,19 @@ namespace Whos_Home.Helpers
     {
         public UserDB()
         { }
+        
+        
         public UserDB(string firstname, string username, string email, string token)
         {
             FirstName = firstname;
             UserName = username;
             Email = email;
             Token = token;
+        }
+
+        public void AddGroup(string groupName, string groupID)
+        {
+            UserGroups.Add(new UserGroup(groupName, groupID));
         }
 
         //[PrimaryKey, AutoIncrement]
@@ -35,6 +44,8 @@ namespace Whos_Home.Helpers
         public string Email { get; set; }
 
         public string Token { get; set; }
+
+        public List<UserGroup> UserGroups = new List<UserGroup>();
 
         public override string ToString()
         {
