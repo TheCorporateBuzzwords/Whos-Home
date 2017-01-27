@@ -12,6 +12,7 @@ var newgroup = require('./groups/newgroup');
 var getgrouplocations = require('./groups/locations/getgrouplocations');
 var messagetopics = require('./groups/messageboard/messagetopics');
 var userGroups = require('./users/groups');
+var updateLocation = require('./users/location');
 
 //var auth = require('./middlewares/auth');
 app.use(morgan('combined'));
@@ -32,3 +33,4 @@ newgroup(app);
 getgrouplocations(app);
 messagetopics(app);
 userGroups(app);
+updateLocation(app);

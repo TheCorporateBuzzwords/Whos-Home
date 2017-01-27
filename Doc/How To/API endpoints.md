@@ -21,6 +21,11 @@ POST /users
 ### Get information for all groups a user belongs to
 GET /users/groups (authenticated)
 
+### Update User's location
+PUT /users/location (authenticated)
+
+\*bssid: BSSID for location user is at (null if not connected).
+
 ## Session
 ### Login
 POST /session

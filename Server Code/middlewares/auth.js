@@ -41,9 +41,22 @@ module.exports =
                     } else if (result.length) {
                         next();
                     } else {
-                        console.log("error");
+                        res.status(200);
+                        res.json({
+                            status: "error",
+                            message: "you are not part of this group."
+                        });
+                        res.end();
                     }
                 });
+            }
+            else {
+                res.status(200);
+                res.json({
+                    status: "error",
+                    message: "no group ID supplied"
+                });
+                res.end();
             }
         }
     }
