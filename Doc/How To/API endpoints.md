@@ -46,17 +46,15 @@ POST /groups/ (authenticated)
 \*groupName: Name of the new group
 
 ## Groups/invitation
-### Invite a user to a group
-GET /groups/{groupid}/invitation/?{recipient} (authenticated)
+### create a group invitation for a user
+POST /groups/{groupid}/invitation/ (authenticated)
 
 \*groupid: id of the group the invite is for
 
 \*recipient: username of person being invited
 
 ### Accept an existing invite to a group
-POST /groups/invitation
-
-\*inviteToken: token received from POST to groups/invitation
+GET /groups/{groupid}/invitation
 
 ## Groups/location
 ### Creates a new location for the group
