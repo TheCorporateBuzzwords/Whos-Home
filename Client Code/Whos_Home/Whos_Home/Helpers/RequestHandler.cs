@@ -97,8 +97,7 @@ namespace Whos_Home.Helpers
         {
             request = new RestRequest("/groups/{groupID}/invitation", Method.POST);
             request.AddUrlSegment("groupID", groupid);
-            
-            request.AddBody(string.Format("{\"username\":\"{0}\"}", username));
+            request.AddParameter("username", username);
 
             request.AddHeader("x-access-token", token);
 
@@ -106,12 +105,19 @@ namespace Whos_Home.Helpers
 
             return response;
         }
-        /*
+
         public async Task<IRestResponse> AddLocation(string SSID, string locationName, string groupid)
         {
+            request = new RestRequest("groups/{groupid}/location/", Method.POST);
+            request.AddUrlSegment("groupid", groupid);
+            request.AddParameter("ssid", SSID);
+            request.AddParameter("locationName", locationName);
 
+            var response = await client.ExecuteTaskAsync(request);
+
+            return response;
         }
-        */
+        
 
         public async Task<IRestResponse> UpdateLocation(string token, string SSID)
         {
@@ -119,8 +125,7 @@ namespace Whos_Home.Helpers
             request = new RestRequest("/users/locations", Method.PUT);
 
             request.AddHeader("x-access-token", token);
-
-            request.AddBody(string.Format("{\"ssid\":\"{0}\"}", SSID));
+            request.AddParameter("ssid", SSID);
 
             var response = await client.ExecuteTaskAsync(request);
 
