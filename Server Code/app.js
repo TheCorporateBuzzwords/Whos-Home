@@ -12,7 +12,7 @@ var getgrouplocations = require('./groups/locations/getgrouplocations');
 var messagetopics = require('./groups/messageboard/messagetopics');
 var userGroups = require('./users/groups');
 var updateLocation = require('./users/location');
-var acceptInvite = require('./groups/invitation/acceptInvite');
+var acceptInvite = require('./groups/invitation/acceptinvite');
 
 //var auth = require('./middlewares/auth');
 app.use(morgan('combined'));
