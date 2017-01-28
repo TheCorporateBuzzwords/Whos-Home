@@ -56,6 +56,8 @@ POST /groups/{groupid}/invitation/ (authenticated)
 ### Accept an existing invite to a group
 GET /groups/{groupid}/invitation
 
+deny: true if invitation is to be declined.
+
 ## Groups/location
 ### Creates a new location for the group
 POST /groups/{groupid}/location/ (authenticated)
