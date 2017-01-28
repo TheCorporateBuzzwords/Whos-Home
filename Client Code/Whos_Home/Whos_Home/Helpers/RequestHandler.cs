@@ -53,20 +53,13 @@ namespace Whos_Home.Helpers
         {
             request = new RestRequest("/groups", Method.POST);
 
-            //request.AddParameter("Authorization", string.Format("Bearer {0}", token), ParameterType.HttpHeader);
-
             request.AddParameter("groupName", groupName);
             request.AddHeader("x-access-token", token);
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
 
-        /*
-        public async Task<IRestResponse> GetGroup(string groupID)
-        {
-
-        }
-        */
+       
         public async Task<IRestResponse> InviteToGroup(string groupID, string username, string token)
         {
             request = new RestRequest("/groups/{groupid}/invitation/?{recipient}", Method.GET);
@@ -91,7 +84,7 @@ namespace Whos_Home.Helpers
         
         public async Task<IRestResponse> RespondInvitation(string token, string groupid, bool deny)
         {
-            request = new RestRequest("/groups/{groupid}/invitation", Method.GET);
+            request = new RestRequest(string.Format("/groups/{groupid}/invitation/deny={0}", deny.ToString()), Method.GET);
             request.AddUrlSegment("groupid", groupid);
             request.AddHeader("deny", deny.ToString());
             request.AddHeader("x-access-token", token);
@@ -99,6 +92,7 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
+
         public async Task<IRestResponse> SendInvitation(string token, string groupid, string username)
         {
             request = new RestRequest("/groups/{groupID}/invitation", Method.POST);
@@ -113,12 +107,25 @@ namespace Whos_Home.Helpers
             return response;
         }
         /*
-        public async Task<IRestResponse> AddLocation(string SSID, string locationName)
+        public async Task<IRestResponse> AddLocation(string SSID, string locationName, string groupid)
         {
 
         }
         */
 
+        public async Task<IRestResponse> UpdateLocation(string token, string SSID)
+        {
+            //SSID can be null if user is offline
+            request = new RestRequest("/users/locations", Method.PUT);
+
+            request.AddHeader("x-access-token", token);
+
+            request.AddBody(string.Format("{\"ssid\":\"{0}\"}", SSID));
+
+            var response = await client.ExecuteTaskAsync(request);
+
+            return response;
+        }
         public async Task<IRestResponse> GetInvitations(string token)
         {
             request = new RestRequest("/users/invites", Method.GET);
