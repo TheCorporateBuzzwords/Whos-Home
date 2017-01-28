@@ -2,7 +2,7 @@ USE WHOSHOME;
 -- use jptest;
 
  -- Drop table statements
-  Drop Table If Exists Bills, Posts, Message_Topics, Items, Lists, User_Locations, User_Groups, Users, Group_Locations, Groups;
+  Drop Table If Exists Bills, Posts, Message_Topics, Items, Lists, User_Locations, User_Groups, Invites, Users, Group_Locations, Groups;
 
  -- Table creaiton
 /*
@@ -52,6 +52,20 @@ Create Table Users (
   , LocationActive  bool
   , foreign key (LocationID) references Group_Locations(LocationID)
   , primary key (UserID)
+  ) ENGINE = INNODB;
+
+/*
+  Table: Invites
+  Purpose: Table for keeping track of group invites for users
+*/
+Create Table Invites (
+  GroupID           bigint         not null
+  , InviterID       bigint         not null
+  , RecipientID     bigint         not null
+  , foreign key (GroupID) references Groups(GroupID)
+  , foreign key (InviterID) references Users(UserID)
+  , foreign key (RecipientID) references Users(UserID)
+  , primary key (GroupID, RecipientID)
   ) ENGINE = INNODB;
 
 /*
