@@ -26,7 +26,7 @@ module.exports =
                 });
             }
             else {
-                next();
+                res.status(403).json({ status: "Error", message: "no authenticity token provided" });
             }
         },
         CheckInGroup: function (req, res, next) {

@@ -6,7 +6,6 @@ var login = require('./session/login');
 var signup = require('./users/signup');
 var groupinfo = require('./groups/groupinfo');
 var sendinvite = require('./groups/invitation/sendinvite');
-var addtogroup = require('./groups/addpersontogroup');
 var newlocation = require('./groups/locations/newlocation');
 var newgroup = require('./groups/newgroup');
 var getgrouplocations = require('./groups/locations/getgrouplocations');

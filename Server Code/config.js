@@ -14,7 +14,8 @@ module.exports = {
         port: 3306,
         user: "limited",
         password: "$t@ched&&CA$H3D",
-        database: "WHOSHOME"
+        database: "WHOSHOME",
+        multipleStatements: true
     },
     JWTInfo: {
         //secret for signing jwt tokens
