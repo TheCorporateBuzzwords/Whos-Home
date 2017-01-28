@@ -56,6 +56,7 @@ namespace Whos_Home
 
                 if (code_num == 200)
                     Success(response);
+
                 else
                     InvalidResponse(response);
             }
@@ -68,6 +69,39 @@ namespace Whos_Home
             Toast.MakeText(this.Context, "Login Successful", ToastLength.Long).Show();
             this.Activity.StartActivity(typeof(BulletinBoard));
             InsertInDB(DecodeToken(response));
+            UpdateGroups();
+        }
+
+        private async void UpdateGroups()
+        {
+            DB_Singleton db = DB_Singleton.Instance;
+            string token = db.Retrieve("Token");
+            RequestHandler request = new RequestHandler(Context);
+            IRestResponse response = await request.PullGroups(token);
+
+            List<UserGroup> userGroupList = ReformatResponse(response.Content);
+
+            foreach(UserGroup user in userGroupList)
+            {
+                db.AddGroup(user.GroupName, user.GroupID);
+            }
+        }
+
+        private List<UserGroup> ReformatResponse(string content)
+        {
+            if (content == "[]" || content == "")
+                return new List<UserGroup>();
+
+            List<UserGroup> groupList = new List<UserGroup>();
+            JArray tempArr = JArray.Parse((string)content);
+            foreach(var group in tempArr)
+            {
+                string groupid = (string)group["GroupID"];
+                string groupname = (string)group["GroupName"];
+                groupList.Add(new UserGroup(groupname, groupid));
+            }
+
+            return groupList;
 
         }
 

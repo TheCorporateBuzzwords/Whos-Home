@@ -54,13 +54,8 @@ namespace Whos_Home
             filePath = getFilePath;
 
             fullPath = Path.Combine(filePath, fileName);
-
-            if(File.Exists(fullPath))
-            {
-
-            }
-
-            
+            File.Delete(fullPath);
+             
             /*
             Manager manager = Manager.SharedInstance;
 
@@ -84,8 +79,7 @@ namespace Whos_Home
         //Should only be called once to initialize db
         public void InitialInsert(string token, string username, string email, string firstname)
         {
-            string json = Newtonsoft.Json.JsonConvert.SerializeObject(new UserDB(firstname, username, email, token));
-            Console.WriteLine(json);
+            string json = JsonConvert.SerializeObject(new UserDB(firstname, username, email, token));
 
             File.WriteAllText(fullPath, json);
 
@@ -176,7 +170,7 @@ namespace Whos_Home
 
             UserDB tempUser = Newtonsoft.Json.JsonConvert.DeserializeObject<UserDB>(json);
             tempUser.AddGroup(groupName, groupID);
-            string jsonConversiton = (string)Newtonsoft.Json.JsonConvert.SerializeObject(tempUser);
+            string jsonConversiton = JsonConvert.SerializeObject(tempUser);
             File.WriteAllText(fullPath, jsonConversiton);
         }
 

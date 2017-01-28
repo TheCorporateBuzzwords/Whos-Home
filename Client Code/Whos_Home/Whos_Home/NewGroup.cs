@@ -99,7 +99,7 @@ namespace Whos_Home
             {
                 Success();
                 db.AddGroup(groupname, (string)JObject.Parse(response.Content)["groupID"]);
-                List<Tuple<string, string>> allUserGroups = db.GetUserGroups();
+                List<UserGroup> allUserGroups = db.GetUserGroups();
             }
             else
             {

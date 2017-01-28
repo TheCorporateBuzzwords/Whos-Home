@@ -79,12 +79,22 @@ namespace Whos_Home.Helpers
 
         }
 
-        /*
-        public async Task<IRestResponse> AcceptInvite()
+        public async Task<IRestResponse> PullGroups(string token)
         {
+            request = new RestRequest("/users/groups", Method.GET);
+            request.AddHeader("x-access-token", token);
 
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
         }
 
+        
+        /*public async Task<IRestResponse> RespondInvite()
+        {
+            request = new RestRequest("/users");
+        }*/
+
+        /*
         public async Task<IRestResponse> AddLocation(string SSID, string locationName)
         {
 

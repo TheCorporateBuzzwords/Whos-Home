@@ -9,7 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-
+using Whos_Home.Helpers;
 namespace Whos_Home
 {
     [Activity(Label = "Groups")]
@@ -31,10 +31,12 @@ namespace Whos_Home
         private void InitializeFormat()
         {
             //create mock group names
-            for (int i = 0; i < 5; ++i)
+
+            DB_Singleton db = DB_Singleton.Instance;
+            List<UserGroup> userGroupList = db.GetUserGroups();
+            foreach(UserGroup group in userGroupList)
             {
-                groupnames.Add("Group " + i.ToString());
-                nummembers.Add(i.ToString() + " Members");
+                groupnames.Add(group.GroupName);
             }
 
             listView = FindViewById<ListView>(Resource.Id.listviewGroups);

@@ -155,6 +155,7 @@
     <Compile Include="DB_Singleton.cs" />
     <Compile Include="Helpers\UserDB.cs" />
     <Compile Include="Helpers\UserGroup.cs" />
+    <Compile Include="Helpers\UserLocation.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="NewGroup.cs" />
     <Compile Include="AddLocationFragment.cs" />

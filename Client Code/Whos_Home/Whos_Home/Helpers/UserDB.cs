@@ -47,7 +47,7 @@ namespace Whos_Home.Helpers
 
         public List<UserGroup> UserGroups = new List<UserGroup>();
 
-        public List<UserLocation> UserLocations = new List<UserLocation>();
+        public List<UserLocation> userLocations = new List<UserLocation>();
 
         public override string ToString()
         {
