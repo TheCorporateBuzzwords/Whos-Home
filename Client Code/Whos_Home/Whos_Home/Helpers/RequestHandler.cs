@@ -89,16 +89,45 @@ namespace Whos_Home.Helpers
         }
 
         
-        /*public async Task<IRestResponse> RespondInvite()
+        public async Task<IRestResponse> RespondInvitation(string token, string groupid, bool deny)
         {
-            request = new RestRequest("/users");
-        }*/
+            request = new RestRequest("/groups/{groupid}/invitation", Method.GET);
+            request.AddUrlSegment("groupid", groupid);
+            request.AddHeader("deny", deny.ToString());
+            request.AddHeader("x-access-token", token);
 
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+        public async Task<IRestResponse> SendInvitation(string token, string groupid, string username)
+        {
+            request = new RestRequest("/groups/{groupID}/invitation", Method.POST);
+            request.AddUrlSegment("groupID", groupid);
+            
+            request.AddBody(string.Format("{\"username\":\"{0}\"}", username));
+
+            request.AddHeader("x-access-token", token);
+
+            var response = await client.ExecuteTaskAsync(request);
+
+            return response;
+        }
         /*
         public async Task<IRestResponse> AddLocation(string SSID, string locationName)
         {
 
         }
         */
+
+        public async Task<IRestResponse> GetInvitations(string token)
+        {
+            request = new RestRequest("/users/invites", Method.GET);
+
+            request.AddHeader("x-access-token", token);
+
+            var response = await client.ExecuteTaskAsync(request);
+
+            return response;
+        }
     }
 }
