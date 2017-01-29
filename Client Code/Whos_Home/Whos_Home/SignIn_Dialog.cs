@@ -36,7 +36,7 @@ namespace Whos_Home
             return view;
 
         }
-        public async void SignInAttempt(object sender, System.EventArgs e)
+        public async void SignInAttempt(object sender, EventArgs e)
         {
             //retrieves data from dialog box
             View view = this.View;

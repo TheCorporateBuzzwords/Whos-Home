@@ -28,11 +28,18 @@ namespace Whos_Home
             AddUser = view.FindViewById<Button>(Resource.Id.buttonAddUserToGroup);
 
             //Add click functions for buttons
+            Select.Click += Select_Click;
             Cancel.Click += Cancel_Click;
             AddUser.Click += AddUser_Click;
 
             return view;
 
+        }
+
+        private void Select_Click(object sender, EventArgs e)
+        {
+            DB_Singleton db = DB_Singleton.Instance;
+            //db.ChangeActiveGroup()
         }
 
         private void AddUser_Click(object sender, EventArgs e)

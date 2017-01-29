@@ -168,11 +168,38 @@ namespace Whos_Home
                 Console.WriteLine(json);
             }
 
-            UserDB tempUser = Newtonsoft.Json.JsonConvert.DeserializeObject<UserDB>(json);
+            UserDB tempUser = JsonConvert.DeserializeObject<UserDB>(json);
             tempUser.AddGroup(groupName, groupID);
             string jsonConversiton = JsonConvert.SerializeObject(tempUser);
             File.WriteAllText(fullPath, jsonConversiton);
         }
 
+        public void ChangeActiveGroup(UserGroup activeGroup)
+        {
+            string json = null;
+            using (var streamReader = new StreamReader(fullPath))
+            {
+                json = streamReader.ReadToEnd();
+                Console.WriteLine(json);
+            }
+            JObject userDBObj = JObject.Parse(json);
+
+            string insertGroup = string.Format("{\"GroupName\":\"{0}\", \"GroupID\":\"{1}\"}", activeGroup.GroupName, activeGroup.GroupID);
+            userDBObj["ActiveGroup"] = insertGroup;
+        }
+
+        public UserGroup GetActiveGroup()
+        {
+            string json = null;
+            using (var streamReader = new StreamReader(fullPath))
+            {
+                json = streamReader.ReadToEnd();
+                Console.WriteLine(json);
+            }
+            JObject userDBObj = JObject.Parse(json);
+
+            return new UserGroup((string)userDBObj["ActiveGroup"]["GroupName"], (string)userDBObj["ActiveGroup"]["GroupID"]);
+
+        }
     }
 }

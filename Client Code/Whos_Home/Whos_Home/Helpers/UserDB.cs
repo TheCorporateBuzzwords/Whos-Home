@@ -45,9 +45,24 @@ namespace Whos_Home.Helpers
 
         public string Token { get; set; }
 
+        public UserGroup ActiveGroup
+        {
+            get
+            {
+                return activeGroup;
+            }
+
+            set
+            {
+                activeGroup = value;
+            }
+        }
+
         public List<UserGroup> UserGroups = new List<UserGroup>();
 
         public List<UserLocation> userLocations = new List<UserLocation>();
+
+        private UserGroup activeGroup;
 
         public override string ToString()
         {
