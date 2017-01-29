@@ -20,6 +20,7 @@ namespace Whos_Home
     public class Locations : Activity
     {
         private Button AddLocation;
+        //private List<>
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

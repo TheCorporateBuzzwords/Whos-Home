@@ -12,13 +12,14 @@ using Android.Widget;
 using Android.Net.Wifi;
 using Android;
 using Android.Content.PM;
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
     class AddLocationFragment : DialogFragment
     {
         ListView NetworkList;
-        Button BCancel;
+        Button BCancel, BConfirm;
         List<string> WifiNetworks = new List<string>();
         List<string> WifiNetworkKey = new List<string>();
 
@@ -30,6 +31,7 @@ namespace Whos_Home
             //Initialize listview and cancel button
             NetworkList = view.FindViewById<ListView>(Resource.Id.locationlistview);
             BCancel = view.FindViewById<Button>(Resource.Id.CancelAddNewLocationButton);
+
 
             BCancel.Click += BCancel_Click;
             NetworkList.ItemClick += NetworkList_ItemClick;
@@ -44,7 +46,6 @@ namespace Whos_Home
             if (view.Context.CheckSelfPermission(permission) == (int)Permission.Granted)
             {
                 var InRange = wifimanager.ScanResults;
-                
                 
                 foreach (ScanResult network in InRange)
                 {
@@ -70,7 +71,12 @@ namespace Whos_Home
             alert.SetTitle("Add " + selected + " to your locations?");
 
             //Send new location information to database
-            alert.SetPositiveButton("Confirm", (senderAlert, args) => { });
+            alert.SetPositiveButton("Confirm", async (senderAlert, args) =>
+            {
+                RequestHandler request = new RequestHandler(View.Context);
+                
+                //var response = await request.AddLocation(WifiNetworks.ElementAt<string>(position), selected,);
+            });
 
             //Close dialog and cancel add
             alert.SetNegativeButton("Cancel", (senderAlert, args) =>
