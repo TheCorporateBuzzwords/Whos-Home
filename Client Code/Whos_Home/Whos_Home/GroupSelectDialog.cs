@@ -55,7 +55,7 @@ namespace Whos_Home
             AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
             alert.SetTitle("Make " + groupname + " your current group?");
 
-            //Set default group
+            //Set current group
             alert.SetPositiveButton("Confirm", (senderAlert, args) => 
             {
                 //This is where current group is set

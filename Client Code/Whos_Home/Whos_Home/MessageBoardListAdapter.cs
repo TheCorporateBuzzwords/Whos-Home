@@ -26,9 +26,7 @@ namespace Whos_Home
             titles = t;
             messages = m;
 
-            //Reverses list order to display most recent posts first.
-            t.Reverse();
-            m.Reverse();
+            
         }
        
         public override int Count
@@ -74,6 +72,7 @@ namespace Whos_Home
             // return the view, populated with data, for display
             return view;
         }
+
 
     }
 }

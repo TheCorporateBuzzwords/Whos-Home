@@ -65,10 +65,6 @@ namespace Whos_Home
             var listView = sender as ListView;
             var position = e.Position;
 
-            //create json serialization to send to groupselectdialog
-            Intent i = new Intent(Application.Context, typeof(GroupSelectDialog));
-            i.PutExtra("groupname", JsonConvert.SerializeObject(groupnames[position]));
-
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
             GroupSelectDialog Dialog = new GroupSelectDialog(groupnames[position]);
             Dialog.Show(transaction, "dialog fragment new message");

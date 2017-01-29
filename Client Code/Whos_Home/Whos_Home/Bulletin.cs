@@ -59,6 +59,7 @@ namespace Whos_Home
             message.Text = msg;
             commentlistview.Adapter = new BulletinCommentListAdapter(this, usernames, comments);
 
+
             //set onClick method for message that will open the full message text in another window
             message.Click += TextViewClick;
 

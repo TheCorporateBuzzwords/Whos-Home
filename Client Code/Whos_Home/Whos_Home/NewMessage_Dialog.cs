@@ -38,6 +38,9 @@ namespace Whos_Home
                 Dialog dialog = alert.Create();
                 dialog.Show();
 
+                Intent intent = new Intent(this.Activity.ApplicationContext, typeof(BulletinBoard));
+                Notification(intent, "A new message has been posted in ", "groupname", 0, 0);
+
                 //send values to server??
 
                 //set private values equal to equal values from dialog box
@@ -58,6 +61,30 @@ namespace Whos_Home
         public string GetMessage()
         {
             return message;
+        }
+
+        private void Notification(Intent activity, string text, string group, int intent_id, int notification_id)
+        {
+            //creates a Pending intent with the activity sent to the notification
+            PendingIntent pendingIntent =
+                PendingIntent.GetActivity(this.Activity.ApplicationContext, intent_id, activity, PendingIntentFlags.OneShot);
+
+            //creates a notification based on the intent and message of the notification
+            Notification.Builder builder = new Notification.Builder(this.Activity.ApplicationContext);
+            builder.SetContentIntent(pendingIntent);
+            builder.SetContentTitle("Who's Home?");
+            builder.SetContentText(text + group);
+            builder.SetSmallIcon(Resource.Drawable.ic_action_content_save);
+
+            // Build the notification
+            Notification notification = builder.Build();
+
+            // Get the notification manager:
+            NotificationManager notificationManager =
+                this.Activity.ApplicationContext.GetSystemService(Context.NotificationService) as NotificationManager;
+
+            // Publish the notification:
+            notificationManager.Notify(notification_id, notification);
         }
     }
 }

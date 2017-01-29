@@ -30,8 +30,7 @@ namespace Whos_Home
             InitializeToolbars();
             InitializeFormat();
 
-            Intent intent = new Intent(this, typeof(BulletinBoard));
-            Notification(intent,"A new message has been posted in ", "groupname", 0 , 0);
+            
 
         }
         //titles and messsages will be stored and can be accessed when loading
@@ -48,16 +47,19 @@ namespace Whos_Home
             {
                 titles.Add("Title" + i.ToString());
                 messages.Add("Message" + i.ToString());
-
-
             }
             NewPostButton = FindViewById<Button>(Resource.Id.NewPostButton);
             NewPostButton.Click += NewPostButton_Click;
 
 
             listView = FindViewById<ListView>(Resource.Id.messagelistview);
+
+            //reverse titles and messages so they are shown correctly in bulletinboard
+            titles.Reverse();
+            messages.Reverse();
+
             listView.Adapter = new MessageBoardListAdapter(this, titles, messages);
-            
+       
             listView.ItemClick += OnMessageItemClick;
 
         }

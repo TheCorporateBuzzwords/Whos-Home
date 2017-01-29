@@ -20,7 +20,6 @@ namespace Whos_Home
     public class Locations : Activity
     {
         private Button AddLocation;
-        //private List<>
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -34,19 +33,19 @@ namespace Whos_Home
             AddLocation = FindViewById<Button>(Resource.Id.NewLocationButton);
             AddLocation.Click += AddLocation_Click;
 
+            //This block asks the user for location permissions
+            //Or checks if the user already gave permissions
             string permission = Manifest.Permission.AccessFineLocation;
             if (CheckSelfPermission(permission) != (int)Permission.Granted)
             {
-                string[] poop = new string[1];
-                poop[0] = Manifest.Permission.AccessFineLocation;
-                ActivityCompat.RequestPermissions(this, poop, 0);
+                string[] request_permissions = new string[1];
+                request_permissions[0] = Manifest.Permission.AccessFineLocation;
+                ActivityCompat.RequestPermissions(this, request_permissions, 0);
             }
         }
 
         private void AddLocation_Click(object sender, EventArgs e)
         {
-           
-
             Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
             AddLocationFragment AddLocationDialog = new AddLocationFragment();
             AddLocationDialog.Show(transaction, "dialog fragment create account");
