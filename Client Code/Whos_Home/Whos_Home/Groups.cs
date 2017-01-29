@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Whos_Home.Helpers;
+using Newtonsoft.Json;
+
 namespace Whos_Home
 {
     [Activity(Label = "Groups")]
@@ -36,6 +38,7 @@ namespace Whos_Home
             List<UserGroup> userGroupList = db.GetUserGroups();
             foreach(UserGroup group in userGroupList)
             {
+                //number of members in each group also needs to be added here
                 groupnames.Add(group.GroupName);
             }
 
@@ -62,8 +65,12 @@ namespace Whos_Home
             var listView = sender as ListView;
             var position = e.Position;
 
+            //create json serialization to send to groupselectdialog
+            Intent i = new Intent(Application.Context, typeof(GroupSelectDialog));
+            i.PutExtra("groupname", JsonConvert.SerializeObject(groupnames[position]));
+
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            GroupSelectDialog Dialog = new GroupSelectDialog();
+            GroupSelectDialog Dialog = new GroupSelectDialog(groupnames[position]);
             Dialog.Show(transaction, "dialog fragment new message");
         }
 

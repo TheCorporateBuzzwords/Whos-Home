@@ -52,8 +52,15 @@ namespace Whos_Home
             if (view == null) // otherwise create a new one
                 view = context.LayoutInflater.Inflate(Resource.Layout.CustomGroupView, null);
 
-            view.FindViewById<TextView>(Resource.Id.GroupText1).Text = groupName[position];
-            view.FindViewById<TextView>(Resource.Id.GroupText2).Text = numMembers[position].ToString();
+            //crashes here without this if statement not sure why
+            
+                view.FindViewById<TextView>(Resource.Id.GroupText1).Text = groupName[position];
+            if (numMembers.Count == groupName.Count)
+                view.FindViewById<TextView>(Resource.Id.GroupText2).Text = numMembers[position].ToString();
+            else
+                view.FindViewById<TextView>(Resource.Id.GroupText2).Text = "Error loading members";
+
+
 
 
 
