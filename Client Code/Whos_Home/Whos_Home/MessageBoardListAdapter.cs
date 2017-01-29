@@ -55,6 +55,7 @@ namespace Whos_Home
             View view = convertView; // re-use an existing view, if one is supplied
             if (view == null) // otherwise create a new one
                 view = context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItem2, null);
+
             // set view properties to reflect data for the given row
             view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = titles[position];
 
