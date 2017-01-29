@@ -183,9 +183,10 @@ namespace Whos_Home
                 Console.WriteLine(json);
             }
             JObject userDBObj = JObject.Parse(json);
+            JObject groupJson = JObject.FromObject(activeGroup);
+            userDBObj["ActiveGroup"] = groupJson;
 
-            string insertGroup = string.Format("{\"GroupName\":\"{0}\", \"GroupID\":\"{1}\"}", activeGroup.GroupName, activeGroup.GroupID);
-            userDBObj["ActiveGroup"] = insertGroup;
+            File.WriteAllText(fullPath, userDBObj.ToString());
         }
 
         public UserGroup GetActiveGroup()

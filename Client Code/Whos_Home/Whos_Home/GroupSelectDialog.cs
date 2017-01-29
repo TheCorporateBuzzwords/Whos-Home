@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
@@ -59,6 +60,9 @@ namespace Whos_Home
             alert.SetPositiveButton("Confirm", (senderAlert, args) => 
             {
                 //This is where current group is set
+                DB_Singleton db = DB_Singleton.Instance;
+                UserGroup active = db.SearchGroup(groupname);
+                db.ChangeActiveGroup(active);
             });
 
             //Close dialog
