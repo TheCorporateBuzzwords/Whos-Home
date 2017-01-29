@@ -65,6 +65,7 @@ namespace Whos_Home
             var listView = sender as ListView;
             var position = e.Position;
 
+
             string selected = WifiNetworks.ElementAt<string>(position);
 
             AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
@@ -73,9 +74,12 @@ namespace Whos_Home
             //Send new location information to database
             alert.SetPositiveButton("Confirm", async (senderAlert, args) =>
             {
+                DB_Singleton db = DB_Singleton.Instance;
+                var group = db.GetActiveGroup();
                 RequestHandler request = new RequestHandler(View.Context);
                 
-                //var response = await request.AddLocation(WifiNetworks.ElementAt<string>(position), selected,);
+                //adds location to the db using the db_singleton active groupID
+                var response = await request.AddLocation(WifiNetworkKey.ElementAt<string>(position), selected, group.GroupID);
             });
 
             //Close dialog and cancel add
