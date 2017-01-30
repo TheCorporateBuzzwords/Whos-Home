@@ -6,5 +6,5 @@
     android:minHeight="?android:attr/actionBarSize"
     android:background="?android:attr/colorPrimary"
     android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
-    android:layout_gravity="start"
+    
     />

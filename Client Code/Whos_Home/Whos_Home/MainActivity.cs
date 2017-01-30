@@ -27,8 +27,8 @@ namespace Whos_Home
             BSignIn.Click += BSignIn_Click;
 
             //Creates instance of the Test button REMOVE IN DEPLOYMENTS
-            BTest = FindViewById<Button>(Resource.Id.buttonTest);
-            BTest.Click += BTest_Click;
+            //BTest = FindViewById<Button>(Resource.Id.buttonTest);
+            //BTest.Click += BTest_Click;
         }
 
         //Function is called when sign in button is clicked

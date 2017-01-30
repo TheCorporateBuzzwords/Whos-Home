@@ -15,12 +15,21 @@ namespace Whos_Home
     [Activity(Label = "Notifications")]
     public class Notifications : Activity
     {
+        Button Brefresh;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
+            Brefresh = FindViewById<Button>(Resource.Id.ButtonRefresh);
+            Brefresh.Click += Brefresh_Click;
+
             SetContentView(Resource.Layout.Notifications);
             InitializeToolbars();
+        }
+
+        private void Brefresh_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void InitializeToolbars()

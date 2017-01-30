@@ -46,8 +46,7 @@
         android:layout_marginLeft="15px"
         android:layout_marginRight="15px"
         android:textSize="15sp" />
-
-  <!--BUTTON ONLY USED FOR TESTING-->
+<!--BUTTON ONLY USED FOR TESTING
     <Button
         android:background="@drawable/blue_button"
         android:text="TEST"
@@ -57,5 +56,5 @@
         android:id="@+id/buttonTest"
         android:layout_marginLeft="15px"
         android:layout_marginRight="15px"
-        android:textSize="15sp" />
+        android:textSize="15sp" />-->
 </LinearLayout>
