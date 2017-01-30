@@ -56,12 +56,18 @@ namespace Whos_Home
             //initialize top toolbar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
-            ActionBar.Title = "Locations";
+            ActionBar.Title = "Bulletins";
+
 
             //initialize bottom toolbar
             var editToolbar = FindViewById<Toolbar>(Resource.Id.edit_toolbar);
+            //editToolbar.Title = "Navigate";
             editToolbar.InflateMenu(Resource.Menu.edit_menus);
             editToolbar.MenuItemClick += NavigateMenu;
+
+            //(sender, e) => {
+            //Toast.MakeText(this, "Bottom toolbar tapped: " + e.Item.TitleFormatted, ToastLength.Short).Show();
+            //};
 
 
         }
@@ -91,6 +97,10 @@ namespace Whos_Home
         {
             Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
                 ToastLength.Short).Show();
+
+            //loads notifications
+            if (item.ToString() == "Notifications")
+                this.StartActivity(typeof(Notifications));
 
             //Loads settings menu if preferences is selected
             if (item.ToString() == "Preferences")

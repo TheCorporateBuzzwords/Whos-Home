@@ -20,10 +20,12 @@ namespace Whos_Home
         {
             base.OnCreate(savedInstanceState);
 
-            Brefresh = FindViewById<Button>(Resource.Id.ButtonRefresh);
-            Brefresh.Click += Brefresh_Click;
+            
 
             SetContentView(Resource.Layout.Notifications);
+
+            Brefresh = FindViewById<Button>(Resource.Id.ButtonRefresh);
+            Brefresh.Click += Brefresh_Click;
             InitializeToolbars();
         }
 
