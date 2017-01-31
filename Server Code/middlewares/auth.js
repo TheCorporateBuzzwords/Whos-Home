@@ -1,7 +1,5 @@
 var config = require("./../config");
 var mysql = require("mysql");
-var async = require('async');
-var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 
 module.exports =
