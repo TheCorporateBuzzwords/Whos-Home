@@ -60,7 +60,7 @@ namespace Whos_Home.Helpers
         }
 
        
-        public async Task<IRestResponse> InviteToGroup(string groupID, string username, string token)
+        public async Task<IRestResponse> InviteToGroup(string token, string groupID, string username)
         {
             request = new RestRequest("/groups/{groupid}/invitation/?{recipient}", Method.GET);
             request.AddUrlSegment("groupid", groupID);
@@ -94,9 +94,9 @@ namespace Whos_Home.Helpers
 
         public async Task<IRestResponse> SendInvitation(string token, string groupid, string username)
         {
-            request = new RestRequest("/groups/{groupID}/invitation", Method.POST);
-            request.AddUrlSegment("groupID", groupid);
-            request.AddParameter("username", username);
+            request = new RestRequest("/groups/{groupID}/invitation/", Method.POST);
+            request.AddUrlSegment("groupid", groupid);
+            request.AddParameter("recipient", username);
 
             request.AddHeader("x-access-token", token);
 

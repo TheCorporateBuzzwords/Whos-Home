@@ -41,12 +41,24 @@ namespace Whos_Home
             return view;
         }
 
-        private void Confirm_Click(object sender, EventArgs e)
+        private async void Confirm_Click(object sender, EventArgs e)
         {
-            /*RequestHandler request = new RequestHandler();
-            request.InviteToGroup(groupid, DB_Singleton.Instance.Retrieve("Token"), username);
-            */
-
+            RequestHandler request = new RequestHandler(Context);
+            var db = DB_Singleton.Instance;
+            var groupid = DB_Singleton.Instance.SearchGroup(groupname).GroupID;
+            var invitee = View.FindViewById<EditText>(Resource.Id.edittextAddUserToGroupDialog).Text;
+            var token = db.Retrieve("Token");
+            
+            var response = await request.InviteToGroup(token, groupid, invitee);
+            
+            if((int)response.StatusCode == 200)
+            {
+                Toast.MakeText(Context, "Invite Sent", ToastLength.Long);
+            }
+            else
+            {
+                Toast.MakeText(Context, "Error", ToastLength.Long);
+            }
         }
         
 
