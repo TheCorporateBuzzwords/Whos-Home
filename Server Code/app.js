@@ -13,6 +13,7 @@ var messagetopics = require('./groups/messageboard/messagetopics');
 var userGroups = require('./users/groups');
 var updateLocation = require('./users/location');
 var acceptInvite = require('./groups/invitation/acceptinvite');
+var userInites = require('./users/invites');
 
 //var auth = require('./middlewares/auth');
 app.use(morgan('combined'));
@@ -34,3 +35,4 @@ messagetopics(app);
 userGroups(app);
 updateLocation(app);
 acceptInvite(app);
+userInites(app);

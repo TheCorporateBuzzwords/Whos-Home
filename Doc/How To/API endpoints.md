@@ -26,6 +26,9 @@ PUT /users/location (authenticated)
 
 \*bssid: BSSID for location user is at (null if not connected).
 
+### Get information for all invites targeted at a single user
+GET /users/invites (authenticated)
+
 ## Session
 ### Login
 POST /session
@@ -65,6 +68,9 @@ POST /groups/{groupid}/location/ (authenticated)
 \*ssid: ssid for connection
 
 \*locationName: name of new location
+
+### Get information on all locations of a group
+GET /groups/{groupid}/locations/ (authenticated)
 
 ##Groups/messageboard
 ### Create a messageboard post topic
