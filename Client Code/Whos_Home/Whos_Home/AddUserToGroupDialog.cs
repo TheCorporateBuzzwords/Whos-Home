@@ -18,6 +18,13 @@ namespace Whos_Home
     {
         private Button Confirm;
         private Button Cancel;
+        private string groupname; //here ya go
+
+        public AddUserToGroupDialog(string group_name)
+        {
+            groupname = group_name;
+        }
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);

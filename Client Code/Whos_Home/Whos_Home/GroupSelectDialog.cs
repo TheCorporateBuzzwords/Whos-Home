@@ -21,6 +21,7 @@ namespace Whos_Home
         private Button AddUser;
         private TextView textviewGroupName;
         private string groupname;
+
         public GroupSelectDialog(string group_name)
         {
             this.groupname = group_name;
@@ -79,7 +80,7 @@ namespace Whos_Home
         {
             Dismiss();
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            AddUserToGroupDialog Dialog = new AddUserToGroupDialog();
+            AddUserToGroupDialog Dialog = new AddUserToGroupDialog(groupname);
             Dialog.Show(transaction, "dialog fragment add user");
         }
 
