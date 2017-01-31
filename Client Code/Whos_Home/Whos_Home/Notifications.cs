@@ -52,8 +52,8 @@ namespace Whos_Home
             foreach(var invite in JInvites)
             {
 
-                Console.WriteLine(invite.ToString());
-
+                //Console.WriteLine(invite.ToString());
+                invites.Add(new Invitations((string)invite["GroupName"], (string)invite["GroupID"], (string)invite["UserName"]));
             }
 
             return invites;

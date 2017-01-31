@@ -49,7 +49,7 @@ namespace Whos_Home
             var invitee = View.FindViewById<EditText>(Resource.Id.edittextAddUserToGroupDialog).Text;
             var token = db.Retrieve("Token");
             
-            var response = await request.InviteToGroup(token, groupid, invitee);
+            var response = await request.SendInvitation(token, groupid, invitee);
             
             if((int)response.StatusCode == 200)
             {

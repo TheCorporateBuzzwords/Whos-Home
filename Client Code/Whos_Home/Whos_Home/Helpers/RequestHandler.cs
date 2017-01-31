@@ -94,7 +94,7 @@ namespace Whos_Home.Helpers
 
         public async Task<IRestResponse> SendInvitation(string token, string groupid, string username)
         {
-            request = new RestRequest("/groups/{groupID}/invitation/", Method.POST);
+            request = new RestRequest(string.Format("/groups/{0}/invitation/", groupid), Method.POST);
             request.AddUrlSegment("groupid", groupid);
             request.AddParameter("recipient", username);
 

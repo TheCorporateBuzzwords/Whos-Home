@@ -18,6 +18,13 @@ namespace Whos_Home.Helpers
         private string groupid;
         private string invitee;
 
+        public Invitations(string groupName, string groupID, string inviteep)
+        {
+            Groupname = groupName;
+            Groupid = groupID;
+            Invitee = inviteep;
+        }
+
         public string Groupname
         {
             get
