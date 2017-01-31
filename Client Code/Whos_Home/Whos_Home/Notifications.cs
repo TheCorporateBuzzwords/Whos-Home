@@ -9,6 +9,9 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Whos_Home.Helpers;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 
 namespace Whos_Home
 {
@@ -29,9 +32,31 @@ namespace Whos_Home
             InitializeToolbars();
         }
 
-        private void Brefresh_Click(object sender, EventArgs e)
+        private async void Brefresh_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            DB_Singleton db = DB_Singleton.Instance;
+
+            RequestHandler request = new RequestHandler(this.BaseContext);
+
+            var response = await request.GetInvitations(db.Retrieve("Token"));
+
+            List<Invitations> activeInvites = ConvertJson(response);
+
+        }
+
+        private List<Invitations> ConvertJson(IRestResponse response)
+        {
+            List<Invitations> invites = new List<Invitations>();
+            JArray JInvites = JArray.Parse(response.Content);
+
+            foreach(var invite in JInvites)
+            {
+
+                Console.WriteLine(invite.ToString());
+
+            }
+
+            return invites;
         }
 
         private void InitializeToolbars()

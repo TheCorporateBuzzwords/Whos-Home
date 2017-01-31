@@ -36,6 +36,9 @@ namespace Whos_Home
 
         private void Confirm_Click(object sender, EventArgs e)
         {
+            /*RequestHandler request = new RequestHandler();
+            request.InviteToGroup(groupid, DB_Singleton.Instance.Retrieve("Token"), username);
+            */
 
         }
         

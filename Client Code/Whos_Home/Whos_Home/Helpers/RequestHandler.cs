@@ -80,7 +80,6 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
-
         
         public async Task<IRestResponse> RespondInvitation(string token, string groupid, bool deny)
         {
@@ -131,6 +130,7 @@ namespace Whos_Home.Helpers
 
             return response;
         }
+
         public async Task<IRestResponse> GetInvitations(string token)
         {
             request = new RestRequest("/users/invites", Method.GET);
