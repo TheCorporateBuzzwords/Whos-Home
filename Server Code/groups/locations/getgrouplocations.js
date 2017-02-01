@@ -12,8 +12,7 @@ module.exports = function (app) {
                             INNER JOIN Group_Locations gl ON g.GroupID = gl.GroupID \
                             WHERE g.GroupID = " + con.escape(req.params.groupid);
         con.query(request, function (err, result) {
-            res.json(result);
-            res.end();
+            return res.json(result);
         });
     });
 }

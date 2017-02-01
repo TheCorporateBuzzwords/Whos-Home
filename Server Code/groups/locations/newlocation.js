@@ -14,27 +14,17 @@ module.exports = function (app) {
             console.log("executing");
             var insertRequest = "INSERT INTO Group_Locations (GroupID, SSID, NetName) values (" + con.escape(req.params.groupid) + ", " + con.escape(req.body.ssid) + ", " + con.escape(req.body.locationName) + ");";
             con.query(insertRequest, function(err, result) {
-                console.log("Executed");
                 if(err) {
                     console.log(err);
+                    return res.end();
                 }
                 else {
-                    res.status(200);
-                    res.json({
-                        status: "success",
-                        message: "succesfully added location" 
-                    });
-                    res.end();
+                    return res.status(200).json({ status: "success", message: "succesfully added location"});
                 }
             });
         }
         else {
-            res.status(400);
-            res.json({
-                status: "error",
-                message: "missing parameter in POST request"
-            });
-            res.end();
+            return res.status(400).json({ status: "error", message: "missing parameter in POST request" });
         }
     });
 }

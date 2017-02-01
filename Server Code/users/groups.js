@@ -23,18 +23,13 @@ module.exports = function (app) {
                     console.log(err);
                 }
                 else {
-                    res.json(result);
-                    res.end();
+                    return res.json(result);
                 }
             });
         }
         else
         {
-            res.status(400);
-            res.json({
-                status: "error",
-                message: "missing parameter in GET request"
-            });   
+            return res.status(400).json({ status: "error", message: "missing parameter in GET request" });   
         }
     });
 }

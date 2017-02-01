@@ -7,18 +7,18 @@ module.exports = function(app) {
     app.post('/groups/:groupid(\\d+)/invitation/', [auth.CheckAuthToken, auth.CheckInGroup], function(req, res) {
         var con = mysql.createConnection(config.connectionInfo);
         if (!req.body.recipient) {
-            res.status(400).json({ status: "error", message: "missing parameter" }).end();
+            return res.status(400).json({ status: "error", message: "missing parameter" }).end();
         }
         var recipient = req.body.recipient;
         if (!/^[a-z][a-z0-9]*$/i.test(recipient)) { //make sure it's a valid username. Should make a module for this.
-            res.status(409).json({ status: "error", message: "Invalid recipient." }).end();
+            return res.status(409).json({ status: "error", message: "Invalid recipient." }).end();
         }
         //get userid
         var getUseridQuery = "SELECT UserID FROM Users WHERE UserName = " + con.escape(recipient);
         con.query(getUseridQuery, function(err, result) {
             if (err) {
                 console.log(err);
-                res.end();
+                return res.end();
             }
             else if (result.length) {
                 var recipientID = result[0].UserID;
@@ -27,14 +27,14 @@ module.exports = function(app) {
                 con.query(insertQuery, function(err, result) {
                     if (err) {
                         console.log(err);
-                        res.end();
+                        return res.end();
                     } else {
-                        res.status(200).json({ status: "success", message: "invitation created" }).end();
+                        return res.status(200).json({ status: "success", message: "invitation created" }).end();
                     }
                 });
             }
             else {
-                res.status(409).json({ status: "error", message: "user you tried inviting doesn't exist" }).end();
+                return res.status(409).json({ status: "error", message: "user you tried inviting doesn't exist" }).end();
             }
         });
     });

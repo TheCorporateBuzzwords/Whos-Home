@@ -6,11 +6,7 @@ module.exports = function (app) {
     app.put('/users/location', auth.CheckAuthToken, function (req, res) {
         var con = mysql.createConnection(config.connectionInfo);
         if(!req.body.bssid || req.body.bssid == null) {
-            res.status(409);
-            res.json({
-                status: "error",
-                message: "missing bssid in request."
-            });
+            return res.status(409).json({ status: "error", message: "missing bssid in request." });
         }
         var locationID = "NULL";
         var getLocationIDRequest = "SELECT LocationID \
@@ -30,11 +26,7 @@ module.exports = function (app) {
                     if (err) {
                         console.log(err);
                     } else {
-                        res.status(200);
-                        res.json({
-                            status: "success",
-                            message: "updated user's location."
-                        });
+                        return res.status(200).json({ status: "success", message: "updated user's location." });
                     }
                 });
             }

@@ -9,12 +9,7 @@ module.exports =
             if (token) {
                 jwt.verify(token, config.JWTInfo.secret, function (error, decoded) {
                     if (error) {
-                        res.status(403);
-                        res.json({
-                            status: "Error",
-                            message: "Failed to authenticate token."
-                        });
-                        res.end();
+                        return res.status(403).json({ status: "Error", message: "Failed to authenticate token." });
                     } else {
                         req.body.decoded = decoded;
                         next();
@@ -22,7 +17,7 @@ module.exports =
                 });
             }
             else {
-                res.status(403).json({ status: "Error", message: "no authenticity token provided" });
+                return res.status(403).json({ status: "Error", message: "no authenticity token provided" });
             }
         },
         CheckInGroup: function (req, res, next) {
@@ -37,22 +32,12 @@ module.exports =
                     } else if (result.length) {
                         next();
                     } else {
-                        res.status(200);
-                        res.json({
-                            status: "error",
-                            message: "you are not part of this group."
-                        });
-                        res.end();
+                        return res.status(200).json({ status: "error", message: "you are not part of this group." });
                     }
                 });
             }
             else {
-                res.status(200);
-                res.json({
-                    status: "error",
-                    message: "no group ID supplied"
-                });
-                res.end();
+                return res.status(200).json({ status: "error", message: "no group ID supplied" });
             }
         }
     }
