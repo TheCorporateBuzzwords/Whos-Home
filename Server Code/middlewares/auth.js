@@ -5,7 +5,6 @@ var jwt = require('jsonwebtoken');
 module.exports =
     {
         CheckAuthToken: function (req, res, next) {
-            console.log(req.body);
             var token = req.body.token || req.query.token || req.headers['x-access-token'];
             if (token) {
                 jwt.verify(token, config.JWTInfo.secret, function (error, decoded) {
@@ -18,7 +17,6 @@ module.exports =
                         res.end();
                     } else {
                         req.body.decoded = decoded;
-                        console.log("decoded", decoded);
                         next();
                     }
                 });
