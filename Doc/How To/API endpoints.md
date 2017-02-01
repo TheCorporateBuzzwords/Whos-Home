@@ -81,6 +81,9 @@ POST /groups/{groupid}/messagetopic/ (authenticated)
 \*msg: Content of the message board post (1024 char limit)
 
 ### Get all messageboard post topics
+GET /groups/{groupid]messagetopic/ (authenticated)
+
+Returns: TopicID, Title, Date/Time posted, and UserID of original poster for each topic in a group
 
 ### Respond to a messageboard poast
 

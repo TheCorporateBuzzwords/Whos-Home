@@ -29,7 +29,7 @@ module.exports = function (app) {
                     });
                     res.end();
                 }
-            })
+            });
         }
         //If the request does not have the correct info, send back error message
         else
@@ -52,12 +52,29 @@ module.exports = function (app) {
         if(req.params.groupid)
         {
             //Create a var that has the call to the procedure
+            var getRequest = "Select mt.TopicID, mt.Title, \
+                                (Select MIN(p2.PostTime) \
+                                    From Posts as p2 \
+                                    Where p2.TopicID = mt.TopicID ) as DatePosted, \
+                                (Select UserID \
+                                    From Posts as p \
+                                    Where p.TopicID = mt.TopicID \
+                                    And p.PostTime = DatePosted) as PosterID \
+                                From Message_Topics as mt \
+                                Where mt.GroupID = " + con.escape(req.params.groupid);
 
             //Perform the request
-
+            con.query(getRequest, function(err, result) {
                 //If an error happens, log
-
+                if(err) {
+                    console.log(err);
+                }
                 //Return message board topics and meta information
+                else {
+                    res.json(result);
+                    res.end();
+                }
+            });
         }
         //If all required information is not present, send back an error message
         else
