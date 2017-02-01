@@ -39,13 +39,15 @@ module.exports = function (app) {
                         //User has invitation, but is already part of the group.
                         return res.status(409).json({ status: "error", message: "you are already part of this group" });
                     }
-                    con.query(insertQuery, function (err, insertResult) {
-                        if (err) {
-                            console.log(err);
-                            return res.end();
-                        }
-                        return res.status(200).json({ status: "success", message: "you are now part of this group" });
-                    });
+                    else {
+                        con.query(insertQuery, function (err, insertResult) {
+                            if (err) {
+                                console.log(err);
+                                return res.end();
+                            }
+                            return res.status(200).json({ status: "success", message: "you are now part of this group" });
+                        });
+                    }
                 });
             }
         });
