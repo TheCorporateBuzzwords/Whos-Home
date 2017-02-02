@@ -71,7 +71,7 @@ namespace Whos_Home
         {
             RequestHandler request = new RequestHandler(Context);
             DB_Singleton db = DB_Singleton.Instance;
-            await request.InviteToGroup(db.SearchGroup(groupname).GroupID, username, db.Retrieve("Token"));
+            //await request.InviteToGroup(db.SearchGroup(groupname).GroupID, username, db.Retrieve("Token"));
         }
     }
 }

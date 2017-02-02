@@ -60,7 +60,7 @@ namespace Whos_Home.Helpers
         }
 
        
-        public async Task<IRestResponse> InviteToGroup(string token, string groupID, string username)
+        /*public async Task<IRestResponse> InviteToGroup(string token, string groupID, string username)
         {
             request = new RestRequest("/groups/{groupid}/invitation/?{recipient}", Method.GET);
             request.AddUrlSegment("groupid", groupID);
@@ -70,7 +70,7 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
 
-        }
+        }*/
 
         public async Task<IRestResponse> PullGroups(string token)
         {
@@ -83,9 +83,7 @@ namespace Whos_Home.Helpers
         
         public async Task<IRestResponse> RespondInvitation(string token, string groupid, bool deny)
         {
-            request = new RestRequest(string.Format("/groups/{groupid}/invitation/deny={0}", deny.ToString()), Method.GET);
-            request.AddUrlSegment("groupid", groupid);
-            request.AddHeader("deny", deny.ToString());
+            request = new RestRequest(string.Format("/groups/{0}/invitation/?deny={1}", groupid, deny.ToString().ToLower()), Method.GET);
             request.AddHeader("x-access-token", token);
 
             var response = await client.ExecuteTaskAsync(request);

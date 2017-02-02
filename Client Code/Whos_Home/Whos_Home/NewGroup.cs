@@ -54,12 +54,13 @@ namespace Whos_Home
             string token = db.Retrieve("Token");
             var response = await request.CreateGroup(groupname, token);
             int statusCode = (int)response.StatusCode;
-                if ((int)response.StatusCode == 200)
-                {
-                    CreateGroup(groupname);
-                    Success();
-                }
-                else
+            if ((int)response.StatusCode == 200)
+            {
+                db.AddGroup(groupname, (string)JObject.Parse(response.Content)["groupID"]);
+              
+                Success();
+            }
+            else
             {
                 Failure();
             }
@@ -82,31 +83,6 @@ namespace Whos_Home
             dialog.Show();
             */
         }
-
-        private async void CreateGroup(string groupname)
-        {
-
-            //Send group name and token;
-            RequestHandler request = new RequestHandler(Context);
-
-            DB_Singleton db = DB_Singleton.Instance;
-            string token = db.Retrieve("Token");
-                var response = await request.CreateGroup(groupname, token);
-            string content = response.Content.ToString();
-            JObject jobjjjj = JObject.Parse(response.Content.ToString());
-            string jobj = (string)JObject.Parse(response.Content)["groupID"];
-            if ((int)response.StatusCode == 200)
-            {
-                Success();
-                db.AddGroup(groupname, (string)JObject.Parse(response.Content)["groupID"]);
-                List<UserGroup> allUserGroups = db.GetUserGroups();
-            }
-            else
-            {
-                Failure();
-            }
-        }
-
         public void Success()
         {
             Toast.MakeText(this.Context, "Group Successfully Created", ToastLength.Long).Show();
