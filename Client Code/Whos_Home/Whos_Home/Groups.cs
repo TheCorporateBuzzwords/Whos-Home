@@ -19,6 +19,7 @@ namespace Whos_Home
     {
         private Button BCreateGroup;
         private ListView listView;
+        private TextView textView;
         private List<string> groupnames = new List<string>();
         private List<string> nummembers = new List<string>();
 
@@ -44,7 +45,16 @@ namespace Whos_Home
 
             listView = FindViewById<ListView>(Resource.Id.listviewGroups);
             listView.Adapter = new GroupListAdapter(this, groupnames, nummembers);
+            textView = FindViewById<TextView>(Resource.Id.textviewGroups);
 
+            try
+            {
+                textView.Text = "Current Group: " + db.GetActiveGroup().GroupName;
+            }
+            catch
+            {
+                Console.WriteLine("No active group selected: Groups");
+            }
             //Set itemclick function for when a group is selected
             listView.ItemClick += OnGroupItemClick;
 
@@ -75,7 +85,7 @@ namespace Whos_Home
             //initialize top toolbar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
-            ActionBar.Title = "Bulletins";
+            ActionBar.Title = "Groups";
 
 
             //initialize bottom toolbar

@@ -14,7 +14,7 @@
         android:layout_height="0dp"
         android:textColor="#368DEB"
         android:gravity="center_horizontal"
-        android:id="@+id/textviewGroupDialog"
+        android:id="@+id/textviewGroups"
         android:textSize="15sp" />
     <Button
         android:background="@drawable/blue_button"

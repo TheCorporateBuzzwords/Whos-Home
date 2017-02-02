@@ -79,7 +79,7 @@ namespace Whos_Home
                 RequestHandler request = new RequestHandler(View.Context);
                 
                 //adds location to the db using the db_singleton active groupID
-                var response = await request.AddLocation(WifiNetworkKey.ElementAt<string>(position), selected, group.GroupID);
+                var response = await request.AddLocation(db.Retrieve("Token"), WifiNetworkKey.ElementAt<string>(position), selected, group.GroupID);
             });
 
             //Close dialog and cancel add

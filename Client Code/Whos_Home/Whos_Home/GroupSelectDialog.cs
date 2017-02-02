@@ -25,7 +25,7 @@ namespace Whos_Home
         public GroupSelectDialog(string group_name)
         {
             this.groupname = group_name;
-            
+
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

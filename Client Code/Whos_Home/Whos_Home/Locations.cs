@@ -13,6 +13,9 @@ using Android.Net.Wifi;
 using Android.Support.V4.App;
 using Android;
 using Android.Content.PM;
+using Whos_Home.Helpers;
+using Newtonsoft.Json.Linq;
+using RestSharp;
 
 namespace Whos_Home
 {
@@ -20,6 +23,8 @@ namespace Whos_Home
     public class Locations : Activity
     {
         private Button AddLocation;
+        private List<string> location_names;
+        private ListView LocationList;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -33,6 +38,8 @@ namespace Whos_Home
             AddLocation = FindViewById<Button>(Resource.Id.NewLocationButton);
             AddLocation.Click += AddLocation_Click;
 
+            LocationList = FindViewById<ListView>(Resource.Id.locationlistview);
+
             //This block asks the user for location permissions
             //Or checks if the user already gave permissions
             string permission = Manifest.Permission.AccessFineLocation;
@@ -42,6 +49,48 @@ namespace Whos_Home
                 request_permissions[0] = Manifest.Permission.AccessFineLocation;
                 ActivityCompat.RequestPermissions(this, request_permissions, 0);
             }
+            DB_Singleton db = DB_Singleton.Instance;
+
+            try
+            {
+                db.GetActiveGroup();
+                GetLocations();
+            }
+            catch
+            {
+                Console.WriteLine("No active group selected: Locations");
+            }
+            
+        }
+
+        private async void GetLocations()
+        {
+            DB_Singleton db = DB_Singleton.Instance;
+
+            RequestHandler request = new RequestHandler(this.BaseContext);
+
+            //get locations from database
+            var response = await request.GetLocations(db.Retrieve("Token"), db.GetActiveGroup().GroupID);
+            //convert locations from json format
+            var locations = ConvertJson(response);
+            //add locations into list adapter
+            LocationList.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, locations);
+
+        }
+
+        private List<string> ConvertJson(IRestResponse response)
+        {
+            location_names = new List<string>();
+            JArray JLocations = JArray.Parse(response.Content);
+
+            foreach (var loc in JLocations)
+            {
+
+                //Console.WriteLine(invite.ToString());
+                location_names.Add((string)loc["NetName"]);
+            }
+
+            return location_names;
         }
 
         private void AddLocation_Click(object sender, EventArgs e)
@@ -56,7 +105,7 @@ namespace Whos_Home
             //initialize top toolbar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
-            ActionBar.Title = "Bulletins";
+            ActionBar.Title = "Locations";
 
 
             //initialize bottom toolbar

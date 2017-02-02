@@ -52,7 +52,7 @@ namespace Whos_Home
 
         private void BTest_Click(object sender, System.EventArgs e)
         {
-            this.StartActivity(typeof(BulletinBoard));
+            this.StartActivity(typeof(Locations));
 
         }
 

@@ -59,6 +59,7 @@ namespace Whos_Home
             {
                 Toast.MakeText(Context, "Error", ToastLength.Long);
             }
+            Dismiss();
         }
         
 

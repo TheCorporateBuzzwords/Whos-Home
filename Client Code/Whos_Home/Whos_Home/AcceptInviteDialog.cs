@@ -82,6 +82,7 @@ namespace Whos_Home
             {
                 Toast.MakeText(Context, "Invite response failed", ToastLength.Long);
             }
+            Dismiss();
         }
 
         private void AddGroup(string groupid, string groupname)

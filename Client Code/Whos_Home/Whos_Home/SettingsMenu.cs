@@ -104,7 +104,7 @@ namespace Whos_Home
             //initialize top toolbar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
-            ActionBar.Title = "Bulletins";
+            ActionBar.Title = "Preferences";
 
 
             //initialize bottom toolbar

@@ -103,18 +103,34 @@ namespace Whos_Home.Helpers
             return response;
         }
 
-        public async Task<IRestResponse> AddLocation(string SSID, string locationName, string groupid)
+        public async Task<IRestResponse> AddLocation(string token, string SSID, string locationName, string groupid)
         {
             request = new RestRequest("groups/{groupid}/location/", Method.POST);
             request.AddUrlSegment("groupid", groupid);
             request.AddParameter("ssid", SSID);
             request.AddParameter("locationName", locationName);
 
+            request.AddHeader("x-access-token", token);
+
             var response = await client.ExecuteTaskAsync(request);
 
             return response;
         }
-        
+
+
+        public async Task<IRestResponse> GetLocations(string token, string groupid)
+        {
+            request = new RestRequest("/groups/{groupid}/locations/", Method.GET);
+            request.AddHeader("x-access-token", token);
+
+            request.AddUrlSegment("groupid", groupid);
+
+            var response = await client.ExecuteTaskAsync(request);
+
+            return response;
+        }
+
+
 
         public async Task<IRestResponse> UpdateLocation(string token, string SSID)
         {
