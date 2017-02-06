@@ -3,19 +3,18 @@ var mysql = require("mysql");
 var auth = require('./../../middlewares/auth');
 
 module.exports = function (app) {
-    app.post('/groups/:groupid(\\d+)/location/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    app.post('/groups/:groupid(\\d+)/list/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         var con = mysql.createConnection(config.connectionInfo);
-        if(req.params.groupid && req.body.ssid && req.body.locationName)
+        if(req.params.groupid && req.body.title)
         {
-            console.log("executing");
-            var insertRequest = "INSERT INTO Group_Locations (GroupID, SSID, NetName) values (" + con.escape(req.params.groupid) + ", " + con.escape(req.body.ssid) + ", " + con.escape(req.body.locationName) + ");";
+            var insertRequest = "INSERT INTO Lists (GroupID, UserID, Title, PostTime) values (" + con.escape(req.params.groupid) + ", " + req.body.decoded.UserID + ", " + con.escape(req.body.title) + ", " + "CURRENT_TIME()" + ");";
             con.query(insertRequest, function(err, result) {
                 if(err) {
                     console.log(err);
                     return res.end();
                 }
                 else {
-                    return res.status(200).json({ status: "success", message: "succesfully added location"});
+                    return res.status(200).json({ status: "success", message: "succesfully added list"});
                 }
             });
         }
