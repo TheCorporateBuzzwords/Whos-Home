@@ -12,44 +12,54 @@ using Android.Widget;
 
 namespace Whos_Home
 {
-    [Activity(Label = "Lists")]
-    public class Lists : Activity
+    [Activity(Label = "List")]
+    public class List : Activity
     {
-        private Button NewListButton;
+        private Button NewListItemButton;
         private ListView listView;
-        private List<string> listnames;
-        private List<string> remaining_items;
+        private List<string> listItems;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.Lists);
-            InitializeToolbars();
+            SetContentView(Resource.Layout.List);
             InitializeFormat();
-
-            NewListButton.Click += NewListButton_Click;
-        }
-
-        private void NewListButton_Click(object sender, EventArgs e)
-        {
-            this.StartActivity(typeof(List));
+            InitializeToolbars();
         }
 
         private void InitializeFormat()
         {
-            listnames = new List<string>();
-            remaining_items = new List<string>();
+            listItems = new List<string>();
 
-            for (int i = 0; i < 50; ++i)
+            for(int i = 0; i < 50; ++i)
             {
-                listnames.Add("ListName" + i.ToString());
-                remaining_items.Add(i.ToString() + " items remaining");
+                listItems.Add(i.ToString());
             }
 
-            NewListButton = FindViewById<Button>(Resource.Id.NewListButton);
-            listView = FindViewById<ListView>(Resource.Id.listlistview);
+            NewListItemButton = FindViewById<Button>(Resource.Id.NewListItemButton);
+            listView = FindViewById<ListView>(Resource.Id.listitemslistview);
 
-            listView.Adapter = new GroupListAdapter(this, listnames, remaining_items);
+            listView.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItemMultipleChoice, listItems);
+
+            //sets the selection mode for the listview to multiple choice
+            listView.ChoiceMode = Android.Widget.ChoiceMode.Multiple;
+
+            //Sets the function to be called on click to the custom function OnLocationItemClick
+            //This Function will select and deselect location values based on the item clicked.
+            listView.ItemClick += ListView_ItemClick;
+        }
+
+        private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var listView = sender as ListView;
+            var position = e.Position;
+
+            bool selected = listView.IsItemChecked(position);
+
+            if (selected)
+                listView.SetItemChecked(position, true);
+            else
+                listView.SetItemChecked(position, false);
         }
 
         private void InitializeToolbars()
@@ -66,9 +76,6 @@ namespace Whos_Home
             editToolbar.InflateMenu(Resource.Menu.edit_menus);
             editToolbar.MenuItemClick += NavigateMenu;
 
-            //(sender, e) => {
-            //Toast.MakeText(this, "Bottom toolbar tapped: " + e.Item.TitleFormatted, ToastLength.Short).Show();
-            //};
 
 
         }

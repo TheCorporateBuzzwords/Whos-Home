@@ -158,6 +158,7 @@
     <Compile Include="Helpers\UserDB.cs" />
     <Compile Include="Helpers\UserGroup.cs" />
     <Compile Include="Helpers\UserLocation.cs" />
+    <Compile Include="List.cs" />
     <Compile Include="Lists.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="NewGroup.cs" />
