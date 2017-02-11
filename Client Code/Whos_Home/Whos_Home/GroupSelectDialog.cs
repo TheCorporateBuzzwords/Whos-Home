@@ -80,7 +80,7 @@ namespace Whos_Home
         {
             Dismiss();
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            AddUserToGroupDialog Dialog = new AddUserToGroupDialog(groupname);
+            GroupAddUser Dialog = new GroupAddUser(groupname);
             Dialog.Show(transaction, "dialog fragment add user");
         }
 

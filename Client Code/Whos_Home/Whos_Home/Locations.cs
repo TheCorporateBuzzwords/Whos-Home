@@ -96,7 +96,7 @@ namespace Whos_Home
         private void AddLocation_Click(object sender, EventArgs e)
         {
             Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            AddLocationFragment AddLocationDialog = new AddLocationFragment();
+            LocationAddFragment AddLocationDialog = new LocationAddFragment();
             AddLocationDialog.Show(transaction, "dialog fragment create account");
         }
 

@@ -17,7 +17,7 @@ using Newtonsoft.Json.Linq;
 namespace Whos_Home
 {
     
-    public class NewGroup : DialogFragment
+    public class GroupNew : DialogFragment
     {
         Button BConfirm;
         Button BCancel;

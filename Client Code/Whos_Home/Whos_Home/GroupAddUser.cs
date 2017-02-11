@@ -14,13 +14,13 @@ using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
-    class AddUserToGroupDialog : DialogFragment
+    class GroupAddUser : DialogFragment
     {
         private Button Confirm;
         private Button Cancel;
         private string groupname; //here ya go
 
-        public AddUserToGroupDialog(string group_name)
+        public GroupAddUser(string group_name)
         {
             groupname = group_name;
         }

@@ -13,7 +13,7 @@ using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
-    class AcceptInviteDialog : DialogFragment
+    class InviteAcceptDialog : DialogFragment
     {
         private string groupname;
         private string groupid;
@@ -21,7 +21,7 @@ namespace Whos_Home
         private Button BDecline;
         private TextView GroupName;
 
-        public AcceptInviteDialog(Invitations invite)
+        public InviteAcceptDialog(Invitations invite)
         {
             //get any values from invite here
             groupname = invite.Groupname;

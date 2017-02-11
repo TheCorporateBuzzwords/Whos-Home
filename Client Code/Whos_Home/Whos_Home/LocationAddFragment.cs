@@ -16,7 +16,7 @@ using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
-    class AddLocationFragment : DialogFragment
+    class LocationAddFragment : DialogFragment
     {
         ListView NetworkList;
         Button BCancel, BConfirm;

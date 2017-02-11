@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Whos_Home
 {
-    class NewMessage_Dialog : DialogFragment
+    class BulletinNew : DialogFragment
     {
         private Button Submit;
         private string title;

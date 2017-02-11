@@ -49,7 +49,7 @@ namespace Whos_Home
             if(notif_type.ElementAt<string>(position).ToString() == "Group Invite")
             {
                 FragmentTransaction transaction = FragmentManager.BeginTransaction();
-                AcceptInviteDialog Dialog = new AcceptInviteDialog(activeInvites.ElementAt<Invitations>(position));
+                InviteAcceptDialog Dialog = new InviteAcceptDialog(activeInvites.ElementAt<Invitations>(position));
                 Dialog.Show(transaction, "dialog fragment accept invite");
 
                 //After dialog box closes, remove invitations

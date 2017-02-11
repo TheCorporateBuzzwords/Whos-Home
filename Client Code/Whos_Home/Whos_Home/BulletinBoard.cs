@@ -58,7 +58,7 @@ namespace Whos_Home
             titles.Reverse();
             messages.Reverse();
 
-            listView.Adapter = new MessageBoardListAdapter(this, titles, messages);
+            listView.Adapter = new BulletinListAdapter(this, titles, messages);
        
             listView.ItemClick += OnMessageItemClick;
 
@@ -69,10 +69,10 @@ namespace Whos_Home
         private void NewPostButton_Click(object sender, EventArgs e)
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            NewMessage_Dialog NewMessageDialog = new NewMessage_Dialog();
+            BulletinNew NewMessageDialog = new BulletinNew();
             NewMessageDialog.Show(transaction, "dialog fragment new message");
 
-            listView.Adapter = new MessageBoardListAdapter(this, titles, messages);
+            listView.Adapter = new BulletinListAdapter(this, titles, messages);
 
            
         }

@@ -13,14 +13,14 @@ using Java.Lang;
 
 namespace Whos_Home
 {
-    public class MessageBoardListAdapter : BaseAdapter<List<string>>
+    public class BulletinListAdapter : BaseAdapter<List<string>>
     {
         List<string> titles;
         List<string> messages;
         Activity context;
 
         //overloaded constructor to accept values for the list
-        public MessageBoardListAdapter(Activity context, List<string> t, List<string> m) : base()
+        public BulletinListAdapter(Activity context, List<string> t, List<string> m) : base()
         {
             this.context = context;
             titles = t;

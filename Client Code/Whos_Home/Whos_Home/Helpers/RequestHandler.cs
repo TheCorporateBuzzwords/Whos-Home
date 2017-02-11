@@ -58,7 +58,6 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
-
        
         /*public async Task<IRestResponse> InviteToGroup(string token, string groupID, string username)
         {
@@ -117,7 +116,6 @@ namespace Whos_Home.Helpers
             return response;
         }
 
-
         public async Task<IRestResponse> GetLocations(string token, string groupid)
         {
             request = new RestRequest("/groups/{groupid}/locations/", Method.GET);
@@ -129,8 +127,6 @@ namespace Whos_Home.Helpers
 
             return response;
         }
-
-
 
         public async Task<IRestResponse> UpdateLocation(string token, string SSID)
         {
@@ -148,11 +144,29 @@ namespace Whos_Home.Helpers
         public async Task<IRestResponse> GetInvitations(string token)
         {
             request = new RestRequest("/users/invites", Method.GET);
-
             request.AddHeader("x-access-token", token);
 
             var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
 
+        public async Task<IRestResponse> GetMessages(string token, string groupid)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/messagetopic", groupid), Method.GET);
+            request.AddHeader("x-access-token", token);
+            
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+
+        public async Task<IRestResponse> PostMessages(string token, string groupid, string title, string message)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/messagetopic", groupid), Method.POST);
+            request.AddHeader("x-access-token", token);
+            request.AddParameter("title", title);
+            request.AddParameter("msg", message);
+
+            var response = await client.ExecuteTaskAsync(request);
             return response;
         }
     }

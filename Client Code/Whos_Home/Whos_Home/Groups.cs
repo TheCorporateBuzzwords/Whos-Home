@@ -66,7 +66,7 @@ namespace Whos_Home
         private void BCreateGroup_Click(object sender, EventArgs e)
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            NewGroup Dialog = new NewGroup();
+            GroupNew Dialog = new GroupNew();
             Dialog.Show(transaction, "dialog fragment new group");
         }
 
