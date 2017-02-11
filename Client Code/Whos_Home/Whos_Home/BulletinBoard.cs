@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ using Android.Widget;
 using Android.Content.Res;
 using System.IO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
@@ -31,17 +34,56 @@ namespace Whos_Home
             InitializeFormat();
 
             
-
         }
         //titles and messsages will be stored and can be accessed when loading
         //a bulletin in a separate window.
         List<string>titles = new List<string>();
         List<string>messages = new List<string>();
 
+        //Using this to convert a server response
+        //Into a list of bulletin objects
+        /*protected async void UpdateBoard()
+        {
+            List<BulletinPostObj> posts = new List<BulletinPostObj>();
+
+            RequestHandler request = new RequestHandler(this);
+            var response = await request.GetMessages(DB_Singleton.Instance.Retrieve("Token"), DB_Singleton.Instance.Retrieve("ActiveGroup"));
+
+            JArray JPosts = JArray.Parse(response.Content);
+
+            foreach(JToken post in JPosts)
+            {
+                string author = (string)post["UserID"];
+                string time = (string)post["Date"];
+                string title = (string)post["Title"];
+                string topicid = (string)post["TopicID"];
+            }
+
+            return 
+
+        }
+        */
         //Assigns values to NewPostButton and ListView
-        private void InitializeFormat()
+        private async void InitializeFormat()
         {
             //mock title data used for testing list
+            List<BulletinPostObj> posts = new List<BulletinPostObj>();
+
+            RequestHandler request = new RequestHandler(this);
+            DB_Singleton db = DB_Singleton.Instance;
+            string token = db.Retrieve("Token");
+            string groupid = db.GetActiveGroup().GroupID;
+            var response = await request.GetMessages(token, groupid);
+            //In progress
+            JArray JPosts = JArray.Parse(response.Content);
+
+            foreach(JToken post in JPosts)
+            {
+                string author = (string)post["UserID"];
+                string time = (string)post["Date"];
+                string title = (string)post["Title"];
+                string topicid = (string)post["TopicID"];
+            }
             
             for (int i = 0; i < 50; ++i)
             {

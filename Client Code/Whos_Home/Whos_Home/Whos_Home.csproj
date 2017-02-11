@@ -150,6 +150,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\BulletinPostObj.cs" />
     <Compile Include="InviteAcceptDialog.cs" />
     <Compile Include="GroupAddUser.cs" />
     <Compile Include="BulletinCommentListAdapter.cs" />

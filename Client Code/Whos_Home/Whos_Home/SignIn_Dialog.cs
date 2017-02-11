@@ -67,7 +67,7 @@ namespace Whos_Home
         public void Success(IRestResponse response)
         {
             Toast.MakeText(this.Context, "Login Successful", ToastLength.Long).Show();
-            this.Activity.StartActivity(typeof(BulletinBoard));
+            this.Activity.StartActivity(typeof(Groups));
             InsertInDB(DecodeToken(response));
             UpdateGroups();
         }
