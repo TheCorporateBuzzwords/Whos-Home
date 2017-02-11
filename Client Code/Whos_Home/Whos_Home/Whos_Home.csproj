@@ -158,6 +158,8 @@
     <Compile Include="Helpers\UserDB.cs" />
     <Compile Include="Helpers\UserGroup.cs" />
     <Compile Include="Helpers\UserLocation.cs" />
+    <Compile Include="List.cs" />
+    <Compile Include="Lists.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="GroupNew.cs" />
     <Compile Include="LocationAddFragment.cs" />
@@ -249,6 +251,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\AcceptInvite.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Lists.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\List.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
