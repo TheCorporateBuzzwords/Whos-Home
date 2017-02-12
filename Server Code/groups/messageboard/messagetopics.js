@@ -4,7 +4,7 @@ var auth = require('./../../middlewares/auth');
 
 module.exports = function (app) {
     //Post for adding a new messageboard topic and the inital response to a group
-    app.post('/groups/:groupid(\\d+)/messagetopic', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    app.post('/groups/:groupid(\\d+)/messagetopic/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         //Get a connection
         var con = mysql.createConnection(config.connectionInfo);
 
@@ -44,7 +44,7 @@ module.exports = function (app) {
 
 
     //Get for retreiving all messageboard topics for a group
-    app.get('/groups/:groupid(\\d+)/messagetopic', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    app.get('/groups/:groupid(\\d+)/messagetopic/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         //Get a connection
         var con = mysql.createConnection(config.connectionInfo);
 
@@ -56,12 +56,17 @@ module.exports = function (app) {
                                 (Select MIN(p2.PostTime) \
                                     From Posts as p2 \
                                     Where p2.TopicID = mt.TopicID ) as DatePosted, \
-                                (Select UserID \
-                                    From Posts as p \
-                                    Where p.TopicID = mt.TopicID \
-                                    And p.PostTime = DatePosted) as PosterID \
+                                (Select UserName \
+                                    From Users \
+                                    Where UserID = \
+                                    (Select UserID \
+                                        From Posts as p \
+                                        Where p.TopicID = mt.TopicID \
+                                        And p.PostTime = DatePosted)) as PosterName \
                                 From Message_Topics as mt \
                                 Where mt.GroupID = " + con.escape(req.params.groupid);
+
+            //Change request to return topics and responses by "pages"? groups of 10 or something? grouped by date
 
             //Perform the request
             con.query(getRequest, function(err, result) {
