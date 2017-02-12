@@ -81,10 +81,18 @@ POST /groups/{groupid}/messagetopic/ (authenticated)
 \*msg: Content of the message board post (1024 char limit)
 
 ### Get all messageboard post topics
-GET /groups/{groupid]messagetopic/ (authenticated)
+GET /groups/{groupid}/messagetopic/ (authenticated)
 
-Returns: TopicID, Title, Date/Time posted, and UserID of original poster for each topic in a group
+Returns: TopicID, Title, Date/Time posted, and Username of original poster for each topic in a group
 
-### Respond to a messageboard poast
+### Respond to a messageboard topic
+POST /groups/{groupid}/messageposts/ (authenticated)
+
+\*topicid: ID of the topic being responding to
+
+\*msg: Content of the reponse post (1024 char) limit
 
 ### Get responses to a single post topic
+GET /groups/{groupid}/{topicid}/messageposts/ (authenticated)
+
+Returns: Response msg, Date/Time posted, and Username of the original poster for each response to a topic
