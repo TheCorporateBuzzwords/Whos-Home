@@ -75,16 +75,19 @@ namespace Whos_Home
             string groupid = db.GetActiveGroup().GroupID;
             var response = await request.GetMessages(token, groupid);
             //In progress
-            JArray JPosts = JArray.Parse(response.Content);
-
-            foreach(JToken post in JPosts)
+            if (response.Content != "[]")
             {
-                string author = (string)post["UserID"];
-                string time = (string)post["Date"];
-                string title = (string)post["Title"];
-                string topicid = (string)post["TopicID"];
+                JArray JPosts = JArray.Parse(response.Content);
+
+                foreach (JToken post in JPosts)
+                {
+                    string author = (string)post["UserID"];
+                    string time = (string)post["Date"];
+                    string title = (string)post["Title"];
+                    string topicid = (string)post["TopicID"];
+                }
+
             }
-            
             for (int i = 0; i < 50; ++i)
             {
                 titles.Add("Title" + i.ToString());

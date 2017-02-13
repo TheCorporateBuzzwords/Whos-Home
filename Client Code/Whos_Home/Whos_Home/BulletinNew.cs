@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+using Whos_Home.Helpers;
 namespace Whos_Home
 {
     class BulletinNew : DialogFragment
@@ -24,34 +25,46 @@ namespace Whos_Home
 
             //Set button instance, set click function
             Submit = view.FindViewById<Button>(Resource.Id.buttonCreateMessage);
-            Submit.Click += new EventHandler(delegate (object sender, System.EventArgs e)
-            {
-                string MsgTitle = view.FindViewById<EditText>(Resource.Id.edittexttitle).Text;
-                string MsgBody = view.FindViewById<EditText>(Resource.Id.edittextmessage).Text;
-
-                //create dialog to show data that was taken from text fields
-                //Currently serves a purpose in testing, may be left in as confirmation to the user
-                AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
-                alert.SetTitle("New Message Submitted:");
-                alert.SetMessage(string.Format("Subject: " + MsgTitle + "\nMessage:\n" + MsgBody));
-                
-                Dialog dialog = alert.Create();
-                dialog.Show();
-
-                Intent intent = new Intent(this.Activity.ApplicationContext, typeof(BulletinBoard));
-                Notification(intent, "A new message has been posted in ", "groupname", 0, 0);
-
-                //send values to server??
-
-                //set private values equal to equal values from dialog box
-                title = MsgTitle;
-                message = MsgBody;
-                //closes message dialog box
-                Dismiss();
-
-            });
+            Submit.Click += new EventHandler(PostBulletin);
             return view;
 
+        }
+
+        public async void PostBulletin(object sender, EventArgs e)
+        {
+            string MsgTitle = View.FindViewById<EditText>(Resource.Id.edittexttitle).Text;
+            string MsgBody = View.FindViewById<EditText>(Resource.Id.edittextmessage).Text;
+
+            //create dialog to show data that was taken from text fields
+            //Currently serves a purpose in testing, may be left in as confirmation to the user
+            AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
+            alert.SetTitle("New Message Submitted:");
+            alert.SetMessage(string.Format("Subject: " + MsgTitle + "\nMessage:\n" + MsgBody));
+
+            Dialog dialog = alert.Create();
+            dialog.Show();
+
+            Intent intent = new Intent(this.Activity.ApplicationContext, typeof(BulletinBoard));
+            Notification(intent, "A new message has been posted in ", "groupname", 0, 0);
+
+            //send values to server??
+            RequestHandler request = new RequestHandler(Context);
+            DB_Singleton db = DB_Singleton.Instance;
+            string token = db.Retrieve("Token");
+            string groupid = db.GetActiveGroup().GroupID;
+            //set private values equal to equal values from dialog box
+            title = MsgTitle;
+            message = MsgBody;
+            var response = await request.PostMessages(token, groupid, title, message);
+
+            if ((int)response.StatusCode == 200)
+            {
+                Toast.MakeText(Context, "Succesfully Posted", ToastLength.Long);
+            }
+            else
+                Toast.MakeText(Context, "Post Failed", ToastLength.Long);
+            //closes message dialog box
+            Dismiss();
         }
         public string GetTitle()
         {
