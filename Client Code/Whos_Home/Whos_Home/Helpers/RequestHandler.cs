@@ -169,5 +169,26 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
+
+        public async Task<IRestResponse> GetMessageReplies(string token, string groupid, string topicid)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/messages", groupid), Method.GET);
+            request.AddHeader("x-access-token", token);
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+            
+        }
+
+        public async Task<IRestResponse> PostMessageReply(string token, string groupid, string topicid, string message)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/messages", groupid), Method.POST);
+            request.AddHeader("x-access-token", token);
+            request.AddParameter("topicid", topicid);
+            request.AddParameter("msg", message);
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
     }
 }

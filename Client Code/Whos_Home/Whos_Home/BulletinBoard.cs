@@ -81,18 +81,17 @@ namespace Whos_Home
 
                 foreach (JToken post in JPosts)
                 {
-                    string author = (string)post["UserID"];
-                    string time = (string)post["Date"];
+                    string author = (string)post["PosterName"];
+                    string time = (string)post["DatePosted"];
                     string title = (string)post["Title"];
                     string topicid = (string)post["TopicID"];
-                }
+                    string message = (string)post["Message"];
 
+                    titles.Add(title);
+                    //messages.Add(message);
+                }
             }
-            for (int i = 0; i < 50; ++i)
-            {
-                titles.Add("Title" + i.ToString());
-                messages.Add("Message" + i.ToString());
-            }
+
             NewPostButton = FindViewById<Button>(Resource.Id.NewPostButton);
             NewPostButton.Click += NewPostButton_Click;
 
