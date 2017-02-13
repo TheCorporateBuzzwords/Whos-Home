@@ -7,6 +7,16 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
+   <TextView
+        android:text="Current Location"
+        android:layout_width="match_parent"
+        android:layout_weight="8"
+        android:layout_height="0dp"
+        android:textColor="#368DEB"
+        android:gravity="center"
+        android:id="@+id/textCurrentLocation"
+        android:textStyle="bold"
+        android:textSize="15sp" />
     <Button
         android:background="@drawable/blue_button"
         android:text="New Location"
@@ -22,7 +32,7 @@
     <ListView
         android:id="@+id/locationlistview"
         android:layout_width="fill_parent"
-        android:layout_weight="90"
+        android:layout_weight="82"
         android:layout_height="0dp" />
     <Toolbar
         android:id="@+id/edit_toolbar"

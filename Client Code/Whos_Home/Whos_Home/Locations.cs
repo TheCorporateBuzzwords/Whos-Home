@@ -23,8 +23,13 @@ namespace Whos_Home
     public class Locations : Activity
     {
         private Button AddLocation;
-        private List<string> location_names;
+        private TextView CurrentLocation;
+        private List<string> location_names = new List<string>();
         private ListView LocationList;
+        private List<string> db_locations = new List<string>();
+        private string current_location;
+        private List<string> WifiNetworks = new List<string>();
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -39,6 +44,7 @@ namespace Whos_Home
             AddLocation.Click += AddLocation_Click;
 
             LocationList = FindViewById<ListView>(Resource.Id.locationlistview);
+            CurrentLocation = FindViewById<TextView>(Resource.Id.textCurrentLocation);
 
             //This block asks the user for location permissions
             //Or checks if the user already gave permissions
@@ -55,6 +61,8 @@ namespace Whos_Home
             {
                 db.GetActiveGroup();
                 GetLocations();
+                
+
             }
             catch
             {
@@ -72,10 +80,56 @@ namespace Whos_Home
             //get locations from database
             var response = await request.GetLocations(db.Retrieve("Token"), db.GetActiveGroup().GroupID);
             //convert locations from json format
-            var locations = ConvertJson(response);
+            db_locations = ConvertJson(response);
             //add locations into list adapter
-            LocationList.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, locations);
+            LocationList.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, db_locations);
 
+            UpdateLocation();
+
+        }
+
+        private async void UpdateLocation()
+        {
+            WifiManager wifimanager = (WifiManager)GetSystemService(Context.WifiService);
+
+            string permission = Manifest.Permission.AccessFineLocation;
+            if (CheckSelfPermission(permission) == (int)Permission.Granted)
+            {
+                var InRange = wifimanager.ScanResults;
+
+                foreach (ScanResult network in InRange)
+                {
+                    WifiNetworks.Add(network.Ssid);
+                    //WifiNetworkKey.Add(network.Bssid);
+                }
+            }
+
+            RequestHandler request = new RequestHandler(this.BaseContext);
+            IRestResponse response;
+            DB_Singleton db = DB_Singleton.Instance;
+
+            //some garbage string
+            current_location = "$$560091692749045729$#^^%$";
+
+            for (int i = 0; i < WifiNetworks.Count; ++i)
+            {
+                for(int j = 0; j < db_locations.Count; ++j)
+                {
+                    if (WifiNetworks[i] == db_locations[j])
+                    {
+                        current_location = db_locations[j];
+                        i = location_names.Count;
+                        j = db_locations.Count;
+                    }
+                }
+            }
+
+
+            if (current_location != "$$560091692749045729$#^^%$") 
+                response = await request.UpdateLocation(db.Retrieve("Token"), current_location);
+
+            CurrentLocation.Text = "Current location: " + current_location;
+            CurrentLocation.RefreshDrawableState();
         }
 
         private List<string> ConvertJson(IRestResponse response)

@@ -16,9 +16,10 @@ namespace Whos_Home
     [Activity(Label = "Bulletin")]
     public class Bulletin : Activity
     {
-        ListView messagelistview, commentlistview;
-        TextView message, tvTitle;
-        string msg, title;
+        private ListView commentlistview;
+        private TextView message, tvTitle;
+        private string msg, title;
+        private Button bAddComment;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -55,6 +56,10 @@ namespace Whos_Home
             message = FindViewById<TextView>(Resource.Id.textviewBulletinMessage);
             commentlistview = FindViewById<ListView>(Resource.Id.BulletinCommentsListView);
 
+            //find the add comment button
+            bAddComment = FindViewById<Button>(Resource.Id.NewCommentButton);
+            bAddComment.Click += BAddComment_Click;
+
             //set values for testing
             message.Text = msg;
             commentlistview.Adapter = new BulletinCommentListAdapter(this, usernames, comments);
@@ -63,6 +68,13 @@ namespace Whos_Home
             //set onClick method for message that will open the full message text in another window
             message.Click += TextViewClick;
 
+        }
+
+        private void BAddComment_Click(object sender, EventArgs e)
+        {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            BulletinAddComment NewCommentDialog = new BulletinAddComment();
+            NewCommentDialog.Show(transaction, "dialog fragment new message");
         }
 
         private void TextViewClick(object sender, System.EventArgs e)
@@ -82,10 +94,18 @@ namespace Whos_Home
             SetActionBar(toolbar);
             ActionBar.Title = title;
 
+
             //initialize bottom toolbar
             var editToolbar = FindViewById<Toolbar>(Resource.Id.edit_toolbar);
+            //editToolbar.Title = "Navigate";
             editToolbar.InflateMenu(Resource.Menu.edit_menus);
             editToolbar.MenuItemClick += NavigateMenu;
+
+            //(sender, e) => {
+            //Toast.MakeText(this, "Bottom toolbar tapped: " + e.Item.TitleFormatted, ToastLength.Short).Show();
+            //};
+
+
         }
 
         //Method is used to navigate between activities using the bottom toolbar
@@ -95,6 +115,13 @@ namespace Whos_Home
             if (e.Item.ToString() == "Bulletins")
                 this.StartActivity(typeof(BulletinBoard));
 
+            //Start the Locations activity
+            if (e.Item.ToString() == "Locations")
+                this.StartActivity(typeof(Locations));
+
+            //Start the Lists activity
+            if (e.Item.ToString() == "Lists")
+                this.StartActivity(typeof(Lists));
         }
 
         //called to specify menu resources for an activity
@@ -109,6 +136,10 @@ namespace Whos_Home
         {
             Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
                 ToastLength.Short).Show();
+
+            //loads notifications
+            if (item.ToString() == "Notifications")
+                this.StartActivity(typeof(Notifications));
 
             //Loads settings menu if preferences is selected
             if (item.ToString() == "Preferences")
