@@ -4,7 +4,7 @@ var auth = require('./../../middlewares/auth');
 
 module.exports = function (app) {
     //Post for adding a response to a specific messageboard topic in a group
-    app.post('/groups/:groupid(\\d+)/messageposts/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    app.post('/groups/:groupid(\\d+)/messages/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         //Get a connection
         var con = mysql.createConnection(config.connectionInfo);
 
@@ -44,7 +44,7 @@ module.exports = function (app) {
     });
 
     //Get for retreiving all responses to a specific messageboard topic in a group
-    app.get('/groups/:groupid(\\d+)/:topicid(\\d+)/messageposts/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    app.get('/groups/:groupid(\\d+)/messages/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         //Get a connection
         var con = mysql.createConnection(config.connectionInfo);
 
