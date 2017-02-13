@@ -14,7 +14,14 @@ module.exports = function (app) {
                     return res.end();
                 }
                 else {
-                    return res.status(200).json({ status: "success", message: "succesfully added list"});
+                    con.query("SELECT LAST_INSERT_ID() AS id", function (err, result, field) {
+                        if(err) {
+                            console.log(err);
+                        } 
+                        else {
+                            return res.status(200).json({ status: "success", listid: result[0].id });
+                        }
+                    });
                 }
             });
         }

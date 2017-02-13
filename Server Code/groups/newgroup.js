@@ -21,14 +21,14 @@ module.exports = function (app) {
                 }
                 else {
                     con.query("SELECT LAST_INSERT_ID() AS id", function (err, result, field) {
-                        UserID = result[0].id;
+                        GroupID = result[0].id;
                         if (err) {
                             console.log(err);
                         } else {
                             res.status(200);
                             res.json({
                                 status: "success",
-                                groupID: UserID
+                                groupID: GroupID
                             });
                             res.end();
                         }

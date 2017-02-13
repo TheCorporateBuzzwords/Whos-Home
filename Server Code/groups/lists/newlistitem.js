@@ -14,7 +14,14 @@ module.exports = function (app) {
                     return res.end();
                 }
                 else {
-                    return res.status(200).json({ status: "success", message: "succesfully added list item"});
+                    con.query("SELECT LAST_INSERT_ID() AS id", function (err, result, field) {
+                        GroupID = result[0].id;
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            return res.status(200).json({ status: "success", ListItemID: result[0].id });
+                        }
+                    });
                 }
             });
         }

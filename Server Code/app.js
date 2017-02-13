@@ -15,6 +15,8 @@ var userGroups = require('./users/groups');
 var updateLocation = require('./users/location');
 var acceptInvite = require('./groups/invitation/acceptinvite');
 var userInites = require('./users/invites');
+var newlist = require('./groups/lists/newlist');
+var newlistitem = require('./groups/lists/newlistitem');
 
 //var auth = require('./middlewares/auth');
 app.use(morgan('combined'));
@@ -38,3 +40,5 @@ userGroups(app);
 updateLocation(app);
 acceptInvite(app);
 userInites(app);
+newlist(app);
+newlistitem(app);
