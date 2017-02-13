@@ -83,7 +83,7 @@ POST /groups/{groupid}/messagetopic/ (authenticated)
 ### Get all messageboard post topics
 GET /groups/{groupid}/messagetopic/ (authenticated)
 
-Returns: TopicID, Title, Date/Time posted, and Username of original poster for each topic in a group
+Returns: TopicID, Title, Date/Time posted, Message, and Username/FirstName/Lastname of original poster for each topic in a group
 
 ### Respond to a messageboard topic
 POST /groups/{groupid}/messages/ (authenticated)

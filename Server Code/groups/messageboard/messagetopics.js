@@ -51,18 +51,37 @@ module.exports = function (app) {
         //Check that all required information is passed
         if(req.params.groupid)
         {
+            //Super gross, clean up later
             //Create a var that has the call to the procedure
             var getRequest = "Select mt.TopicID, mt.Title, \
                                 (Select MIN(p2.PostTime) \
                                     From Posts as p2 \
-                                    Where p2.TopicID = mt.TopicID ) as DatePosted, \
-                                (Select UserName \
-                                    From Users \
-                                    Where UserID = \
-                                    (Select UserID \
-                                        From Posts as p \
-                                        Where p.TopicID = mt.TopicID \
-                                        And p.PostTime = DatePosted)) as PosterName \
+                                    Where p2.TopicID = mt.TopicID) as DatePosted, \
+                                    (Select Msg \
+                                        From Posts as p3 \
+                                        Where p3.TopicID = mt.TopicID \
+                                            AND p3.PostTime = DatePosted) as Message, \
+                                    (Select UserName \
+                                        From Users \
+                                        Where UserID = \
+                                        (Select UserID \
+                                            From Posts as p \
+                                            Where p.TopicID = mt.TopicID \
+                                                And p.PostTime = DatePosted)) as PosterName, \
+                                    (Select FirstName \
+                                        From Users \
+                                        Where UserID = \
+                                        (Select UserID \
+                                            From Posts as p \
+                                            Where p.TopicID = mt.TopicID \
+                                                And p.PostTime = DatePosted)) as FirstName, \
+                                    (Select LastName \
+                                        From Users \
+                                        Where UserID = \
+                                        (Select UserID \
+                                            From Posts as p \
+                                            Where p.TopicID = mt.TopicID \
+                                                And p.PostTime = DatePosted)) as LastName \
                                 From Message_Topics as mt \
                                 Where mt.GroupID = " + con.escape(req.params.groupid);
 
