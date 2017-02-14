@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
@@ -34,19 +36,42 @@ namespace Whos_Home
         {
             List<string> comments = new List<string>();
             List<string> usernames = new List<string>();
-
+            List<CommentObj> comment_objs = new List<CommentObj>();
 
             //deserializes the title and message that were converted to json in the messageboard.cs
             title = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Title"));
             msg = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Message"));
 
+            /*
+            DB_Singleton db = DB_Singleton.Instance;
+            RequestHandler request = new RequestHandler(this);
+            string token = db.Retrieve("Token");
+            string groupid = db.GetActiveGroup().GroupID;
+            var response = request.GetMessageReply(token, groupid, topicid);
 
+            if (response.Content != "[]")
+            {
+                JArray JPosts = JArray.Parse(response.Content);
+
+                foreach (JToken post in JPosts)
+                {
+                    string author = (string)post["PosterName"];
+                    string time = (string)post["DatePosted"];
+                    string message = (string)post["msg"];
+
+                    comment_objs.Add(new CommentObj(author, time, title, topicid, message));
+                    comments.Add(message);
+                    comments.Add(message);
+                }
+            }
+            */
+            
             //generate fake comments
-            for (int i = 1; i < 16; ++i)
+            /*for (int i = 1; i < 16; ++i)
             {
                 comments.Add("Comment " + i.ToString());
                 usernames.Add("User " + i.ToString());
-            }
+            }*/
 
 
             tvTitle = FindViewById<TextView>(Resource.Id.textviewBulletinTitle);

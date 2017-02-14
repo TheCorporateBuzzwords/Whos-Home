@@ -46,7 +46,7 @@ namespace Whos_Home
                   RequestHandler request = new RequestHandler();
                     DB_Singleton db = DB_Singleton.Instance;
                     string token = db.Retrieve("Token");
-                    string groupid = db.GetActiveGroup();
+                    string groupid = db.GetActiveGroup().GroupID;
 
                   var response = request.PostMessageReply(token, groupid, topicid, message);
 
