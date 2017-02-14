@@ -87,8 +87,9 @@ namespace Whos_Home
                     string topicid = (string)post["TopicID"];
                     string message = (string)post["Message"];
 
+                    posts.Add(new BulletinPostObj(author, time, title, topicid, message));
                     titles.Add(title);
-                    //messages.Add(message);
+                    messages.Add(message);
                 }
             }
 

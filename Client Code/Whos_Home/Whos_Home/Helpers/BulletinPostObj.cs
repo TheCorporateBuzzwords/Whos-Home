@@ -15,12 +15,16 @@ namespace Whos_Home.Helpers
     class BulletinPostObj
     {
         string author;
+        string time;
+        string topicid;
         string title;
         string message;
 
-        BulletinPostObj(string p_author, string p_title, string p_message)
+        public BulletinPostObj(string p_author, string p_time, string p_topicid, string p_title, string p_message)
         {
             Author = p_author;
+            Time = p_time;
+            Topicid = p_topicid;
             Title = p_title;
             Message = p_message;
 
@@ -61,6 +65,32 @@ namespace Whos_Home.Helpers
             set
             {
                 message = value;
+            }
+        }
+
+        public string Time
+        {
+            get
+            {
+                return time;
+            }
+
+            set
+            {
+                time = value;
+            }
+        }
+
+        public string Topicid
+        {
+            get
+            {
+                return topicid;
+            }
+
+            set
+            {
+                topicid = value;
             }
         }
     }
