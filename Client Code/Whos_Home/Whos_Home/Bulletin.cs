@@ -149,6 +149,10 @@ namespace Whos_Home
             //Start the Lists activity
             if (e.Item.ToString() == "Lists")
                 this.StartActivity(typeof(Lists));
+
+            //Start the Lists activity
+            if (e.Item.ToString() == "Bills")
+                this.StartActivity(typeof(Bills));
         }
 
         //called to specify menu resources for an activity
