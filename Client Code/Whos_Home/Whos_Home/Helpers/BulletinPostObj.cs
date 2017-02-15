@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Whos_Home.Helpers
 {
-    class BulletinPostObj
+    public class BulletinPostObj
     {
         string author;
         string time;

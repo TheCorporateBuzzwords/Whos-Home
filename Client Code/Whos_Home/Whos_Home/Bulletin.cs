@@ -22,6 +22,7 @@ namespace Whos_Home
         private TextView message, tvTitle;
         private string msg, title;
         private Button bAddComment;
+        private BulletinPostObj post;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -39,9 +40,10 @@ namespace Whos_Home
             List<CommentObj> comment_objs = new List<CommentObj>();
 
             //deserializes the title and message that were converted to json in the messageboard.cs
-            title = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Title"));
-            msg = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Message"));
+            //title = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Title"));
+            //msg = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Message"));
 
+            post = JsonConvert.DeserializeObject<BulletinPostObj>(Intent.GetStringExtra("PostObject"));
             /*
             DB_Singleton db = DB_Singleton.Instance;
             RequestHandler request = new RequestHandler(this);
@@ -75,7 +77,7 @@ namespace Whos_Home
 
 
             tvTitle = FindViewById<TextView>(Resource.Id.textviewBulletinTitle);
-            tvTitle.Text = title;
+            tvTitle.Text = post.Title;
 
             //find the two views for message body and comment listview
             message = FindViewById<TextView>(Resource.Id.textviewBulletinMessage);
@@ -86,7 +88,7 @@ namespace Whos_Home
             bAddComment.Click += BAddComment_Click;
 
             //set values for testing
-            message.Text = msg;
+            message.Text = post.Message;
             commentlistview.Adapter = new BulletinCommentListAdapter(this, usernames, comments);
 
 

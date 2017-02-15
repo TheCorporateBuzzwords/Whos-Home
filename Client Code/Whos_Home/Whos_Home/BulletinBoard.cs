@@ -21,8 +21,9 @@ namespace Whos_Home
     [Activity(Label = "MessageBoard")]
     class BulletinBoard : Activity
     {
-        Button NewPostButton;
-        ListView listView;
+        private List<BulletinPostObj> posts;
+        private Button NewPostButton;
+        private ListView listView;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -67,7 +68,7 @@ namespace Whos_Home
         private async void InitializeFormat()
         {
             //mock title data used for testing list
-            List<BulletinPostObj> posts = new List<BulletinPostObj>();
+            posts = new List<BulletinPostObj>();
 
             RequestHandler request = new RequestHandler(this);
             DB_Singleton db = DB_Singleton.Instance;
@@ -100,10 +101,9 @@ namespace Whos_Home
             listView = FindViewById<ListView>(Resource.Id.messagelistview);
 
             //reverse titles and messages so they are shown correctly in bulletinboard
-            titles.Reverse();
-            messages.Reverse();
+            posts.Reverse();
 
-            listView.Adapter = new BulletinListAdapter(this, titles, messages);
+            listView.Adapter = new BulletinListAdapter(this, posts);
        
             listView.ItemClick += OnMessageItemClick;
 
@@ -117,7 +117,7 @@ namespace Whos_Home
             BulletinNew NewMessageDialog = new BulletinNew();
             NewMessageDialog.Show(transaction, "dialog fragment new message");
 
-            listView.Adapter = new BulletinListAdapter(this, titles, messages);
+            listView.Adapter = new BulletinListAdapter(this, posts);
 
            
         }
@@ -134,8 +134,10 @@ namespace Whos_Home
 
             //Serializes the title and message of the selected list item into json
             //This will be later deserialized in the bulletin.cs activity
-            i.PutExtra("Title", JsonConvert.SerializeObject(titles[position]));
-            i.PutExtra("Message", JsonConvert.SerializeObject(messages[position]));
+            //i.PutExtra("Title", JsonConvert.SerializeObject(titles[position]));
+            //i.PutExtra("Message", JsonConvert.SerializeObject(messages[position]));
+
+            i.PutExtra("PostObject", JsonConvert.SerializeObject(posts[position]));
 
             StartActivity(i);
 
