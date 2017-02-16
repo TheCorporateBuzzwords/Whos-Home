@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
 using Whos_Home.Helpers;
 
 namespace Whos_Home
@@ -32,7 +33,7 @@ namespace Whos_Home
             InitializeFormat();
         }
 
-        private void InitializeFormat()
+        private async void InitializeFormat()
         {
             List<string> comments = new List<string>();
             List<string> usernames = new List<string>();
@@ -42,13 +43,12 @@ namespace Whos_Home
             title = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Title"));
             msg = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Message"));
 
-            /*
             DB_Singleton db = DB_Singleton.Instance;
             RequestHandler request = new RequestHandler(this);
             string token = db.Retrieve("Token");
             string groupid = db.GetActiveGroup().GroupID;
-            var response = request.GetMessageReply(token, groupid, topicid);
-
+            var response = await request.GetMessageReplies(token, groupid, topicid);
+            
             if (response.Content != "[]")
             {
                 JArray JPosts = JArray.Parse(response.Content);
@@ -59,12 +59,10 @@ namespace Whos_Home
                     string time = (string)post["DatePosted"];
                     string message = (string)post["msg"];
 
-                    comment_objs.Add(new CommentObj(author, time, title, topicid, message));
-                    comments.Add(message);
+                    comment_objs.Add(new CommentObj(author, message, time, topicid));
                     comments.Add(message);
                 }
             }
-            */
             
             //generate fake comments
             /*for (int i = 1; i < 16; ++i)

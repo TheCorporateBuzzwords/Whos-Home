@@ -152,6 +152,7 @@
   <ItemGroup>
     <Compile Include="BulletinAddComment.cs" />
     <Compile Include="Helpers\BulletinPostObj.cs" />
+    <Compile Include="Helpers\CommentObj.cs" />
     <Compile Include="InviteAcceptDialog.cs" />
     <Compile Include="GroupAddUser.cs" />
     <Compile Include="BulletinCommentListAdapter.cs" />

@@ -17,12 +17,14 @@ namespace Whos_Home.Helpers
         string message;
         string time;
         string author;
+        string topicid;
 
-        public CommentObj(string msg, string tme, string auth)
+        public CommentObj(string auth, string msg, string tme, string topid)
         {
             Message = msg;
             Time = tme;
             Author = auth;
+            Topicid = topid;
         }
         public string Message
         {
@@ -60,6 +62,19 @@ namespace Whos_Home.Helpers
             set
             {
                 author = value;
+            }
+        }
+
+        public string Topicid
+        {
+            get
+            {
+                return topicid;
+            }
+
+            set
+            {
+                topicid = value;
             }
         }
     }
