@@ -24,6 +24,9 @@ namespace Whos_Home
         private string msg, title;
         private Button bAddComment;
 
+        private BulletinPostObj post;
+
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -33,47 +36,54 @@ namespace Whos_Home
             InitializeFormat();
         }
 
+
         private async void InitializeFormat()
+
         {
             List<string> comments = new List<string>();
             List<string> usernames = new List<string>();
             List<CommentObj> comment_objs = new List<CommentObj>();
 
             //deserializes the title and message that were converted to json in the messageboard.cs
-            title = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Title"));
-            msg = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Message"));
+            //title = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Title"));
+            //msg = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Message"));
+
+            post = JsonConvert.DeserializeObject<BulletinPostObj>(Intent.GetStringExtra("PostObject"));
 
             DB_Singleton db = DB_Singleton.Instance;
             RequestHandler request = new RequestHandler(this);
             string token = db.Retrieve("Token");
             string groupid = db.GetActiveGroup().GroupID;
-            var response = await request.GetMessageReplies(token, groupid, topicid);
-            
-            if (response.Content != "[]")
+
+            var response = await request.GetMessageReplies(token, groupid, post.Topicid);
+
+            if ((int)response.StatusCode == 200)
             {
-                JArray JPosts = JArray.Parse(response.Content);
-
-                foreach (JToken post in JPosts)
+                if (response.Content != "[]")
                 {
-                    string author = (string)post["PosterName"];
-                    string time = (string)post["DatePosted"];
-                    string message = (string)post["msg"];
+                    JArray JPosts = JArray.Parse(response.Content);
 
-                    comment_objs.Add(new CommentObj(author, message, time, topicid));
-                    comments.Add(message);
+                    foreach (JToken Jpost in JPosts)
+                    {
+                        string author = (string)Jpost["PosterName"];
+                        string time = (string)Jpost["DatePosted"];
+                        string message = (string)Jpost["msg"];
+
+                        comment_objs.Add(new CommentObj(author, message, time, post.Topicid));
+                        comments.Add(message);
+                    }
                 }
             }
-            
-            //generate fake comments
-            /*for (int i = 1; i < 16; ++i)
+            else
             {
-                comments.Add("Comment " + i.ToString());
-                usernames.Add("User " + i.ToString());
-            }*/
+                Toast.MakeText(this, "Error getting comments", ToastLength.Long);
+            }
 
 
             tvTitle = FindViewById<TextView>(Resource.Id.textviewBulletinTitle);
-            tvTitle.Text = title;
+
+            tvTitle.Text = post.Title;
+
 
             //find the two views for message body and comment listview
             message = FindViewById<TextView>(Resource.Id.textviewBulletinMessage);
@@ -84,7 +94,9 @@ namespace Whos_Home
             bAddComment.Click += BAddComment_Click;
 
             //set values for testing
-            message.Text = msg;
+
+            message.Text = post.Message;
+
             commentlistview.Adapter = new BulletinCommentListAdapter(this, usernames, comments);
 
 
@@ -145,6 +157,12 @@ namespace Whos_Home
             //Start the Lists activity
             if (e.Item.ToString() == "Lists")
                 this.StartActivity(typeof(Lists));
+
+
+            //Start the Lists activity
+            if (e.Item.ToString() == "Bills")
+                this.StartActivity(typeof(Bills));
+
         }
 
         //called to specify menu resources for an activity

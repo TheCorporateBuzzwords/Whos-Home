@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
@@ -30,7 +31,7 @@ namespace Whos_Home
             return view;
         }
 
-        private void BSubmit_Click(object sender, EventArgs e)
+        private async void BSubmit_Click(object sender, EventArgs e)
         {
             message = MessageText.Text;
 
@@ -42,27 +43,25 @@ namespace Whos_Home
 
             alert.SetPositiveButton("Confirm", (senderAlert, args) => {
                 //submit comment logic
-                /*
-                  RequestHandler request = new RequestHandler();
-                    DB_Singleton db = DB_Singleton.Instance;
-                    string token = db.Retrieve("Token");
-                    string groupid = db.GetActiveGroup().GroupID;
+            RequestHandler request = new RequestHandler(Context);
+            DB_Singleton db = DB_Singleton.Instance;
+            string token = db.Retrieve("Token");
+            string groupid = db.GetActiveGroup().GroupID;
+            /*
+            var response = await request.PostMessageReply(token, groupid, topicid, message);
 
-                  var response = request.PostMessageReply(token, groupid, topicid, message);
+            if((int)response.StatusCode == 200)
+            {
+                Toast.MakeText(//success or whatever);
+                //Refresh bulletin
 
-                  if((int) response.StatusCode == 200)
-                  {
-                        Toast.MakeText(//success or whatever);
-                        //Refresh bulletin
+            }
+            else
+            {
 
-                    }
-                    else
-                    {
-                        Error
-                    }
-                    }
-                  
-                 */
+            }
+            */
+
             });
 
             alert.SetNegativeButton("Cancel", (senderAlert, args) => {

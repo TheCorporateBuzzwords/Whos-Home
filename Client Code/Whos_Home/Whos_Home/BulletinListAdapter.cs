@@ -10,22 +10,21 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
-    public class BulletinListAdapter : BaseAdapter<List<string>>
+    public class BulletinListAdapter : BaseAdapter<List<BulletinPostObj>>
     {
-        List<string> titles;
-        List<string> messages;
+        List<BulletinPostObj> m_posts;
         Activity context;
 
         //overloaded constructor to accept values for the list
-        public BulletinListAdapter(Activity context, List<string> t, List<string> m) : base()
+        public BulletinListAdapter(Activity context, List<BulletinPostObj> posts) : base()
         {
             this.context = context;
-            titles = t;
-            messages = m;
 
+            m_posts = posts;
             
         }
        
@@ -33,15 +32,15 @@ namespace Whos_Home
         {
             get
             {
-                return titles.Count;
+                return m_posts.Count;
             }
         }
 
-        public override List<string> this[int position]
+        public override List<BulletinPostObj> this[int position]
         {
             get
             {
-                return titles;
+                return m_posts;
             }
         }
 
@@ -57,19 +56,19 @@ namespace Whos_Home
                 view = context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItem2, null);
 
             // set view properties to reflect data for the given row
-            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = titles[position];
+            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = m_posts[position].Title;
 
             string temp;
             //limit the size of the message preview to 100 characters
-            if(messages[position].Count<char>() > 100)
+            if(m_posts[position].Message.Count<char>() > 100)
             {
-               temp = messages[position].Substring(0, 99);
+               temp = m_posts[position].Message.Substring(0, 99);
                temp += "...";
                view.FindViewById<TextView>(Android.Resource.Id.Text2).Text = temp;
 
             }
             else
-                view.FindViewById<TextView>(Android.Resource.Id.Text2).Text = messages[position];
+                view.FindViewById<TextView>(Android.Resource.Id.Text2).Text = m_posts[position].Message;
             // return the view, populated with data, for display
             return view;
         }

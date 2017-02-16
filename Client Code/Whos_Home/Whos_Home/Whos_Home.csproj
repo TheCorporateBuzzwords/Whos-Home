@@ -162,6 +162,8 @@
     <Compile Include="Helpers\UserGroup.cs" />
     <Compile Include="Helpers\UserLocation.cs" />
     <Compile Include="List.cs" />
+    <Compile Include="ListAddItem.cs" />
+    <Compile Include="ListNew.cs" />
     <Compile Include="Lists.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="GroupNew.cs" />
@@ -263,6 +265,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\BulletinCommentAdd.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListNew.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ListAddItem.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -395,6 +403,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\notification.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\gray_button.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Mono.Data.Sqlite.Portable.1.0.3.5\tools\Mono.Data.Sqlite.Portable.targets" Condition="Exists('..\packages\Mono.Data.Sqlite.Portable.1.0.3.5\tools\Mono.Data.Sqlite.Portable.targets')" />

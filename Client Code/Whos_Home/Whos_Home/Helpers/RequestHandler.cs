@@ -172,7 +172,7 @@ namespace Whos_Home.Helpers
 
         public async Task<IRestResponse> GetMessageReplies(string token, string groupid, string topicid)
         {
-            request = new RestRequest(string.Format("/groups/{0}/messages", groupid), Method.GET);
+            request = new RestRequest(string.Format("/groups/{0}/messages/{1}", groupid, topicid), Method.GET);
             request.AddHeader("x-access-token", token);
 
             var response = await client.ExecuteTaskAsync(request);

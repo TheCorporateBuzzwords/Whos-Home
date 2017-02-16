@@ -27,12 +27,13 @@ namespace Whos_Home
             InitializeToolbars();
             InitializeFormat();
 
-            NewListButton.Click += NewListButton_Click;
         }
 
         private void NewListButton_Click(object sender, EventArgs e)
         {
-            this.StartActivity(typeof(List));
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            ListNew NewListDialog = new ListNew();
+            NewListDialog.Show(transaction, "dialog fragment new list");
         }
 
         private void InitializeFormat()
@@ -46,10 +47,30 @@ namespace Whos_Home
                 remaining_items.Add(i.ToString() + " items remaining");
             }
 
+            //find button and assign click function
             NewListButton = FindViewById<Button>(Resource.Id.NewListButton);
-            listView = FindViewById<ListView>(Resource.Id.listlistview);
+            NewListButton.Click += NewListButton_Click;
 
+            //find listview and set adapter and click function
+            listView = FindViewById<ListView>(Resource.Id.listlistview);
             listView.Adapter = new GroupListAdapter(this, listnames, remaining_items);
+            listView.ItemClick += ListView_ItemClick;
+
+        }
+
+        private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var listView = sender as ListView;
+            var position = e.Position;
+
+            //creates an intent for a List activity
+            Intent i = new Intent(Application.Context, typeof(List));
+
+            //sample code to put a list object into the intent
+            //i.PutExtra("ListObject", JsonConvert.SerializeObject(lists[position]));
+
+            StartActivity(i);
+
         }
 
         private void InitializeToolbars()
@@ -87,6 +108,10 @@ namespace Whos_Home
             //Start the Lists activity
             if (e.Item.ToString() == "Lists")
                 this.StartActivity(typeof(Lists));
+
+            //Start the Lists activity
+            if (e.Item.ToString() == "Bills")
+                this.StartActivity(typeof(Bills));
 
         }
 

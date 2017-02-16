@@ -35,10 +35,12 @@ namespace Whos_Home
             {
                 listItems.Add(i.ToString());
             }
-
+            //Find button and add click function
             NewListItemButton = FindViewById<Button>(Resource.Id.NewListItemButton);
-            listView = FindViewById<ListView>(Resource.Id.listitemslistview);
+            NewListItemButton.Click += NewListItemButton_Click;
 
+            //Find listview and set adapter
+            listView = FindViewById<ListView>(Resource.Id.listitemslistview);
             listView.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItemMultipleChoice, listItems);
 
             //sets the selection mode for the listview to multiple choice
@@ -47,6 +49,13 @@ namespace Whos_Home
             //Sets the function to be called on click to the custom function OnLocationItemClick
             //This Function will select and deselect location values based on the item clicked.
             listView.ItemClick += ListView_ItemClick;
+        }
+
+        private void NewListItemButton_Click(object sender, EventArgs e)
+        {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            ListAddItem NewListItemDialog = new ListAddItem();
+            NewListItemDialog.Show(transaction, "dialog fragment new list item");
         }
 
         private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -95,6 +104,9 @@ namespace Whos_Home
             if (e.Item.ToString() == "Lists")
                 this.StartActivity(typeof(Lists));
 
+            //Start the Lists activity
+            if (e.Item.ToString() == "Bills")
+                this.StartActivity(typeof(Bills));
         }
 
         //called to specify menu resources for an activity
