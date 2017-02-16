@@ -18,6 +18,15 @@ namespace Whos_Home
         private string message;
         private Button bSubmit;
         private EditText MessageText;
+        //post object
+        private BulletinPostObj post;
+
+        public BulletinAddComment(BulletinPostObj bulletinPost)
+        {
+            //post object
+            post = bulletinPost;
+        }
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);

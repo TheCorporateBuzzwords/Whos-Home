@@ -108,7 +108,7 @@ namespace Whos_Home
         private void BAddComment_Click(object sender, EventArgs e)
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            BulletinAddComment NewCommentDialog = new BulletinAddComment();
+            BulletinAddComment NewCommentDialog = new BulletinAddComment(post);
             NewCommentDialog.Show(transaction, "dialog fragment new message");
         }
 
