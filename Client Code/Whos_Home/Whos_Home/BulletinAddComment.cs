@@ -51,26 +51,7 @@ namespace Whos_Home
             //alert.SetMessage("Would you like to submit your comment?");
 
             alert.SetPositiveButton("Confirm", (senderAlert, args) => {
-                //submit comment logic
-            RequestHandler request = new RequestHandler(Context);
-            DB_Singleton db = DB_Singleton.Instance;
-            string token = db.Retrieve("Token");
-            string groupid = db.GetActiveGroup().GroupID;
-            /*
-            var response = await request.PostMessageReply(token, groupid, topicid, message);
-
-            if((int)response.StatusCode == 200)
-            {
-                Toast.MakeText(//success or whatever);
-                //Refresh bulletin
-
-            }
-            else
-            {
-
-            }
-            */
-
+                MakeReq();
             });
 
             alert.SetNegativeButton("Cancel", (senderAlert, args) => {
@@ -78,6 +59,28 @@ namespace Whos_Home
             });
             Dialog dialog = alert.Create();
             dialog.Show();
+        }
+
+        private async void MakeReq()
+        {
+                //submit comment logic
+                RequestHandler request = new RequestHandler(Context);
+                DB_Singleton db = DB_Singleton.Instance;
+                string token = db.Retrieve("Token");
+                string groupid = db.GetActiveGroup().GroupID;
+
+                var response = await request.PostMessageReply(token, groupid, post.Topicid, message);
+
+                if((int)response.StatusCode == 200)
+                {
+                    Toast.MakeText(Context, "Post Succesful", ToastLength.Long);
+
+                }
+                else
+                {
+
+                }
+
         }
     }
 }

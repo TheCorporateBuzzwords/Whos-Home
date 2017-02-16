@@ -65,9 +65,9 @@ namespace Whos_Home
 
                     foreach (JToken Jpost in JPosts)
                     {
-                        string author = (string)Jpost["PosterName"];
-                        string time = (string)Jpost["DatePosted"];
-                        string message = (string)Jpost["msg"];
+                        string author = (string)Jpost["PostersName"];
+                        string time = (string)Jpost["PostTime"];
+                        string message = (string)Jpost["Msg"];
 
                         comment_objs.Add(new CommentObj(author, message, time, post.Topicid));
                         comments.Add(message);

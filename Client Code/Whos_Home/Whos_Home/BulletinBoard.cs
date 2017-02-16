@@ -41,29 +41,7 @@ namespace Whos_Home
         List<string>titles = new List<string>();
         List<string>messages = new List<string>();
 
-        //Using this to convert a server response
-        //Into a list of bulletin objects
-        /*protected async void UpdateBoard()
-        {
-            List<BulletinPostObj> posts = new List<BulletinPostObj>();
-
-            RequestHandler request = new RequestHandler(this);
-            var response = await request.GetMessages(DB_Singleton.Instance.Retrieve("Token"), DB_Singleton.Instance.Retrieve("ActiveGroup"));
-
-            JArray JPosts = JArray.Parse(response.Content);
-
-            foreach(JToken post in JPosts)
-            {
-                string author = (string)post["UserID"];
-                string time = (string)post["Date"];
-                string title = (string)post["Title"];
-                string topicid = (string)post["TopicID"];
-            }
-
-            return 
-
-        }
-        */
+ 
         //Assigns values to NewPostButton and ListView
         private async void InitializeFormat()
         {
@@ -76,23 +54,28 @@ namespace Whos_Home
             string groupid = db.GetActiveGroup().GroupID;
             var response = await request.GetMessages(token, groupid);
             //In progress
-            if (response.Content != "[]")
+            if ((int)response.StatusCode == 200)
             {
-                JArray JPosts = JArray.Parse(response.Content);
-
-                foreach (JToken post in JPosts)
+                if (response.Content != "[]")
                 {
-                    string author = (string)post["PosterName"];
-                    string time = (string)post["DatePosted"];
-                    string title = (string)post["Title"];
-                    string topicid = (string)post["TopicID"];
-                    string message = (string)post["Message"];
+                    JArray JPosts = JArray.Parse(response.Content);
 
-                    posts.Add(new BulletinPostObj(author, time, topicid, title, message));
-                    titles.Add(title);
-                    messages.Add(message);
+                    foreach (JToken post in JPosts)
+                    {
+                        string author = (string)post["PosterName"];
+                        string time = (string)post["DatePosted"];
+                        string title = (string)post["Title"];
+                        string topicid = (string)post["TopicID"];
+                        string message = (string)post["Message"];
+
+                        posts.Add(new BulletinPostObj(author, time, topicid, title, message));
+                        titles.Add(title);
+                        messages.Add(message);
+                    }
                 }
             }
+            else
+                Toast.MakeText(this, "Error Getting Comments", ToastLength.Long);
 
             NewPostButton = FindViewById<Button>(Resource.Id.NewPostButton);
             NewPostButton.Click += NewPostButton_Click;
