@@ -3,7 +3,7 @@ var mysql = require("mysql");
 var auth = require('./../../middlewares/auth');
 
 module.exports = function (app) {
-    app.post('/groups/:groupid(\\d+)/list/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    app.post('/groups/:groupid(\\d+)/lists/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         var con = mysql.createConnection(config.connectionInfo);
         if(req.params.groupid && req.body.title)
         {
