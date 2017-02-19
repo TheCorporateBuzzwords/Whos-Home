@@ -106,6 +106,7 @@ POST /groups/{groupid}/lists/
 
 ### Add new list item
 POST /groups/{groupid}/lists/{listid}
+
 \*content: content of list item
 
 ### Get all lists
