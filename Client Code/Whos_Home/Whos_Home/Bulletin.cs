@@ -97,7 +97,7 @@ namespace Whos_Home
 
             message.Text = post.Message;
 
-            commentlistview.Adapter = new BulletinCommentListAdapter(this, usernames, comments);
+            commentlistview.Adapter = new BulletinCommentListAdapter(this, comment_objs);
 
 
             //set onClick method for message that will open the full message text in another window
@@ -110,6 +110,8 @@ namespace Whos_Home
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
             BulletinAddComment NewCommentDialog = new BulletinAddComment(post);
             NewCommentDialog.Show(transaction, "dialog fragment new message");
+            //commentlistview.RefreshDrawableState();
+
         }
 
         private void TextViewClick(object sender, System.EventArgs e)

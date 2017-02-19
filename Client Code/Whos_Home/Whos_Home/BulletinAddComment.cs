@@ -40,7 +40,7 @@ namespace Whos_Home
             return view;
         }
 
-        private async void BSubmit_Click(object sender, EventArgs e)
+        private void BSubmit_Click(object sender, EventArgs e)
         {
             message = MessageText.Text;
 
@@ -52,6 +52,8 @@ namespace Whos_Home
 
             alert.SetPositiveButton("Confirm", (senderAlert, args) => {
                 MakeReq();
+                //Dismiss();
+                
             });
 
             alert.SetNegativeButton("Cancel", (senderAlert, args) => {
@@ -80,7 +82,7 @@ namespace Whos_Home
                 {
 
                 }
-
+            Dismiss();
         }
     }
 }
