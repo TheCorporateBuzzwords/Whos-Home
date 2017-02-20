@@ -275,10 +275,13 @@ namespace Whos_Home
 			public const int menu_MessageBoard = 2131165278;
 			
 			// aapt resource value: 0x7f070061
-			public const int menu_notifications = 2131165281;
+			public const int menu_SpaceRight = 2131165281;
 			
 			// aapt resource value: 0x7f070062
-			public const int menu_preferences = 2131165282;
+			public const int menu_notifications = 2131165282;
+			
+			// aapt resource value: 0x7f070063
+			public const int menu_preferences = 2131165283;
 			
 			// aapt resource value: 0x7f07003c
 			public const int messagelistview = 2131165244;
@@ -550,6 +553,9 @@ namespace Whos_Home
 			
 			// aapt resource value: 0x7f050000
 			public const int MyTheme = 2131034112;
+			
+			// aapt resource value: 0x7f050001
+			public const int ToolBarStyle = 2131034113;
 			
 			static Style()
 			{

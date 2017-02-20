@@ -187,6 +187,10 @@ namespace Whos_Home
                 this.StartActivity(typeof(Locations));
 
             //Start the Lists activity
+            if (e.Item.ToString() == "Lists")
+                this.StartActivity(typeof(Locations));
+
+            //Start the Lists activity
             if (e.Item.ToString() == "Bills")
                 this.StartActivity(typeof(Bills));
         }

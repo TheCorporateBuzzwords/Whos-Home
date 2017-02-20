@@ -3,23 +3,23 @@
       android:gravity="center">
   <item
        android:id="@+id/menu_Locations"
-       android:layout_marginLeft="50dip"
        android:showAsAction="always"
        android:title="Locations" />
   <item
        android:id="@+id/menu_MessageBoard"
-       android:layout_marginLeft="50dip"
        android:showAsAction="always"
        android:title="Bulletins" />
   <item
        android:id="@+id/menu_Lists"
-       android:layout_marginLeft="50dip"
        android:showAsAction="always"
        android:title="Lists" />
   <item
        android:id="@+id/menu_Bills"
-       android:layout_marginRight="50dip"
        android:showAsAction="always"
        android:title="Bills" />
+  <item
+       android:id="@+id/menu_SpaceRight"
+       android:showAsAction="always"
+       android:title="          " />
 
 </menu>

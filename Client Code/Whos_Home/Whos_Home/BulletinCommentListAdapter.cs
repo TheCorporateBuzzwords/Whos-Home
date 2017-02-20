@@ -48,10 +48,10 @@ namespace Whos_Home
         {
             View view = convertView; // re-use an existing view, if one is supplied
             if (view == null) // otherwise create a new one
-                view = context.LayoutInflater.Inflate(Resource.Layout.CustomGroupView, null);
+                view = context.LayoutInflater.Inflate(Resource.Layout.BulletinCommentCustomView, null);
 
-            view.FindViewById<TextView>(Resource.Id.GroupText1).Text = Comments[position].Author;
-            view.FindViewById<TextView>(Resource.Id.GroupText2).Text = Comments[position].Message;
+            view.FindViewById<TextView>(Resource.Id.BulletinCommentText1).Text = Comments[position].Author;
+            view.FindViewById<TextView>(Resource.Id.BulletinCommentText2).Text = Comments[position].Message;
 
             return view;
         }
