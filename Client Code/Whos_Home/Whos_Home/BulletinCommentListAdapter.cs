@@ -9,26 +9,25 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
-    class BulletinCommentListAdapter : BaseAdapter<List<string>>
+    class BulletinCommentListAdapter : BaseAdapter<List<CommentObj>>
     {
-        private List<string> Usernames;
-        private List<string> Comments;
+        private List<CommentObj> Comments;
         private Activity context;
 
-        public BulletinCommentListAdapter(Activity context, List<string> usernames, List<string> comments) : base()
+        public BulletinCommentListAdapter(Activity context, List<CommentObj> comments) : base()
         {
             this.context = context;
-            Usernames = usernames;
             Comments = comments;
         }
-        public override List<string> this[int position]
+        public override List<CommentObj> this[int position]
         {
             get
             {
-                return Usernames;
+                return Comments;
             }
         }
 
@@ -36,7 +35,7 @@ namespace Whos_Home
         {
             get
             {
-                return Usernames.Count;
+                return Comments.Count;
             }
         }
 
@@ -51,8 +50,8 @@ namespace Whos_Home
             if (view == null) // otherwise create a new one
                 view = context.LayoutInflater.Inflate(Resource.Layout.CustomGroupView, null);
 
-            view.FindViewById<TextView>(Resource.Id.GroupText1).Text = Usernames[position];
-            view.FindViewById<TextView>(Resource.Id.GroupText2).Text = Comments[position].ToString();
+            view.FindViewById<TextView>(Resource.Id.GroupText1).Text = Comments[position].Author;
+            view.FindViewById<TextView>(Resource.Id.GroupText2).Text = Comments[position].Message;
 
             return view;
         }

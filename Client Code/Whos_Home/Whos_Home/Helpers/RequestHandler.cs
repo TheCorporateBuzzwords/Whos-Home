@@ -191,6 +191,43 @@ namespace Whos_Home.Helpers
             return response;
         }
 
-       // public async Task<IRestResponse> PostList(string token)
+        public async Task<IRestResponse> PostNewList(string token, string groupid, string title)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/lists", groupid), Method.POST);
+            request.AddHeader("x-access-token", token);
+            request.AddParameter("title", title);
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+
+        }
+
+        public async Task<IRestResponse> PostNewListItem(string token, string groupid, string listid, string content)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/lists/{1}", groupid, listid), Method.POST);
+            request.AddHeader("x-access-token", token);
+            request.AddParameter("content", content);
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+        public async Task<IRestResponse> GetLists(string token, string groupid)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/lists/", groupid), Method.GET);
+            request.AddHeader("x-access-token", token);
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+        public async Task<IRestResponse> GetListItems(string token, string groupid, string listid)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/lists/{1}", groupid, listid), Method.GET);
+            request.AddHeader("x-access-token", token);
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+        //public async Task<IRestResponse> UpdateListItem(string token, string groupid, string item) { }
+
     }
 }

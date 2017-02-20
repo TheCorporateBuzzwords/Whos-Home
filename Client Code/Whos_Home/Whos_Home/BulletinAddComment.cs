@@ -40,6 +40,7 @@ namespace Whos_Home
             return view;
         }
 
+
         private async void BSubmit_Click(object sender, EventArgs e)
         {
             message = MessageText.Text;
