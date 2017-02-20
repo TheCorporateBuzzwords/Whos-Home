@@ -20,8 +20,7 @@ namespace Whos_Home
     public class Bulletin : Activity
     {
         private ListView commentlistview;
-        private TextView message, tvTitle;
-        private string msg, title;
+        private TextView message, tvTitle, author, date;
         private Button bAddComment;
 
         private BulletinPostObj post;
@@ -79,11 +78,15 @@ namespace Whos_Home
                 Toast.MakeText(this, "Error getting comments", ToastLength.Long);
             }
 
-
+            //find view for title
             tvTitle = FindViewById<TextView>(Resource.Id.textviewBulletinTitle);
-
             tvTitle.Text = post.Title;
 
+            //find views for author and date
+            author = FindViewById<TextView>(Resource.Id.textviewBulletinAuthor);
+            author.Text = "Posted by: " + post.Author;
+            date = FindViewById<TextView>(Resource.Id.textviewBulletinDate);
+            date.Text = "Posted: " + post.Time;
 
             //find the two views for message body and comment listview
             message = FindViewById<TextView>(Resource.Id.textviewBulletinMessage);
@@ -97,7 +100,10 @@ namespace Whos_Home
 
             message.Text = post.Message;
 
-            commentlistview.Adapter = new BulletinCommentListAdapter(this, comment_objs);
+            var minus_first_comment = comment_objs;
+
+            minus_first_comment.RemoveAt(0);
+            commentlistview.Adapter = new BulletinCommentListAdapter(this, minus_first_comment);
 
 
             //set onClick method for message that will open the full message text in another window
@@ -119,7 +125,7 @@ namespace Whos_Home
             //create the dialog fragment
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
             //pass in the title and message of the bulletin to be displayed
-            BulletinFragment FullMessage= new BulletinFragment(title, msg);
+            BulletinFragment FullMessage= new BulletinFragment(post.Title, post.Message);
             FullMessage.Show(transaction, "dialog fragment show full message");
         }
 
@@ -129,7 +135,7 @@ namespace Whos_Home
             //initialize top toolbar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
-            ActionBar.Title = title;
+            ActionBar.Title = "Bulletins";
 
 
             //initialize bottom toolbar

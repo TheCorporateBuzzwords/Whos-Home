@@ -8,6 +8,17 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
     <TextView
+        android:text="Author"
+        android:layout_width="match_parent"
+        android:layout_weight="6"
+        android:layout_height="0dp"
+        android:textColor="#368DEB"
+        android:onClick="onClick"
+        android:clickable="true"
+        android:gravity="center_horizontal"
+        android:id="@+id/textviewBulletinAuthor"
+        android:textSize="15sp" />
+    <TextView
         android:text="Message Title"
         android:layout_width="match_parent"
         android:layout_weight="10"
@@ -18,9 +29,9 @@
         android:textStyle="bold"
         android:textSize="26sp" />
     <TextView
-        android:text="Message Title"
+        android:text="Message"
         android:layout_width="match_parent"
-        android:layout_weight="25"
+        android:layout_weight="15"
         android:layout_height="0dp"
         android:textColor="#368DEB"
         android:onClick="onClick"
@@ -29,24 +40,25 @@
         android:id="@+id/textviewBulletinMessage"
         android:textSize="15sp" />
     <TextView
-        android:text="Comments..."
+        android:text="Date"
         android:layout_width="match_parent"
         android:layout_weight="6"
         android:layout_height="0dp"
         android:textColor="#368DEB"
         android:gravity="center_horizontal"
-        android:id="@+id/textviewBulletinTitle"
+        android:id="@+id/textviewBulletinDate"
         android:textStyle="bold"
         android:textSize="15sp" />
     <ListView
         android:id="@+id/BulletinCommentsListView"
         android:layout_width="fill_parent"
-        android:layout_weight="51"
+        android:layout_weight="55"
         android:layout_height="0dp"
         android:textSize="15sp" />
     <Button
         android:background="@drawable/blue_button"
         android:text="New Comment"
+        android:layout_marginBottom="5dip"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="8"

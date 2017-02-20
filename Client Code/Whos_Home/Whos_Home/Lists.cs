@@ -59,7 +59,7 @@ namespace Whos_Home
 
             //find listview and set adapter and click function
             listView = FindViewById<ListView>(Resource.Id.listlistview);
-            listView.Adapter = new GroupListAdapter(this, listnames, remaining_items);
+            listView.Adapter = new ListsListAdapter(this, listoflists);
             listView.ItemClick += ListView_ItemClick;
 
         }

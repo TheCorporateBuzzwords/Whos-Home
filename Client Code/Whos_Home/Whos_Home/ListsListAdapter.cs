@@ -9,27 +9,26 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
-    class GroupListAdapter : BaseAdapter<List<string>>
+    class ListsListAdapter : BaseAdapter<List<ListsObj>>
     {
 
-        private List<string> groupName;
-        private List<string> numMembers;
+        private List<ListsObj> m_lists;
         private Activity context;
 
-        public GroupListAdapter(Activity context, List<string> groupname, List<string> nummembers) : base()
+        public ListsListAdapter(Activity context, List<ListsObj> lists) : base()
         {
             this.context = context;
-            groupName = groupname;
-            numMembers = nummembers;
+            m_lists = lists;
         }
-        public override List<string> this[int position]
+        public override List<ListsObj> this[int position]
         {
             get
             {
-                return groupName;
+                return m_lists;
             }
         }
 
@@ -37,7 +36,7 @@ namespace Whos_Home
         {
             get
             {
-                return groupName.Count;
+                return m_lists.Count;
             }
         }
 
@@ -52,16 +51,10 @@ namespace Whos_Home
             if (view == null) // otherwise create a new one
                 view = context.LayoutInflater.Inflate(Resource.Layout.CustomGroupView, null);
 
-            //crashes here without this if statement not sure why
-            
-                view.FindViewById<TextView>(Resource.Id.GroupText1).Text = groupName[position];
-            if (numMembers.Count == groupName.Count)
-                view.FindViewById<TextView>(Resource.Id.GroupText2).Text = numMembers[position].ToString();
-            else
-                view.FindViewById<TextView>(Resource.Id.GroupText2).Text = "Error loading members";
+            view.FindViewById<TextView>(Resource.Id.GroupText1).Text = m_lists[position].Title;
 
-
-
+            view.FindViewById<TextView>(Resource.Id.GroupText2).Text = m_lists[position].Date;
+           
             return view;
         }
     }

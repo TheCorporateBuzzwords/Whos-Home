@@ -118,7 +118,7 @@ namespace Whos_Home
                     if (WifiNetworks[i] == db_locations[j])
                     {
                         current_location = db_locations[j];
-                        i = location_names.Count;
+                        i = WifiNetworks.Count;
                         j = db_locations.Count;
                     }
                 }

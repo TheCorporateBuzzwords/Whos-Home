@@ -81,7 +81,7 @@ namespace Whos_Home
                 {
 
                 }
-
+            Dismiss();
         }
     }
 }
