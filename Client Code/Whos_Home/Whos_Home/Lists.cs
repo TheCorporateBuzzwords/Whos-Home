@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 
@@ -9,6 +10,11 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+
+using Newtonsoft;
+using Newtonsoft.Json.Linq;
+
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
@@ -36,11 +42,11 @@ namespace Whos_Home
             NewListDialog.Show(transaction, "dialog fragment new list");
         }
 
-        private void InitializeFormat()
+        private async void InitializeFormat()
         {
             listnames = new List<string>();
             remaining_items = new List<string>();
-
+            List<ListsObj> listoflists = await GetLists();
             for (int i = 0; i < 50; ++i)
             {
                 listnames.Add("ListName" + i.ToString());
@@ -58,6 +64,32 @@ namespace Whos_Home
 
         }
 
+        private async Task<List<ListsObj>> GetLists()
+        {
+            RequestHandler request = new RequestHandler(this);
+            DB_Singleton db = DB_Singleton.Instance;
+            string token = db.Retrieve("Token");
+            string groupid = db.GetActiveGroup().GroupID;
+            var response = await request.GetLists(token, groupid);
+            JArray preParse = JArray.Parse(response.Content);
+
+            List<ListsObj> groupLists = ParseToLists(preParse);
+
+            return groupLists;
+            
+        }
+
+        private List<ListsObj> ParseToLists(JArray jarr)
+        {
+            List<ListsObj> postParse = new List<ListsObj>();
+
+            foreach(JToken tok in jarr)
+            {
+                string title = (string)tok["title"];
+            }
+
+            return postParse; 
+        }
         private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             var listView = sender as ListView;
