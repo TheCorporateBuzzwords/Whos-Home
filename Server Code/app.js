@@ -18,6 +18,7 @@ var userInites = require('./users/invites');
 var newlist = require('./groups/lists/newlist');
 var newlistitem = require('./groups/lists/newlistitem');
 var getlists = require('./groups/lists/getlists');
+var updatelists = require('./groups/lists/updatelistitems');
 
 //var auth = require('./middlewares/auth');
 app.use(morgan('combined'));
@@ -44,3 +45,4 @@ userInites(app);
 newlist(app);
 newlistitem(app);
 getlists(app);
+updatelists(app);
