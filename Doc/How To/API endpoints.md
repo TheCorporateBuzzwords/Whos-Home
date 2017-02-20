@@ -96,3 +96,25 @@ POST /groups/{groupid}/messages/ (authenticated)
 GET /groups/{groupid}/messages/{topicid}/ (authenticated)
 
 Returns: Response msg, Date/Time posted, and Username of the original poster for each response to a topic
+
+##Lists
+
+### Add new list
+POST /groups/{groupid}/lists/
+
+\*title: title of the list
+
+### Add new list item
+POST /groups/{groupid}/lists/{listid}
+
+\*content: content of list item
+
+### Get all lists
+GET /groups/{groupid}/lists/
+
+Returns: All lists in your group
+
+### Get all list items for a list
+GET /groups/{groupid}/lists/{listid}
+
+Returns: All list items for a specified list
