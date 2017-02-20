@@ -7,7 +7,7 @@ module.exports = function (app) {
         var con = mysql.createConnection(config.connectionInfo);
         if(req.params.groupid && req.body.content)
         {
-            var insertRequest = "INSERT INTO Items (GroupID, UserID, ListID, ItemText, PostTime) values (" + con.escape(req.params.groupid) + ", " + req.body.decoded.UserID + ", " + ", " + req.params.listid +  ", " + con.escape(req.body.content) + ", " + "CURRENT_TIME()" + ");";
+            var insertRequest = "INSERT INTO Items (GroupID, UserID, ListID, ItemText, PostTime) values (" + req.body.decoded.UserID + ", " + req.params.listid +  ", " + con.escape(req.body.content) + ", " + "CURRENT_TIME()" + ");";
             con.query(insertRequest, function(err, result) {
                 if(err) {
                     console.log(err);
