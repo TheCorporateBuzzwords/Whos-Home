@@ -10,6 +10,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+using Newtonsoft.Json.Linq;
+
+using Whos_Home.Helpers;
 namespace Whos_Home
 {
     class ListNew : DialogFragment
@@ -48,6 +51,7 @@ namespace Whos_Home
             alert.SetTitle("Create list " + listname + "?");
 
             alert.SetPositiveButton("Confirm", (senderAlert, args) => {
+                PostNewList();
                 Dismiss();
             });
 
@@ -56,6 +60,26 @@ namespace Whos_Home
             });
             Dialog dialog = alert.Create();
             dialog.Show();
+        }
+
+        private async void PostNewList()
+        {
+            RequestHandler request = new RequestHandler(Context);
+            DB_Singleton db = DB_Singleton.Instance;
+
+            string token = db.Retrieve("Token");
+            string groupid = db.GetActiveGroup().GroupID;
+
+            var response = await request.PostNewList(token, groupid, editText.Text);
+
+            if((int)response.StatusCode == 200)
+            {
+                Toast.MakeText(Context, "Succesfully posted", ToastLength.Long);
+            }
+            else
+            {
+                Toast.MakeText(Context, "Error posting message", ToastLength.Long);
+            }
         }
     }
 }

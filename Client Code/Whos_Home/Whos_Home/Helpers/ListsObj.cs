@@ -17,6 +17,19 @@ namespace Whos_Home.Helpers
         private string date;
         private string author;
         private string title;
+        private string topicid;
+        private string authFirst;
+        private string authLast;
+
+        public ListsObj(string date, string author, string title, string topicid, string authFirst, string authLast)
+        {
+            this.date = date;
+            this.author = author;
+            this.title = title;
+            this.topicid = topicid;
+            this.authFirst = authFirst;
+            this.authLast = authLast;
+        }
 
         public string Date
         {
@@ -57,11 +70,45 @@ namespace Whos_Home.Helpers
             }
         }
 
-        public ListsObj(string date, string author, string title)
+        public string Topicid
         {
-            Date = date;
-            Author = author;
-            Title = title;
+            get
+            {
+                return topicid;
+            }
+
+            set
+            {
+                topicid = value;
+            }
         }
+
+        public string AuthFirst
+        {
+            get
+            {
+                return authFirst;
+            }
+
+            set
+            {
+                authFirst = value;
+            }
+        }
+
+        public string AuthLast
+        {
+            get
+            {
+                return authLast;
+            }
+
+            set
+            {
+                authLast = value;
+            }
+        }
+
+}
     }
 }

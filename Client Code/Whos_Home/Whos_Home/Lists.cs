@@ -47,11 +47,6 @@ namespace Whos_Home
             listnames = new List<string>();
             remaining_items = new List<string>();
             List<ListsObj> listoflists = await GetLists();
-            for (int i = 0; i < 50; ++i)
-            {
-                listnames.Add("ListName" + i.ToString());
-                remaining_items.Add(i.ToString() + " items remaining");
-            }
 
             //find button and assign click function
             NewListButton = FindViewById<Button>(Resource.Id.NewListButton);
@@ -85,7 +80,14 @@ namespace Whos_Home
 
             foreach(JToken tok in jarr)
             {
-                string title = (string)tok["title"];
+                string title = (string)tok["Title"];
+                string date = (string)tok["Date"];
+                string author = (string)tok["Author"];
+                string authFirst = (string)tok["FirstName"];
+                string authLast = (string)tok["LastName"];
+                string topicid = (string)tok["TopicId"];
+
+                postParse.Add(new ListsObj(date, author, title, topicid, authFirst, authLast));
             }
 
             return postParse; 
