@@ -16,7 +16,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -165,6 +165,7 @@
     <Compile Include="Helpers\UserLocation.cs" />
     <Compile Include="List.cs" />
     <Compile Include="ListAddItem.cs" />
+    <Compile Include="ListListAdapter.cs" />
     <Compile Include="ListNew.cs" />
     <Compile Include="Lists.cs" />
     <Compile Include="ListsListAdapter.cs" />

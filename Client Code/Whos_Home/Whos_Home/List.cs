@@ -24,21 +24,23 @@ namespace Whos_Home
         private Button NewListItemButton;
         private ListView listView;
         private List<string> listItems;
+        List<ItemObj> ListItemObjs = new List<ItemObj>();
         ListsObj list;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.List);
-            InitializeFormat();
             InitializeToolbars();
+            InitializeFormat();
+            
         }
 
-        private void InitializeFormat()
+        private async void InitializeFormat()
         {
             listItems = new List<string>();
 
-
+            //ListItemObjs = await GetItems();
             //sample code to retrieve list object from lists.cs
             list = JsonConvert.DeserializeObject<ListsObj>(Intent.GetStringExtra("ListObject"));
 
@@ -48,7 +50,7 @@ namespace Whos_Home
 
             //Find listview and set adapter
             listView = FindViewById<ListView>(Resource.Id.listitemslistview);
-            listView.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItemMultipleChoice, listItems);
+            listView.Adapter = new ListListAdapter(this, ListItemObjs);
 
             //sets the selection mode for the listview to multiple choice
             listView.ChoiceMode = Android.Widget.ChoiceMode.Multiple;
