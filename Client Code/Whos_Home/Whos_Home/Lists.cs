@@ -80,14 +80,14 @@ namespace Whos_Home
 
             foreach(JToken tok in jarr)
             {
+                string posttime = (string)tok["PostTime"];
+                string username = (string)tok["UserName"];
                 string title = (string)tok["Title"];
-                string date = (string)tok["Date"];
-                string author = (string)tok["Author"];
-                string authFirst = (string)tok["FirstName"];
-                string authLast = (string)tok["LastName"];
-                string topicid = (string)tok["TopicId"];
+                string listid = (string)tok["ListID"];
+                string firstname = (string)tok["FirstName"];
+                string lastname = (string)tok["LastName"];
 
-                postParse.Add(new ListsObj(date, author, title, topicid, authFirst, authLast));
+                postParse.Add(new ListsObj(posttime, username, title, listid, firstname, lastname));
             }
 
             return postParse; 
