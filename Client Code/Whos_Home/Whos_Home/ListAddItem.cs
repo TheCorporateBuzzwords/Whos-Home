@@ -20,7 +20,14 @@ namespace Whos_Home
     {
         private Button bConfrim, bCancel;
         private EditText editText;
+        private ListsObj m_list;
         View view;
+
+        public ListAddItem(ListsObj list)
+        {
+            m_list = list;
+        }
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);

@@ -35,6 +35,10 @@ namespace Whos_Home
             {
                 listItems.Add(i.ToString());
             }
+
+            //sample code to retrieve list object from lists.cs
+            //list = JsonConvert.DeserializeObject<ListsObj>(Intent.GetStringExtra("ListObject"));
+
             //Find button and add click function
             NewListItemButton = FindViewById<Button>(Resource.Id.NewListItemButton);
             NewListItemButton.Click += NewListItemButton_Click;
