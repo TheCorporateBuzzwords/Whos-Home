@@ -9,6 +9,12 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+using System.Threading.Tasks;
+
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
@@ -18,6 +24,7 @@ namespace Whos_Home
         private Button NewListItemButton;
         private ListView listView;
         private List<string> listItems;
+        ListsObj list;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -31,13 +38,9 @@ namespace Whos_Home
         {
             listItems = new List<string>();
 
-            for(int i = 0; i < 50; ++i)
-            {
-                listItems.Add(i.ToString());
-            }
 
             //sample code to retrieve list object from lists.cs
-            //list = JsonConvert.DeserializeObject<ListsObj>(Intent.GetStringExtra("ListObject"));
+            list = JsonConvert.DeserializeObject<ListsObj>(Intent.GetStringExtra("ListObject"));
 
             //Find button and add click function
             NewListItemButton = FindViewById<Button>(Resource.Id.NewListItemButton);
@@ -54,11 +57,50 @@ namespace Whos_Home
             //This Function will select and deselect location values based on the item clicked.
             listView.ItemClick += ListView_ItemClick;
         }
+        private async Task<List<ItemObj>> GetItems()
+        {
+            RequestHandler request = new RequestHandler(this);
+            DB_Singleton db = DB_Singleton.Instance;
+            string token = db.Retrieve("Token");
+            string groupid = db.GetActiveGroup().GroupID;
+            var response = await request.GetListItems(token, groupid, list.Topicid);
+            if ((int)response.StatusCode == 200)
+            {
+                Toast.MakeText(this, "Item Posted", ToastLength.Long);
+            }
+            else
+            {
+                Toast.MakeText(this, "Post Failed", ToastLength.Long);
 
+            }
+            JArray preParse = JArray.Parse(response.Content);
+
+            List<ItemObj> groupLists = ParseToLists(preParse);
+
+            return groupLists;
+
+        }
+        private List<ItemObj> ParseToLists(JArray jarr)
+        {
+            List<ItemObj> postParse = new List<ItemObj>();
+
+            foreach (JToken tok in jarr)
+            {
+                string posttime = (string)tok["PostTime"];
+                string username = (string)tok["UserName"];
+                string title = (string)tok["Title"];
+                string isdone = (string)tok["Done"];
+
+
+                postParse.Add(new ItemObj(username, posttime, title, bool.Parse(isdone)));
+            }
+
+            return postParse;
+        }
         private void NewListItemButton_Click(object sender, EventArgs e)
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            ListAddItem NewListItemDialog = new ListAddItem();
+            ListAddItem NewListItemDialog = new ListAddItem(list);
             NewListItemDialog.Show(transaction, "dialog fragment new list item");
         }
 

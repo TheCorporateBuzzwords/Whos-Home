@@ -26,6 +26,7 @@ namespace Whos_Home
         private ListView listView;
         private List<string> listnames;
         private List<string> remaining_items;
+        List<ListsObj> listoflists;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -46,9 +47,9 @@ namespace Whos_Home
 
         private async void InitializeFormat()
         {
-            listnames = new List<string>();
-            remaining_items = new List<string>();
-            List<ListsObj> listoflists = await GetLists();
+            //listnames = new List<string>();
+            //remaining_items = new List<string>();
+            listoflists = await GetLists();
 
             //find button and assign click function
             NewListButton = FindViewById<Button>(Resource.Id.NewListButton);
@@ -103,7 +104,7 @@ namespace Whos_Home
             Intent i = new Intent(Application.Context, typeof(List));
 
             //sample code to put a list object into the intent
-            //i.PutExtra("ListObject", JsonConvert.SerializeObject(lists[position]));
+            i.PutExtra("ListObject", JsonConvert.SerializeObject(listoflists[position]));
 
             StartActivity(i);
 

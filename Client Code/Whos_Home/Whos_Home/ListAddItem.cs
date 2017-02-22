@@ -47,48 +47,36 @@ namespace Whos_Home
 
         }
 
-        private async Task<List<ItemObj>> GetItems()
+        private async void PostItem()
         {
-            RequestHandler request = new RequestHandler(this);
+            RequestHandler request = new RequestHandler(Context);
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");
             string groupid = db.GetActiveGroup().GroupID;
-            var response = await request.GetListItems(token, groupid, listid);
+            var response = await request.PostNewListItem(token, groupid, m_list.Topicid, editText.Text);
+            if((int)response.StatusCode == 200)
+            {
+                Toast.MakeText(Context, "Item Posted", ToastLength.Long);
+            }
+            else
+            {
+                Toast.MakeText(Context, "Post Failed", ToastLength.Long);
+
+            }
             JArray preParse = JArray.Parse(response.Content);
 
-            List<ListsObj> groupLists = ParseToLists(preParse);
-
-            return groupLists;
-
         }
-        private List<ListsObj> ParseToLists(JArray jarr)
-        {
-            List<ListsObj> postParse = new List<ListsObj>();
 
-            foreach (JToken tok in jarr)
-            {
-                string posttime = (string)tok["PostTime"];
-                string username = (string)tok["UserName"];
-                string title = (string)tok["Title"];
-                string listid = (string)tok["ListID"];
-                string firstname = (string)tok["FirstName"];
-                string lastname = (string)tok["LastName"];
-
-                postParse.Add(new ListsObj(posttime, username, title, listid, firstname, lastname));
-            }
-
-            return postParse;
-        }
         private void BCancel_Click(object sender, EventArgs e)
         {
             Dismiss();
         }
 
-        private void BConfrim_Click(object sender, EventArgs e)
+        private async void BConfrim_Click(object sender, EventArgs e)
         {
             //Implement new list item functionality
             string itemname = editText.Text;
-
+            PostItem();
             Toast.MakeText(view.Context, "Item Added: " + itemname,
                ToastLength.Short).Show();
 
