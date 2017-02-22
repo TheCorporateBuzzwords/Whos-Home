@@ -118,3 +118,10 @@ Returns: All lists in your group
 GET /groups/{groupid}/lists/{listid}
 
 Returns: All list items for a specified list
+
+### Update list items to completed/not completed
+PUT /groups/{groupid}/lists/{listid}
+
+\*listid: id of list item to be updated
+
+\*completed: 1 (completed) or 0 (not completed)
