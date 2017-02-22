@@ -52,7 +52,6 @@ namespace Whos_Home
 
             alert.SetPositiveButton("Confirm", (senderAlert, args) => {
                 PostNewList();
-                Dismiss();
             });
 
             alert.SetNegativeButton("Cancel", (senderAlert, args) => {
@@ -80,6 +79,8 @@ namespace Whos_Home
             {
                 Toast.MakeText(Context, "Error posting message", ToastLength.Long);
             }
+
+            Dismiss();
         }
     }
 }
