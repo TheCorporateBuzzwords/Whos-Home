@@ -44,6 +44,8 @@ namespace Whos_Home
             //sample code to retrieve list object from lists.cs
             list = JsonConvert.DeserializeObject<ListsObj>(Intent.GetStringExtra("ListObject"));
 
+            ListItemObjs = await GetItems();
+
             //Find button and add click function
             NewListItemButton = FindViewById<Button>(Resource.Id.NewListItemButton);
             NewListItemButton.Click += NewListItemButton_Click;
@@ -61,6 +63,7 @@ namespace Whos_Home
         }
         private async Task<List<ItemObj>> GetItems()
         {
+            List<ItemObj> groupLists = new List<ItemObj>();
             RequestHandler request = new RequestHandler(this);
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");
@@ -68,16 +71,16 @@ namespace Whos_Home
             var response = await request.GetListItems(token, groupid, list.Topicid);
             if ((int)response.StatusCode == 200)
             {
-                Toast.MakeText(this, "Item Posted", ToastLength.Long);
+                Toast.MakeText(this, "Item Recieved", ToastLength.Long);
             }
             else
             {
-                Toast.MakeText(this, "Post Failed", ToastLength.Long);
-
+                Toast.MakeText(this, "Connection Failed", ToastLength.Long);
             }
+
             JArray preParse = JArray.Parse(response.Content);
 
-            List<ItemObj> groupLists = ParseToLists(preParse);
+            groupLists = ParseToLists(preParse);
 
             return groupLists;
 
@@ -90,8 +93,12 @@ namespace Whos_Home
             {
                 string posttime = (string)tok["PostTime"];
                 string username = (string)tok["UserName"];
-                string title = (string)tok["Title"];
-                string isdone = (string)tok["Done"];
+                string title = (string)tok["ItemText"];
+                string isdone = (string)tok["Completed"];
+                if(isdone == null || isdone == "null")
+                {
+                    isdone = false.ToString();
+                }
 
 
                 postParse.Add(new ItemObj(username, posttime, title, bool.Parse(isdone)));

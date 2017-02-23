@@ -47,7 +47,7 @@ namespace Whos_Home
 
         }
 
-        private async void PostItem()
+        private async Task PostItem()
         {
             RequestHandler request = new RequestHandler(Context);
             DB_Singleton db = DB_Singleton.Instance;
@@ -63,7 +63,7 @@ namespace Whos_Home
                 Toast.MakeText(Context, "Post Failed", ToastLength.Long);
 
             }
-            JArray preParse = JArray.Parse(response.Content);
+            //JArray preParse = JArray.Parse(response.Content);
 
         }
 
@@ -76,11 +76,13 @@ namespace Whos_Home
         {
             //Implement new list item functionality
             string itemname = editText.Text;
-            PostItem();
+            await PostItem();
             Toast.MakeText(view.Context, "Item Added: " + itemname,
                ToastLength.Short).Show();
 
             editText.Text = "";
+
+            Dismiss();
         }
     }
 }
