@@ -32,12 +32,12 @@ namespace Whos_Home
         {
             base.OnCreateView(inflater, container, savedInstanceState);
 
-            view = inflater.Inflate(Resource.Layout.ListNew, container, false);
+            view = inflater.Inflate(Resource.Layout.ListAddItem, container, false);
 
             //set values for private attributes
-            bConfrim = view.FindViewById<Button>(Resource.Id.buttonConfirmListNew);
-            bCancel = view.FindViewById<Button>(Resource.Id.buttonCancelListNew);
-            editText = view.FindViewById<EditText>(Resource.Id.edittextListNew);
+            bConfrim = view.FindViewById<Button>(Resource.Id.buttonConfirmListAddItem);
+            bCancel = view.FindViewById<Button>(Resource.Id.buttonCancelListAddItem);
+            editText = view.FindViewById<EditText>(Resource.Id.edittextListAddItem);
 
             //set click functions
             bConfrim.Click += BConfrim_Click;
@@ -82,7 +82,7 @@ namespace Whos_Home
 
             editText.Text = "";
 
-            Dismiss();
+            //Dismiss();
         }
     }
 }

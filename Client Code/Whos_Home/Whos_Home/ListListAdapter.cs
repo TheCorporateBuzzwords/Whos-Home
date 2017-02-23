@@ -50,7 +50,7 @@ namespace Whos_Home
             if (view == null) // otherwise create a new one
                 view = m_context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItemChecked, null);
 
-            view.FindViewById<TextView>(Resource.Id.GroupText1).Text = m_items[position].Message;
+            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = m_items[position].Message;
 
             return view;
         }
