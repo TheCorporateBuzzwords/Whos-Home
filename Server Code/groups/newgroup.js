@@ -25,12 +25,7 @@ module.exports = function (app) {
                         if (err) {
                             console.log(err);
                         } else {
-                            res.status(200);
-                            res.json({
-                                status: "success",
-                                groupID: GroupID
-                            });
-                            res.end();
+                            res.status(200).json({ status: "success", groupID: GroupID });
                         }
                     });
                 }
@@ -38,11 +33,7 @@ module.exports = function (app) {
         }
         //If the request does not have the correct info, send back error message
         else {
-            res.status(400);
-            res.json({
-                status: "error",
-                message: "missing parameter in POST request"
-            });
+            res.status(400).json({ status: "error", message: "missing parameter in POST request" });
         }
     });
 }

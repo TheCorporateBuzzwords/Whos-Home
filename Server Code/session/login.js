@@ -15,35 +15,20 @@ module.exports = function(app) {
                     callback(null);
                 }
                 else {
-                    res.status(400);
-                    res.json({
-                            status: "error",
-                            message: "Missing parameter in POST request"
-                    });
-                    res.end();
+                    res.status(400).json({ status: "error", message: "Missing parameter in POST request" }).end();
                 }
             },
             function getSalt(callback) {
                 getHashRequest = 'SELECT Salt FROM Users WHERE UserName = ' + con.escape(req.body.Username);
                 con.query(getHashRequest, function(err, result) {
-                    if(!result) {
-                        res.status(502);
-                        res.json({
-                            status: "error",
-                            message: "failed to connect to SQL server"
-                        });
-                        res.end();
-                    }
-                    else if(err) {
+                    if(err) {
                         console.log(err);
                     }
                     else if(result.length) {
                         callback(err, result[0].Salt);
                     }
                     else {
-                        res.status(409);
-                        res.send("Incorrect username or password.");
-                        res.end();
+                        res.status(409).send("Incorrect username or password.");
                     }
                 });
             },
@@ -55,18 +40,8 @@ module.exports = function(app) {
             function checkLogin(hash, callback) {
                 checkLoginRequest = 'SELECT UserID, Email, FirstName, LastName FROM Users WHERE UserName = ' + con.escape(req.body.Username) + ' AND Pass = \'' + hash + '\'';
                 con.query(checkLoginRequest, function(err, result) {
-                    if(!result) {
-                        res.status(502);
-                        res.json({
-                            status: "error",
-                            message: "failed to connect to SQL server"
-                        });
-                        res.end();
-                    }
-                    else if (!result.length) {
-                        res.status(409);
-                        res.send("Incorrect username or password.");
-                        res.end();
+                    if (!result.length) {
+                        res.status(409).send("Incorrect username or password.");
                     }
                     else {
                         email = result[0].Email;
@@ -89,10 +64,7 @@ module.exports = function(app) {
                                        Email: email,
                                        Last: last,
                                        UserID: id }, config.JWTInfo.secret);   
-                res.status(200);
-                res.json({ status: "success",
-                           token: token });
-                res.end();
+                res.status(200).json({ status: "success", token: token });
             }
             con.end();
         });

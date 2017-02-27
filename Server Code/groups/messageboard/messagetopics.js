@@ -22,23 +22,14 @@ module.exports = function (app) {
                 }
                 //If the message board topic was made, pass back success
                 else {
-                    res.status(200);
-                    res.json({
-                        status: "success",
-                        message: "Topic successfully added to group's message board."
-                    });
-                    res.end();
+                    res.status(200).json({ status: "success", message: "Topic successfully added to group's message board." });
                 }
             });
         }
         //If the request does not have the correct info, send back error message
         else
         {
-            res.status(400);
-            res.json({
-                status: "error",
-                message: "missing parameter in POST request"
-            });   
+            res.status(400).json({ status: "error", message: "missing parameter in POST request" });   
         }
     });
 
@@ -103,11 +94,7 @@ module.exports = function (app) {
         //If all required information is not present, send back an error message
         else
         {
-            res.status(400);
-            res.json({
-                status: "error",
-                message: "missing parameter in GET request"
-            });   
+            res.status(400).json({ status: "error", message: "missing parameter in GET request" });   
         }
     });
 }
