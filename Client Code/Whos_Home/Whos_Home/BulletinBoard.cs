@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 
@@ -21,7 +22,7 @@ namespace Whos_Home
     [Activity(Label = "MessageBoard")]
     class BulletinBoard : Activity
     {
-        private List<BulletinPostObj> posts;
+        private List<BulletinPostObj> posts = new List<BulletinPostObj>();
         private Button NewPostButton;
         private ListView listView;
         protected override void OnCreate(Bundle bundle)
@@ -43,6 +44,18 @@ namespace Whos_Home
 
  
         private async void InitializeFormat()
+        {
+            await UpdatePosts();
+
+            NewPostButton = FindViewById<Button>(Resource.Id.NewPostButton);
+            NewPostButton.Click += NewPostButton_Click;
+
+
+
+
+        }
+
+        public async Task UpdatePosts()
         {
             posts = new List<BulletinPostObj>();
 
@@ -77,10 +90,6 @@ namespace Whos_Home
             else
                 Toast.MakeText(this, "Error Getting Comments", ToastLength.Long);
 
-            NewPostButton = FindViewById<Button>(Resource.Id.NewPostButton);
-            NewPostButton.Click += NewPostButton_Click;
-
-
             listView = FindViewById<ListView>(Resource.Id.messagelistview);
 
             //reverse titles and messages so they are shown correctly in bulletinboard
@@ -89,7 +98,6 @@ namespace Whos_Home
             listView.Adapter = new BulletinListAdapter(this, posts);
        
             listView.ItemClick += OnMessageItemClick;
-
         }
 
         //Click method for NewPostButton

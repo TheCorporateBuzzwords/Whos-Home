@@ -27,7 +27,10 @@ namespace Whos_Home
         private static string fileName = "userinfo.json";
         private static string filePath = null;
         private static string fullPath = null;
-        DB_Singleton(){ }
+        DB_Singleton()
+        {
+
+        }
 
         public static DB_Singleton Instance
         {
@@ -52,8 +55,7 @@ namespace Whos_Home
 
             fullPath = Path.Combine(filePath, fileName);
             File.Delete(fullPath);
-
-            ChangeActiveGroup(null);
+             
             /*
             Manager manager = Manager.SharedInstance;
 
@@ -186,35 +188,18 @@ namespace Whos_Home
 
             File.WriteAllText(fullPath, userDBObj.ToString());
         }
-        public bool IsActiveSet()
-        {
-            string json = null;
-            UserGroup group = new UserGroup(null, null);
-            using (var streamReader = new StreamReader(fullPath))
-            {
-                json = streamReader.ReadToEnd();
-                Console.WriteLine(json);
-            }
 
-            JObject userDBObj = JObject.Parse(json);
-            if (userDBObj["ActiveGroup"]["GroupName"] == null)
-                return false;
-
-            return true;
-        }
         public UserGroup GetActiveGroup()
         {
             string json = null;
-            UserGroup group = new UserGroup(null, null);
             using (var streamReader = new StreamReader(fullPath))
             {
                 json = streamReader.ReadToEnd();
                 Console.WriteLine(json);
             }
             JObject userDBObj = JObject.Parse(json);
-            group = new UserGroup((string)userDBObj["ActiveGroup"]["GroupName"], (string)userDBObj["ActiveGroup"]["GroupID"]);
 
-            return group;
+            return new UserGroup((string)userDBObj["ActiveGroup"]["GroupName"], (string)userDBObj["ActiveGroup"]["GroupID"]);
 
         }
     }

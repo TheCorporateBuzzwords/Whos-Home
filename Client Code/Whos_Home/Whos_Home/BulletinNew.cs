@@ -64,6 +64,7 @@ namespace Whos_Home
             else
                 Toast.MakeText(Context, "Post Failed", ToastLength.Long);
             //closes message dialog box
+            ((BulletinBoard)Activity).UpdatePosts();
             Dismiss();
         }
         public string GetTitle()

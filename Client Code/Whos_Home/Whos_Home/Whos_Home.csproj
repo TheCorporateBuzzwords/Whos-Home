@@ -158,7 +158,7 @@
     <Compile Include="InviteAcceptDialog.cs" />
     <Compile Include="GroupAddUser.cs" />
     <Compile Include="BulletinCommentListAdapter.cs" />
-    <Compile Include="DB_Singleton.cs" />
+    <Compile Include="Helpers\DB_Singleton.cs" />
     <Compile Include="Helpers\Invitations.cs" />
     <Compile Include="Helpers\UserDB.cs" />
     <Compile Include="Helpers\UserGroup.cs" />
