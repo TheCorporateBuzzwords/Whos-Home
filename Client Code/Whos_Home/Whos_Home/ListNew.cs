@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
@@ -40,28 +41,21 @@ namespace Whos_Home
 
         private void BCancel_Click(object sender, EventArgs e)
         {
+            ((Lists)Activity).UpdateLists();
             Dismiss();
         }
 
-        private void BConfrim_Click(object sender, EventArgs e)
+        private async void BConfrim_Click(object sender, EventArgs e)
         {
             //Implement new list functionality
             string listname = editText.Text;
-            AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
-            alert.SetTitle("Create list " + listname + "?");
+            await PostNewList();
 
-            alert.SetPositiveButton("Confirm", (senderAlert, args) => {
-                PostNewList();
-            });
-
-            alert.SetNegativeButton("Cancel", (senderAlert, args) => {
-                Dismiss();
-            });
-            Dialog dialog = alert.Create();
-            dialog.Show();
+            ((Lists)Activity).UpdateLists();
+            Dismiss();
         }
 
-        private async void PostNewList()
+        private async Task PostNewList()
         {
             RequestHandler request = new RequestHandler(Context);
             DB_Singleton db = DB_Singleton.Instance;
