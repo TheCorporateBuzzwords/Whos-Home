@@ -17,7 +17,8 @@ namespace Whos_Home.Helpers
         string author;
         string time;
         string message;
-        bool isDone;
+        string isDone;
+        string id;
 
         public string Author
         {
@@ -58,7 +59,7 @@ namespace Whos_Home.Helpers
             }
         }
 
-        public bool IsDone
+        public string IsDone
         {
             get
             {
@@ -71,12 +72,34 @@ namespace Whos_Home.Helpers
             }
         }
 
-        public ItemObj(string author, string time, string message, bool isDone)
+        public string Id
+        {
+            get
+            {
+                return id;
+            }
+
+            set
+            {
+                id = value;
+            }
+        }
+
+        public ItemObj(string author, string time, string message, string isDone)
         {
             this.Author = author;
             this.Time = time;
             this.Message = message;
             this.IsDone = isDone;
+        }
+
+        public ItemObj(string author, string time, string message, string isDone, string id)
+        {
+            this.author = author;
+            this.time = time;
+            this.message = message;
+            this.isDone = isDone;
+            this.id = id;
         }
     }
 }

@@ -59,6 +59,7 @@ namespace Whos_Home
 
             //Sets the function to be called on click to the custom function OnLocationItemClick
             //This Function will select and deselect location values based on the item clicked.
+
             listView.ItemClick += ListView_ItemClick;
         }
         private async Task<List<ItemObj>> GetItems()
@@ -95,13 +96,14 @@ namespace Whos_Home
                 string username = (string)tok["UserName"];
                 string title = (string)tok["ItemText"];
                 string isdone = (string)tok["Completed"];
+                string itemid = (string)tok["ItemID"];
                 if(isdone == null || isdone == "null")
                 {
                     isdone = false.ToString();
                 }
 
 
-                postParse.Add(new ItemObj(username, posttime, title, bool.Parse(isdone)));
+                postParse.Add(new ItemObj(username, posttime, title, isdone, itemid));
             }
 
             return postParse;
@@ -119,11 +121,29 @@ namespace Whos_Home
             var position = e.Position;
 
             bool selected = listView.IsItemChecked(position);
+            ListItemObjs.ElementAt(position).IsDone = selected.ToString();
+            FireCheckItem(ListItemObjs.ElementAt(position).Id, selected);
 
-            if (selected)
-                listView.SetItemChecked(position, true);
+            listView.SetItemChecked(position, selected);
+        }
+
+        //This may need to change. If selecting multiple times is an issue
+        private async void FireCheckItem(string itemid, bool selected)
+        {
+            List<ItemObj> groupLists = new List<ItemObj>();
+            RequestHandler request = new RequestHandler(this);
+            DB_Singleton db = DB_Singleton.Instance;
+            string token = db.Retrieve("Token");
+            string groupid = db.GetActiveGroup().GroupID;
+            var response = await request.PutListItem(token, groupid, list.Topicid, itemid, selected);
+            if ((int)response.StatusCode == 200)
+            {
+                Toast.MakeText(this, "Item Updated", ToastLength.Long);
+            }
             else
-                listView.SetItemChecked(position, false);
+            {
+                Toast.MakeText(this, "Connection Failed", ToastLength.Long);
+            }
         }
 
         private void InitializeToolbars()

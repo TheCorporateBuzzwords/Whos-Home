@@ -28,7 +28,7 @@ namespace Whos_Home.Helpers
             client = new RestClient(url);
         }
 
-       public async Task<IRestResponse> SignIn(User user)
+        public async Task<IRestResponse> SignIn(User user)
         {
 
             request = new RestRequest("/session", Method.POST);
@@ -58,7 +58,7 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
-       
+
         /*public async Task<IRestResponse> InviteToGroup(string token, string groupID, string username)
         {
             request = new RestRequest("/groups/{groupid}/invitation/?{recipient}", Method.GET);
@@ -79,7 +79,7 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
-        
+
         public async Task<IRestResponse> RespondInvitation(string token, string groupid, bool deny)
         {
             request = new RestRequest(string.Format("/groups/{0}/invitation/?deny={1}", groupid, deny.ToString().ToLower()), Method.GET);
@@ -154,7 +154,7 @@ namespace Whos_Home.Helpers
         {
             request = new RestRequest(string.Format("/groups/{0}/messagetopic", groupid), Method.GET);
             request.AddHeader("x-access-token", token);
-            
+
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
@@ -177,7 +177,7 @@ namespace Whos_Home.Helpers
 
             var response = await client.ExecuteTaskAsync(request);
             return response;
-            
+
         }
 
         public async Task<IRestResponse> PostMessageReply(string token, string groupid, string topicid, string message)
@@ -228,6 +228,24 @@ namespace Whos_Home.Helpers
             return response;
         }
         //public async Task<IRestResponse> UpdateListItem(string token, string groupid, string item) { }
+        public async Task<IRestResponse> PutListItem(string token, string groupid, string listid, string itemid, bool completed)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/lists/{1}", groupid, listid), Method.PUT);
+            request.AddHeader("x-access-token", token);
+            //this is kinda weird and breaking 
+            //My design, but it's the way the api
+            //is set up right now
+            int comp = 0;
+            if (completed == true)
+                comp = 1;
+
+            request.AddParameter("itemid", itemid);
+            request.AddParameter("completed", comp);
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+
+        }
 
     }
 }

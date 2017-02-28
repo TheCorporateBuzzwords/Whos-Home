@@ -42,10 +42,8 @@ namespace Whos_Home
         List<string>messages = new List<string>();
 
  
-        //Assigns values to NewPostButton and ListView
         private async void InitializeFormat()
         {
-            //mock title data used for testing list
             posts = new List<BulletinPostObj>();
 
             RequestHandler request = new RequestHandler(this);
@@ -53,11 +51,13 @@ namespace Whos_Home
             string token = db.Retrieve("Token");
             string groupid = db.GetActiveGroup().GroupID;
             var response = await request.GetMessages(token, groupid);
-            //In progress
+            //Checks to make sure response is OK
             if ((int)response.StatusCode == 200)
             {
+                //Check to make sure List is not empty
                 if (response.Content != "[]")
                 {
+                    //If response.Content is empty .Parse will break
                     JArray JPosts = JArray.Parse(response.Content);
 
                     foreach (JToken post in JPosts)
