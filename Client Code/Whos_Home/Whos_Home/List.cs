@@ -62,6 +62,29 @@ namespace Whos_Home
 
             listView.ItemClick += ListView_ItemClick;
         }
+        public async void UpdateListView()
+        {
+            listItems = new List<string>();
+
+            //ListItemObjs = await GetItems();
+            //sample code to retrieve list object from lists.cs
+            list = JsonConvert.DeserializeObject<ListsObj>(Intent.GetStringExtra("ListObject"));
+
+            ListItemObjs = await GetItems();
+
+           //Find listview and set adapter
+            listView = FindViewById<ListView>(Resource.Id.listitemslistview);
+            listView.Adapter = new ListListAdapter(this, ListItemObjs);
+
+            //sets the selection mode for the listview to multiple choice
+            listView.ChoiceMode = Android.Widget.ChoiceMode.Multiple;
+
+            //Sets the function to be called on click to the custom function OnLocationItemClick
+            //This Function will select and deselect location values based on the item clicked.
+
+            listView.ItemClick += ListView_ItemClick;
+        }
+
         private async Task<List<ItemObj>> GetItems()
         {
             List<ItemObj> groupLists = new List<ItemObj>();

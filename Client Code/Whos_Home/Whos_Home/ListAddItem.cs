@@ -69,6 +69,7 @@ namespace Whos_Home
 
         private void BCancel_Click(object sender, EventArgs e)
         {
+            ((List)Activity).UpdateListView();
             Dismiss();
         }
 

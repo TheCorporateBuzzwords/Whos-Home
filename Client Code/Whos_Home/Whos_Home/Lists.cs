@@ -24,8 +24,6 @@ namespace Whos_Home
     {
         private Button NewListButton;
         private ListView listView;
-        private List<string> listnames;
-        private List<string> remaining_items;
         List<ListsObj> listoflists;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -35,7 +33,6 @@ namespace Whos_Home
             SetContentView(Resource.Layout.Lists);
             InitializeToolbars();
             InitializeFormat();
-
         }
 
         private void NewListButton_Click(object sender, EventArgs e)
@@ -45,7 +42,7 @@ namespace Whos_Home
             NewListDialog.Show(transaction, "dialog fragment new list");
         }
 
-        private async void InitializeFormat()
+        public async void InitializeFormat()
         {
             //listnames = new List<string>();
             //remaining_items = new List<string>();
