@@ -6,16 +6,16 @@ module.exports = function (app) {
     //Post for adding a response to a specific messageboard topic in a group
     app.post('/groups/:groupid(\\d+)/messages/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         //Get a connection
-        var con = mysql.createConnection(config.connectionInfo);
+        //var con = mysql.createConnection(config.connectionInfo);
 
         //Check to make sure all required info is present
         if(req.params.groupid && req.body.topicid && req.body.msg && req.body.decoded.UserID)
         {
             //Creat the request
-            var insertRequest = "Insert Into Posts (TopicID, UserID, Msg, PostTime) values (" + con.escape(req.body.topicid) + ", " + con.escape(req.body.decoded.UserID) + "," + con.escape(req.body.msg) + ", NOW())";
+            var insertRequest = "Insert Into Posts (TopicID, UserID, Msg, PostTime) values (" + config.pool.escape(req.body.topicid) + ", " + config.pool.escape(req.body.decoded.UserID) + "," + config.pool.escape(req.body.msg) + ", NOW())";
 
             //Perform the request
-            con.query(insertRequest, function(err, result) {
+            config.pool.query(insertRequest, function(err, result) {
                 //If there is an error, log it
                 if(err) {
                     console.log(err);
@@ -46,7 +46,7 @@ module.exports = function (app) {
     //Get for retreiving all responses to a specific messageboard topic in a group
     app.get('/groups/:groupid(\\d+)/messages/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         //Get a connection
-        var con = mysql.createConnection(config.connectionInfo);
+        //var con = mysql.createConnection(config.connectionInfo);
 
         //Check to make sure all required info is present
         if(req.params.groupid && req.params.topicid)
@@ -57,10 +57,10 @@ module.exports = function (app) {
                                     From Users \
                                     Where UserID = p.UserID) as PostersName \
                                 From Posts as p \
-                                Where TopicID = " + con.escape(req.params.topicid);
+                                Where TopicID = " + config.pool.escape(req.params.topicid);
 
             //Perform the request
-            con.query(getRequest, function(err, result) {
+            config.pool.query(getRequest, function(err, result) {
                 //If there is an error, log it
                 if(err) {
                     console.log(err);

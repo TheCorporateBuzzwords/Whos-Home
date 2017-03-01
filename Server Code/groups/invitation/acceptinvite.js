@@ -5,12 +5,12 @@ var auth = require('./../../middlewares/auth');
 module.exports = function (app) {
     //Authenticated route to accept an invite to a group
     app.get('/groups/:groupid(\\d+)/invitation', auth.CheckAuthToken, function (req, res) {
-        var con = mysql.createConnection(config.connectionInfo);
+        //var con = mysql.createConnection(config.connectionInfo);
         var checkInvite = "SELECT * FROM Invites WHERE RecipientID = " + req.body.decoded.UserID + " AND GroupID = " + req.params.groupid;
         var insertQuery = "INSERT INTO User_Groups (UserID, GroupID) VALUES (" + req.body.decoded.UserID + ", " + req.params.groupid + "); DELETE FROM Invites WHERE GroupID = " + req.params.groupid + " AND RecipientID = " + req.body.decoded.UserID;
         var checkDupeQuery = "SELECT * FROM User_Groups WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + req.params.groupid;
         var deleteInvite = "DELETE FROM Invites WHERE GroupID = " + req.params.groupid + " AND RecipientID = " + req.body.decoded.UserID;
-        con.query(checkInvite, function (err, checkInviteResult) {
+        config.pool.query(checkInvite, function (err, checkInviteResult) {
             if(err) {
                 console.log(err);
                 return res.end();
@@ -21,7 +21,7 @@ module.exports = function (app) {
             }
             //ability to deny the invitation
             if (req.query.deny === "true") {
-                con.query(deleteInvite, function(err, denyResult) {
+                config.pool.query(deleteInvite, function(err, denyResult) {
                     if(err) {
                         console.log(err);
                         return res.end();
@@ -29,7 +29,7 @@ module.exports = function (app) {
                     return res.status(200).json({ status: "success", message: "invitation denied" });
                 });
             }
-            con.query(checkDupeQuery, function(err, checkDupeResult) {
+            config.pool.query(checkDupeQuery, function(err, checkDupeResult) {
                 if (err) {
                     console.log(err);
                     return res.end();
@@ -38,7 +38,7 @@ module.exports = function (app) {
                     //User has invitation, but is already part of the group.
                     return res.status(409).json({ status: "error", message: "you are already part of this group" });
                 }
-                con.query(insertQuery, function(err, insertResult) {
+                config.pool.query(insertQuery, function(err, insertResult) {
                     if(err) {
                         console.log(err);
                         return res.end();

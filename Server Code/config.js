@@ -1,4 +1,16 @@
+var mysql = require('mysql');
+var pool = mysql.createPool({
+        connectionLimit: 10,
+        host: "75.142.141.235",
+        port: 3306,
+        user: "limited",
+        password: "$t@ched&&CA$H3D",
+        database: "WHOSHOME",
+        multipleStatements: true
+});
+
 module.exports = {
+    pool,
     cryptoConfig: {
         hashBytes: 64,
         saltBytes: 16,
@@ -9,14 +21,14 @@ module.exports = {
         iterations: 872791,
         digest: 'sha512'
     },   
-    connectionInfo: {
+    /*connectionInfo: {
         host: "75.142.141.235",
         port: 3306,
         user: "limited",
         password: "$t@ched&&CA$H3D",
         database: "WHOSHOME",
         multipleStatements: true
-    },
+    },*/
     JWTInfo: {
         //secret for signing jwt tokens
         secret: "Wh0'SHoM3jWt$3cR3t^&*)!@'#+-4m^qs7ET5pQhkw!wE2W#KE"

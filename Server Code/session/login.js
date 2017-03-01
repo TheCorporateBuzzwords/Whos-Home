@@ -6,7 +6,7 @@ var jwt = require('jsonwebtoken');
 
 module.exports = function(app) {
     app.post('/session/', function (req, res) {
-        var con = mysql.createConnection(config.connectionInfo);
+        //var con = mysql.createConnection(config.connectionInfo);
         var email, firstName, last, id;
         console.log(req.body);
         async.waterfall([
@@ -19,8 +19,8 @@ module.exports = function(app) {
                 }
             },
             function getSalt(callback) {
-                getHashRequest = 'SELECT Salt FROM Users WHERE UserName = ' + con.escape(req.body.Username);
-                con.query(getHashRequest, function(err, result) {
+                getHashRequest = 'SELECT Salt FROM Users WHERE UserName = ' + config.pool.escape(req.body.Username);
+                config.pool.query(getHashRequest, function(err, result) {
                     if(err) {
                         console.log(err);
                     }
@@ -38,8 +38,8 @@ module.exports = function(app) {
                 });
             },
             function checkLogin(hash, callback) {
-                checkLoginRequest = 'SELECT UserID, Email, FirstName, LastName FROM Users WHERE UserName = ' + con.escape(req.body.Username) + ' AND Pass = \'' + hash + '\'';
-                con.query(checkLoginRequest, function(err, result) {
+                checkLoginRequest = 'SELECT UserID, Email, FirstName, LastName FROM Users WHERE UserName = ' + config.pool.escape(req.body.Username) + ' AND Pass = \'' + hash + '\'';
+                config.pool.query(checkLoginRequest, function(err, result) {
                     if (!result.length) {
                         res.status(409).send("Incorrect username or password.");
                     }
@@ -66,7 +66,7 @@ module.exports = function(app) {
                                        UserID: id }, config.JWTInfo.secret);   
                 res.status(200).json({ status: "success", token: token });
             }
-            con.end();
+            //con.end();
         });
     });
 }

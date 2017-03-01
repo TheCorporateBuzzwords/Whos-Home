@@ -8,7 +8,7 @@ var jwt = require('jsonwebtoken');
 module.exports = function (app) {
     app.post('/users/', function (req, res) {
         var token;
-        var con = mysql.createConnection(config.connectionInfo);
+        //var con = mysql.createConnection(config.connectionInfo);
         async.waterfall([
             //Check to see if passwords match and if all of the needed parameters were passed.
             function checkValidData(callback) {
@@ -34,7 +34,7 @@ module.exports = function (app) {
                 }
                 else {
                     //Get the username of a user from the users table using the new username. This is a check for if the username is already taken
-                    con.query('SELECT UserName FROM Users WHERE UserName = ' + con.escape(req.body.Username), function (err, result, field) {
+                    config.pool.query('SELECT UserName FROM Users WHERE UserName = ' + config.pool.escape(req.body.Username), function (err, result, field) {
                         if (!result.length) {
                             callback(err);
                         }
@@ -51,7 +51,7 @@ module.exports = function (app) {
                 }
                 else {
                     //Get the email of a user from the users table using the new email. This is a check for if the email is already taken
-                    con.query('SELECT UserName FROM Users WHERE Email = ' + con.escape(req.body.Email), function (err, result, field) {
+                    config.pool.query('SELECT UserName FROM Users WHERE Email = ' + config.pool.escape(req.body.Email), function (err, result, field) {
                         if (!result.length) {
                             callback(err);
                         }
@@ -64,8 +64,8 @@ module.exports = function (app) {
             //Insert the user into the database
             function insertIntoDB(callback) {
                 hashPassword(req.body.Password, function (err, hash, salt) {
-                    var request = 'INSERT INTO Users (UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot, LocationID, LocationActive) values (' + con.escape(req.body.Username) + ', ' + con.escape(req.body.Firstname) + ', ' + con.escape(req.body.Lastname) + ', ' + con.escape(req.body.Email) + ', \'' + hash + '\', \'' + salt + '\', false, false, null, false);';
-                    con.query(request, function (err, result) {
+                    var request = 'INSERT INTO Users (UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot, LocationID, LocationActive) values (' + config.pool.escape(req.body.Username) + ', ' + config.pool.escape(req.body.Firstname) + ', ' + config.pool.escape(req.body.Lastname) + ', ' + config.pool.escape(req.body.Email) + ', \'' + hash + '\', \'' + salt + '\', false, false, null, false);';
+                    config.pool.query(request, function (err, result) {
                         if(!result) {
                             res.status(502).json({ status: "error", message: "failed to connect to SQL server" });
                         }
@@ -77,7 +77,7 @@ module.exports = function (app) {
             },
             function getLatestID(callback) {
                 var UserID;
-                con.query("SELECT LAST_INSERT_ID() AS id", function (err, result, field) {
+                config.pool.query("SELECT LAST_INSERT_ID() AS id", function (err, result, field) {
                     UserID = result[0].id;
                     callback(err, UserID);
                 });
@@ -97,7 +97,7 @@ module.exports = function (app) {
                     }, config.JWTInfo.secret);
                     res.status(201).json({ status: "success", token: token });
                 }
-                con.end();
+                //con.end();
             });
     });
 

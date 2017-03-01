@@ -5,7 +5,7 @@ var auth = require('./../../middlewares/auth');
 module.exports = function(app) {
     //Authenticated route to create an invitation to a group
     app.post('/groups/:groupid(\\d+)/invitation/', [auth.CheckAuthToken, auth.CheckInGroup], function(req, res) {
-        var con = mysql.createConnection(config.connectionInfo);
+        //var con = mysql.createConnection(config.connectionInfo);
         if (!req.body.recipient) {
             return res.status(400).json({ status: "error", message: "missing parameter" }).end();
         }
@@ -14,8 +14,8 @@ module.exports = function(app) {
             return res.status(409).json({ status: "error", message: "Invalid recipient." }).end();
         }
         //get userid
-        var getUseridQuery = "SELECT UserID FROM Users WHERE UserName = " + con.escape(recipient);
-        con.query(getUseridQuery, function(err, result) {
+        var getUseridQuery = "SELECT UserID FROM Users WHERE UserName = " + config.pool.escape(recipient);
+        config.pool.query(getUseridQuery, function(err, result) {
             if (err) {
                 console.log(err);
                 return res.end();
@@ -24,7 +24,7 @@ module.exports = function(app) {
                 var recipientID = result[0].UserID;
                 //insert invitation into database
                 var insertQuery = "INSERT INTO Invites (GroupID, InviterID, RecipientID) VALUES (" + req.params.groupid + ", " + req.body.decoded.UserID + ", " + recipientID + ");";
-                con.query(insertQuery, function(err, result) {
+                config.pool.query(insertQuery, function(err, result) {
                     if (err) {
                         console.log(err);
                         return res.end();
