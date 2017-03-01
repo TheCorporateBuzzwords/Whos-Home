@@ -47,7 +47,6 @@ namespace Whos_Home
             Intent intent = new Intent(this.Activity.ApplicationContext, typeof(BulletinBoard));
             Notification(intent, "A new message has been posted in ", "groupname", 0, 0);
 
-            //send values to server??
             RequestHandler request = new RequestHandler(Context);
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");

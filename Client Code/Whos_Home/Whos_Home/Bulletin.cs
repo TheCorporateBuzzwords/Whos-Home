@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 
@@ -22,6 +23,7 @@ namespace Whos_Home
         private ListView commentlistview;
         private TextView message, tvTitle, author, date;
         private Button bAddComment;
+        private List<CommentObj> comment_objs = new List<CommentObj>();
 
         private BulletinPostObj post;
 
@@ -36,12 +38,37 @@ namespace Whos_Home
         }
 
 
-        private async void InitializeFormat()
+        private void InitializeFormat()
+        {
+            UpdateComments();
+            //find view for title
+            tvTitle = FindViewById<TextView>(Resource.Id.textviewBulletinTitle);
+            tvTitle.Text = post.Title;
 
+            //find views for author and date
+            author = FindViewById<TextView>(Resource.Id.textviewBulletinAuthor);
+            author.Text = "Posted by: " + post.Author;
+            date = FindViewById<TextView>(Resource.Id.textviewBulletinDate);
+            date.Text = "Posted: " + post.Time;
+
+            //find the two views for message body and comment listview
+            message = FindViewById<TextView>(Resource.Id.textviewBulletinMessage);
+            commentlistview = FindViewById<ListView>(Resource.Id.BulletinCommentsListView);
+
+            //find the add comment button
+            bAddComment = FindViewById<Button>(Resource.Id.NewCommentButton);
+            bAddComment.Click += BAddComment_Click;
+
+            //set values for testing
+
+            message.Text = post.Message;
+
+        }
+
+        public async void UpdateComments()
         {
             List<string> comments = new List<string>();
             List<string> usernames = new List<string>();
-            List<CommentObj> comment_objs = new List<CommentObj>();
 
             //deserializes the title and message that were converted to json in the messageboard.cs
             //title = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Title"));
@@ -74,31 +101,7 @@ namespace Whos_Home
                 }
             }
             else
-            {
                 Toast.MakeText(this, "Error getting comments", ToastLength.Long);
-            }
-
-            //find view for title
-            tvTitle = FindViewById<TextView>(Resource.Id.textviewBulletinTitle);
-            tvTitle.Text = post.Title;
-
-            //find views for author and date
-            author = FindViewById<TextView>(Resource.Id.textviewBulletinAuthor);
-            author.Text = "Posted by: " + post.Author;
-            date = FindViewById<TextView>(Resource.Id.textviewBulletinDate);
-            date.Text = "Posted: " + post.Time;
-
-            //find the two views for message body and comment listview
-            message = FindViewById<TextView>(Resource.Id.textviewBulletinMessage);
-            commentlistview = FindViewById<ListView>(Resource.Id.BulletinCommentsListView);
-
-            //find the add comment button
-            bAddComment = FindViewById<Button>(Resource.Id.NewCommentButton);
-            bAddComment.Click += BAddComment_Click;
-
-            //set values for testing
-
-            message.Text = post.Message;
 
             var minus_first_comment = comment_objs;
 

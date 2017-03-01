@@ -41,7 +41,7 @@ namespace Whos_Home
         }
 
 
-        private async void BSubmit_Click(object sender, EventArgs e)
+        private  void BSubmit_Click(object sender, EventArgs e)
         {
             message = MessageText.Text;
 
@@ -53,9 +53,11 @@ namespace Whos_Home
 
             alert.SetPositiveButton("Confirm", (senderAlert, args) => {
                 MakeReq();
+                ((Bulletin)Activity).UpdateComments();
             });
 
             alert.SetNegativeButton("Cancel", (senderAlert, args) => {
+                ((Bulletin)Activity).UpdateComments();
                 Dismiss();
             });
             Dialog dialog = alert.Create();
