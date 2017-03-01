@@ -21,12 +21,13 @@ namespace Whos_Home.Helpers
         { }
         
         
-        public UserDB(string firstname, string username, string email, string token)
+        public UserDB(string firstname, string username, string email, string token, bool isonline)
         {
             FirstName = firstname;
             UserName = username;
             Email = email;
             Token = token;
+            IsOnline = isonline;
         }
 
         public void AddGroup(string groupName, string groupID)
@@ -35,6 +36,7 @@ namespace Whos_Home.Helpers
         }
 
         //[PrimaryKey, AutoIncrement]
+        public bool IsOnline { get; set; }
         public int ID { get; set; }
 
         public string FirstName { get; set; }

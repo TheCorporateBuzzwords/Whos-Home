@@ -27,10 +27,7 @@ namespace Whos_Home
         private static string fileName = "userinfo.json";
         private static string filePath = null;
         private static string fullPath = null;
-        DB_Singleton()
-        {
-
-        }
+        DB_Singleton(){ }
 
         public static DB_Singleton Instance
         {
@@ -76,10 +73,25 @@ namespace Whos_Home
 
         }
 
+        public bool IsOnline()
+        {
+            bool online = true;
+            try
+            {
+                online = bool.Parse(Instance.Retrieve("IsOnline")); 
+            }
+            catch
+            {
+                Console.WriteLine("Error finding online mode");
+            }
+            return online;
+        }
+
+
         //Should only be called once to initialize db
         public void InitialInsert(string token, string username, string email, string firstname)
         {
-            string json = JsonConvert.SerializeObject(new UserDB(firstname, username, email, token));
+            string json = JsonConvert.SerializeObject(new UserDB(firstname, username, email, token, true));
 
             File.WriteAllText(fullPath, json);
             /*using (var streamWriter = new StreamWriter(fullPath, true))
