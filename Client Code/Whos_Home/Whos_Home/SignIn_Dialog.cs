@@ -67,9 +67,9 @@ namespace Whos_Home
         public void Success(IRestResponse response)
         {
             Toast.MakeText(this.Context, "Login Successful", ToastLength.Long).Show();
-            this.Activity.StartActivity(typeof(Groups));
             InsertInDB(DecodeToken(response));
             UpdateGroups();
+            Activity.StartActivity(typeof(Groups));
         }
 
         private async void UpdateGroups()
@@ -85,6 +85,12 @@ namespace Whos_Home
             {
                 db.AddGroup(user.GroupName, user.GroupID);
             }
+            if (userGroupList.Count > 0)
+                db.ChangeActiveGroup(userGroupList[0]);
+            //CAUTION A NEW USER THAT TRIES TO ACCESS ELEMENTS 
+            //WITHOUT A GROUP WILL CRASH THE APP
+            else
+                db.ChangeActiveGroup(new UserGroup(null, null));
         }
 
         private List<UserGroup> ReformatResponse(string content)

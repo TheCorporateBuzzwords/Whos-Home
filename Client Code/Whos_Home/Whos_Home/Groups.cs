@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 
@@ -11,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using Whos_Home.Helpers;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Whos_Home
 {
@@ -33,11 +35,18 @@ namespace Whos_Home
 
         private void InitializeFormat()
         {
-            //create mock group names
+            UpdateGroups();
 
+            BCreateGroup = FindViewById<Button>(Resource.Id.NewGroupButton);
+            BCreateGroup.Click += BCreateGroup_Click;
+        }
+
+        public async void UpdateGroups()
+        {
             DB_Singleton db = DB_Singleton.Instance;
-            List<UserGroup> userGroupList = db.GetUserGroups();
-            foreach(UserGroup group in userGroupList)
+            string token = db.Retrieve("Token");
+            List<UserGroup> userGroupList = await PullGroups(token);
+            foreach (UserGroup group in userGroupList)
             {
                 //number of members in each group also needs to be added here
                 groupnames.Add(group.GroupName);
@@ -48,18 +57,40 @@ namespace Whos_Home
             textView = FindViewById<TextView>(Resource.Id.textviewGroups);
 
             try
-            {
-                textView.Text = "Current Group: " + db.GetActiveGroup().GroupName;
-            }
+            { textView.Text = "Current Group: " + db.GetActiveGroup().GroupName; }
             catch
-            {
-                Console.WriteLine("No active group selected: Groups");
-            }
+            { Console.WriteLine("No active group selected: Groups"); }
             //Set itemclick function for when a group is selected
             listView.ItemClick += OnGroupItemClick;
+        }
 
-            BCreateGroup = FindViewById<Button>(Resource.Id.NewGroupButton);
-            BCreateGroup.Click += BCreateGroup_Click;
+        private async Task<List<UserGroup>> PullGroups(string token)
+        {
+            RequestHandler request = new RequestHandler(this);
+            List<UserGroup> groups = new List<UserGroup>();
+            var response = await request.PullGroups(token);
+
+            if ((int)response.StatusCode == 200)
+                groups = ParseContent(response.Content);
+            
+
+            return groups;
+        }
+
+        private List<UserGroup> ParseContent(string content)
+        {
+            List<UserGroup> groups = new List<UserGroup>();
+
+            JArray arr = JArray.Parse(content);
+            foreach(JToken tok in arr)
+            {
+                string groupname = (string)tok["GroupName"];
+                string groupid = (string)tok["GroupID"];
+
+                groups.Add(new UserGroup(groupname, groupid));
+            }
+
+            return groups;
 
         }
 

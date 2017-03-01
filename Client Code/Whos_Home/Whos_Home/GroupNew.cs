@@ -57,13 +57,10 @@ namespace Whos_Home
             if ((int)response.StatusCode == 200)
             {
                 db.AddGroup(groupname, (string)JObject.Parse(response.Content)["groupID"]);
-              
                 Success();
             }
             else
-            {
                 Failure();
-            }
             /*
             AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
             alert.SetTitle("Create the new group " + EditTextGroupName.Text + "?");
@@ -86,6 +83,7 @@ namespace Whos_Home
         public void Success()
         {
             Toast.MakeText(this.Context, "Group Successfully Created", ToastLength.Long).Show();
+            ((Groups)Activity).UpdateGroups();
         }
 
         public void Failure()

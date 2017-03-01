@@ -82,7 +82,6 @@ namespace Whos_Home
             string json = JsonConvert.SerializeObject(new UserDB(firstname, username, email, token));
 
             File.WriteAllText(fullPath, json);
-
             /*using (var streamWriter = new StreamWriter(fullPath, true))
             {
                 streamWriter.WriteLine(json);
@@ -156,8 +155,6 @@ namespace Whos_Home
 
             return GetUserGroups().Find(find => find.GroupName == groupname);
         }
-
-        
 
         public void AddGroup(string groupName, string groupID)
         {
