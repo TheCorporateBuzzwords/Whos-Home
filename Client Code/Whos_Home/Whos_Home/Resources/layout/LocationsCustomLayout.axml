@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+    <LinearLayout
+        android:id="@+id/LocationsLinearLayout"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dip">
+        <TextView
+            android:id="@+id/LocationsUsername"
+            android:text="Username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#368DEB"
+            android:textSize="16dip"
+            android:textStyle="italic" />
+        <TextView
+            android:id="@+id/LocationsLocation"
+            android:text="current location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16dip"
+            android:textColor="#FFFFFF"
+            android:paddingLeft="0dip" />
+    </LinearLayout>
+</RelativeLayout>

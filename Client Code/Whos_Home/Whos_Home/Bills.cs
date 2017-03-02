@@ -15,14 +15,30 @@ namespace Whos_Home
     [Activity(Label = "Bills")]
     class Bills : Activity
     {
-
+        private Button BNewBill;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Bills);
 
+            InitializeFormat();
             InitializeToolbars();
+        }
+
+        private void InitializeFormat()
+        {
+            //Set new bill button
+            BNewBill = FindViewById<Button>(Resource.Id.buttonNewBill);
+            BNewBill.Click += BNewBill_Click;
+
+        }
+
+        private void BNewBill_Click(object sender, EventArgs e)
+        {
+            Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            BillsNew NewBillDialog = new BillsNew();
+            NewBillDialog.Show(transaction, "dialog fragment create new bill");
         }
 
         private void InitializeToolbars()

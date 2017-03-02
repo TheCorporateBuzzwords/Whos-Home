@@ -16,7 +16,7 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -150,6 +150,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BillsNew.cs" />
+    <Compile Include="BillsNewSpecifyAmountListAdapter.cs" />
+    <Compile Include="BillsNewSpecifyAmounts.cs" />
     <Compile Include="BulletinAddComment.cs" />
     <Compile Include="Helpers\BulletinPostObj.cs" />
     <Compile Include="Helpers\CommentObj.cs" />
@@ -169,6 +172,7 @@
     <Compile Include="ListNew.cs" />
     <Compile Include="Lists.cs" />
     <Compile Include="ListsListAdapter.cs" />
+    <Compile Include="LocationsListAdapter.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="GroupNew.cs" />
     <Compile Include="LocationAddFragment.cs" />
@@ -275,6 +279,18 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ListAddItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\LocationsCustomLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\BillsNew.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\BillsNewSpecifyAmounts.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\BillsNewSpecifyAmountsCustomView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
