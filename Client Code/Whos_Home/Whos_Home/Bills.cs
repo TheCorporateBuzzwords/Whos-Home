@@ -36,9 +36,10 @@ namespace Whos_Home
 
         private void BNewBill_Click(object sender, EventArgs e)
         {
-            Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            BillsNew NewBillDialog = new BillsNew();
-            NewBillDialog.Show(transaction, "dialog fragment create new bill");
+            this.StartActivity(typeof(BillsGraph));
+            //Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            //BillsNew NewBillDialog = new BillsNew();
+            //NewBillDialog.Show(transaction, "dialog fragment create new bill");
         }
 
         private void InitializeToolbars()

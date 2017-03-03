@@ -68,7 +68,7 @@ namespace Whos_Home
             Dismiss();
         }
 
-        private async void Invite(string username, string groupname)
+        private void Invite(string username, string groupname)
         {
             RequestHandler request = new RequestHandler(Context);
             DB_Singleton db = DB_Singleton.Instance;
