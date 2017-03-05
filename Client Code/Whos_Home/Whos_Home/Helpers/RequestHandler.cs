@@ -59,6 +59,14 @@ namespace Whos_Home.Helpers
             return response;
         }
 
+        public async Task<IRestResponse> GetUserLocations(string token, string groupid)
+        {
+            request = new RestRequest(string.Format("/groups/{0}", groupid), Method.GET);
+            request.AddHeader("x-access-token", token);
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+
         /*public async Task<IRestResponse> InviteToGroup(string token, string groupID, string username)
         {
             request = new RestRequest("/groups/{groupid}/invitation/?{recipient}", Method.GET);

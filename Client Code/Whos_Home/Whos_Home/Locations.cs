@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Text;
+
 
 using Android.App;
 using Android.Content;
@@ -38,10 +40,12 @@ namespace Whos_Home
             InitializeToolbars();
             InitializeFormat();
         }
-        private void InitializeFormat()
+        private async void InitializeFormat()
         {
             AddLocation = FindViewById<Button>(Resource.Id.NewLocationButton);
             AddLocation.Click += AddLocation_Click;
+
+            var GroupMemberLocs = await GetActiveUsers();
 
             LocationList = FindViewById<ListView>(Resource.Id.locationlistview);
             CurrentLocation = FindViewById<TextView>(Resource.Id.textCurrentLocation);
@@ -61,8 +65,6 @@ namespace Whos_Home
             {
                 db.GetActiveGroup();
                 GetLocations();
-                
-
             }
             catch
             {
@@ -75,7 +77,7 @@ namespace Whos_Home
         {
             DB_Singleton db = DB_Singleton.Instance;
 
-            RequestHandler request = new RequestHandler(this.BaseContext);
+            RequestHandler request = new RequestHandler(this);
 
             //get locations from database
             var response = await request.GetLocations(db.Retrieve("Token"), db.GetActiveGroup().GroupID);
@@ -86,50 +88,82 @@ namespace Whos_Home
 
             UpdateLocation();
 
+
+        }
+
+        private async Task<List<Tuple<string, string>>> GetActiveUsers()
+            
+        {
+            DB_Singleton db = DB_Singleton.Instance;
+            RequestHandler request = new RequestHandler(this);
+
+            List<Tuple<string, string>> tup_list = new List<Tuple<string, string>>();
+            var response = await request.GetUserLocations(db.Retrieve("Token"), db.GetActiveGroup().GroupID);
+
+            JArray members = JArray.Parse(response.Content);
+
+            foreach(JToken member in members)
+            {
+                string username = (string)member["UserName"];
+                string locationname = (string)member["LocationName"];
+
+                tup_list.Add(new Tuple<string, string>(username, locationname));
+            }
+
+            return tup_list;
         }
 
         private async void UpdateLocation()
-        {
-            WifiManager wifimanager = (WifiManager)GetSystemService(Context.WifiService);
-
-            string permission = Manifest.Permission.AccessFineLocation;
-            if (CheckSelfPermission(permission) == (int)Permission.Granted)
             {
-                var InRange = wifimanager.ScanResults;
 
-                foreach (ScanResult network in InRange)
-                {
-                    WifiNetworks.Add(network.Ssid);
-                    //WifiNetworkKey.Add(network.Bssid);
-                }
-            }
-
-            RequestHandler request = new RequestHandler(this.BaseContext);
-            IRestResponse response;
-            DB_Singleton db = DB_Singleton.Instance;
 
             //some garbage string
-            current_location = "$$560091692749045729$#^^%$";
 
-            for (int i = 0; i < WifiNetworks.Count; ++i)
-            {
-                for(int j = 0; j < db_locations.Count; ++j)
+               /* for (int i = 0; i < WifiNetworks.Count; ++i)
                 {
-                    if (WifiNetworks[i] == db_locations[j])
+                    for (int j = 0; j < db_locations.Count; ++j)
                     {
-                        current_location = db_locations[j];
-                        i = WifiNetworks.Count;
-                        j = db_locations.Count;
+                        if (WifiNetworks[i] == db_locations[j])
+                        {
+                            current_location = db_locations[j];
+                            i = WifiNetworks.Count;
+                            j = db_locations.Count;
+                        }
                     }
                 }
-            }
+                */
 
+                    current_location = null;
+                    DB_Singleton db = DB_Singleton.Instance;
+                    if (db.IsOnline())
+                    {
+                        WifiManager wifimanager = (WifiManager)GetSystemService(Context.WifiService);
 
-            if (current_location != "$$560091692749045729$#^^%$") 
-                response = await request.UpdateLocation(db.Retrieve("Token"), current_location);
+                        string permission = Manifest.Permission.AccessFineLocation;
+                        if (CheckSelfPermission(permission) == (int)Permission.Granted)
+                        {
+                            var InRange = wifimanager.ScanResults;
 
-            CurrentLocation.Text = "Current location: " + current_location;
-            CurrentLocation.RefreshDrawableState();
+                            foreach (ScanResult network in InRange)
+                            {
+                                WifiNetworks.Add(network.Ssid);
+                                //WifiNetworkKey.Add(network.Bssid);
+                            }
+                        }
+
+                        RequestHandler request = new RequestHandler(this);
+
+                        var results = WifiNetworks.Intersect(db_locations);
+                        if (results.Count() != 0)
+                            current_location = results.ElementAt(0);
+                        var response = await request.UpdateLocation(db.Retrieve("Token"), current_location);
+
+                        if(current_location != null)
+                            CurrentLocation.Text = "Current location: " + current_location;
+                        else
+                            CurrentLocation.Text = "Not in range of location";
+                        CurrentLocation.RefreshDrawableState();
+                    }
         }
 
         private List<string> ConvertJson(IRestResponse response)
@@ -140,7 +174,6 @@ namespace Whos_Home
             foreach (var loc in JLocations)
             {
 
-                //Console.WriteLine(invite.ToString());
                 location_names.Add((string)loc["NetName"]);
             }
 
