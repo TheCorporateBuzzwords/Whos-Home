@@ -84,10 +84,12 @@ module.exports = function (app) {
     });
 
     //Endpoint for deleting an entire message board topic and all responses
+    app.delete('/groups/:groupid(\\d+)/topicdelete/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         //Check for all needed info
         if(req.body.decoded.UserID && req.params.groupid && req.params.topicid) {
             
             //Create the request
+            var deleteRequest = "Call deleteTopic(" + config.pool.escape(req.params.topicid) + ");";
 
             config.pool.query(deleteRequest, function(err, result) {
                 //If there is an error, log it
@@ -118,6 +120,7 @@ module.exports = function (app) {
     });
 
     //Endpoint for deleting a message board response
+    app.delete('/groups/:groupid(\\d+)/postdelete/:postid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
         //Check for all needed info
         if(req.body.decoded.UserID && req.params.groupid && req.params.postid)
         {
