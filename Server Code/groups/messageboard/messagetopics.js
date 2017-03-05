@@ -12,7 +12,10 @@ module.exports = function (app) {
         if(req.params.groupid && req.body.title && req.body.decoded.UserID && req.body.msg)
         {
             //Create a var that has the call to the procedure
-            var insertRequest = "Call addTopic(" + con.escape(req.params.groupid) + ", " + con.escape(req.body.title) + ", " + con.escape(req.body.decoded.UserID) + ", " + con.escape(req.body.msg) + ")";
+            var insertRequest = "Call addTopic(" + con.escape(req.params.groupid) 
+                                + ", " + con.escape(req.body.title) 
+                                + ", " + con.escape(req.body.decoded.UserID) 
+                                + ", " + con.escape(req.body.msg) + ")";
             
             //Perform the request
             con.query(insertRequest, function(err, result) {

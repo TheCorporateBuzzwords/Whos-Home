@@ -1,0 +1,49 @@
+# Server coding style guide
+## General 
+The purpose of this document is to establish some basic coding styles for the Who’s Home server code base. This document only covers a few basic area of the code base and for subjects not covered, use your best judgement or add a guideline to the documen.
+
+## Naming conventions
+### Variables
+Variable names should be in lowercase. Multiple word variables should be camel case with upper character for the first letter of each word after the first or all lower case separated by an underscore.
+
+### Endpoint params
+
+
+## Indentation
+Use a tab to indicate diffrent blocks of statements. A tab should be 4 spaces. An example of properly indented program is provided below.
+
+con.query(getRequest, function (err, result) {
+    if(err) {
+        //If error, log and handle
+        console.log(err);
+        }
+        else {
+        return res.json(result);
+    }
+});
+
+Opening curly braces should be placed on the the line or beneath the line of the corresponding block.
+Closing curly braces should be placed on their own, at the same level of indentation of the opening line of the block.
+
+if(err) {
+    //Code
+    if() {
+        //Code
+    }
+}
+
+Or
+
+if(err) 
+{
+    //Code
+    if() 
+    {
+        //Code
+    }
+}
+
+Use whatever style you like just try to stay consistent.
+
+## White Space
+Use it. 
