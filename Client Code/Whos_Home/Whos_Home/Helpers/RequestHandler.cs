@@ -139,10 +139,10 @@ namespace Whos_Home.Helpers
         public async Task<IRestResponse> UpdateLocation(string token, string SSID)
         {
             //SSID can be null if user is offline
-            request = new RestRequest("/users/locations", Method.PUT);
+            request = new RestRequest("/users/location", Method.PUT);
 
             request.AddHeader("x-access-token", token);
-            request.AddParameter("ssid", SSID);
+            request.AddParameter("bssid", SSID);
 
             var response = await client.ExecuteTaskAsync(request);
 

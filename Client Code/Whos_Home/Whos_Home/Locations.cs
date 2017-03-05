@@ -45,7 +45,6 @@ namespace Whos_Home
             AddLocation = FindViewById<Button>(Resource.Id.NewLocationButton);
             AddLocation.Click += AddLocation_Click;
 
-            var GroupMemberLocs = await GetActiveUsers();
 
             LocationList = FindViewById<ListView>(Resource.Id.locationlistview);
             CurrentLocation = FindViewById<TextView>(Resource.Id.textCurrentLocation);
@@ -64,16 +63,17 @@ namespace Whos_Home
             try
             {
                 db.GetActiveGroup();
-                GetLocations();
             }
             catch
             {
                 Console.WriteLine("No active group selected: Locations");
             }
-            
+
+            await GetLocations();
+            var GroupMemberLocs = await GetActiveUsers();
         }
 
-        private async void GetLocations()
+        private async Task GetLocations()
         {
             DB_Singleton db = DB_Singleton.Instance;
 
@@ -86,7 +86,7 @@ namespace Whos_Home
             //add locations into list adapter
             LocationList.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, db_locations);
 
-            UpdateLocation();
+            await UpdateLocation();
 
 
         }
@@ -113,7 +113,7 @@ namespace Whos_Home
             return tup_list;
         }
 
-        private async void UpdateLocation()
+        private async Task UpdateLocation()
             {
 
 
@@ -133,37 +133,39 @@ namespace Whos_Home
                 }
                 */
 
-                    current_location = null;
-                    DB_Singleton db = DB_Singleton.Instance;
-                    if (db.IsOnline())
+            current_location = null;
+            DB_Singleton db = DB_Singleton.Instance;
+            if (db.IsOnline())
+            {
+                WifiManager wifimanager = (WifiManager)GetSystemService(Context.WifiService);
+
+                string permission = Manifest.Permission.AccessFineLocation;
+                if (CheckSelfPermission(permission) == (int)Permission.Granted)
+                {
+                    var InRange = wifimanager.ScanResults;
+
+                    foreach (ScanResult network in InRange)
                     {
-                        WifiManager wifimanager = (WifiManager)GetSystemService(Context.WifiService);
-
-                        string permission = Manifest.Permission.AccessFineLocation;
-                        if (CheckSelfPermission(permission) == (int)Permission.Granted)
-                        {
-                            var InRange = wifimanager.ScanResults;
-
-                            foreach (ScanResult network in InRange)
-                            {
-                                WifiNetworks.Add(network.Ssid);
-                                //WifiNetworkKey.Add(network.Bssid);
-                            }
-                        }
-
-                        RequestHandler request = new RequestHandler(this);
-
-                        var results = WifiNetworks.Intersect(db_locations);
-                        if (results.Count() != 0)
-                            current_location = results.ElementAt(0);
-                        var response = await request.UpdateLocation(db.Retrieve("Token"), current_location);
-
-                        if(current_location != null)
-                            CurrentLocation.Text = "Current location: " + current_location;
-                        else
-                            CurrentLocation.Text = "Not in range of location";
-                        CurrentLocation.RefreshDrawableState();
+                        WifiNetworks.Add(network.Ssid);
+                        //WifiNetworkKey.Add(network.Bssid);
                     }
+                }
+
+                RequestHandler request = new RequestHandler(this);
+
+                var results = WifiNetworks.Intersect(db_locations);
+
+                if (results.Count() != 0)
+                    current_location = results.ElementAt(0);
+
+                var response = await request.UpdateLocation(db.Retrieve("Token"), current_location);
+
+                if(current_location != null)
+                    CurrentLocation.Text = "Current location: " + current_location;
+                else
+                    CurrentLocation.Text = "Not in range of location";
+                CurrentLocation.RefreshDrawableState();
+            }
         }
 
         private List<string> ConvertJson(IRestResponse response)
