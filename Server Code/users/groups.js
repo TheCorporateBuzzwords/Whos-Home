@@ -5,7 +5,7 @@ var auth = require('./../middlewares/auth');
 module.exports = function (app) {
     app.get('/users/groups', auth.CheckAuthToken, function (req, res) {
         //Get a connection
-        var con = mysql.createConnection(config.connectionInfo);
+        //var con = mysql.createConnection(config.connectionInfo);
 
         //Check that the needed stuff is in the JSON
         if(req.body.decoded)
@@ -17,7 +17,7 @@ module.exports = function (app) {
                                 on ug.GroupID = g.GroupID \
                                 Where u.UserID = " + req.body.decoded.UserID + ";";
 
-            con.query(getRequest, function (err, result) {
+            config.pool.query(getRequest, function (err, result) {
                 if(err) {
                     //If error, log and handle
                     console.log(err);

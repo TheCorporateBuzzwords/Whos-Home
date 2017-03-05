@@ -17,6 +17,9 @@ var acceptInvite = require('./groups/invitation/acceptinvite');
 var userInites = require('./users/invites');
 var newlist = require('./groups/lists/newlist');
 var newlistitem = require('./groups/lists/newlistitem');
+var getlists = require('./groups/lists/getlists');
+var getlistitems = require('./groups/lists/getlistitems');
+var updatelists = require('./groups/lists/updatelistitems');
 
 //var auth = require('./middlewares/auth');
 app.use(morgan('combined'));
@@ -42,3 +45,6 @@ acceptInvite(app);
 userInites(app);
 newlist(app);
 newlistitem(app);
+getlists(app);
+updatelists(app);
+getlistitems(app);

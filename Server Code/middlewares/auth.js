@@ -22,11 +22,11 @@ module.exports =
         },
         CheckInGroup: function (req, res, next) {
             var groupid = req.body.groupid || req.params.groupid || req.query.groupid;
-            var con = mysql.createConnection(config.connectionInfo);
+            //var con = mysql.createConnection(config.connectionInfo);
             if (groupid) {
                 //MySQL statement for making sure some user is in some group acording to the linking table
-                var checkInGroupQuery = "SELECT * FROM User_Groups WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + con.escape(groupid);
-                con.query(checkInGroupQuery, function (err, result) {
+                var checkInGroupQuery = "SELECT * FROM User_Groups WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + config.pool.escape(groupid);
+                config.pool.query(checkInGroupQuery, function (err, result) {
                     if (err) {
                         console.log(err);
                     } else if (result.length) {

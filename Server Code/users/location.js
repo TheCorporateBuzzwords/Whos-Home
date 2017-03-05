@@ -4,15 +4,15 @@ var auth = require('./../middlewares/auth');
 
 module.exports = function (app) {
     app.put('/users/location', auth.CheckAuthToken, function (req, res) {
-        var con = mysql.createConnection(config.connectionInfo);
+        //var con = mysql.createConnection(config.connectionInfo);
         if(!req.body.bssid || req.body.bssid == null) {
             return res.status(409).json({ status: "error", message: "missing bssid in request." });
         }
         var locationID = "NULL";
         var getLocationIDRequest = "SELECT LocationID \
                                     FROM Group_Locations \
-                                    WHERE SSID = " + con.escape(req.body.bssid);
-        con.query(getLocationIDRequest, function (err, locationIDResult) {
+                                    WHERE SSID = " + config.pool.escape(req.body.bssid);
+        config.pool.query(getLocationIDRequest, function (err, locationIDResult) {
             if (err) {
                 console.log(err);
             } else {
@@ -22,7 +22,7 @@ module.exports = function (app) {
                 var updateRequest = "UPDATE Users \
                                      SET LocationID = " + locationID + " \
                                      WHERE UserID = " + req.body.decoded.UserID;
-                con.query(updateRequest, function (err, updateResult) {
+                config.pool.query(updateRequest, function (err, updateResult) {
                     if (err) {
                         console.log(err);
                     } else {

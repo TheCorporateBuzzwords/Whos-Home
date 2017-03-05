@@ -6,31 +6,26 @@ var auth = require('./../middlewares/auth');
 module.exports = function (app) {
     app.post('/groups/', auth.CheckAuthToken, function (req, res) {
         //Create a connection to the database
-        var con = mysql.createConnection(config.connectionInfo);
+        //var con = mysql.createConnection(config.connectionInfo);
 
         //Check for valid information in incoming JSON
         if (req.body.groupName) {
             //Call the add group procedure
-            var insertRequest = "Call addGroup(" + con.escape(req.body.groupName) + ", " + con.escape(req.body.decoded.UserID) + ")";
+            var insertRequest = "Call addGroup(" + config.pool.escape(req.body.groupName) + ", " + config.pool.escape(req.body.decoded.UserID) + ")";
 
             //Perform the request
-            con.query(insertRequest, function (err, result) {
+            config.pool.query(insertRequest, function (err, result) {
                 if (err) {
                     //If error, log and handle
                     console.log(err);
                 }
                 else {
-                    con.query("SELECT LAST_INSERT_ID() AS id", function (err, result, field) {
+                    config.pool.query("SELECT LAST_INSERT_ID() AS id", function (err, result, field) {
                         GroupID = result[0].id;
                         if (err) {
                             console.log(err);
                         } else {
-                            res.status(200);
-                            res.json({
-                                status: "success",
-                                groupID: GroupID
-                            });
-                            res.end();
+                            res.status(200).json({ status: "success", groupID: GroupID });
                         }
                     });
                 }
@@ -38,11 +33,7 @@ module.exports = function (app) {
         }
         //If the request does not have the correct info, send back error message
         else {
-            res.status(400);
-            res.json({
-                status: "error",
-                message: "missing parameter in POST request"
-            });
+            res.status(400).json({ status: "error", message: "missing parameter in POST request" });
         }
     });
 }

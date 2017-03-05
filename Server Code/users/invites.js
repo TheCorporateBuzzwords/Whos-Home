@@ -5,7 +5,7 @@ var auth = require('./../middlewares/auth');
 module.exports = function (app) {
     app.get('/users/invites', auth.CheckAuthToken, function (req, res) {
         //Get connection 
-        var con = mysql.createConnection(config.connectionInfo);
+        //var con = mysql.createConnection(config.connectionInfo);
 
         //Check that everything needed is passed in
         if(req.body.decoded)
@@ -18,7 +18,7 @@ module.exports = function (app) {
                             From Invites as u \
                              Where RecipientID = " + req.body.decoded.UserID + ";";
 
-            con.query(getRequest, function (err, result) {
+            config.pool.query(getRequest, function (err, result) {
                 if(err)
                 {
                     console.log(err);
