@@ -20,6 +20,7 @@ var newlistitem = require('./groups/lists/newlistitem');
 var getlists = require('./groups/lists/getlists');
 var getlistitems = require('./groups/lists/getlistitems');
 var updatelists = require('./groups/lists/updatelistitems');
+var messageboardedit = require('./groups/messageboard/messageboardedit');
 
 //var auth = require('./middlewares/auth');
 app.use(morgan('combined'));
@@ -39,6 +40,7 @@ newgroup(app);
 getgrouplocations(app);
 messagetopics(app);
 messageresponse(app);
+messageboardedit(app);
 userGroups(app);
 updateLocation(app);
 acceptInvite(app);

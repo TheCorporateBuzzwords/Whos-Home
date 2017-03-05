@@ -33,7 +33,7 @@ Delimiter;
 
 /*
   Procedure for creating a new message board topic and adds the first post to the topis
-  Perams:
+  Params:
     gID = groupID of which group to add the messageboard topic to
     title = Title of the messageboard topic
     uID = userID of the user creating the topic
@@ -54,6 +54,26 @@ Begin
 
   -- Add the post for the new topic
   Insert Into Posts (TopicID, UserID, Msg, PostTime) Values (@tID, uID, message, NOW());
+
+End //
+Delimiter;
+
+/*
+  Procedure for deleting a message board topic and all posts in it
+  Params:
+    tID = ID of the message board topic to delete
+*/
+Delimiter //
+Create Procedure deleteTopic
+  (In tID bigint)
+Begin
+  -- Delete all message board posts with the passed in topicID
+  Delete from Posts
+  Where TopicID = tID;
+
+  -- Delete the message board topic with the passed in topicID
+  Delete from Message_Topics
+  Where TopicID = tID;
 
 End //
 Delimiter;

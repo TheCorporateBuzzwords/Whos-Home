@@ -97,6 +97,24 @@ GET /groups/{groupid}/messages/{topicid}/ (authenticated)
 
 Returns: Response msg, Date/Time posted, and Username of the original poster for each response to a topic
 
+### Edit a messageboard topic
+PUT /groups/{groupid}/topicedit/{topicid}/ (authenticated)
+
+\*newTitle: New title of the message board post (50 char limit)
+
+### Edit a messageboard response
+PUT /groups/{groupid}/postedit/{postid} (authenticated)
+
+\*newMsg: New message of the response (1024 char limit)
+
+### Delete a messageboard topic and all responses
+DELETE /groups/{groupid}/topicdelete/{topicid} (authenticated)
+
+Note: This will delete the topic and all response posts to that topic
+
+### Delete a single message board response
+DELETE /groups/{groupid}/postdelete/{postid} (authenticated)
+
 ##Lists
 
 ### Add new list
