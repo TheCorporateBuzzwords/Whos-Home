@@ -89,8 +89,6 @@ namespace Whos_Home
             //LocationList.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, db_locations);
 
             await UpdateLocation();
-
-
         }
 
         private async Task<List<Tuple<string, string>>> GetActiveUsers()
@@ -102,20 +100,23 @@ namespace Whos_Home
             List<Tuple<string, string>> tup_list = new List<Tuple<string, string>>();
             var response = await request.GetUserLocations(db.Retrieve("Token"), db.GetActiveGroup().GroupID);
 
-            JArray members = JArray.Parse(response.Content);
-
-            foreach(JToken member in members)
+            if (response.Content != "" && response.Content != "[]")
             {
-                string username = (string)member["UserName"];
-                string locationname = (string)member["LocationName"];
+                JArray members = JArray.Parse(response.Content);
 
-                tup_list.Add(new Tuple<string, string>(username, locationname));
+                foreach (JToken member in members)
+                {
+                    string username = (string)member["UserName"];
+                    string locationname = (string)member["LocationName"];
+
+                    tup_list.Add(new Tuple<string, string>(username, locationname));
+                }
             }
 
             return tup_list;
         }
 
-        private async Task UpdateLocation()
+        public async Task UpdateLocation()
             {
 
 

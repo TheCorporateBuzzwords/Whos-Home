@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
+using Newtonsoft.Json.Linq;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -13,6 +15,8 @@ using Android.Net.Wifi;
 using Android;
 using Android.Content.PM;
 using Whos_Home.Helpers;
+
+using RestSharp;
 
 namespace Whos_Home
 {
@@ -36,8 +40,6 @@ namespace Whos_Home
             BCancel.Click += BCancel_Click;
             NetworkList.ItemClick += NetworkList_ItemClick;
 
-
-
              //Set up a wifimanager to gather wifi scan results
              WifiManager wifimanager = (WifiManager)Context.GetSystemService(Context.WifiService);
 
@@ -60,15 +62,12 @@ namespace Whos_Home
             return view;
         }
 
-        private void NetworkList_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        private async void NetworkList_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             var listView = sender as ListView;
             var position = e.Position;
 
-
             string selected = WifiNetworks.ElementAt<string>(position);
-
-
 
             //Send new location information to database
 
@@ -77,15 +76,59 @@ namespace Whos_Home
 
             //adds location to the db using the db_singleton active groupID
 
-            Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            LocationAddName AddLocationNameDialog = new LocationAddName(db.Retrieve("Token"), selected, group.GroupID);
-            AddLocationNameDialog.Show(transaction, "dialog fragment AddLocationName");
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            List<string> locations = await GetLocations();
+            if (locations.Contains(selected))
+                SsidTaken();
+            else
+            {
+                LocationAddName AddLocationNameDialog = new LocationAddName(db.Retrieve("Token"), selected, group.GroupID);
+                AddLocationNameDialog.Show(transaction, "dialog fragment AddLocationName");
+            }
         }
 
         private void BCancel_Click(object sender, EventArgs e)
         {
             //Close the dialog
             Dismiss();
+        }
+
+        void SsidTaken()
+        {
+            //PUT YOUR ERROR ALERT HERE
+            Toast.MakeText(Context, "SSID has already been assigned in this group", ToastLength.Long);
+        }
+
+        private async Task<List<string>> GetLocations()
+        {
+            DB_Singleton db = DB_Singleton.Instance;
+
+            RequestHandler request = new RequestHandler(Context);
+
+            //get locations from database
+            var response = await request.GetLocations(db.Retrieve("Token"), db.GetActiveGroup().GroupID);
+            //convert locations from json format
+            List<string> db_locations = ConvertJson(response);
+            //add locations into list adapter
+            //LocationList.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, db_locations);
+
+            ((Locations)Activity).UpdateLocation();
+
+            return db_locations;
+        }
+
+        private List<string> ConvertJson(IRestResponse response)
+        {
+            List<string>location_names = new List<string>();
+            JArray JLocations = JArray.Parse(response.Content);
+
+            foreach (var loc in JLocations)
+            {
+
+                location_names.Add((string)loc["NetName"]);
+            }
+
+            return location_names;
         }
     }
 }
