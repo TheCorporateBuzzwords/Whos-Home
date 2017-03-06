@@ -68,27 +68,18 @@ namespace Whos_Home
 
             string selected = WifiNetworks.ElementAt<string>(position);
 
-            AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
-            alert.SetTitle("Add " + selected + " to your locations?");
+
 
             //Send new location information to database
-            alert.SetPositiveButton("Confirm", async (senderAlert, args) =>
-            {
-                DB_Singleton db = DB_Singleton.Instance;
-                var group = db.GetActiveGroup();
-                RequestHandler request = new RequestHandler(View.Context);
-                
-                //adds location to the db using the db_singleton active groupID
-                var response = await request.AddLocation(db.Retrieve("Token"), WifiNetworkKey.ElementAt<string>(position), selected, group.GroupID);
-            });
 
-            //Close dialog and cancel add
-            alert.SetNegativeButton("Cancel", (senderAlert, args) =>
-            {
-                Dismiss();
-            });
-            Dialog dialog = alert.Create();
-            dialog.Show();
+            DB_Singleton db = DB_Singleton.Instance;
+            var group = db.GetActiveGroup();
+
+            //adds location to the db using the db_singleton active groupID
+
+            Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            LocationAddName AddLocationNameDialog = new LocationAddName(db.Retrieve("Token"), selected, group.GroupID);
+            AddLocationNameDialog.Show(transaction, "dialog fragment AddLocationName");
         }
 
         private void BCancel_Click(object sender, EventArgs e)

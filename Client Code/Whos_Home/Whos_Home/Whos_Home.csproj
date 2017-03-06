@@ -182,6 +182,7 @@
     <Compile Include="ListNew.cs" />
     <Compile Include="Lists.cs" />
     <Compile Include="ListsListAdapter.cs" />
+    <Compile Include="LocationAddName.cs" />
     <Compile Include="LocationsListAdapter.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="GroupNew.cs" />
@@ -306,6 +307,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\BillsGraph.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\LocationAddName.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

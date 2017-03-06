@@ -71,6 +71,8 @@ namespace Whos_Home
 
             await GetLocations();
             var GroupMemberLocs = await GetActiveUsers();
+
+            LocationList.Adapter = new LocationsListAdapter(this, GroupMemberLocs);
         }
 
         private async Task GetLocations()
@@ -84,7 +86,7 @@ namespace Whos_Home
             //convert locations from json format
             db_locations = ConvertJson(response);
             //add locations into list adapter
-            LocationList.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, db_locations);
+            //LocationList.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, db_locations);
 
             await UpdateLocation();
 

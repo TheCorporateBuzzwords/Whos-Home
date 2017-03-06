@@ -18,6 +18,7 @@ namespace Whos_Home
     {
         private Button Confirm;
         private Button Cancel;
+        private string invitee;
         private string groupname; //here ya go
 
         public GroupAddUser(string group_name)
@@ -46,7 +47,7 @@ namespace Whos_Home
             RequestHandler request = new RequestHandler(Context);
             var db = DB_Singleton.Instance;
             var groupid = DB_Singleton.Instance.SearchGroup(groupname).GroupID;
-            var invitee = View.FindViewById<EditText>(Resource.Id.edittextAddUserToGroupDialog).Text;
+            invitee = View.FindViewById<EditText>(Resource.Id.edittextAddUserToGroupDialog).Text;
             var token = db.Retrieve("Token");
             
             var response = await request.SendInvitation(token, groupid, invitee);
