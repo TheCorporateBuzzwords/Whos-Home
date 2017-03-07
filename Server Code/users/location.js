@@ -16,7 +16,7 @@ module.exports = function (app) {
             if (err) {
                 console.log(err);
             } else {
-                if (locationIDResult.length) {
+                if (locationIDResult.length > 0) {
                     locationID = locationIDResult[0].LocationID;
                 }
                 var updateRequest = "UPDATE Users \
