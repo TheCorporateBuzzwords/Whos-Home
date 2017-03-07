@@ -124,8 +124,7 @@ namespace Whos_Home
 
             foreach (var loc in JLocations)
             {
-
-                location_names.Add((string)loc["NetName"]);
+                location_names.Add((string)loc["SSID"]);
             }
 
             return location_names;

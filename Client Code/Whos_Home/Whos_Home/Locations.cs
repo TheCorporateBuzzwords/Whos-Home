@@ -107,7 +107,7 @@ namespace Whos_Home
                 foreach (JToken member in members)
                 {
                     string username = (string)member["UserName"];
-                    string locationname = (string)member["LocationName"];
+                    string locationname = (string)member["NetName"];
 
                     tup_list.Add(new Tuple<string, string>(username, locationname));
                 }
