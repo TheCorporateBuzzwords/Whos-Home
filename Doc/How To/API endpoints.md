@@ -48,6 +48,11 @@ POST /groups/ (authenticated)
 
 \*groupName: Name of the new group
 
+### Edit the name of a group
+PUT /groups/{groupid}/egroup/ (authenticated)
+
+\*newName: Text of the new group name
+
 ## Groups/invitation
 ### create a group invitation for a user
 POST /groups/{groupid}/invitation/ (authenticated)
@@ -143,3 +148,27 @@ PUT /groups/{groupid}/lists/{listid}
 \*listid: id of list item to be updated
 
 \*completed: 1 (completed) or 0 (not completed)
+
+### Edit an item in a list
+PUT /groups/{groupid}/elistitem/{itemid}/ (authenticated)
+
+\*itemid: id of the list item to edit
+
+\*newText: The new text of the time
+
+### Delete an item in a list
+DELETE /groups/{groupid}/dlistitem/{itemid}/ (authenticated)
+
+\*itemid: id of the list item to delete
+
+### Edit the title of a list
+PUT /groups/{groupid}/elist/{listid}/ (authenticated)
+
+\*listid: id of the list to edit
+
+\*newTitle: The new text for the title of the list
+
+### Delete a list and all of the list's items
+DELETE /groups/{groupid}/dlist/{listid}/ (authenticated)
+
+\*listid: id of the list to delete

@@ -11,12 +11,12 @@ module.exports = function (app) {
         //Check for all needed info
         if(req.body.decoded.UserID && req.params.groupid && req.params.topicid && req.body.newTitle) {
             //Create the request
-            var editRequst = "Update Message_Topics \
+            var editRequest = "Update Message_Topics \
                               Set Title = " + config.pool.escape(req.body.newTitle)
                               + "Where TopicID = " + config.pool.escape(req.params.topicid)
                               + "And GroupID = " + config.pool.escape(req.params.groupid) + ";";
             
-            config.pool.query(editRequst, function(err, result) {
+            config.pool.query(editRequest, function(err, result) {
                 //If there is an error, log it
                 if(err) {
                     console.log(err);

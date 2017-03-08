@@ -1,9 +1,12 @@
-USE WHOSHOME;
+-- USE WHOSHOME;
 -- use jptest;
 
 -- Drop statements for everything, allows for everything to be executed at once
 Drop Procedure If Exists addGroup;
 Drop Procedure If Exists addTopic;
+Drop Procedure If Exists deleteTopic;
+Drop Procedure If Exists deleteList;
+Drop Procedure If Exists removeUserFromGroup;
 
 -- Procedure creation scripts
 
@@ -77,3 +80,60 @@ Begin
 
 End //
 Delimiter;
+
+/*
+  Procedure for deleting a list and all items within the list
+  Params:
+    lID = ID of the list to delete
+*/
+Delimiter //
+Create Procedure deleteList
+  (In lID bigint)
+Begin
+  -- Delete all list items connected to the passed in listID
+  Delete From Items
+  Where ListID = lID;
+
+  -- Delete the list with the passed in listID
+  Delete From Lists
+  Where ListID = lID;
+
+End //
+Delimiter;
+
+/*
+  Procedure for removing a user from a group.
+  This procedure will remore a user from a group without effecting any of the groups content
+  created by that user.
+  
+  NOTE: If the removed user is the last user in a group, then the group and all of its
+  content is removed
+*/
+Delimiter //
+Create Procedure removeUserFromGroup
+  (In gID bigint, In uID bigint)
+Begin
+
+  Declare UsersLeft bigint;
+
+  -- Remove the user from the group
+  Delete From User_Groups
+  Where UserID = uID
+  And GroupID = gID;
+
+  -- Check if the group has any members left
+  -- If there are no members left, delete the group and all things connected to the group
+  Select count(*) Into UsersLeft
+    From User_Groups
+    Where GroupID = gID;
+
+  -- REMOVE THE USER FROM THE GROUP LOCATIONS LINKING TABLE
+  
+  -- If there are members left, don't do anything
+  -- If(UsersLeft == 0) Then
+    -- Add the deletes to purge the group from the DB
+  -- End If;
+
+End //
+Delimiter;
+

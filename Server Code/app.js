@@ -21,6 +21,8 @@ var getlists = require('./groups/lists/getlists');
 var getlistitems = require('./groups/lists/getlistitems');
 var updatelists = require('./groups/lists/updatelistitems');
 var messageboardedit = require('./groups/messageboard/messageboardedit');
+var listsedit = require('./groups/lists/listsedits');
+var groupedit = require('./groups/groupedit');
 
 //var auth = require('./middlewares/auth');
 app.use(morgan('combined'));
@@ -50,3 +52,5 @@ newlistitem(app);
 getlists(app);
 updatelists(app);
 getlistitems(app);
+listsedit(app);
+groupedit(app);
