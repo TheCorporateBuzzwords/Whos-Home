@@ -50,9 +50,6 @@ namespace Whos_Home
             NewPostButton = FindViewById<Button>(Resource.Id.NewPostButton);
             NewPostButton.Click += NewPostButton_Click;
 
-
-
-
         }
 
         public async Task UpdatePosts()

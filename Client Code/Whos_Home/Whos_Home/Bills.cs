@@ -9,13 +9,14 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Newtonsoft.Json;
 
 namespace Whos_Home
 {
     [Activity(Label = "Bills")]
     class Bills : Activity
     {
-        private Button BNewBill;
+        private Button BNewBill, BillsHistory, CurrentBills;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -32,14 +33,45 @@ namespace Whos_Home
             BNewBill = FindViewById<Button>(Resource.Id.buttonNewBill);
             BNewBill.Click += BNewBill_Click;
 
+            BillsHistory = FindViewById<Button>(Resource.Id.buttonBillHistory);
+            BillsHistory.Click += BillsHistory_Click; ;
+
+            CurrentBills = FindViewById<Button>(Resource.Id.buttonCurrentBills);
+            CurrentBills.Click += CurrentBills_Click;
+
+        }
+
+        private void CurrentBills_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void BillsHistory_Click(object sender, EventArgs e)
+        {
+            List<Tuple<string, float>> bills = new List<Tuple<string, float>>();
+
+            bills.Add(new Tuple<string, float>("Rent", 500));
+            bills.Add(new Tuple<string, float>("Groceries", 100));
+            bills.Add(new Tuple<string, float>("Utilities", 60));
+            bills.Add(new Tuple<string, float>("Other", 150));
+
+
+            Intent i = new Intent(Application.Context, typeof(BillsGraph));
+
+
+            i.PutExtra("BillsList", JsonConvert.SerializeObject(bills));
+
+            StartActivity(i);
+
+            //this.StartActivity(typeof(BillsGraph));
         }
 
         private void BNewBill_Click(object sender, EventArgs e)
         {
-            this.StartActivity(typeof(BillsGraph));
-            //Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            //BillsNew NewBillDialog = new BillsNew();
-            //NewBillDialog.Show(transaction, "dialog fragment create new bill");
+            
+            Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            BillsNew NewBillDialog = new BillsNew();
+            NewBillDialog.Show(transaction, "dialog fragment create new bill");
         }
 
         private void InitializeToolbars()

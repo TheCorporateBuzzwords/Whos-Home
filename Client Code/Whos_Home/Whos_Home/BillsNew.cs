@@ -46,9 +46,15 @@ namespace Whos_Home
         private void M_Bconfirm_Click(object sender, EventArgs e)
         {
             Dismiss();
-            FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            BillsNewSpecifyAmounts Dialog = new BillsNewSpecifyAmounts();
-            Dialog.Show(transaction, "dialog fragment specify bill amounts");
+            //if the bill is not split equally, start the dialog that asks for splits
+            if (!m_checkbox.Checked)
+            {
+                FragmentTransaction transaction = FragmentManager.BeginTransaction();
+                BillsNewSpecifyAmounts Dialog = new BillsNewSpecifyAmounts();
+                Dialog.Show(transaction, "dialog fragment specify bill amounts");
+            }
+
+            //else send request
         }
 
         private void M_Bcancel_Click(object sender, EventArgs e)
