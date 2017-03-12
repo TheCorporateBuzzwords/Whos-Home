@@ -2,7 +2,7 @@ USE WHOSHOME;
 -- use jptest;
 
  -- Drop table statements
-  Drop Table If Exists Bills, Posts, Message_Topics, Items, Lists, User_Locations, User_Groups, Invites, Users, Group_Locations, Groups;
+  Drop Table If Exists Bills, Category, Posts, Message_Topics, Items, Lists, User_Groups, Invites, Users, Group_Locations, Groups;
 
  -- Table creaiton
 /*
@@ -140,20 +140,41 @@ Create Table Posts (
   ) ENGINE = INNODB;
 
 /*
+  Table: Category
+  Purpose: Table to hold the diffrent categories of bills
+          for group
+*/
+Create Table Category (
+  CategoryID        bigint        not null auto_increment
+  , Title           varchar(26)   not null
+  , Description     varchar(1024)
+  , primary key (CategoryID)
+  ) ENGINE = INNODB;
+
+-- Default bill categories
+Insert Into Category (Title, Description) VALUES
+  ("Other", "Catch all category")
+  , ("Rent", "")
+  , ("Utilities", "")
+  , ("Grocery", "")
+  , ("Business", "")
+  , ("Personal", "");
+
+/*
   Table: Bills
   Purpose: Table for the bills part of who's home groups.
-  
-  May need some changes later when that part is added but
-  works for now
 */
 Create Table Bills (
   BillID            bigint        not null auto_increment
   , GroupID         bigint        not null
   , UserID          bigint        not null
-  , Name            varchar(26)
+  , CategoryID      bigint        not null
+  , Title           varchar(26)
   , Description     varchar(1024)
   , Amount          decimal(13,2)
+  , DateDue         datetime
   , foreign key (GroupID) references Groups(GroupID)
   , foreign key (UserID) references Users(UserID)
+  , foreign key (CategoryID) references Category(CategoryID)
   , primary key (BillID)
   ) ENGINE = INNODB;
