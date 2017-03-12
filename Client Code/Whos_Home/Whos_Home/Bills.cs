@@ -38,7 +38,13 @@ namespace Whos_Home
 
             CurrentBills = FindViewById<Button>(Resource.Id.buttonCurrentBills);
             CurrentBills.Click += CurrentBills_Click;
+            CurrentBills.LongClick += CurrentBills_LongClick;
 
+        }
+
+        private void CurrentBills_LongClick(object sender, View.LongClickEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void CurrentBills_Click(object sender, EventArgs e)
