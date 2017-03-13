@@ -7,11 +7,11 @@ module.exports = function(app) {
     app.post('/groups/:groupid(\\d+)/invitation/', [auth.CheckAuthToken, auth.CheckInGroup], function(req, res) {
         //var con = mysql.createConnection(config.connectionInfo);
         if (!req.body.recipient) {
-            return res.status(400).json({ status: "error", message: "missing parameter" }).end();
+            return res.status(400).json({ status: "error", message: "missing parameter" });
         }
         var recipient = req.body.recipient;
         if (!/^[a-z][a-z0-9]*$/i.test(recipient)) { //make sure it's a valid username. Should make a module for this.
-            return res.status(409).json({ status: "error", message: "Invalid recipient." }).end();
+            return res.status(409).json({ status: "error", message: "Invalid recipient." });
         }
         //get userid
         var getUseridQuery = "SELECT UserID FROM Users WHERE UserName = " + config.pool.escape(recipient);
@@ -29,12 +29,12 @@ module.exports = function(app) {
                         console.log(err);
                         return res.end();
                     } else {
-                        return res.status(200).json({ status: "success", message: "invitation created" }).end();
+                        return res.status(200).json({ status: "success", message: "invitation created" });
                     }
                 });
             }
             else {
-                return res.status(409).json({ status: "error", message: "user you tried inviting doesn't exist" }).end();
+                return res.status(409).json({ status: "error", message: "user you tried inviting doesn't exist" });
             }
         });
     });
