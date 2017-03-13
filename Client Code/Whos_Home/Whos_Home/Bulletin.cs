@@ -65,7 +65,7 @@ namespace Whos_Home
 
         }
 
-        public async void UpdateComments()
+        public async Task UpdateComments()
         {
             List<string> comments = new List<string>();
             List<string> usernames = new List<string>();
@@ -73,7 +73,7 @@ namespace Whos_Home
             //deserializes the title and message that were converted to json in the messageboard.cs
             //title = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Title"));
             //msg = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Message"));
-
+            comment_objs = new List<CommentObj>();
             post = JsonConvert.DeserializeObject<BulletinPostObj>(Intent.GetStringExtra("PostObject"));
 
             DB_Singleton db = DB_Singleton.Instance;
@@ -111,7 +111,42 @@ namespace Whos_Home
 
             //set onClick method for message that will open the full message text in another window
             message.Click += TextViewClick;
-            //message.LongClick += Comment_LongClick;
+            commentlistview.ItemLongClick += Commentlistview_LongClick;
+
+        }
+
+        private void Commentlistview_LongClick(object sender, AdapterView.ItemLongClickEventArgs e)
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            BuildAlert(e.Position);
+
+        }
+
+        private async void BuildAlert(int position)
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("Delete Bulletin?");
+
+            //alert.SetMessage("Would you like to submit your comment?");
+            alert.SetPositiveButton("Delete", async (senderAlert, args) => {
+                await DeleteItem(position);
+                await UpdateComments();
+            });
+
+            alert.SetNegativeButton("Cancel", (senderAlert, args) => {
+            });
+            Dialog dialog = alert.Create();
+            dialog.Show();
+
+        }
+
+        private async Task DeleteItem(int position)
+        {
+            RequestHandler request = new RequestHandler(this);
+
+            DB_Singleton db = DB_Singleton.Instance;
+            string token = db.Retrieve("Token");
+            var response = await request.DeleteMessageReply(token, db.GetActiveGroup().GroupID, comment_objs[position].Topicid);
 
         }
 

@@ -139,7 +139,6 @@ namespace Whos_Home
         async Task DeleteItem(int position)
         {
             RequestHandler request = new RequestHandler(this);
-            var inum = listView.SelectedItemPosition;
             
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");
