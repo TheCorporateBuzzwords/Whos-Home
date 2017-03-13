@@ -179,10 +179,15 @@ DELETE /groups/{groupid}/dlist/{listid}/ (authenticated)
 POST /groups/{groupid}/bills/
 
 \* recipient: id of bill recipient
+
 \* category: category id of bill
+
 \* title: title of bill
+
 \* description: description of bill
+
 \* amount: dollar amount of bill (i.e. 18.33)
+
 \* date: date in format "mm/dd/yyyy hh:mm:ss"
 
 ### Get bills
