@@ -51,8 +51,12 @@ namespace Whos_Home
                 
                 foreach (ScanResult network in InRange)
                 {
-                    WifiNetworks.Add(network.Ssid);
-                    WifiNetworkKey.Add(network.Bssid);
+                    //if network has not been displayed
+                    if (!WifiNetworks.Contains(network.Ssid) && network.Ssid != "")
+                    {
+                        WifiNetworks.Add(network.Ssid);
+                        WifiNetworkKey.Add(network.Bssid);
+                    }
                 }
             }
 

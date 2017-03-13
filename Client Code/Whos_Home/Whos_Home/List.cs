@@ -58,6 +58,7 @@ namespace Whos_Home
             ListItemObjs = await GetItems();
 
             listView = FindViewById<ListView>(Resource.Id.listitemslistview);
+            
             listView.Adapter = new ListListAdapter(this, ListItemObjs);
 
             //sets the selection mode for the listview to multiple choice
@@ -87,7 +88,7 @@ namespace Whos_Home
                 if ((int)response.StatusCode == 200)
                 {
                     Toast.MakeText(this, "Succesfully Deleted", ToastLength.Long);
-                    UpdateItems();
+                    await UpdateItems();
                 }
                 else
                     Toast.MakeText(this, "Error Deleting", ToastLength.Long);
