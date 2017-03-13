@@ -111,6 +111,7 @@ namespace Whos_Home
 
             //set onClick method for message that will open the full message text in another window
             message.Click += TextViewClick;
+            //message.LongClick += Comment_LongClick;
 
         }
 
@@ -122,6 +123,16 @@ namespace Whos_Home
             //commentlistview.RefreshDrawableState();
 
         }
+        /*
+        private void Comment_LongClick(object sender, EventArgs e)
+        {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            BulletinAddComment NewCommentDialog = new BulletinAddComment(post);
+            NewCommentDialog.Show(transaction, "dialog fragment new message");
+            //commentlistview.RefreshDrawableState();
+
+        }
+        */
 
         private void TextViewClick(object sender, System.EventArgs e)
         {

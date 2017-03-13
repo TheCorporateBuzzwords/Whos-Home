@@ -48,11 +48,12 @@ namespace Whos_Home
             //find button and assign click function
             NewListButton = FindViewById<Button>(Resource.Id.NewListButton);
             NewListButton.Click += NewListButton_Click;
+            
 
 
         }
 
-        public async void UpdateLists()
+        public async Task UpdateLists()
         {
             //listnames = new List<string>();
             //remaining_items = new List<string>();
@@ -62,6 +63,35 @@ namespace Whos_Home
             listView = FindViewById<ListView>(Resource.Id.listlistview);
             listView.Adapter = new ListsListAdapter(this, listoflists);
             listView.ItemClick += ListView_ItemClick;
+            listView.ItemLongClick += ListView_LongClick; 
+        }
+
+        private void ListView_LongClick(object sender, AdapterView.ItemLongClickEventArgs e)
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+            alert.SetTitle("Are you sure you want to delete this list?");
+
+            alert.SetPositiveButton("Yes", async (senderAlert, args) =>
+            {
+
+                DB_Singleton db = DB_Singleton.Instance;
+                
+                //TODO Test this when fixed on the server
+                var response = await new RequestHandler(this).DeleteList(db.Retrieve("Token"), db.GetActiveGroup().GroupID, listoflists[e.Position].Topicid);
+
+                if ((int)response.StatusCode == 200)
+                    Toast.MakeText(this, "Succesfully Deleted", ToastLength.Long);
+                else
+                    Toast.MakeText(this, "Error Deleting", ToastLength.Long);
+
+                await UpdateLists();
+            });
+
+            alert.SetNegativeButton("No", (senderAlert, args) => { });
+
+            Dialog dialog = alert.Create();
+            dialog.Show();
         }
 
         private async Task<List<ListsObj>> GetLists()

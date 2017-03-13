@@ -49,7 +49,6 @@ namespace Whos_Home
 
             NewPostButton = FindViewById<Button>(Resource.Id.NewPostButton);
             NewPostButton.Click += NewPostButton_Click;
-
         }
 
         public async Task UpdatePosts()
@@ -95,6 +94,7 @@ namespace Whos_Home
             listView.Adapter = new BulletinListAdapter(this, posts);
        
             listView.ItemClick += OnMessageItemClick;
+            listView.ItemLongClick += OnMessageLongClick;
         }
 
         //Click method for NewPostButton
@@ -110,6 +110,41 @@ namespace Whos_Home
            
         }
 
+        void OnMessageLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            BuildAlert(e.Position);
+
+        }
+
+        private async void BuildAlert(int position)
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("Delete Bulletin?");
+
+            //alert.SetMessage("Would you like to submit your comment?");
+            alert.SetPositiveButton("Delete", async (senderAlert, args) => {
+                await DeleteItem(position);
+                await UpdatePosts();
+            });
+
+            alert.SetNegativeButton("Cancel", (senderAlert, args) => {
+            });
+            Dialog dialog = alert.Create();
+            dialog.Show();
+
+        }
+
+
+        async Task DeleteItem(int position)
+        {
+            RequestHandler request = new RequestHandler(this);
+            var inum = listView.SelectedItemPosition;
+            
+            DB_Singleton db = DB_Singleton.Instance;
+            string token = db.Retrieve("Token");
+            var response = await request.DeletePost(token, db.GetActiveGroup().GroupID, posts[position].Topicid);
+        }
         //function is called when a message title is selected from the message board
         //the function opens the message in a new activity (Bulletin.cs)
         void OnMessageItemClick(object sender, AdapterView.ItemClickEventArgs e)

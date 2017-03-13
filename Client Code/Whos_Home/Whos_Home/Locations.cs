@@ -120,23 +120,6 @@ namespace Whos_Home
             {
 
 
-            //some garbage string
-
-               /* for (int i = 0; i < WifiNetworks.Count; ++i)
-                {
-                    for (int j = 0; j < db_locations.Count; ++j)
-                    {
-                        if (WifiNetworks[i] == db_locations[j])
-                        {
-                            current_location = db_locations[j];
-                            i = WifiNetworks.Count;
-                            j = db_locations.Count;
-                        }
-                    }
-                }
-                */
-
-            current_location = null;
             DB_Singleton db = DB_Singleton.Instance;
             if (db.IsOnline())
             {
@@ -158,6 +141,7 @@ namespace Whos_Home
 
                 var results = WifiNetworks.Intersect(db_locations);
 
+                current_location = null;
                 if (results.Count() != 0)
                     current_location = results.ElementAt(0);
 
@@ -179,7 +163,7 @@ namespace Whos_Home
             foreach (var loc in JLocations)
             {
 
-                location_names.Add((string)loc["NetName"]);
+                location_names.Add((string)loc["SSID"]);
             }
 
             return location_names;

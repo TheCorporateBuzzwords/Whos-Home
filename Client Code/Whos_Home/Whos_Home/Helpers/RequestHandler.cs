@@ -28,6 +28,7 @@ namespace Whos_Home.Helpers
             client = new RestClient(url);
         }
 
+        //Initial Request for login and signup
         public async Task<IRestResponse> SignIn(User user)
         {
 
@@ -59,14 +60,6 @@ namespace Whos_Home.Helpers
             return response;
         }
 
-        public async Task<IRestResponse> GetUserLocations(string token, string groupid)
-        {
-            request = new RestRequest(string.Format("/groups/{0}", groupid), Method.GET);
-            request.AddHeader("x-access-token", token);
-            var response = await client.ExecuteTaskAsync(request);
-            return response;
-        }
-
         /*public async Task<IRestResponse> InviteToGroup(string token, string groupID, string username)
         {
             request = new RestRequest("/groups/{groupid}/invitation/?{recipient}", Method.GET);
@@ -88,6 +81,17 @@ namespace Whos_Home.Helpers
             return response;
         }
 
+        public async Task<IRestResponse> EditGroupName(string token, string groupid, string newname)
+        {
+            request = new RestRequest("groups/{groupid}/egroup/", Method.PUT);
+            request.AddParameter("newName", newname);
+            request.AddHeader("x-access-token", token);
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+
+        //INVITATIONS Requests
         public async Task<IRestResponse> RespondInvitation(string token, string groupid, bool deny)
         {
             request = new RestRequest(string.Format("/groups/{0}/invitation/?deny={1}", groupid, deny.ToString().ToLower()), Method.GET);
@@ -96,7 +100,6 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
-
         public async Task<IRestResponse> SendInvitation(string token, string groupid, string username)
         {
             request = new RestRequest(string.Format("/groups/{0}/invitation/", groupid), Method.POST);
@@ -109,7 +112,23 @@ namespace Whos_Home.Helpers
 
             return response;
         }
+        public async Task<IRestResponse> GetInvitations(string token)
+        {
+            request = new RestRequest("/users/invites", Method.GET);
+            request.AddHeader("x-access-token", token);
 
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+
+        //LOCATIONS Requests
+        public async Task<IRestResponse> GetUserLocations(string token, string groupid)
+        {
+            request = new RestRequest(string.Format("/groups/{0}", groupid), Method.GET);
+            request.AddHeader("x-access-token", token);
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
         public async Task<IRestResponse> AddLocation(string token, string SSID, string locationName, string groupid)
         {
             request = new RestRequest("groups/{groupid}/location/", Method.POST);
@@ -123,7 +142,6 @@ namespace Whos_Home.Helpers
 
             return response;
         }
-
         public async Task<IRestResponse> GetLocations(string token, string groupid)
         {
             request = new RestRequest("/groups/{groupid}/locations/", Method.GET);
@@ -135,7 +153,6 @@ namespace Whos_Home.Helpers
 
             return response;
         }
-
         public async Task<IRestResponse> UpdateLocation(string token, string SSID)
         {
             //SSID can be null if user is offline
@@ -149,15 +166,7 @@ namespace Whos_Home.Helpers
             return response;
         }
 
-        public async Task<IRestResponse> GetInvitations(string token)
-        {
-            request = new RestRequest("/users/invites", Method.GET);
-            request.AddHeader("x-access-token", token);
-
-            var response = await client.ExecuteTaskAsync(request);
-            return response;
-        }
-
+        //MESSAGE Requests
         public async Task<IRestResponse> GetMessages(string token, string groupid)
         {
             request = new RestRequest(string.Format("/groups/{0}/messagetopic", groupid), Method.GET);
@@ -166,7 +175,6 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
-
         public async Task<IRestResponse> PostMessages(string token, string groupid, string title, string message)
         {
             request = new RestRequest(string.Format("/groups/{0}/messagetopic", groupid), Method.POST);
@@ -177,7 +185,6 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
-
         public async Task<IRestResponse> GetMessageReplies(string token, string groupid, string topicid)
         {
             request = new RestRequest(string.Format("/groups/{0}/messages/{1}", groupid, topicid), Method.GET);
@@ -187,7 +194,6 @@ namespace Whos_Home.Helpers
             return response;
 
         }
-
         public async Task<IRestResponse> PostMessageReply(string token, string groupid, string topicid, string message)
         {
             request = new RestRequest(string.Format("/groups/{0}/messages", groupid), Method.POST);
@@ -198,7 +204,6 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
-
         public async Task<IRestResponse> PostNewList(string token, string groupid, string title)
         {
             request = new RestRequest(string.Format("/groups/{0}/lists", groupid), Method.POST);
@@ -209,7 +214,32 @@ namespace Whos_Home.Helpers
             return response;
 
         }
+        public async Task<IRestResponse> EditPostName(string token, string groupid, string topicid, string newtitle)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/topicedit/{1}", groupid, topicid), Method.PUT);
+            request.AddHeader("x-access-token", token);
+            request.AddParameter("newTitle", newtitle);
 
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+        public async Task<IRestResponse> DeleteMessageReply(string token, string groupid, string replyid)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/postdelete/{1}", groupid, replyid), Method.DELETE);
+            request.AddHeader("x-access-token", token);
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+        public async Task<IRestResponse> DeletePost(string token, string groupid, string postid)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/topicdelete/{1}", groupid, postid), Method.DELETE);
+            request.AddHeader("x-access-token", token);
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+
+
+        //LIST Requests
         public async Task<IRestResponse> PostNewListItem(string token, string groupid, string listid, string content)
         {
             request = new RestRequest(string.Format("/groups/{0}/lists/{1}", groupid, listid), Method.POST);
@@ -235,6 +265,15 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
+        public async Task<IRestResponse> EditListName(string token, string groupid, string listid, string newtitle)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/elist/{1}", groupid, listid), Method.POST);
+            request.AddHeader("x-access-token", token);
+            request.AddParameter("newTitle", newtitle);
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
         //public async Task<IRestResponse> UpdateListItem(string token, string groupid, string item) { }
         public async Task<IRestResponse> PutListItem(string token, string groupid, string listid, string itemid, bool completed)
         {
@@ -243,17 +282,32 @@ namespace Whos_Home.Helpers
             //this is kinda weird and breaking 
             //My design, but it's the way the api
             //is set up right now
-            int comp = 0;
-            if (completed == true)
-                comp = 1;
-
-            request.AddParameter("itemid", itemid);
-            request.AddParameter("completed", comp);
 
             var response = await client.ExecuteTaskAsync(request);
             return response;
+        }
+        public async Task<IRestResponse> DeleteList(string token, string groupid, string listid)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/dlist/{1}", groupid, listid), Method.DELETE);
+            request.AddHeader("x-access-token", token);
+            //this is kinda weird and breaking 
+            //My design, but it's the way the api
+            //is set up right now
 
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+        public async Task<IRestResponse> DeleteListItem(string token, string groupid, string itemid)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/dlistitem/{1}", groupid, itemid), Method.DELETE);
+            request.AddHeader("x-access-token", token);
+            //this is kinda weird and breaking 
+            //My design, but it's the way the api
+            //is set up right now
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
         }
 
-    }
+    }   
 }

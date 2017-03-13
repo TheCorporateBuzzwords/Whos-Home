@@ -38,6 +38,17 @@ namespace Whos_Home
 
         private async void InitializeFormat()
         {
+            await UpdateItems();
+
+            //Find button and add click function
+            NewListItemButton = FindViewById<Button>(Resource.Id.NewListItemButton);
+            NewListItemButton.Click += NewListItemButton_Click;
+
+            //Find listview and set adapter
+        }
+
+        public async Task UpdateItems()
+        {
             listItems = new List<string>();
 
             //ListItemObjs = await GetItems();
@@ -46,11 +57,6 @@ namespace Whos_Home
 
             ListItemObjs = await GetItems();
 
-            //Find button and add click function
-            NewListItemButton = FindViewById<Button>(Resource.Id.NewListItemButton);
-            NewListItemButton.Click += NewListItemButton_Click;
-
-            //Find listview and set adapter
             listView = FindViewById<ListView>(Resource.Id.listitemslistview);
             listView.Adapter = new ListListAdapter(this, ListItemObjs);
 
@@ -61,7 +67,40 @@ namespace Whos_Home
             //This Function will select and deselect location values based on the item clicked.
 
             listView.ItemClick += ListView_ItemClick;
+            listView.ItemLongClick += ListView_ItemLongClick;
         }
+
+        private void ListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+            alert.SetTitle("Are you sure you want to delete this item?");
+
+            alert.SetPositiveButton("Yes", async (senderAlert, args) =>
+            {
+
+                DB_Singleton db = DB_Singleton.Instance;
+
+                //TODO Test this when fixed on the server
+                var response = await new RequestHandler(this).DeleteListItem(db.Retrieve("Token"), db.GetActiveGroup().GroupID, ListItemObjs[e.Position].Id);
+
+                if ((int)response.StatusCode == 200)
+                {
+                    Toast.MakeText(this, "Succesfully Deleted", ToastLength.Long);
+                    UpdateItems();
+                }
+                else
+                    Toast.MakeText(this, "Error Deleting", ToastLength.Long);
+
+                await GetItems();
+            });
+
+            alert.SetNegativeButton("No", (senderAlert, args) => { });
+
+            Dialog dialog = alert.Create();
+            dialog.Show();
+        }
+
         public async void UpdateListView()
         {
             listItems = new List<string>();
