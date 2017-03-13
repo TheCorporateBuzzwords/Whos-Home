@@ -11,7 +11,6 @@ module.exports = function (app) {
                                 + "," + req.body.recipient + "," + req.body.category + "," + config.pool.escape(req.body.title) + "," 
                                 + config.pool.escape(req.body.description) + "," + req.body.amount + "," + "STR_TO_DATE(" + config.pool.escape(req.body.date)
                                 + ", '%c/%d/%Y %r:%h:%s'));";
-            console.log(insertQuery);
             config.pool.query(insertQuery, function(err, result) {
                 if(err) {
                     console.log(err);
