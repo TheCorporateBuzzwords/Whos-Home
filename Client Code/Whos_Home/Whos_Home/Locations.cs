@@ -147,7 +147,7 @@ namespace Whos_Home
 
                 var response = await request.UpdateLocation(db.Retrieve("Token"), current_location);
 
-                if(current_location != null)
+                if (current_location != null)
                     CurrentLocation.Text = "Current location: " + current_location;
                 else
                     CurrentLocation.Text = "Not in range of location";

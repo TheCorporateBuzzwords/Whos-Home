@@ -54,6 +54,7 @@ namespace Whos_Home
             //find the two views for message body and comment listview
             message = FindViewById<TextView>(Resource.Id.textviewBulletinMessage);
             commentlistview = FindViewById<ListView>(Resource.Id.BulletinCommentsListView);
+            commentlistview.LongClick += Commentlistview_LongClick;
 
             //find the add comment button
             bAddComment = FindViewById<Button>(Resource.Id.NewCommentButton);
@@ -63,6 +64,11 @@ namespace Whos_Home
 
             message.Text = post.Message;
 
+        }
+
+        private void Commentlistview_LongClick(object sender, View.LongClickEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public async void UpdateComments()
