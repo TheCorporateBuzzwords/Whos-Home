@@ -31,33 +31,18 @@ namespace Whos_Home
 
         private void InitializeLocations()
         {
+
+            DB_Singleton db = DB_Singleton.Instance;
+            appendUsername = db.Retrieve("UserName");
+            appendEmail = db.Retrieve("Email");
+
             TextView username = FindViewById<TextView>(Resource.Id.textviewSettingsMenuUsername);
             TextView email = FindViewById<TextView>(Resource.Id.textviewSettingsMenuEmail);
-
-            appendUsername = "CalebIsCool";
-            appendEmail = "Caleb@email.com";
 
             //This is where the text values for the username and email are set
             username.Text = "Username: " + appendUsername;
             email.Text = "Email: " + appendEmail;
 
-            //populate the items list which is used to create the list of locations
-            //used for testing to show proof of concept
-            for (int i = 1; i < 16; ++i)
-            {
-                items.Add("Location " + i.ToString());
-            }
-
-            //create a listview and assign its adapter to create a list with checklist characteristics
-            listview = FindViewById<ListView>(Resource.Id.SettingsMenuListView);
-            listview.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItemMultipleChoice, items);
-
-            //sets the selection mode for the listview to multiple choice
-            listview.ChoiceMode = Android.Widget.ChoiceMode.Multiple;
-
-            //Sets the function to be called on click to the custom function OnLocationItemClick
-            //This Function will select and deselect location values based on the item clicked.
-            listview.ItemClick += OnLocationItemClick;
 
             //initializes a switch object to the one found in the settings page
             Switch s = FindViewById<Switch>(Resource.Id.SwitchSettingsMenu);
@@ -66,20 +51,7 @@ namespace Whos_Home
             s.CheckedChange += ToggleLocations;
         }
 
-        //Function is called when a location is selected in the settings menu
-        void OnLocationItemClick(object sender, AdapterView.ItemClickEventArgs e)
-        {
-            var listView = sender as ListView;
-            var position = e.Position;
-
-            bool selected = listView.IsItemChecked(position);
-            
-            if(selected)
-                listView.SetItemChecked(position, true);
-            else
-                listView.SetItemChecked(position, false);
-        }
-
+        
         private void ToggleLocations(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
             
