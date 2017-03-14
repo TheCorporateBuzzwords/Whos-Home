@@ -12,7 +12,7 @@ module.exports = function (app) {
                             FROM Users \
                             JOIN User_Groups ON Users.UserID = User_Groups.UserID \
                             JOIN Groups ON User_Groups.GroupID = Groups.GroupID \
-                            LEFT JOIN Group_Locations ON Group_Locations.GroupID = Groups.GroupID \
+                            left join Group_Locations ON Group_Locations.GroupID = Groups.GroupID AND Users.LocationID = Group_Locations.LocationID \
                             WHERE Groups.GroupID = " + config.pool.escape(req.params.groupid);
             config.pool.query(request, function (err, result) {
                 return res.json(result);
