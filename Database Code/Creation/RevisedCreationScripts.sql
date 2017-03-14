@@ -167,14 +167,16 @@ Insert Into Category (Title, Description) VALUES
 Create Table Bills (
   BillID            bigint        not null auto_increment
   , GroupID         bigint        not null
-  , UserID          bigint        not null
+  , SenderID        bigint        not null
+  , RecipientID     bigint        not null
   , CategoryID      bigint        not null
   , Title           varchar(26)
   , Description     varchar(1024)
   , Amount          decimal(13,2)
   , DateDue         datetime
   , foreign key (GroupID) references Groups(GroupID)
-  , foreign key (UserID) references Users(UserID)
+  , foreign key (SenderID) references Users(UserID)
+  , foreign key (RecipientID) references Users(UserID)
   , foreign key (CategoryID) references Category(CategoryID)
   , primary key (BillID)
   ) ENGINE = INNODB;
