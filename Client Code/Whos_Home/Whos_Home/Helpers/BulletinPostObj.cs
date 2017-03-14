@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Newtonsoft.Json.Linq;
 
 namespace Whos_Home.Helpers
 {
@@ -27,6 +28,11 @@ namespace Whos_Home.Helpers
             Topicid = p_topicid;
             Title = p_title;
             Message = p_message;
+
+        }
+
+        public BulletinPostObj(JToken deserialize)
+        {
 
         }
         public string Author

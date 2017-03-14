@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 
@@ -10,6 +11,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
@@ -17,12 +20,15 @@ namespace Whos_Home
     class Bills : Activity
     {
         private Button BNewBill, BillsHistory, CurrentBills;
+        private List<BillObj> all_bill_objs;
+        private List<BillObj> user_bill_objs;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
             SetContentView(Resource.Layout.Bills);
 
+            UpdateAllBills();
             InitializeFormat();
             InitializeToolbars();
         }
@@ -40,6 +46,45 @@ namespace Whos_Home
             CurrentBills.Click += CurrentBills_Click;
             CurrentBills.LongClick += CurrentBills_LongClick;
 
+        }
+
+        public async Task UpdateAllBills()
+        {
+            DB_Singleton db = DB_Singleton.Instance;
+            RequestHandler request = new RequestHandler(this);
+            var response = await request.GetBills(db.Retrieve("Token"), db.GetActiveGroup().GroupID);
+
+            Console.WriteLine("!!!!!!!!!!!!!!!!!!!BILLS!!!!!!!!!!!!!!!!!!!!!!");
+            JArray allbills = JArray.Parse(response.Content);
+            foreach(JToken token in allbills)
+            {
+                all_bill_objs.Add(new BillObj(token));
+                Console.WriteLine(new BillObj(token).ToString());
+            }
+            
+        }
+        /*
+        public async Task UpdateUserBills()
+        {
+            DB_Singleton db = DB_Singleton.Instance;
+            RequestHandler request = new RequestHandler(this);
+           // var response = request.GetBills(db.Retrieve("Token"), db.Retrieve("Username"));
+            
+            
+        }
+        */
+
+        void PushNewUsserList(string content)
+        {
+            if (content != "[]" && content != "")
+            {
+                JArray all_objs = JArray.Parse(content);
+                user_bill_objs = new List<BillObj>();
+                foreach(JToken tok in all_objs)
+                {
+                    //user_bill_objs.Add(new BillObj(tok[""]))
+                }
+            }
         }
 
         private void CurrentBills_LongClick(object sender, View.LongClickEventArgs e)

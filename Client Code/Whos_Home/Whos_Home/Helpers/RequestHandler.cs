@@ -309,5 +309,31 @@ namespace Whos_Home.Helpers
             return response;
         }
 
+
+        //BILLS Requests
+        public async Task<IRestResponse> PutBill(string token, string groupid, string recipientid, string category, string title, string description, string ammount, string date)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/bills/", groupid), Method.POST);
+            request.AddHeader("x-access-token", token);
+
+            request.AddParameter("recipient", recipientid);
+            request.AddParameter("category", category);
+            request.AddParameter("title", title);
+            request.AddParameter("description", description);
+            request.AddParameter("amount", ammount);
+            request.AddParameter("date", date);
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+
+        public async Task<IRestResponse> GetBills(string token, string groupid, string username = null)
+        {
+            request = new RestRequest(string.Format("/groups/{0}/bills/", groupid), Method.GET);
+            request.AddHeader("x-access-token", token);
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
     }   
 }

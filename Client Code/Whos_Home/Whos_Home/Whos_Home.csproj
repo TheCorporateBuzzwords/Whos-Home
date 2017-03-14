@@ -164,9 +164,11 @@
     <Compile Include="BillsNewSpecifyAmountListAdapter.cs" />
     <Compile Include="BillsNewSpecifyAmounts.cs" />
     <Compile Include="BulletinAddComment.cs" />
+    <Compile Include="Helpers\BillObj.cs" />
     <Compile Include="Helpers\BulletinPostObj.cs" />
     <Compile Include="Helpers\CommentObj.cs" />
     <Compile Include="Helpers\ItemObj.cs" />
+    <Compile Include="Helpers\ListObjHelper.cs" />
     <Compile Include="Helpers\ListsObj.cs" />
     <Compile Include="InviteAcceptDialog.cs" />
     <Compile Include="GroupAddUser.cs" />
@@ -210,7 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+
+using Whos_Home.Helpers;
 namespace Whos_Home
 {
     class BillsNew : DialogFragment
@@ -60,6 +62,19 @@ namespace Whos_Home
         private void M_Bcancel_Click(object sender, EventArgs e)
         {
             Dismiss();
+        }
+
+        private async void NewBillReq(BillObj bill)
+        {
+            DB_Singleton db = DB_Singleton.Instance;
+
+            string token = db.Retrieve("Token");
+            string groupid = db.GetActiveGroup().GroupID;
+
+            RequestHandler request = new RequestHandler(Context);
+            var response = await request.PutBill(token, groupid, bill.Recipientname, bill.Categoryid, bill.Title, bill.Description, bill.Amount, bill.Date);
+
+
         }
 
         private void InitializeListView(View view)
