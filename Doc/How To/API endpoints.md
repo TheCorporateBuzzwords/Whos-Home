@@ -191,6 +191,6 @@ POST /groups/{groupid}/bills/
 \* date: date in format "mm/dd/yyyy hh:mm:ss"
 
 ### Get bills
-GET /groups/{groupid}/bills/{billid}
+GET /groups/{groupid}/bills/
 
 recipient: optional id of recipient to only get bills for that one group member
