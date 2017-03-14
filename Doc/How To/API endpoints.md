@@ -77,7 +77,7 @@ POST /groups/{groupid}/location/ (authenticated)
 ### Get information on all locations of a group
 GET /groups/{groupid}/locations/ (authenticated)
 
-##Groups/messageboard
+## Groups/messageboard
 ### Create a messageboard post topic
 POST /groups/{groupid}/messagetopic/ (authenticated)
 
@@ -120,7 +120,7 @@ Note: This will delete the topic and all response posts to that topic
 ### Delete a single message board response
 DELETE /groups/{groupid}/postdelete/{postid} (authenticated)
 
-##Lists
+## Groups/Lists
 
 ### Add new list
 POST /groups/{groupid}/lists/
@@ -172,3 +172,24 @@ PUT /groups/{groupid}/elist/{listid}/ (authenticated)
 DELETE /groups/{groupid}/dlist/{listid}/ (authenticated)
 
 \*listid: id of the list to delete
+
+## Groups/Bills
+
+### Add a new bill
+POST /groups/{groupid}/bills/
+
+\* recipient: id of bill recipient
+
+\* category: category id of bill
+
+\* title: title of bill
+
+\* description: description of bill
+
+\* amount: dollar amount of bill (i.e. 18.33)
+
+\* date: date in format "mm/dd/yyyy hh:mm:ss"
+
+### Get bills
+
+recipient: optional id of recipient to only get bills for that one group member
