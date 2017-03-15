@@ -38,9 +38,9 @@ namespace Whos_Home
         }
 
 
-        private void InitializeFormat()
+        private async void InitializeFormat()
         {
-            UpdateComments();
+            await UpdateComments();
             //find view for title
             tvTitle = FindViewById<TextView>(Resource.Id.textviewBulletinTitle);
             tvTitle.Text = post.Title;

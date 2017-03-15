@@ -31,10 +31,6 @@ namespace Whos_Home.Helpers
 
         }
 
-        public BulletinPostObj(JToken deserialize)
-        {
-
-        }
         public string Author
         {
             get
