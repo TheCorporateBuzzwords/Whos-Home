@@ -148,8 +148,14 @@ namespace Whos_Home
 
             DB_Singleton db = DB_Singleton.Instance;
 
-            //just used for testing
-            category = "1";
+            if (category == "Rent")
+                category = "2";
+            else if (category == "Utilities")
+                category = "3";
+            else if (category == "Groceries")
+                category = "4";
+            else
+                category = "1";
 
             RequestHandler request = new RequestHandler(Context);
             await request.PutBill(db.Retrieve("Token"), db.GetActiveGroup().GroupID, userid, category, title, "description", amount, DateTime.Now.ToString());

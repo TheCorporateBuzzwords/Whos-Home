@@ -137,6 +137,7 @@ namespace Whos_Home.Helpers
             Amount = (string)token["Amount"];
             Date = (string)token["DateDue"];
             Recipientname = (string)token["Recipient"];
+            Categoryid = (string)token["CategoryID"];
         }
     }
 }

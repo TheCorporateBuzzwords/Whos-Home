@@ -19,8 +19,9 @@ namespace Whos_Home
     [Activity(Label = "Bills")]
     class Bills : Activity
     {
-        private Button BNewBill, BillsHistory, CurrentBills;
-        private List<BillObj> all_bill_objs;
+        private ListView listview;
+        private Button BNewBill, BillsHistory, CurrentBills, CreateGraph;
+        private List<BillObj> all_bill_objs = new List<BillObj>();
         private List<BillObj> user_bill_objs;
         protected override void OnCreate(Bundle bundle)
         {
@@ -32,7 +33,7 @@ namespace Whos_Home
             InitializeToolbars();
         }
 
-        private void InitializeFormat()
+        private async void InitializeFormat()
         {
             //Set new bill button
             BNewBill = FindViewById<Button>(Resource.Id.buttonNewBill);
@@ -43,10 +44,69 @@ namespace Whos_Home
 
             CurrentBills = FindViewById<Button>(Resource.Id.buttonCurrentBills);
 
-            UpdateAllBills();
-           // CurrentBills.Click += CurrentBills_Click;
-          //  CurrentBills.LongClick += CurrentBills_LongClick;
+            CreateGraph = FindViewById<Button>(Resource.Id.buttonBillGraph);
+            CreateGraph.Click += CreateGraph_Click;
 
+            listview = FindViewById<ListView>(Resource.Id.listviewBills);
+
+            await UpdateAllBills();
+            // CurrentBills.Click += CurrentBills_Click;
+            //  CurrentBills.LongClick += CurrentBills_LongClick;
+
+            listview.Adapter = new BillsListAdapter(this, all_bill_objs);
+
+        }
+
+        private void CreateGraph_Click(object sender, EventArgs e)
+        {
+            List<Tuple<string, float>> graph_vals = new List<Tuple<string, float>>();
+            float other = 0;
+            float rent = 0;
+            float utilities = 0;
+            float groceries = 0;
+
+            foreach (BillObj bill in all_bill_objs)
+            {
+                switch(bill.Categoryid)
+                {
+                    case "1":
+                        other += Convert.ToSingle(bill.Amount);
+                        break;
+
+                    case "2":
+                        rent += Convert.ToSingle(bill.Amount);
+                        break;
+
+                    case "3":
+                        utilities += Convert.ToSingle(bill.Amount);
+                        break;
+
+                    case "4":
+                        groceries += Convert.ToSingle(bill.Amount);
+                        break;
+
+                    default:
+                        Console.WriteLine("INVALID CATEGORY ID");
+                        break;
+
+                }
+            }
+            if(other != 0)
+                graph_vals.Add(new Tuple<string, float>("Other", other));
+            if(rent != 0)
+                graph_vals.Add(new Tuple<string, float>("Rent", rent));
+            if(utilities != 0)
+                graph_vals.Add(new Tuple<string, float>("Utilities", utilities));
+            if(groceries != 0)
+                graph_vals.Add(new Tuple<string, float>("Groceries", groceries));
+
+
+            Intent i = new Intent(Application.Context, typeof(BillsGraph));
+
+
+            i.PutExtra("BillsList", JsonConvert.SerializeObject(graph_vals));
+
+            StartActivity(i);
         }
 
         public async Task UpdateAllBills()

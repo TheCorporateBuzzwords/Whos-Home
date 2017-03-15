@@ -160,6 +160,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BillsGraph.cs" />
+    <Compile Include="BillsListAdapter.cs" />
     <Compile Include="BillsNew.cs" />
     <Compile Include="BillsNewSpecifyAmountListAdapter.cs" />
     <Compile Include="BillsNewSpecifyAmounts.cs" />
@@ -311,6 +312,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\LocationAddName.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\BillsCustomView.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
