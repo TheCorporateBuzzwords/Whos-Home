@@ -28,7 +28,6 @@ namespace Whos_Home
 
             SetContentView(Resource.Layout.Bills);
 
-            UpdateAllBills();
             InitializeFormat();
             InitializeToolbars();
         }
@@ -43,8 +42,10 @@ namespace Whos_Home
             BillsHistory.Click += BillsHistory_Click; ;
 
             CurrentBills = FindViewById<Button>(Resource.Id.buttonCurrentBills);
-            CurrentBills.Click += CurrentBills_Click;
-            CurrentBills.LongClick += CurrentBills_LongClick;
+
+            UpdateAllBills();
+           // CurrentBills.Click += CurrentBills_Click;
+          //  CurrentBills.LongClick += CurrentBills_LongClick;
 
         }
 

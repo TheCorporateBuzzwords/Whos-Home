@@ -131,12 +131,12 @@ namespace Whos_Home.Helpers
         public BillObj(JToken token)
         {
             Billid = (string)token["BillID"];
-            Sendername = (string)token["SenderName"];
+            Sendername = (string)token["Sender"];
             Title = (string)token["Title"];
             Description = (string)token["Description"];
             Amount = (string)token["Amount"];
             Date = (string)token["DateDue"];
-            Recipientname = (string)token["RecipientName"];
+            Recipientname = (string)token["Recipient"];
         }
     }
 }
