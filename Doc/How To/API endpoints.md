@@ -100,7 +100,15 @@ POST /groups/{groupid}/messages/ (authenticated)
 ### Get responses to a single post topic
 GET /groups/{groupid}/messages/{topicid}/ (authenticated)
 
-Returns: Response msg, Date/Time posted, and Username of the original poster for each response to a topic
+Returns: (For each post to the topic that matches the passed in topicID)
+
+\*PostID: ID of the message topic response
+
+\*Msg: Content of the post
+
+\*PostTime: Time the post was made
+
+\*PostersName: Username of the original poster
 
 ### Edit a messageboard topic
 PUT /groups/{groupid}/topicedit/{topicid}/ (authenticated)
@@ -140,7 +148,25 @@ Returns: All lists in your group
 ### Get all list items for a list
 GET /groups/{groupid}/lists/{listid}
 
-Returns: All list items for a specified list
+Returns: (For all items in the list that matchs the passed in listid)
+
+\*ItemID: ID value for the list item
+
+\*ListID: ID value of the list the item belong to (should be the same as the passed in id
+
+\*UserID: ID of the user who added the item
+
+\*ItemText: Text of the item
+
+\*Completed: Bool representing if the item is completed or not
+
+\*PostTime: Time the item was created
+
+\*UserName: Username of the user who made the item
+
+\*FirstName: First name of the user who made the item
+
+\*LastName: Last name of the user who made the item
 
 ### Update list items to completed/not completed
 PUT /groups/{groupid}/lists/{listid}
