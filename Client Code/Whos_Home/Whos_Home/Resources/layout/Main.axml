@@ -17,14 +17,6 @@
         android:id="@+id/textCreateAccount"
         android:textStyle="bold"
         android:textSize="26sp" />
-
-  <ImageView
-      android:layout_width="100dp"
-      android:layout_height="100dp"
-      android:layout_marginBottom="10dip"
-      android:layout_gravity="center"
-      android:id="@+id/demoImageView"
-      android:src="@drawable/Icon"/>
   
     <Button
         android:background="@drawable/blue_button"

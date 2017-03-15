@@ -39,6 +39,22 @@
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
         android:layout_weight="8" />
+  <TextView
+        android:id="@+id/BillsNewTextviewCategories"
+        android:text="Category:"
+        android:gravity="center_horizontal"
+        android:minWidth="400dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="8"
+        android:textColor="#368DEB"
+        android:textSize="15dip"
+        android:textStyle="bold" />
+    <Spinner
+        android:id="@+id/BillsNewSpinner"
+        android:layout_weight="8"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/BillsNewTextviewSelectUsers"
         android:text="Select Users:"
@@ -50,7 +66,7 @@
         android:textColor="#368DEB"
         android:textSize="15dip"
         android:textStyle="bold" />
-  <CheckBox 
+    <CheckBox
         android:id="@+id/BillsNewCheckbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,30 +78,30 @@
         android:layout_width="fill_parent"
         android:layout_weight="50"
         android:layout_height="0dp" />
-  <LinearLayout
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-    <Button
-        android:background="@drawable/blue_button"
-        android:text="Cancel"
-        android:layout_width="200dp"
-        android:layout_height="45dp"
-        android:layout_weight="10"
-        android:id="@+id/buttonBillsNewCancel"
-        android:layout_marginLeft="15px"
-        android:layout_marginRight="15px"
-        android:textSize="15sp" />
-    <Button
-        android:background="@drawable/blue_button"
-        android:text="Create Bill"
-        android:layout_gravity="bottom"
-        android:layout_width="200dp"
-        android:layout_height="45dp"
-        android:layout_weight="10"
-        android:id="@+id/buttonBillsNewConfirm"
-        android:layout_marginLeft="15px"
-        android:layout_marginRight="15px"
-        android:textSize="15sp" />
-  </LinearLayout>
+        <Button
+            android:background="@drawable/blue_button"
+            android:text="Cancel"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_weight="10"
+            android:id="@+id/buttonBillsNewCancel"
+            android:layout_marginLeft="15px"
+            android:layout_marginRight="15px"
+            android:textSize="15sp" />
+        <Button
+            android:background="@drawable/blue_button"
+            android:text="Create Bill"
+            android:layout_gravity="bottom"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_weight="10"
+            android:id="@+id/buttonBillsNewConfirm"
+            android:layout_marginLeft="15px"
+            android:layout_marginRight="15px"
+            android:textSize="15sp" />
+    </LinearLayout>
 </LinearLayout>
