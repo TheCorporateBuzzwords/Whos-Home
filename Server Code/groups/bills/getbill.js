@@ -16,7 +16,6 @@ module.exports = function (app) {
                                INNER JOIN Users u1 ON b.RecipientID = u1.UserID \
                                INNER JOIN Users u2 ON b.SenderID = u2.UserID \
                                WHERE GroupId = " + req.params.groupid;
-        console.log(selectQuery);
         config.pool.query(selectQuery, function(err, result) {
             if(err) {
                 console.log(err);
