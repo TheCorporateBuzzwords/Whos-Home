@@ -25,6 +25,7 @@ var listsedit = require('./groups/lists/listsedits');
 var groupedit = require('./groups/groupedit');
 var createbill = require('./groups/bills/createbill');
 var getbill = require('./groups/bills/getbill');
+var teapot = require('./teapot/teapot');
 
 //var auth = require('./middlewares/auth');
 app.use(morgan('combined'));
@@ -58,3 +59,4 @@ listsedit(app);
 groupedit(app);
 createbill(app);
 getbill(app);
+teapot(app);
