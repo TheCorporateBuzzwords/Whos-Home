@@ -159,6 +159,9 @@ namespace Whos_Home
 
             RequestHandler request = new RequestHandler(Context);
             await request.PutBill(db.Retrieve("Token"), db.GetActiveGroup().GroupID, userid, category, title, "description", amount, DateTime.Now.ToString());
+            await ((Bills)Activity).UpdateAllBills();
+
+            Dismiss();
         }
 
         private void M_Bcancel_Click(object sender, EventArgs e)

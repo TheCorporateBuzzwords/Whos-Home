@@ -40,7 +40,9 @@ namespace Whos_Home
 
         private async void InitializeFormat()
         {
-            await UpdateComments();
+            post = JsonConvert.DeserializeObject<BulletinPostObj>(Intent.GetStringExtra("PostObject"));
+            commentlistview = FindViewById<ListView>(Resource.Id.BulletinCommentsListView);
+
             //find view for title
             tvTitle = FindViewById<TextView>(Resource.Id.textviewBulletinTitle);
             tvTitle.Text = post.Title;
@@ -53,7 +55,6 @@ namespace Whos_Home
 
             //find the two views for message body and comment listview
             message = FindViewById<TextView>(Resource.Id.textviewBulletinMessage);
-            commentlistview = FindViewById<ListView>(Resource.Id.BulletinCommentsListView);
 
             //find the add comment button
             bAddComment = FindViewById<Button>(Resource.Id.NewCommentButton);
@@ -63,6 +64,10 @@ namespace Whos_Home
 
             message.Text = post.Message;
 
+            await UpdateComments();
+
+            message.Click += TextViewClick;
+            commentlistview.ItemLongClick += Commentlistview_LongClick;
         }
 
         public async Task UpdateComments()
@@ -74,7 +79,6 @@ namespace Whos_Home
             //title = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Title"));
             //msg = JsonConvert.DeserializeObject<string>(Intent.GetStringExtra("Message"));
             comment_objs = new List<CommentObj>();
-            post = JsonConvert.DeserializeObject<BulletinPostObj>(Intent.GetStringExtra("PostObject"));
 
             DB_Singleton db = DB_Singleton.Instance;
             RequestHandler request = new RequestHandler(this);
@@ -110,9 +114,6 @@ namespace Whos_Home
 
 
             //set onClick method for message that will open the full message text in another window
-            message.Click += TextViewClick;
-            commentlistview.ItemLongClick += Commentlistview_LongClick;
-
         }
 
         private void Commentlistview_LongClick(object sender, AdapterView.ItemLongClickEventArgs e)

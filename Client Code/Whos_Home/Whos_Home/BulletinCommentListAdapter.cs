@@ -20,8 +20,10 @@ namespace Whos_Home
 
         public BulletinCommentListAdapter(Activity context, List<CommentObj> comments) : base()
         {
+            Comments = new List<CommentObj>();
             this.context = context;
-            Comments = comments;
+            if(comments.Count != 0)
+                Comments = comments;
         }
         public override List<CommentObj> this[int position]
         {

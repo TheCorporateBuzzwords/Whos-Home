@@ -19,6 +19,13 @@ namespace Whos_Home.Helpers
         string author;
         string topicid;
 
+        public CommentObj()
+        {
+            Message = null;
+            Time = null;
+            Author = null;
+            Topicid = null;
+        }
         public CommentObj(string auth, string msg, string tme, string topid)
         {
             Message = msg;

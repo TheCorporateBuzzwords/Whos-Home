@@ -49,6 +49,9 @@ namespace Whos_Home
 
             NewPostButton = FindViewById<Button>(Resource.Id.NewPostButton);
             NewPostButton.Click += NewPostButton_Click;
+
+            listView.ItemClick += OnMessageItemClick;
+            listView.ItemLongClick += OnMessageLongClick;
         }
 
         public async Task UpdatePosts()
@@ -93,8 +96,6 @@ namespace Whos_Home
 
             listView.Adapter = new BulletinListAdapter(this, posts);
        
-            listView.ItemClick += OnMessageItemClick;
-            listView.ItemLongClick += OnMessageLongClick;
         }
 
         //Click method for NewPostButton

@@ -22,9 +22,10 @@ namespace Whos_Home
         //overloaded constructor to accept values for the list
         public BulletinListAdapter(Activity context, List<BulletinPostObj> posts) : base()
         {
+            m_posts = new List<BulletinPostObj>();
             this.context = context;
-
-            m_posts = posts;
+            if(posts.Count != 0)
+                m_posts = posts;
             
         }
        

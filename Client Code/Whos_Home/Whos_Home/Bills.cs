@@ -53,7 +53,6 @@ namespace Whos_Home
             // CurrentBills.Click += CurrentBills_Click;
             //  CurrentBills.LongClick += CurrentBills_LongClick;
 
-            listview.Adapter = new BillsListAdapter(this, all_bill_objs);
 
         }
 
@@ -122,7 +121,8 @@ namespace Whos_Home
                 all_bill_objs.Add(new BillObj(token));
                 Console.WriteLine(new BillObj(token).ToString());
             }
-            
+
+            listview.Adapter = new BillsListAdapter(this, all_bill_objs);
         }
         /*
         public async Task UpdateUserBills()
