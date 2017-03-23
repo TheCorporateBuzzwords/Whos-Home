@@ -52,7 +52,7 @@ module.exports = function (app) {
         if(req.params.groupid && req.params.topicid)
         {
             //Create the request
-            var getRequest = "Select Msg, PostTime, \
+            var getRequest = "Select PostID, Msg, PostTime, \
                                 (Select UserName \
                                     From Users \
                                     Where UserID = p.UserID) as PostersName \
