@@ -5,9 +5,6 @@ var router = require('express').Router();
 
 //Endpoint for editing a message board topic
 router.put('/groups/:groupid(\\d+)/topicedit/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
-    //Get a connection
-    //var con = mysql.createConnection(config.connectionInfo);
-
     //Check for all needed info
     if (req.body.decoded.UserID && req.params.groupid && req.params.topicid && req.body.newTitle) {
         //Create the request

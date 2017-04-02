@@ -112,9 +112,9 @@ router.delete('/:groupid(\\d+)/:userid(\\d+)/', [auth.CheckAuthToken, auth.Check
     });
 });
 
-/***********
+/*********************
  * Bill Route Handlers
- **********/
+ ********************/
 
 //Get Bills for group
 router.get('/:groupid(\\d+)/bills/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
@@ -142,7 +142,7 @@ router.get('/:groupid(\\d+)/bills/', [auth.CheckAuthToken, auth.CheckInGroup], f
 });
 
 //Create bill
-router.post('/:groupid(\\d+)/bills', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+router.post('/:groupid(\\d+)/bills/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
     if (!(req.body.recipient && req.body.category && req.body.title && req.body.description && req.body.amount && req.body.date)) {
         return res.status(400).json({ status: "error", message: "missing parameter in POST request" });
     }
@@ -361,9 +361,9 @@ router.delete('/:groupid(\\d+)/lists/:listid(\\d+)/', [auth.CheckAuthToken, auth
     }
 });
 
-/**********************
+/**************************
  * List Item Route Handlers
- *********************/
+ *************************/
 
 //Get list items
 router.get('/:groupid(\\d+)/lists/:listid(\\d+)', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
@@ -508,5 +508,131 @@ router.post('/:groupid(\\d+)/location/', [auth.CheckAuthToken, auth.CheckInGroup
         return res.status(400).json({ status: "error", message: "missing parameter in POST request" });
     }
 });
+
+/*********************
+ * Messageboard Routes
+ ********************/
+
+//Endpoint for editing a message board topic
+router.put('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    //Check for all needed info
+    if (req.body.newTitle) {
+        //Create the request
+        var editRequest = "Update Message_Topics \
+                              Set Title = " + config.pool.escape(req.body.newTitle)
+            + "Where TopicID = " + config.pool.escape(req.params.topicid)
+            + "And GroupID = " + config.pool.escape(req.params.groupid) + ";";
+
+        config.pool.query(editRequest, function (err, result) {
+            //If there is an error, log it
+            if (err) {
+                console.log(err);
+            }
+            //If the response was made, return a status indicating success
+            else {
+                res.status(200);
+                res.json({
+                    status: "success",
+                    message: "Edit successfully made to message board topic."
+                });
+                res.end();
+            }
+        });
+    }
+    //If the request is missing params, send back an error
+    else {
+        res.status(400);
+        res.json({
+            status: "error",
+            message: "missing parameter in PUT request"
+        });
+    }
+});
+
+//NEEDS MAJOR UPDATING FOR SECURITY!!!!!!!!!!
+//Ednpoint for editing a message board topic response
+router.put('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/:postid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+
+    //Check for all needed info
+    if (req.body.newMsg) {
+
+        //Create the request
+        var editRequst = "Update Posts \
+                              Set Msg = " + config.pool.escape(req.body.newMsg)
+            + "Where PostID = " + config.pool.escape(req.params.postid) + ";";
+
+        config.pool.query(editRequst, function (err, result) {
+            //If there is an error, log it
+            if (err) {
+                console.log(err);
+            }
+            //If the response was made, return a status indicating success
+            else {
+                res.status(200);
+                res.json({
+                    status: "success",
+                    message: "Edit successfully made to the message board response."
+                });
+                res.end();
+            }
+        });
+    }
+    //If the request is missing params, send back an error
+    else {
+        res.status(400);
+        res.json({
+            status: "error",
+            message: "missing parameter in PUT request"
+        });
+    }
+});
+
+//NEEDS MAJOR UPDATING FOR SECURITY!!!!!!!!!!
+//Endpoint for deleting an entire message board topic and all responses
+router.delete('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+
+    //Create the request
+    var deleteRequest = "Call deleteTopic(" + config.pool.escape(req.params.topicid) + ");";
+
+    config.pool.query(deleteRequest, function (err, result) {
+        //If there is an error, log it
+        if (err) {
+            console.log(err);
+        }
+        //If the response was made, return a status indicating success
+        else {
+            res.status(200);
+            res.json({
+                status: "success",
+                message: "Successfully deleted message board topic."
+            });
+        }
+    });
+});
+
+//NEEDS MAJOR UPDATING FOR SECURITY!!!!!!!!!!
+//Endpoint for deleting a message board response
+router.delete('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/:postid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    var deleteRequest = "Delete from Posts \
+                                 Where PostID = " + config.pool.escape(req.params.postid) + ";";
+
+    config.pool.query(deleteRequest, function (err, result) {
+        //If there is an error, log it
+        if (err) {
+            console.log(err);
+        }
+        //If the response was made, return a status indicating success
+        else {
+            res.status(200);
+            res.json({
+                status: "success",
+                message: "Successfully deleted message board response."
+            });
+        }
+    });
+});
+
+
+
 
 module.exports = router;
