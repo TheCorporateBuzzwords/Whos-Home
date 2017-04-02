@@ -514,7 +514,7 @@ router.post('/:groupid(\\d+)/location/', [auth.CheckAuthToken, auth.CheckInGroup
  ********************/
 
 //Get for retreiving all responses to a specific messageboard topic in a group
-router.get('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+router.get('/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
     //Create the request
     var getRequest = "Select PostID, Msg, PostTime, \
                       (Select UserName \
@@ -536,190 +536,8 @@ router.get('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAut
     });
 });
 
-//Post for adding a response to a specific messageboard topic in a group
-router.post('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
-
-    //Check to make sure all required info is present
-    if (req.body.msg) {
-        //Creat the request
-        var insertRequest = "Insert Into Posts (TopicID, UserID, Msg, PostTime) values (" + req.params.topicid + ", " + config.pool.escape(req.body.decoded.UserID) + "," + config.pool.escape(req.body.msg) + ", NOW())";
-
-        //Perform the request
-        config.pool.query(insertRequest, function (err, result) {
-            //If there is an error, log it
-            if (err) {
-                console.log(err);
-            }
-            //If the response was made, return a status indicating success
-            else {
-                res.status(200);
-                res.json({
-                    status: "success",
-                    message: "Response successfully added to message board topic."
-                });
-            }
-        });
-    }
-    //If not all required info is present give an error
-    else {
-        res.status(400);
-        res.json({
-            status: "error",
-            message: "missing parameter in POST request"
-        });
-    }
-});
-
-//add a new topic
-router.post('/groups/:groupid(\\d+)/messageboard/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
-    //check that all required information is passed
-    if (req.params.groupid && req.body.title && req.body.decoded.UserID && req.body.msg) {
-        //Create a var that has the call to the procedure
-        var insertRequest = "Call addTopic(" + config.pool.escape(req.params.groupid)
-            + ", " + config.pool.escape(req.body.title)
-            + ", " + config.pool.escape(req.body.decoded.UserID)
-            + ", " + config.pool.escape(req.body.msg) + ")";
-
-        //Perform the request
-        config.pool.query(insertRequest, function (err, result) {
-            //If an error happens, log
-            if (err) {
-                console.log(err);
-            }
-            //If the message board topic was made, pass back success
-            else {
-                res.status(200).json({ status: "success", message: "Topic successfully added to group's message board." });
-            }
-        });
-    }
-    //If the request does not have the correct info, send back error message
-    else {
-        res.status(400).json({ status: "error", message: "missing parameter in POST request" });
-    }
-});
-
-
-//Endpoint for editing a message board topic
-router.put('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
-    //Check for all needed info
-    if (req.body.newTitle) {
-        //Create the request
-        var editRequest = "Update Message_Topics \
-                              Set Title = " + config.pool.escape(req.body.newTitle)
-            + "Where TopicID = " + config.pool.escape(req.params.topicid)
-            + "And GroupID = " + config.pool.escape(req.params.groupid) + ";";
-
-        config.pool.query(editRequest, function (err, result) {
-            //If there is an error, log it
-            if (err) {
-                console.log(err);
-            }
-            //If the response was made, return a status indicating success
-            else {
-                res.status(200);
-                res.json({
-                    status: "success",
-                    message: "Edit successfully made to message board topic."
-                });
-                res.end();
-            }
-        });
-    }
-    //If the request is missing params, send back an error
-    else {
-        res.status(400);
-        res.json({
-            status: "error",
-            message: "missing parameter in PUT request"
-        });
-    }
-});
-
-//NEEDS MAJOR UPDATING FOR SECURITY!!!!!!!!!!
-//Endpoint for editing a message board topic response
-router.put('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/:postid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
-
-    //Check for all needed info
-    if (req.body.newMsg) {
-
-        //Create the request
-        var editRequst = "Update Posts \
-                              Set Msg = " + config.pool.escape(req.body.newMsg)
-            + "Where PostID = " + config.pool.escape(req.params.postid) + ";";
-
-        config.pool.query(editRequst, function (err, result) {
-            //If there is an error, log it
-            if (err) {
-                console.log(err);
-            }
-            //If the response was made, return a status indicating success
-            else {
-                res.status(200);
-                res.json({
-                    status: "success",
-                    message: "Edit successfully made to the message board response."
-                });
-                res.end();
-            }
-        });
-    }
-    //If the request is missing params, send back an error
-    else {
-        res.status(400);
-        res.json({
-            status: "error",
-            message: "missing parameter in PUT request"
-        });
-    }
-});
-
-//NEEDS MAJOR UPDATING FOR SECURITY!!!!!!!!!!
-//Endpoint for deleting an entire message board topic and all responses
-router.delete('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
-
-    //Create the request
-    var deleteRequest = "Call deleteTopic(" + config.pool.escape(req.params.topicid) + ");";
-
-    config.pool.query(deleteRequest, function (err, result) {
-        //If there is an error, log it
-        if (err) {
-            console.log(err);
-        }
-        //If the response was made, return a status indicating success
-        else {
-            res.status(200);
-            res.json({
-                status: "success",
-                message: "Successfully deleted message board topic."
-            });
-        }
-    });
-});
-
-//NEEDS MAJOR UPDATING FOR SECURITY!!!!!!!!!!
-//Endpoint for deleting a message board response
-router.delete('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/:postid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
-    var deleteRequest = "Delete from Posts \
-                                 Where PostID = " + config.pool.escape(req.params.postid) + ";";
-
-    config.pool.query(deleteRequest, function (err, result) {
-        //If there is an error, log it
-        if (err) {
-            console.log(err);
-        }
-        //If the response was made, return a status indicating success
-        else {
-            res.status(200);
-            res.json({
-                status: "success",
-                message: "Successfully deleted message board response."
-            });
-        }
-    });
-});
-
 //Get for retreiving all messageboard topics for a group
-router.get('/groups/:groupid(\\d+)/messageboard/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+router.get('/:groupid(\\d+)/messageboard/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
     //Get a connection
     //var con = mysql.createConnection(config.connectionInfo);
 
@@ -778,5 +596,189 @@ router.get('/groups/:groupid(\\d+)/messageboard/', [auth.CheckAuthToken, auth.Ch
         res.status(400).json({ status: "error", message: "missing parameter in GET request" });
     }
 });
+
+//Post for adding a response to a specific messageboard topic in a group
+router.post('/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+
+    //Check to make sure all required info is present
+    if (req.body.msg) {
+        //Creat the request
+        var insertRequest = "Insert Into Posts (TopicID, UserID, Msg, PostTime) values (" + req.params.topicid + ", " + config.pool.escape(req.body.decoded.UserID) + "," + config.pool.escape(req.body.msg) + ", NOW())";
+
+        //Perform the request
+        config.pool.query(insertRequest, function (err, result) {
+            //If there is an error, log it
+            if (err) {
+                console.log(err);
+            }
+            //If the response was made, return a status indicating success
+            else {
+                res.status(200);
+                res.json({
+                    status: "success",
+                    message: "Response successfully added to message board topic."
+                });
+            }
+        });
+    }
+    //If not all required info is present give an error
+    else {
+        res.status(400);
+        res.json({
+            status: "error",
+            message: "missing parameter in POST request"
+        });
+    }
+});
+
+//add a new topic
+router.post('/:groupid(\\d+)/messageboard/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    //check that all required information is passed
+    if (req.params.groupid && req.body.title && req.body.decoded.UserID && req.body.msg) {
+        //Create a var that has the call to the procedure
+        var insertRequest = "Call addTopic(" + config.pool.escape(req.params.groupid)
+            + ", " + config.pool.escape(req.body.title)
+            + ", " + config.pool.escape(req.body.decoded.UserID)
+            + ", " + config.pool.escape(req.body.msg) + ")";
+
+        //Perform the request
+        config.pool.query(insertRequest, function (err, result) {
+            //If an error happens, log
+            if (err) {
+                console.log(err);
+            }
+            //If the message board topic was made, pass back success
+            else {
+                res.status(200).json({ status: "success", message: "Topic successfully added to group's message board." });
+            }
+        });
+    }
+    //If the request does not have the correct info, send back error message
+    else {
+        res.status(400).json({ status: "error", message: "missing parameter in POST request" });
+    }
+});
+
+
+//Endpoint for editing a message board topic
+router.put('/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    //Check for all needed info
+    if (req.body.newTitle) {
+        //Create the request
+        var editRequest = "Update Message_Topics \
+                              Set Title = " + config.pool.escape(req.body.newTitle)
+            + "Where TopicID = " + config.pool.escape(req.params.topicid)
+            + "And GroupID = " + config.pool.escape(req.params.groupid) + ";";
+
+        config.pool.query(editRequest, function (err, result) {
+            //If there is an error, log it
+            if (err) {
+                console.log(err);
+            }
+            //If the response was made, return a status indicating success
+            else {
+                res.status(200);
+                res.json({
+                    status: "success",
+                    message: "Edit successfully made to message board topic."
+                });
+                res.end();
+            }
+        });
+    }
+    //If the request is missing params, send back an error
+    else {
+        res.status(400);
+        res.json({
+            status: "error",
+            message: "missing parameter in PUT request"
+        });
+    }
+});
+
+//NEEDS MAJOR UPDATING FOR SECURITY!!!!!!!!!!
+//Endpoint for editing a message board topic response
+router.put('/:groupid(\\d+)/messageboard/:topicid(\\d+)/:postid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+
+    //Check for all needed info
+    if (req.body.newMsg) {
+
+        //Create the request
+        var editRequst = "Update Posts \
+                              Set Msg = " + config.pool.escape(req.body.newMsg)
+            + "Where PostID = " + config.pool.escape(req.params.postid) + ";";
+
+        config.pool.query(editRequst, function (err, result) {
+            //If there is an error, log it
+            if (err) {
+                console.log(err);
+            }
+            //If the response was made, return a status indicating success
+            else {
+                res.status(200);
+                res.json({
+                    status: "success",
+                    message: "Edit successfully made to the message board response."
+                });
+                res.end();
+            }
+        });
+    }
+    //If the request is missing params, send back an error
+    else {
+        res.status(400);
+        res.json({
+            status: "error",
+            message: "missing parameter in PUT request"
+        });
+    }
+});
+
+//NEEDS MAJOR UPDATING FOR SECURITY!!!!!!!!!!
+//Endpoint for deleting an entire message board topic and all responses
+router.delete('/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+
+    //Create the request
+    var deleteRequest = "Call deleteTopic(" + config.pool.escape(req.params.topicid) + ");";
+
+    config.pool.query(deleteRequest, function (err, result) {
+        //If there is an error, log it
+        if (err) {
+            console.log(err);
+        }
+        //If the response was made, return a status indicating success
+        else {
+            res.status(200);
+            res.json({
+                status: "success",
+                message: "Successfully deleted message board topic."
+            });
+        }
+    });
+});
+
+//NEEDS MAJOR UPDATING FOR SECURITY!!!!!!!!!!
+//Endpoint for deleting a message board response
+router.delete('/:groupid(\\d+)/messageboard/:topicid(\\d+)/:postid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    var deleteRequest = "Delete from Posts \
+                                 Where PostID = " + config.pool.escape(req.params.postid) + ";";
+
+    config.pool.query(deleteRequest, function (err, result) {
+        //If there is an error, log it
+        if (err) {
+            console.log(err);
+        }
+        //If the response was made, return a status indicating success
+        else {
+            res.status(200);
+            res.json({
+                status: "success",
+                message: "Successfully deleted message board response."
+            });
+        }
+    });
+});
+
+
 
 module.exports = router;
