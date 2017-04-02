@@ -49,7 +49,7 @@ POST /groups/ (authenticated)
 \*groupName: Name of the new group
 
 ### Edit the name of a group
-PUT /groups/{groupid}/egroup/ (authenticated)
+PUT /groups/{groupid} (authenticated)
 
 \*newName: Text of the new group name
 
@@ -79,54 +79,54 @@ GET /groups/{groupid}/locations/ (authenticated)
 
 ## Groups/messageboard
 ### Create a messageboard post topic
-POST /groups/{groupid}/messagetopic/ (authenticated)
+POST /groups/{groupid}/messageboard/ (authenticated)
 
 \*title: Title of the message board post (50 char limit)
 
 \*msg: Content of the message board post (1024 char limit)
 
 ### Get all messageboard post topics
-GET /groups/{groupid}/messagetopic/ (authenticated)
+GET /groups/{groupid}/messageboard/ (authenticated)
 
 Returns: TopicID, Title, Date/Time posted, Message, and Username/FirstName/Lastname of original poster for each topic in a group
 
 ### Respond to a messageboard topic
-POST /groups/{groupid}/messages/ (authenticated)
+POST /groups/{groupid}/messageboard/ (authenticated)
 
 \*topicid: ID of the topic being responding to
 
 \*msg: Content of the reponse post (1024 char) limit
 
 ### Get responses to a single post topic
-GET /groups/{groupid}/messages/{topicid}/ (authenticated)
+GET /groups/{groupid}/messageboard/{topicid}/ (authenticated)
 
 Returns: (For each post to the topic that matches the passed in topicID)
 
-\*PostID: ID of the message topic response
+PostID: ID of the message topic response
 
-\*Msg: Content of the post
+Msg: Content of the post
 
-\*PostTime: Time the post was made
+PostTime: Time the post was made
 
-\*PostersName: Username of the original poster
+PostersName: Username of the original poster
 
 ### Edit a messageboard topic
-PUT /groups/{groupid}/topicedit/{topicid}/ (authenticated)
+PUT /groups/{groupid}/messageboard/{topicid}/ (authenticated)
 
 \*newTitle: New title of the message board post (50 char limit)
 
 ### Edit a messageboard response
-PUT /groups/{groupid}/postedit/{postid} (authenticated)
+PUT /groups/{groupid}/messageboard/{topicid}/{postid} (authenticated)
 
 \*newMsg: New message of the response (1024 char limit)
 
 ### Delete a messageboard topic and all responses
-DELETE /groups/{groupid}/topicdelete/{topicid} (authenticated)
+DELETE /groups/{groupid}/messageboard/{topicid} (authenticated)
 
 Note: This will delete the topic and all response posts to that topic
 
 ### Delete a single message board response
-DELETE /groups/{groupid}/postdelete/{postid} (authenticated)
+DELETE /groups/{groupid}/messageboard/{topicid}/{postid} (authenticated)
 
 ## Groups/Lists
 
@@ -150,23 +150,23 @@ GET /groups/{groupid}/lists/{listid}
 
 Returns: (For all items in the list that matchs the passed in listid)
 
-\*ItemID: ID value for the list item
+ItemID: ID value for the list item
 
-\*ListID: ID value of the list the item belong to (should be the same as the passed in id
+ListID: ID value of the list the item belong to (should be the same as the passed in id
 
-\*UserID: ID of the user who added the item
+UserID: ID of the user who added the item
 
-\*ItemText: Text of the item
+ItemText: Text of the item
 
-\*Completed: Bool representing if the item is completed or not
+Completed: Bool representing if the item is completed or not
 
-\*PostTime: Time the item was created
+PostTime: Time the item was created
 
-\*UserName: Username of the user who made the item
+UserName: Username of the user who made the item
 
-\*FirstName: First name of the user who made the item
+FirstName: First name of the user who made the item
 
-\*LastName: Last name of the user who made the item
+LastName: Last name of the user who made the item
 
 ### Update list items to completed/not completed
 PUT /groups/{groupid}/lists/{listid}
@@ -176,26 +176,26 @@ PUT /groups/{groupid}/lists/{listid}
 \*completed: 1 (completed) or 0 (not completed)
 
 ### Edit an item in a list
-PUT /groups/{groupid}/elistitem/{itemid}/ (authenticated)
+PUT /groups/{groupid}/lists/{itemid}/ (authenticated)
 
 \*itemid: id of the list item to edit
 
 \*newText: The new text of the time
 
 ### Delete an item in a list
-DELETE /groups/{groupid}/dlistitem/{itemid}/ (authenticated)
+DELETE /groups/{groupid}/lists/{itemid}/ (authenticated)
 
 \*itemid: id of the list item to delete
 
 ### Edit the title of a list
-PUT /groups/{groupid}/elist/{listid}/ (authenticated)
+PUT /groups/{groupid}/lists/{listid}/ (authenticated)
 
 \*listid: id of the list to edit
 
 \*newTitle: The new text for the title of the list
 
 ### Delete a list and all of the list's items
-DELETE /groups/{groupid}/dlist/{listid}/ (authenticated)
+DELETE /groups/{groupid}/lists/{listid}/ (authenticated)
 
 \*listid: id of the list to delete
 
