@@ -15,7 +15,7 @@ var router = require('express').Router();
 //route for creating a new group
 router.post('/:groupid(\\d+)', auth.CheckAuthToken, function (req, res) {
     //Create a connection to the database
-    //var con = mysql.createConnection(config.connectionInfo);
+
 
     //Check for valid information in incoming JSON
     if (req.body.groupName) {
@@ -49,7 +49,7 @@ router.post('/:groupid(\\d+)', auth.CheckAuthToken, function (req, res) {
 //Authenticated route to get group information from group id
 //(\\d+) makes sure :id is an integer.
 router.get('/:groupid(\\d+)', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
-    //var con = mysql.createConnection(config.connectionInfo);
+
     if (req.body.decoded) { //Had to do a left join in this query or else nothing would be returned if a group had no locations.
         var request = "SELECT UserName, GroupName, NetName, Users.UserID \
                             FROM Users \
@@ -171,7 +171,7 @@ router.post('/:groupid(\\d+)/bills/', [auth.CheckAuthToken, auth.CheckInGroup], 
 
 //Authenticated route to accept an invite to a group
 router.get('/:groupid(\\d+)/invitation/', auth.CheckAuthToken, function (req, res) {
-    //var con = mysql.createConnection(config.connectionInfo);
+
     var checkInvite = "SELECT * FROM Invites WHERE RecipientID = " + req.body.decoded.UserID + " AND GroupID = " + req.params.groupid;
     var insertQuery = "INSERT INTO User_Groups (UserID, GroupID) VALUES (" + req.body.decoded.UserID + ", " + req.params.groupid + "); DELETE FROM Invites WHERE GroupID = " + req.params.groupid + " AND RecipientID = " + req.body.decoded.UserID;
     var checkDupeQuery = "SELECT * FROM User_Groups WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + req.params.groupid;
@@ -217,7 +217,7 @@ router.get('/:groupid(\\d+)/invitation/', auth.CheckAuthToken, function (req, re
 
 //Authenticated route to create an invitation to a group
 router.post('/:groupid(\\d+)/invitation/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
-    //var con = mysql.createConnection(config.connectionInfo);
+
     if (!req.body.recipient) {
         return res.status(400).json({ status: "error", message: "missing parameter" });
     }
@@ -478,7 +478,7 @@ router.delete('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckA
 
 //get group location info
 router.get('/:groupid(\\d+)/locations', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
-    //var con = mysql.createConnection(config.connectionInfo);
+
     var request = "SELECT g.GroupName, gl.SSID, gl.NetName \
                             FROM Groups g \
                             INNER JOIN Group_Locations gl ON g.GroupID = gl.GroupID \
@@ -490,7 +490,7 @@ router.get('/:groupid(\\d+)/locations', [auth.CheckAuthToken, auth.CheckInGroup]
 
 //add new group location
 router.post('/:groupid(\\d+)/location/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
-    //var con = mysql.createConnection(config.connectionInfo);
+
     if (req.params.groupid && req.body.ssid && req.body.locationName) {
         console.log("executing");
         var insertRequest = "INSERT INTO Group_Locations (GroupID, SSID, NetName) values (" + config.pool.escape(req.params.groupid) + ", " + config.pool.escape(req.body.ssid) + ", " + config.pool.escape(req.body.locationName) + ");";
@@ -512,6 +512,92 @@ router.post('/:groupid(\\d+)/location/', [auth.CheckAuthToken, auth.CheckInGroup
 /*********************
  * Messageboard Routes
  ********************/
+
+//Get for retreiving all responses to a specific messageboard topic in a group
+router.get('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    //Create the request
+    var getRequest = "Select PostID, Msg, PostTime, \
+                      (Select UserName \
+                      From Users \
+                      Where UserID = p.UserID) as PostersName \
+                      From Posts as p \
+                      Where TopicID = " + config.pool.escape(req.params.topicid);
+
+    //Perform the request
+    config.pool.query(getRequest, function (err, result) {
+        //If there is an error, log it
+        if (err) {
+            console.log(err);
+        }
+        //If the request was made, return the message topic responses
+        else {
+            res.json(result);
+        }
+    });
+});
+
+//Post for adding a response to a specific messageboard topic in a group
+router.post('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+
+    //Check to make sure all required info is present
+    if (req.body.msg) {
+        //Creat the request
+        var insertRequest = "Insert Into Posts (TopicID, UserID, Msg, PostTime) values (" + req.params.topicid + ", " + config.pool.escape(req.body.decoded.UserID) + "," + config.pool.escape(req.body.msg) + ", NOW())";
+
+        //Perform the request
+        config.pool.query(insertRequest, function (err, result) {
+            //If there is an error, log it
+            if (err) {
+                console.log(err);
+            }
+            //If the response was made, return a status indicating success
+            else {
+                res.status(200);
+                res.json({
+                    status: "success",
+                    message: "Response successfully added to message board topic."
+                });
+            }
+        });
+    }
+    //If not all required info is present give an error
+    else {
+        res.status(400);
+        res.json({
+            status: "error",
+            message: "missing parameter in POST request"
+        });
+    }
+});
+
+//add a new topic
+router.post('/groups/:groupid(\\d+)/messageboard/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    //check that all required information is passed
+    if (req.params.groupid && req.body.title && req.body.decoded.UserID && req.body.msg) {
+        //Create a var that has the call to the procedure
+        var insertRequest = "Call addTopic(" + config.pool.escape(req.params.groupid)
+            + ", " + config.pool.escape(req.body.title)
+            + ", " + config.pool.escape(req.body.decoded.UserID)
+            + ", " + config.pool.escape(req.body.msg) + ")";
+
+        //Perform the request
+        config.pool.query(insertRequest, function (err, result) {
+            //If an error happens, log
+            if (err) {
+                console.log(err);
+            }
+            //If the message board topic was made, pass back success
+            else {
+                res.status(200).json({ status: "success", message: "Topic successfully added to group's message board." });
+            }
+        });
+    }
+    //If the request does not have the correct info, send back error message
+    else {
+        res.status(400).json({ status: "error", message: "missing parameter in POST request" });
+    }
+});
+
 
 //Endpoint for editing a message board topic
 router.put('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
@@ -550,7 +636,7 @@ router.put('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAut
 });
 
 //NEEDS MAJOR UPDATING FOR SECURITY!!!!!!!!!!
-//Ednpoint for editing a message board topic response
+//Endpoint for editing a message board topic response
 router.put('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/:postid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
 
     //Check for all needed info
@@ -632,7 +718,65 @@ router.delete('/groups/:groupid(\\d+)/messageboard/:topicid(\\d+)/:postid(\\d+)/
     });
 });
 
+//Get for retreiving all messageboard topics for a group
+router.get('/groups/:groupid(\\d+)/messageboard/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
+    //Get a connection
+    //var con = mysql.createConnection(config.connectionInfo);
 
+    //Check that all required information is passed
+    if (req.params.groupid) {
+        //Super gross, clean up later
+        //Create a var that has the call to the procedure
+        var getRequest = "Select mt.TopicID, mt.Title, \
+                                (Select MIN(p2.PostTime) \
+                                    From Posts as p2 \
+                                    Where p2.TopicID = mt.TopicID) as DatePosted, \
+                                    (Select Msg \
+                                        From Posts as p3 \
+                                        Where p3.TopicID = mt.TopicID \
+                                            AND p3.PostTime = DatePosted) as Message, \
+                                    (Select UserName \
+                                        From Users \
+                                        Where UserID = \
+                                        (Select UserID \
+                                            From Posts as p \
+                                            Where p.TopicID = mt.TopicID \
+                                                And p.PostTime = DatePosted)) as PosterName, \
+                                    (Select FirstName \
+                                        From Users \
+                                        Where UserID = \
+                                        (Select UserID \
+                                            From Posts as p \
+                                            Where p.TopicID = mt.TopicID \
+                                                And p.PostTime = DatePosted)) as FirstName, \
+                                    (Select LastName \
+                                        From Users \
+                                        Where UserID = \
+                                        (Select UserID \
+                                            From Posts as p \
+                                            Where p.TopicID = mt.TopicID \
+                                                And p.PostTime = DatePosted)) as LastName \
+                                From Message_Topics as mt \
+                                Where mt.GroupID = " + config.pool.escape(req.params.groupid);
 
+        //Change request to return topics and responses by "pages"? groups of 10 or something? grouped by date
+
+        //Perform the request
+        config.pool.query(getRequest, function (err, result) {
+            //If an error happens, log
+            if (err) {
+                console.log(err);
+            }
+            //Return message board topics and meta information
+            else {
+                res.json(result);
+            }
+        });
+    }
+    //If all required information is not present, send back an error message
+    else {
+        res.status(400).json({ status: "error", message: "missing parameter in GET request" });
+    }
+});
 
 module.exports = router;
