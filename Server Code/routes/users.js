@@ -10,12 +10,12 @@ var router = require('express').Router();
 router.get('/groups', auth.CheckAuthToken, function (req, res) {
     //Check that the needed stuff is in the JSON
     if (req.body.decoded) {
-        var getRequest = "Select g.GroupID, g.GroupName \
-                                From Users as u Inner Join User_Groups as ug \
-                                On u.UserID = ug.UserID \
-                                Inner Join Groups as g \
-                                on ug.GroupID = g.GroupID \
-                                Where u.UserID = " + req.body.decoded.UserID + ";";
+        var getRequest = "Select g.GroupID, g.GroupName" +
+                                "From Users as u Inner Join User_Groups as ug" +
+                                "On u.UserID = ug.UserID" +
+                                "Inner Join Groups as g" +
+                                "on ug.GroupID = g.GroupID" +
+                                "Where u.UserID = " + req.body.decoded.UserID + ";";
 
         config.pool.query(getRequest, function (err, result) {
             if (err) {
@@ -34,13 +34,13 @@ router.get('/groups', auth.CheckAuthToken, function (req, res) {
 router.get('/invites', auth.CheckAuthToken, function (req, res) {
     //Check that everything needed is passed in
     if (req.body.decoded) {
-        var getRequest = "Select (Select UserName from Users as t where t.UserID = u.InviterID) as UserName \
-                            , (Select FirstName From Users as t Where t.UserID = u.InviterID) as FirstName \
-                            , (Select LastName From Users as t Where t.UserID = u.InviterID) as LastName \
-                            , u.GroupID \
-                            , (Select GroupName From Groups as t Where t.GroupID = u.GroupID) as GroupName \
-                            From Invites as u \
-                             Where RecipientID = " + req.body.decoded.UserID + ";";
+        var getRequest = "Select (Select UserName from Users as t where t.UserID = u.InviterID) as UserName" +
+                            ", (Select FirstName From Users as t Where t.UserID = u.InviterID) as FirstName" +
+                            ", (Select LastName From Users as t Where t.UserID = u.InviterID) as LastName" +
+                            ", u.GroupID" +
+                            ", (Select GroupName From Groups as t Where t.GroupID = u.GroupID) as GroupName" +
+                            "From Invites as u" +
+                            "Where RecipientID = " + req.body.decoded.UserID + ";";
 
         config.pool.query(getRequest, function (err, result) {
             if (err) {
@@ -58,13 +58,13 @@ router.get('/invites', auth.CheckAuthToken, function (req, res) {
 
 router.put('/location', auth.CheckAuthToken, function (req, res) {
     
-    if (!req.body.bssid || req.body.bssid == null) {
+    if (!req.body.bssid || req.body.bssid === null) {
         return res.status(409).json({ status: "error", message: "missing bssid in request." });
     }
     var locationID = "NULL";
-    var getLocationIDRequest = "SELECT LocationID \
-                                    FROM Group_Locations \
-                                    WHERE SSID = " + config.pool.escape(req.body.bssid);
+    var getLocationIDRequest = "SELECT LocationID" +
+                                    "FROM Group_Locations" +
+                                    "WHERE SSID = " + config.pool.escape(req.body.bssid);
     config.pool.query(getLocationIDRequest, function (err, locationIDResult) {
         if (err) {
             console.log(err);
@@ -72,9 +72,9 @@ router.put('/location', auth.CheckAuthToken, function (req, res) {
             if (locationIDResult.length > 0) {
                 locationID = locationIDResult[0].LocationID;
             }
-            var updateRequest = "UPDATE Users \
-                                     SET LocationID = " + locationID + " \
-                                     WHERE UserID = " + req.body.decoded.UserID;
+            var updateRequest = "UPDATE Users" +
+                                     "SET LocationID = " + locationID +
+                                     "WHERE UserID = " + req.body.decoded.UserID;
             config.pool.query(updateRequest, function (err, updateResult) {
                 if (err) {
                     console.log(err);
