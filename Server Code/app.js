@@ -1,4 +1,4 @@
-var morgan = require('morgan');
+/*var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
@@ -59,4 +59,41 @@ listsedit(app);
 groupedit(app);
 createbill(app);
 getbill(app);
-teapot(app);
+teapot(app);*/
+
+var app = require('express')();
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+
+app.use(morgan('combined'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+//app.use('/session/login', require('./routes/session/login'));
+app.use('/groups/:groupid(\\d+)', require('./routes/groups'));
+/*app.use('/users', require('./routes/users/signup'));
+app.use('/groups', require('./routes/groups/groupinfo'));
+app.use('/groups/invitation', require('./routes/groups/invitation/sendinvite'));
+app.use('/groups/locations', require('./routes/groups/locations/newlocation'));
+app.use('/groups', require('./routes/groups/newgroup'));
+app.use('/groups/locations', require('./routes/groups/locations/getgrouplocations'));
+app.use('/groups/messageboard', require('./routes/groups/messageboard/messagetopics'));
+app.use('/groups/messageboard', require('./routes/groups/messageboard/messageposts'));
+app.use('/users', require('./routes/users/groups'));
+app.use('/groups', require('./routes/users/location'));
+app.use('/users', require('./routes/groups/invitation/acceptinvite'));
+app.use('/users', require('./routes/users/invites'));
+app.use('/groups/lists', require('./routes/groups/lists/newlist'));
+app.use('/groups/lists', require('./routes/groups/lists/newlistitem'));
+app.use('/groups/lists', require('./routes/groups/lists/getlists'));
+app.use('/groups/lists', require('./routes/groups/lists/getlistitems'));
+app.use('/groups/lists', require('./routes/groups/lists/updatelistitems'));
+app.use('/groups/messageboard', require('./routes/groups/messageboard/messageboardedit'));
+app.use('/groups/lists', require('./routes/groups/lists/listsedits'));
+app.use('/groups', require('./routes/groups/groupedit'));
+app.use('/groups/bills', require('./routes/groups/bills/createbill'));
+app.use('/groups/bills', require('./routes/groups/bills/getbill'));
+app.use('/teapot', require('./routes/teapot/teapot'));*/
+
+
+app.listen(3000);
