@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+using Newtonsoft.Json.Linq;
+
 namespace Whos_Home.Helpers
 {
     class ListsObj
@@ -23,12 +25,22 @@ namespace Whos_Home.Helpers
 
         public ListsObj(string date, string author, string title, string topicid, string authFirst, string authLast)
         {
-            this.date = date;
-            this.author = author;
-            this.title = title;
-            this.topicid = topicid;
-            this.authFirst = authFirst;
-            this.authLast = authLast;
+            Date = date;
+            Author = author;
+            Title = title;
+            Topicid = topicid;
+            AuthFirst = authFirst;
+            AuthLast = authLast;
+        }
+
+        public ListsObj(JToken token)
+        {
+            Date = (string)token["PostTime"];
+            Author = (string)token["UserName"];
+            Title = (string)token["Title"];
+            Topicid = (string)token["ListID"];
+            AuthFirst = (string)token["FirstName"];
+            AuthLast = (string)token["LastName"];
         }
 
         public string Date

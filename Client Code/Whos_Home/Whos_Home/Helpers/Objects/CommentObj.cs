@@ -9,54 +9,41 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+
 using Newtonsoft.Json.Linq;
 
 namespace Whos_Home.Helpers
 {
-    public class BulletinPostObj
+    public class CommentObj
     {
-        string author;
-        string time;
-        string topicid;
-        string title;
         string message;
+        string time;
+        string author;
+        string topicid;
 
-        public BulletinPostObj(string p_author, string p_time, string p_topicid, string p_title, string p_message)
+        public CommentObj()
         {
-            Author = p_author;
-            Time = p_time;
-            Topicid = p_topicid;
-            Title = p_title;
-            Message = p_message;
-
+            Message = null;
+            Time = null;
+            Author = null;
+            Topicid = null;
+        }
+        public CommentObj(string auth, string msg, string tme, string topid)
+        {
+            Message = msg;
+            Time = tme;
+            Author = auth;
+            Topicid = topid;
         }
 
-        public string Author
+        public CommentObj(JToken token)
         {
-            get
-            {
-                return author;
-            }
+            Author = (string)token["PostersName"];
+            Time = (string)token["PostTime"];
+            Message = (string)token["Msg"];
 
-            set
-            {
-                author = value;
-            }
+            Topicid = null;
         }
-
-        public string Title
-        {
-            get
-            {
-                return title;
-            }
-
-            set
-            {
-                title = value;
-            }
-        }
-
         public string Message
         {
             get
@@ -80,6 +67,19 @@ namespace Whos_Home.Helpers
             set
             {
                 time = value;
+            }
+        }
+
+        public string Author
+        {
+            get
+            {
+                return author;
+            }
+
+            set
+            {
+                author = value;
             }
         }
 

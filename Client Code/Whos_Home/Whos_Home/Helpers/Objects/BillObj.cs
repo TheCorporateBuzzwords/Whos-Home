@@ -23,6 +23,17 @@ namespace Whos_Home.Helpers
         string title;
         string date;
         string recipientname;
+        public BillObj(JToken token)
+        {
+            Billid = (string)token["BillID"];
+            Sendername = (string)token["Sender"];
+            Title = (string)token["Title"];
+            Description = (string)token["Description"];
+            Amount = (string)token["Amount"];
+            Date = (string)token["DateDue"];
+            Recipientname = (string)token["Recipient"];
+            Categoryid = (string)token["CategoryID"];
+        }
 
         public string Billid
         {
@@ -128,16 +139,6 @@ namespace Whos_Home.Helpers
             }
         }
 
-        public BillObj(JToken token)
-        {
-            Billid = (string)token["BillID"];
-            Sendername = (string)token["Sender"];
-            Title = (string)token["Title"];
-            Description = (string)token["Description"];
-            Amount = (string)token["Amount"];
-            Date = (string)token["DateDue"];
-            Recipientname = (string)token["Recipient"];
-            Categoryid = (string)token["CategoryID"];
-        }
+        
     }
 }

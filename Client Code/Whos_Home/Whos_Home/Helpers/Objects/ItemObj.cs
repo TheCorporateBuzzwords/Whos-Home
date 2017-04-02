@@ -10,6 +10,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+using Newtonsoft.Json.Linq;
+
 namespace Whos_Home.Helpers
 {
     class ItemObj
@@ -19,6 +21,36 @@ namespace Whos_Home.Helpers
         string message;
         string isDone;
         string id;
+
+        public ItemObj(string author, string time, string message, string isDone)
+        {
+            Author = author;
+            Time = time;
+            Message = message;
+            IsDone = isDone;
+            Id = null;
+        }
+
+        public ItemObj(string author, string time, string message, string isDone, string id)
+        {
+            Author = author;
+            Time = time;
+            Message = message;
+            IsDone = isDone;
+            Id = id;
+        }
+
+        public ItemObj(JToken token)
+        {
+            Time = (string)token["PostTime"];
+            Author = (string)token["UserName"];
+            Message = (string)token["ItemText"];
+            IsDone = (string)token["Completed"];
+            Id = (string)token["ItemID"];
+
+            if (IsDone == null || IsDone == "null")
+                IsDone = false.ToString();
+        }
 
         public string Author
         {
@@ -83,23 +115,6 @@ namespace Whos_Home.Helpers
             {
                 id = value;
             }
-        }
-
-        public ItemObj(string author, string time, string message, string isDone)
-        {
-            this.Author = author;
-            this.Time = time;
-            this.Message = message;
-            this.IsDone = isDone;
-        }
-
-        public ItemObj(string author, string time, string message, string isDone, string id)
-        {
-            this.author = author;
-            this.time = time;
-            this.message = message;
-            this.isDone = isDone;
-            this.id = id;
         }
     }
 }

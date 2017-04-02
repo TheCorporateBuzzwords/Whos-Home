@@ -16,6 +16,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Whos_Home.Helpers;
+using Whos_Home.Helpers.ListObjects;
 
 namespace Whos_Home
 {
@@ -34,14 +35,9 @@ namespace Whos_Home
 
             InitializeToolbars();
             InitializeFormat();
-
-            
         }
         //titles and messsages will be stored and can be accessed when loading
         //a bulletin in a separate window.
-        List<string>titles = new List<string>();
-        List<string>messages = new List<string>();
-
  
         private async void InitializeFormat()
         {
@@ -56,46 +52,12 @@ namespace Whos_Home
 
         public async Task UpdatePosts()
         {
-            posts = new List<BulletinPostObj>();
-
-            RequestHandler request = new RequestHandler(this);
-            DB_Singleton db = DB_Singleton.Instance;
-            string token = db.Retrieve("Token");
-            string groupid = db.GetActiveGroup().GroupID;
-            var response = await request.GetMessages(token, groupid);
-            //Checks to make sure response is OK
-            if ((int)response.StatusCode == 200)
-            {
-                //Check to make sure List is not empty
-                if (response.Content != "[]")
-                {
-                    //If response.Content is empty .Parse will break
-                    JArray JPosts = JArray.Parse(response.Content);
-
-                    foreach (JToken post in JPosts)
-                    {
-                        string author = (string)post["PosterName"];
-                        string time = (string)post["DatePosted"];
-                        string title = (string)post["Title"];
-                        string topicid = (string)post["TopicID"];
-                        string message = (string)post["Message"];
-
-                        posts.Add(new BulletinPostObj(author, time, topicid, title, message));
-                        titles.Add(title);
-                        messages.Add(message);
-                    }
-                }
-            }
-            else
-                Toast.MakeText(this, "Error Getting Comments", ToastLength.Long);
-
-            listView = FindViewById<ListView>(Resource.Id.messagelistview);
+            posts = await new BulletinList().UpdateList();
 
             //reverse titles and messages so they are shown correctly in bulletinboard
             posts.Reverse();
 
             listView.Adapter = new BulletinListAdapter(this, posts);
-       
         }
 
         //Click method for NewPostButton
@@ -107,15 +69,12 @@ namespace Whos_Home
             NewMessageDialog.Show(transaction, "dialog fragment new message");
 
             listView.Adapter = new BulletinListAdapter(this, posts);
-
-           
         }
 
         void OnMessageLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
         {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             BuildAlert(e.Position);
-
         }
 
         private async void BuildAlert(int position)
@@ -154,11 +113,6 @@ namespace Whos_Home
 
             //creates an intent for a Bulletin activity
             Intent i = new Intent(Application.Context, typeof(Bulletin));
-
-            //Serializes the title and message of the selected list item into json
-            //This will be later deserialized in the bulletin.cs activity
-            //i.PutExtra("Title", JsonConvert.SerializeObject(titles[position]));
-            //i.PutExtra("Message", JsonConvert.SerializeObject(messages[position]));
 
             i.PutExtra("PostObject", JsonConvert.SerializeObject(posts[position]));
 
@@ -204,11 +158,6 @@ namespace Whos_Home
             editToolbar.InflateMenu(Resource.Menu.edit_menus);
             editToolbar.MenuItemClick += NavigateMenu;
                 
-                //(sender, e) => {
-                //Toast.MakeText(this, "Bottom toolbar tapped: " + e.Item.TitleFormatted, ToastLength.Short).Show();
-            //};
-
-        
         }
 
         //Method is used to navigate between activities using the bottom toolbar

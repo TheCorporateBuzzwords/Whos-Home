@@ -15,6 +15,7 @@ using Newtonsoft;
 using Newtonsoft.Json.Linq;
 
 using Whos_Home.Helpers;
+using Whos_Home.Helpers.ListObjects;
 using Newtonsoft.Json;
 
 namespace Whos_Home
@@ -48,16 +49,14 @@ namespace Whos_Home
             //find button and assign click function
             NewListButton = FindViewById<Button>(Resource.Id.NewListButton);
             NewListButton.Click += NewListButton_Click;
-            
-
-
         }
 
         public async Task UpdateLists()
         {
             //listnames = new List<string>();
             //remaining_items = new List<string>();
-            listoflists = await GetLists();
+
+            listoflists = await new ListList().UpdateList();
 
             //find listview and set adapter and click function
             listView = FindViewById<ListView>(Resource.Id.listlistview);
@@ -94,39 +93,6 @@ namespace Whos_Home
             dialog.Show();
         }
 
-        private async Task<List<ListsObj>> GetLists()
-        {
-            RequestHandler request = new RequestHandler(this);
-            DB_Singleton db = DB_Singleton.Instance;
-            string token = db.Retrieve("Token");
-            string groupid = db.GetActiveGroup().GroupID;
-            var response = await request.GetLists(token, groupid);
-            JArray preParse = JArray.Parse(response.Content);
-
-            List<ListsObj> groupLists = ParseToLists(preParse);
-
-            return groupLists;
-            
-        }
-
-        private List<ListsObj> ParseToLists(JArray jarr)
-        {
-            List<ListsObj> postParse = new List<ListsObj>();
-
-            foreach(JToken tok in jarr)
-            {
-                string posttime = (string)tok["PostTime"];
-                string username = (string)tok["UserName"];
-                string title = (string)tok["Title"];
-                string listid = (string)tok["ListID"];
-                string firstname = (string)tok["FirstName"];
-                string lastname = (string)tok["LastName"];
-
-                postParse.Add(new ListsObj(posttime, username, title, listid, firstname, lastname));
-            }
-
-            return postParse; 
-        }
         private void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             var listView = sender as ListView;
@@ -139,7 +105,6 @@ namespace Whos_Home
             i.PutExtra("ListObject", JsonConvert.SerializeObject(listoflists[position]));
 
             StartActivity(i);
-
         }
 
         private void InitializeToolbars()
@@ -155,12 +120,6 @@ namespace Whos_Home
             //editToolbar.Title = "Navigate";
             editToolbar.InflateMenu(Resource.Menu.edit_menus);
             editToolbar.MenuItemClick += NavigateMenu;
-
-            //(sender, e) => {
-            //Toast.MakeText(this, "Bottom toolbar tapped: " + e.Item.TitleFormatted, ToastLength.Short).Show();
-            //};
-
-
         }
 
         //Method is used to navigate between activities using the bottom toolbar

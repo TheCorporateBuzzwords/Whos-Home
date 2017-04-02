@@ -94,14 +94,7 @@ namespace Whos_Home
                     JArray JPosts = JArray.Parse(response.Content);
 
                     foreach (JToken Jpost in JPosts)
-                    {
-                        string author = (string)Jpost["PostersName"];
-                        string time = (string)Jpost["PostTime"];
-                        string message = (string)Jpost["Msg"];
-
-                        comment_objs.Add(new CommentObj(author, message, time, post.Topicid));
-                        comments.Add(message);
-                    }
+                        comment_objs.Add(new CommentObj(Jpost));
                 }
             }
             else
@@ -159,16 +152,7 @@ namespace Whos_Home
             //commentlistview.RefreshDrawableState();
 
         }
-        /*
-        private void Comment_LongClick(object sender, EventArgs e)
-        {
-            FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            BulletinAddComment NewCommentDialog = new BulletinAddComment(post);
-            NewCommentDialog.Show(transaction, "dialog fragment new message");
-            //commentlistview.RefreshDrawableState();
 
-        }
-        */
 
         private void TextViewClick(object sender, System.EventArgs e)
         {

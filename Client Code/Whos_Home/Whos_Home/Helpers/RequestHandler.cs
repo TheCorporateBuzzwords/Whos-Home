@@ -23,11 +23,14 @@ namespace Whos_Home.Helpers
         RestClient client = null;
         public RequestHandler(Context context)
         {
-
             url = context.Resources.GetString(Resource.String.url);
             client = new RestClient(url);
         }
-
+        public RequestHandler()
+        {
+            url = "http://75.142.141.235:3000";
+            client = new RestClient(url);
+        }
         //Initial Request for login and signup
         public async Task<IRestResponse> SignIn(User user)
         {

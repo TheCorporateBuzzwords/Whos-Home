@@ -154,20 +154,7 @@ namespace Whos_Home
             List<ItemObj> postParse = new List<ItemObj>();
 
             foreach (JToken tok in jarr)
-            {
-                string posttime = (string)tok["PostTime"];
-                string username = (string)tok["UserName"];
-                string title = (string)tok["ItemText"];
-                string isdone = (string)tok["Completed"];
-                string itemid = (string)tok["ItemID"];
-                if(isdone == null || isdone == "null")
-                {
-                    isdone = false.ToString();
-                }
-
-
-                postParse.Add(new ItemObj(username, posttime, title, isdone, itemid));
-            }
+                postParse.Add(new ItemObj(tok));
 
             return postParse;
         }
