@@ -50,6 +50,17 @@ namespace Whos_Home.Helpers
             return new BulletinPostObj(author, time, topicid, title, message);
         }
 
+        public BulletinPostObj DirtyParse(JToken token)
+        {
+            string author = (string)token["PosterName"];
+            string time = (string)token["DatePosted"];
+            string title = (string)token["Title"];
+            string topicid = (string)token["TopicID"];
+            string message = (string)token["Message"];
+
+            return new BulletinPostObj(author, time, topicid, title, message);
+        }
+
         public string Author
         {
             get

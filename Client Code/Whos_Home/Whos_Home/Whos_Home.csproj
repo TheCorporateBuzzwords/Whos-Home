@@ -204,7 +204,7 @@
     <Compile Include="Locations.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="BulletinBoard.cs" />
-    <Compile Include="BulletinListAdapter.cs" />
+    <Compile Include="ListAdapters\BulletinListAdapter.cs" />
     <Compile Include="BulletinNew.cs" />
     <Compile Include="Notifications.cs" />
     <Compile Include="Helpers\RequestHandler.cs" />
