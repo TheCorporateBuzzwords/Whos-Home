@@ -16,17 +16,14 @@ namespace Whos_Home
 {
     public class BulletinListAdapter : BaseAdapter<List<BulletinPostObj>>
     {
-        List<BulletinPostObj> m_posts;
-        Activity context;
+        private List<BulletinPostObj> m_posts;
+        private Activity context;
 
         //overloaded constructor to accept values for the list
-        public BulletinListAdapter(Activity context, List<BulletinPostObj> posts) : base()
+        public BulletinListAdapter(Activity p_context, List<BulletinPostObj> posts) : base()
         {
-            m_posts = new List<BulletinPostObj>();
-            this.context = context;
-            if(posts.Count != 0)
-                m_posts = posts;
-            
+            this.context = p_context;
+            m_posts = posts;
         }
        
         public override int Count

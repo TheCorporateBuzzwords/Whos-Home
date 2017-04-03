@@ -32,9 +32,9 @@ namespace Whos_Home
 
             // Set our view from the MessageBoard layout resource
             SetContentView(Resource.Layout.MessageBoard);
+            InitializeFormat();
 
             InitializeToolbars();
-            InitializeFormat();
         }
         //titles and messsages will be stored and can be accessed when loading
         //a bulletin in a separate window.
