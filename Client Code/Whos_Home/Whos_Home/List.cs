@@ -13,8 +13,11 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
+using Newtonsoft.Json;
 using Whos_Home.Helpers;
+using Whos_Home.Helpers.ListObjects;
 
 namespace Whos_Home
 {
@@ -51,9 +54,12 @@ namespace Whos_Home
         {
             listItems = new List<string>();
 
-            //ListItemObjs = await GetItems();
+            string test = Intent.GetStringExtra("ListObject");
+            string trimmed = Regex.Unescape(test);
+            Console.WriteLine(test);
+            list = new ListsObj().DirtyParse(JToken.Parse(test));
             //sample code to retrieve list object from lists.cs
-            list = JsonConvert.DeserializeObject<ListsObj>(Intent.GetStringExtra("ListObject"));
+            //list = JsonConvert.DeserializeObject<ListsObj>(Intent.GetStringExtra("ListObject"));
 
             ListItemObjs = await GetItems();
 
@@ -127,37 +133,9 @@ namespace Whos_Home
 
         private async Task<List<ItemObj>> GetItems()
         {
-            List<ItemObj> groupLists = new List<ItemObj>();
-            RequestHandler request = new RequestHandler(this);
-            DB_Singleton db = DB_Singleton.Instance;
-            string token = db.Retrieve("Token");
-            string groupid = db.GetActiveGroup().GroupID;
-            var response = await request.GetListItems(token, groupid, list.Topicid);
-            if ((int)response.StatusCode == 200)
-            {
-                Toast.MakeText(this, "Item Recieved", ToastLength.Long);
-            }
-            else
-            {
-                Toast.MakeText(this, "Connection Failed", ToastLength.Long);
-            }
-
-            JArray preParse = JArray.Parse(response.Content);
-
-            groupLists = ParseToLists(preParse);
-
-            return groupLists;
-
+            return await new ItemList(list.Topicid).UpdateList();
         }
-        private List<ItemObj> ParseToLists(JArray jarr)
-        {
-            List<ItemObj> postParse = new List<ItemObj>();
-
-            foreach (JToken tok in jarr)
-                postParse.Add(new ItemObj(tok));
-
-            return postParse;
-        }
+      
         private void NewListItemButton_Click(object sender, EventArgs e)
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();

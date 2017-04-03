@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Whos_Home.Helpers
 {
+    [Serializable]
     class ListsObj
     {
         private string date;
@@ -22,6 +23,17 @@ namespace Whos_Home.Helpers
         private string topicid;
         private string authFirst;
         private string authLast;
+
+        public ListsObj()
+        {
+            Date = null;
+            Author = null;
+            Title = null;
+            Topicid = null;
+            AuthFirst = null;
+            AuthLast = null;
+        }
+
 
         public ListsObj(string date, string author, string title, string topicid, string authFirst, string authLast)
         {
@@ -41,6 +53,17 @@ namespace Whos_Home.Helpers
             Topicid = (string)token["ListID"];
             AuthFirst = (string)token["FirstName"];
             AuthLast = (string)token["LastName"];
+        }
+
+        public ListsObj DirtyParse(JToken token)
+        {
+            Date = (string)token["Date"];
+            Author = (string)token["Author"];
+            Title = (string)token["Title"];
+            Topicid = (string)token["Topicid"];
+            AuthFirst = (string)token["AuthFirst"];
+            AuthLast = (string)token["AuthLast"];
+            return this;
         }
 
         public string Date

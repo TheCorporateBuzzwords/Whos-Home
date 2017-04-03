@@ -99,8 +99,9 @@ namespace Whos_Home
             var position = e.Position;
 
             //creates an intent for a List activity
-            Intent i = new Intent(Application.Context, typeof(List));
-
+            Intent i = new Intent(this, typeof(List));
+            string testserial = JsonConvert.SerializeObject(listoflists[position]);
+            Console.WriteLine(testserial);
             //sample code to put a list object into the intent
             i.PutExtra("ListObject", JsonConvert.SerializeObject(listoflists[position]));
 
