@@ -50,7 +50,7 @@ namespace Whos_Home
             listview = FindViewById<ListView>(Resource.Id.listviewBills);
 
             await UpdateAllBills();
-            // CurrentBills.Click += CurrentBills_Click;
+            CurrentBills.Click += CurrentBills_Click;
             //  CurrentBills.LongClick += CurrentBills_LongClick;
 
 
@@ -155,7 +155,9 @@ namespace Whos_Home
 
         private void CurrentBills_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            BillsGraphMonth NewBillDialog = new BillsGraphMonth();
+            NewBillDialog.Show(transaction, "dialog fragment bills graph month");
         }
 
         private void BillsHistory_Click(object sender, EventArgs e)
