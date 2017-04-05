@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 var mysql = require('mysql');
 var pool = mysql.createPool({
         connectionLimit: 10,
@@ -32,5 +34,9 @@ module.exports = {
     JWTInfo: {
         //secret for signing jwt tokens
         secret: "Wh0'SHoM3jWt$3cR3t^&*)!@'#+-4m^qs7ET5pQhkw!wE2W#KE"
+    },
+    httpsOptions: {
+        key: fs.readFileSync('./ssl/key.pem'),
+        cert: fs.readFileSync('./ssl/certificate.pem')
     }
-}
+};

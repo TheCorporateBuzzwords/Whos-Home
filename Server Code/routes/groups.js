@@ -8,9 +8,9 @@ var jwt = require('jsonwebtoken');
 var router = require('express').Router();
 
 
-/***********
+/**********************
  * Group Route Handlers
- **********/
+ *********************/
 
 //route for creating a new group
 router.post('/:groupid(\\d+)', auth.CheckAuthToken, function (req, res) {

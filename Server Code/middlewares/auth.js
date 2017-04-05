@@ -22,7 +22,7 @@ module.exports =
         },
         CheckInGroup: function (req, res, next) {
             var groupid = req.body.groupid || req.params.groupid || req.query.groupid;
-            //var con = mysql.createConnection(config.connectionInfo);
+            
             if (groupid) {
                 //MySQL statement for making sure some user is in some group acording to the linking table
                 var checkInGroupQuery = "SELECT * FROM User_Groups WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + config.pool.escape(groupid);
@@ -40,4 +40,4 @@ module.exports =
                 return res.status(200).json({ status: "error", message: "no group ID supplied" });
             }
         }
-    }
+    };
