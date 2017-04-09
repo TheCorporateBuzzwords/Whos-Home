@@ -21,21 +21,22 @@ namespace Whos_Home
 {
     class SignIn_Dialog : DialogFragment
     {
-        private Button SignInButton;
+        private Button B_SignIn;
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
 
             var view = inflater.Inflate(Resource.Layout.sign_in, container, false);
 
-            SignInButton = view.FindViewById<Button>(Resource.Id.buttonlogin);
+            B_SignIn = view.FindViewById<Button>(Resource.Id.buttonlogin);
 
             //sets click function for the sign in button;
-            SignInButton.Click += SignInAttempt;
+            B_SignIn.Click += SignInAttempt;
 
             return view;
-
         }
+
         public async void SignInAttempt(object sender, EventArgs e)
         {
             //retrieves data from dialog box
@@ -108,7 +109,6 @@ namespace Whos_Home
             }
 
             return groupList;
-
         }
 
         private string[] DecodeToken(IRestResponse response)
@@ -181,7 +181,6 @@ namespace Whos_Home
             });
             Dialog dialog = alert.Create();
             dialog.Show();
-
         }
     }
 }

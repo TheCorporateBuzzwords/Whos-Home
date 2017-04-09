@@ -15,17 +15,17 @@ namespace Whos_Home
 {
     class InviteAcceptDialog : DialogFragment
     {
-        private string groupname;
-        private string groupid;
-        private Button BAccpet;
-        private Button BDecline;
-        private TextView GroupName;
+        private string m_groupname;
+        private string m_groupid;
+        private Button B_Accpet;
+        private Button B_Decline;
+        private TextView m_GroupName;
 
         public InviteAcceptDialog(Invitations invite)
         {
             //get any values from invite here
-            groupname = invite.Groupname;
-            groupid = invite.Groupid;
+            m_groupname = invite.Groupname;
+            m_groupid = invite.Groupid;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -35,16 +35,15 @@ namespace Whos_Home
             View view = inflater.Inflate(Resource.Layout.AcceptInvite, container, false);
 
             //Find button instances in view
-            BAccpet = view.FindViewById<Button>(Resource.Id.buttonAcceptInvite);
-            BDecline = view.FindViewById<Button>(Resource.Id.buttonDeclineInvite);
-            GroupName = view.FindViewById<TextView>(Resource.Id.textviewAcceptInvite);
+            B_Accpet = view.FindViewById<Button>(Resource.Id.buttonAcceptInvite);
+            B_Decline = view.FindViewById<Button>(Resource.Id.buttonDeclineInvite);
+            m_GroupName = view.FindViewById<TextView>(Resource.Id.textviewAcceptInvite);
 
-            GroupName.Text = groupname;
-            BAccpet.Click += BAccpet_Click;
-            BDecline.Click += BDecline_Click;
+            m_GroupName.Text = m_groupname;
+            B_Accpet.Click += BAccpet_Click;
+            B_Decline.Click += BDecline_Click;
 
             return view;
-
         }
 
         private async void BDecline_Click(object sender, EventArgs e)
@@ -53,7 +52,7 @@ namespace Whos_Home
             RequestHandler request = new RequestHandler(Context);
             DB_Singleton db = DB_Singleton.Instance; 
 
-            var response = await request.RespondInvitation(db.Retrieve("Token"), groupid, true);
+            var response = await request.RespondInvitation(db.Retrieve("Token"), m_groupid, true);
 
             if((int)response.StatusCode == 200)
             {
@@ -71,12 +70,12 @@ namespace Whos_Home
             RequestHandler request = new RequestHandler(Context);
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");
-            var response = await request.RespondInvitation(token, groupid, false);
+            var response = await request.RespondInvitation(token, m_groupid, false);
 
             if((int)response.StatusCode == 200)
             {
                 Toast.MakeText(Context, "Accepted Invite", ToastLength.Long);
-                AddGroup(groupid, groupname);
+                AddGroup(m_groupid, m_groupname);
             }
             else
             {

@@ -23,9 +23,9 @@ namespace Whos_Home
     [Activity(Label = "Lists")]
     public class Lists : Activity
     {
-        private Button NewListButton;
-        private ListView listView;
-        List<ListsObj> listoflists;
+        private Button B_NewList;
+        private ListView m_listView;
+        List<ListsObj> m_listoflists;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -47,8 +47,8 @@ namespace Whos_Home
         {
             UpdateLists();
             //find button and assign click function
-            NewListButton = FindViewById<Button>(Resource.Id.NewListButton);
-            NewListButton.Click += NewListButton_Click;
+            B_NewList = FindViewById<Button>(Resource.Id.NewListButton);
+            B_NewList.Click += NewListButton_Click;
         }
 
         public async Task UpdateLists()
@@ -56,13 +56,13 @@ namespace Whos_Home
             //listnames = new List<string>();
             //remaining_items = new List<string>();
 
-            listoflists = await new ListList().UpdateList();
+            m_listoflists = await new ListList().UpdateList();
 
             //find listview and set adapter and click function
-            listView = FindViewById<ListView>(Resource.Id.listlistview);
-            listView.Adapter = new ListsListAdapter(this, listoflists);
-            listView.ItemClick += ListView_ItemClick;
-            listView.ItemLongClick += ListView_LongClick; 
+            m_listView = FindViewById<ListView>(Resource.Id.listlistview);
+            m_listView.Adapter = new ListsListAdapter(this, m_listoflists);
+            m_listView.ItemClick += ListView_ItemClick;
+            m_listView.ItemLongClick += ListView_LongClick; 
         }
 
         private void ListView_LongClick(object sender, AdapterView.ItemLongClickEventArgs e)
@@ -77,7 +77,7 @@ namespace Whos_Home
                 DB_Singleton db = DB_Singleton.Instance;
                 
                 //TODO Test this when fixed on the server
-                var response = await new RequestHandler(this).DeleteList(db.Retrieve("Token"), db.GetActiveGroup().GroupID, listoflists[e.Position].Topicid);
+                var response = await new RequestHandler(this).DeleteList(db.Retrieve("Token"), db.GetActiveGroup().GroupID, m_listoflists[e.Position].Topicid);
 
                 if ((int)response.StatusCode == 200)
                     Toast.MakeText(this, "Succesfully Deleted", ToastLength.Long);
@@ -100,10 +100,10 @@ namespace Whos_Home
 
             //creates an intent for a List activity
             Intent i = new Intent(this, typeof(List));
-            string testserial = JsonConvert.SerializeObject(listoflists[position]);
+            string testserial = JsonConvert.SerializeObject(m_listoflists[position]);
             Console.WriteLine(testserial);
             //sample code to put a list object into the intent
-            i.PutExtra("ListObject", JsonConvert.SerializeObject(listoflists[position]));
+            i.PutExtra("ListObject", JsonConvert.SerializeObject(m_listoflists[position]));
 
             StartActivity(i);
         }
@@ -168,8 +168,6 @@ namespace Whos_Home
             //Loads Groups menu if selected
             if (item.ToString() == "Groups")
                 this.StartActivity(typeof(Groups));
-
-
 
             return base.OnOptionsItemSelected(item);
         }

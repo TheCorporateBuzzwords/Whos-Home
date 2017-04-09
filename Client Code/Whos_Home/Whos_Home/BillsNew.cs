@@ -21,30 +21,27 @@ namespace Whos_Home
     {
         private ListView m_listview;
         private CheckBox m_checkbox;
-        private Button m_Bconfirm, m_Bcancel;
+        private Button B_confirm, B_cancel;
         private EditText m_title, m_amount;
         private Spinner m_select_user;
-        private List<string> users;
-        private List<string> userIDs = new List<string>();
+        private List<string> m_users;
+        private List<string> m_userIDs = new List<string>();
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.BillsNew, container, false);
-
             
             InitializeFormat(view);
-            InitializeListView(view);
 
             return view;
         }
 
         private async void InitializeFormat(View view)
         {
-            m_Bcancel = view.FindViewById<Button>(Resource.Id.buttonBillsNewCancel);
-            m_Bconfirm = view.FindViewById<Button>(Resource.Id.buttonBillsNewConfirm);
-
-            m_Bcancel.Click += M_Bcancel_Click;
-            m_Bconfirm.Click += M_Bconfirm_Click;
+            //initialize all components of dialog box
+            B_cancel = view.FindViewById<Button>(Resource.Id.buttonBillsNewCancel);
+            B_confirm = view.FindViewById<Button>(Resource.Id.buttonBillsNewConfirm);
 
             m_checkbox = view.FindViewById<CheckBox>(Resource.Id.BillsNewCheckbox);
             m_listview = view.FindViewById<ListView>(Resource.Id.BillsNewListView);
@@ -52,19 +49,21 @@ namespace Whos_Home
             m_title = view.FindViewById<EditText>(Resource.Id.BillsNewEditText);
             m_amount = view.FindViewById<EditText>(Resource.Id.BillsNewEditTextAmount);
 
+            //Get users to display in list
+            m_users = await GetUsers();
 
-
-            users = await GetUsers();
-
-            m_listview.Adapter = new ArrayAdapter<string>(Context, Android.Resource.Layout.SimpleListItemChecked, users);
+            m_listview.Adapter = new ArrayAdapter<string>(Context, Android.Resource.Layout.SimpleListItemChecked, m_users);
             m_listview.ChoiceMode = Android.Widget.ChoiceMode.Multiple;
 
+            //set click functions
             m_listview.ItemClick += M_listview_ItemClick;
+            B_cancel.Click += M_Bcancel_Click;
+            B_confirm.Click += M_Bconfirm_Click;
 
+            //get categories for bill type
             var categories = GetCategories();
 
             m_select_user.Adapter = new ArrayAdapter<string>(Context, Android.Resource.Layout.SimpleSpinnerItem, categories);
-
         }
 
         private List<string> GetCategories()
@@ -77,7 +76,6 @@ namespace Whos_Home
             categories.Add("Other");
 
             return categories;
-
         }
 
         private void M_listview_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -91,7 +89,6 @@ namespace Whos_Home
         }
 
         private async Task<List<string>> GetUsers()
-
         {
             DB_Singleton db = DB_Singleton.Instance;
             RequestHandler request = new RequestHandler(Context);
@@ -109,7 +106,7 @@ namespace Whos_Home
                     string userid = (string)member["UserID"];
 
                     users.Add((username));
-                    userIDs.Add(userid);
+                    m_userIDs.Add(userid);
                 }
             }
 
@@ -117,8 +114,7 @@ namespace Whos_Home
         }
 
         private async void M_Bconfirm_Click(object sender, EventArgs e)
-        {
-            
+        {       
             string user = "";
             string userid = "";
             string category = (string)m_select_user.SelectedItem;
@@ -134,8 +130,8 @@ namespace Whos_Home
 
             }
             //get userid
-            if (users.Contains(user))
-                userid = userIDs.ElementAt(users.IndexOf(user));
+            if (m_users.Contains(user))
+                userid = m_userIDs.ElementAt(m_users.IndexOf(user));
 
             //Dismiss();
             //if the bill is not split equally, start the dialog that asks for splits
@@ -178,14 +174,6 @@ namespace Whos_Home
 
             RequestHandler request = new RequestHandler(Context);
             var response = await request.PutBill(token, groupid, bill.Recipientname, bill.Categoryid, bill.Title, bill.Description, bill.Amount, bill.Date);
-
-
-        }
-
-        private void InitializeListView(View view)
-        {
-            //Get users to display in listview
-            
         }
     }
 }

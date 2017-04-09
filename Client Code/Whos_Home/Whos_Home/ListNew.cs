@@ -18,8 +18,9 @@ namespace Whos_Home
 {
     class ListNew : DialogFragment
     {
-        private Button bConfrim, bCancel;
-        private EditText editText;
+        private Button B_Confrim, B_Cancel;
+        private EditText m_editText;
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
@@ -27,16 +28,15 @@ namespace Whos_Home
             View view = inflater.Inflate(Resource.Layout.ListNew, container, false);
 
             //set values for private attributes
-            bConfrim = view.FindViewById<Button>(Resource.Id.buttonConfirmListNew);
-            bCancel = view.FindViewById<Button>(Resource.Id.buttonCancelListNew);
-            editText = view.FindViewById<EditText>(Resource.Id.edittextListNew);
+            B_Confrim = view.FindViewById<Button>(Resource.Id.buttonConfirmListNew);
+            B_Cancel = view.FindViewById<Button>(Resource.Id.buttonCancelListNew);
+            m_editText = view.FindViewById<EditText>(Resource.Id.edittextListNew);
 
             //set click functions
-            bConfrim.Click += BConfrim_Click;
-            bCancel.Click += BCancel_Click;
+            B_Confrim.Click += BConfrim_Click;
+            B_Cancel.Click += BCancel_Click;
 
             return view;
-
         }
 
         private void BCancel_Click(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace Whos_Home
         private async void BConfrim_Click(object sender, EventArgs e)
         {
             //Implement new list functionality
-            string listname = editText.Text;
+            string listname = m_editText.Text;
             await PostNewList();
 
             ((Lists)Activity).UpdateLists();
@@ -63,7 +63,7 @@ namespace Whos_Home
             string token = db.Retrieve("Token");
             string groupid = db.GetActiveGroup().GroupID;
 
-            var response = await request.PostNewList(token, groupid, editText.Text);
+            var response = await request.PostNewList(token, groupid, m_editText.Text);
 
             if((int)response.StatusCode == 200)
             {

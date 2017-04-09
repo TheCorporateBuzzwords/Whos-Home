@@ -19,22 +19,22 @@ namespace Whos_Home
     
     public class GroupNew : DialogFragment
     {
-        Button BConfirm;
-        Button BCancel;
-        EditText EditTextGroupName;
+        Button B_Confirm;
+        Button B_Cancel;
+        EditText m_EditTextGroupName;
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
 
             var view = inflater.Inflate(Resource.Layout.NewGroup, container, false);
 
-            BConfirm = view.FindViewById<Button>(Resource.Id.buttonCreateGroup);
-            BCancel = view.FindViewById<Button>(Resource.Id.buttonCancelCreateGroup);
-            EditTextGroupName = view.FindViewById<EditText>(Resource.Id.edittextNewGroup);
+            B_Confirm = view.FindViewById<Button>(Resource.Id.buttonCreateGroup);
+            B_Cancel = view.FindViewById<Button>(Resource.Id.buttonCancelCreateGroup);
+            m_EditTextGroupName = view.FindViewById<EditText>(Resource.Id.edittextNewGroup);
 
             //Set click functions for confirm and cancel buttons
-            BConfirm.Click += BConfirm_Click;
-            BCancel.Click += BCancel_Click;
+            B_Confirm.Click += BConfirm_Click;
+            B_Cancel.Click += BCancel_Click;
 
             return view;
         }
@@ -61,24 +61,6 @@ namespace Whos_Home
             }
             else
                 Failure();
-            /*
-            AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
-            alert.SetTitle("Create the new group " + EditTextGroupName.Text + "?");
-
-            //Send new location information to database
-            alert.SetPositiveButton("Confirm", (senderAlert, args) => 
-            {
-//                Task create = CreateGroup().Text);
-                Dismiss();
-            });
-
-            //Close dialog and cancel add
-            alert.SetNegativeButton("Cancel", (senderAlert, args) =>
-            {});
-
-            Dialog dialog = alert.Create();
-            dialog.Show();
-            */
         }
         public void Success()
         {

@@ -24,13 +24,13 @@ namespace Whos_Home
     [Activity(Label = "Locations")]
     public class Locations : Activity
     {
-        private Button AddLocation;
-        private TextView CurrentLocation;
-        private List<string> location_names = new List<string>();
-        private ListView LocationList;
-        private List<string> db_locations = new List<string>();
-        private string current_location;
-        private List<string> WifiNetworks = new List<string>();
+        private Button B_AddLocation;
+        private TextView m_CurrentLocation;
+        private List<string> m_location_names = new List<string>();
+        private ListView m_LocationList;
+        private List<string> m_db_locations = new List<string>();
+        private string m_current_location;
+        private List<string> m_WifiNetworks = new List<string>();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -42,12 +42,12 @@ namespace Whos_Home
         }
         private async void InitializeFormat()
         {
-            AddLocation = FindViewById<Button>(Resource.Id.NewLocationButton);
-            AddLocation.Click += AddLocation_Click;
+            B_AddLocation = FindViewById<Button>(Resource.Id.NewLocationButton);
+            B_AddLocation.Click += AddLocation_Click;
 
 
-            LocationList = FindViewById<ListView>(Resource.Id.locationlistview);
-            CurrentLocation = FindViewById<TextView>(Resource.Id.textCurrentLocation);
+            m_LocationList = FindViewById<ListView>(Resource.Id.locationlistview);
+            m_CurrentLocation = FindViewById<TextView>(Resource.Id.textCurrentLocation);
 
             //This block asks the user for location permissions
             //Or checks if the user already gave permissions
@@ -72,7 +72,7 @@ namespace Whos_Home
             await GetLocations();
             var GroupMemberLocs = await GetActiveUsers();
 
-            LocationList.Adapter = new LocationsListAdapter(this, GroupMemberLocs);
+            m_LocationList.Adapter = new LocationsListAdapter(this, GroupMemberLocs);
         }
 
         private async Task GetLocations()
@@ -84,7 +84,7 @@ namespace Whos_Home
             //get locations from database
             var response = await request.GetLocations(db.Retrieve("Token"), db.GetActiveGroup().GroupID);
             //convert locations from json format
-            db_locations = ConvertJson(response);
+            m_db_locations = ConvertJson(response);
             //add locations into list adapter
             //LocationList.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, db_locations);
 
@@ -92,7 +92,6 @@ namespace Whos_Home
         }
 
         private async Task<List<Tuple<string, string>>> GetActiveUsers()
-            
         {
             DB_Singleton db = DB_Singleton.Instance;
             RequestHandler request = new RequestHandler(this);
@@ -117,9 +116,7 @@ namespace Whos_Home
         }
 
         public async Task UpdateLocation()
-            {
-
-
+        {
             DB_Singleton db = DB_Singleton.Instance;
             if (db.IsOnline())
             {
@@ -132,41 +129,40 @@ namespace Whos_Home
 
                     foreach (ScanResult network in InRange)
                     {
-                        WifiNetworks.Add(network.Ssid);
+                        m_WifiNetworks.Add(network.Ssid);
                         //WifiNetworkKey.Add(network.Bssid);
                     }
                 }
 
                 RequestHandler request = new RequestHandler(this);
 
-                var results = WifiNetworks.Intersect(db_locations);
+                var results = m_WifiNetworks.Intersect(m_db_locations);
 
-                current_location = null;
+                m_current_location = null;
                 if (results.Count() != 0)
-                    current_location = results.ElementAt(0);
+                    m_current_location = results.ElementAt(0);
 
-                var response = await request.UpdateLocation(db.Retrieve("Token"), current_location);
+                var response = await request.UpdateLocation(db.Retrieve("Token"), m_current_location);
 
-                if (current_location != null)
-                    CurrentLocation.Text = "Current location: " + current_location;
+                if (m_current_location != null)
+                    m_CurrentLocation.Text = "Current location: " + m_current_location;
                 else
-                    CurrentLocation.Text = "Not in range of location";
-                CurrentLocation.RefreshDrawableState();
+                    m_CurrentLocation.Text = "Not in range of location";
+                m_CurrentLocation.RefreshDrawableState();
             }
         }
 
         private List<string> ConvertJson(IRestResponse response)
         {
-            location_names = new List<string>();
+            m_location_names = new List<string>();
             JArray JLocations = JArray.Parse(response.Content);
 
             foreach (var loc in JLocations)
             {
-
-                location_names.Add((string)loc["SSID"]);
+                m_location_names.Add((string)loc["SSID"]);
             }
 
-            return location_names;
+            return m_location_names;
         }
 
         private void AddLocation_Click(object sender, EventArgs e)
@@ -183,18 +179,11 @@ namespace Whos_Home
             SetActionBar(toolbar);
             ActionBar.Title = "Locations";
 
-
             //initialize bottom toolbar
             var editToolbar = FindViewById<Toolbar>(Resource.Id.edit_toolbar);
             //editToolbar.Title = "Navigate";
             editToolbar.InflateMenu(Resource.Menu.edit_menus);
             editToolbar.MenuItemClick += NavigateMenu;
-
-            //(sender, e) => {
-            //Toast.MakeText(this, "Bottom toolbar tapped: " + e.Item.TitleFormatted, ToastLength.Short).Show();
-            //};
-
-
         }
 
         //Method is used to navigate between activities using the bottom toolbar

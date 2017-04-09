@@ -15,19 +15,18 @@ namespace Whos_Home
 {
     class BulletinNew : DialogFragment
     {
-        private Button Submit;
-        private string title;
-        private string message;
+        private Button B_Submit;
+        private string m_title, m_message;
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.NewMessage, container, false);
 
             //Set button instance, set click function
-            Submit = view.FindViewById<Button>(Resource.Id.buttonCreateMessage);
-            Submit.Click += new EventHandler(PostBulletin);
+            B_Submit = view.FindViewById<Button>(Resource.Id.buttonCreateMessage);
+            B_Submit.Click += new EventHandler(PostBulletin);
             return view;
-
         }
 
         public async void PostBulletin(object sender, EventArgs e)
@@ -51,10 +50,11 @@ namespace Whos_Home
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");
             string groupid = db.GetActiveGroup().GroupID;
+
             //set private values equal to equal values from dialog box
-            title = MsgTitle;
-            message = MsgBody;
-            var response = await request.PostMessages(token, groupid, title, message);
+            m_title = MsgTitle;
+            m_message = MsgBody;
+            var response = await request.PostMessages(token, groupid, m_title, m_message);
 
             if ((int)response.StatusCode == 200)
             {
@@ -62,18 +62,20 @@ namespace Whos_Home
             }
             else
                 Toast.MakeText(Context, "Post Failed", ToastLength.Long);
+
             //closes message dialog box
             await ((BulletinBoard)Activity).UpdatePosts();
             Dismiss();
         }
+
         public string GetTitle()
         {
-            return title;
+            return m_title;
         }
 
         public string GetMessage()
         {
-            return message;
+            return m_message;
         }
 
         private void Notification(Intent activity, string text, string group, int intent_id, int notification_id)

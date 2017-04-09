@@ -7,9 +7,9 @@ namespace Whos_Home
     [Activity(Label = "Who\'s Home?", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        private Button BCreateAccount; //CreateAccount button
-        private Button BSignIn; //Sign in button
-        private Button BTest; //Button used exclusively for testing
+        private Button B_CreateAccount; //CreateAccount button
+        private Button B_SignIn; //Sign in button
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -17,18 +17,13 @@ namespace Whos_Home
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-
             //Creates instance of Create Account button
-            BCreateAccount = FindViewById<Button>(Resource.Id.buttonCreateAccount);
-            BCreateAccount.Click += BCreateAccount_Click;
+            B_CreateAccount = FindViewById<Button>(Resource.Id.buttonCreateAccount);
+            B_CreateAccount.Click += BCreateAccount_Click;
 
             //Creates instance of Sign in button
-            BSignIn = FindViewById<Button>(Resource.Id.buttonSignIn);
-            BSignIn.Click += BSignIn_Click;
-
-            //Creates instance of the Test button REMOVE IN DEPLOYMENTS
-            //BTest = FindViewById<Button>(Resource.Id.buttonTest);
-            //BTest.Click += BTest_Click;
+            B_SignIn = FindViewById<Button>(Resource.Id.buttonSignIn);
+            B_SignIn.Click += BSignIn_Click;
         }
 
         //Function is called when sign in button is clicked
@@ -53,9 +48,7 @@ namespace Whos_Home
         private void BTest_Click(object sender, System.EventArgs e)
         {
             this.StartActivity(typeof(Locations));
-
         }
-
     }
 
     [Activity(Label = "ButtonStyle", MainLauncher = true, Icon = "@drawable/icon")]

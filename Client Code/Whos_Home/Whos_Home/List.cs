@@ -24,19 +24,19 @@ namespace Whos_Home
     [Activity(Label = "List")]
     public class List : Activity
     {
-        private Button NewListItemButton;
-        private ListView listView;
-        private List<string> listItems;
-        List<ItemObj> ListItemObjs = new List<ItemObj>();
-        ListsObj list;
+        private Button B_NewListItem;
+        private ListView m_listView;
+        private List<string> m_listItems;
+        List<ItemObj> m_ListItemObjs = new List<ItemObj>();
+        ListsObj m_list;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.List);
             InitializeToolbars();
-            InitializeFormat();
-            
+            InitializeFormat();           
         }
 
         private async void InitializeFormat()
@@ -44,37 +44,31 @@ namespace Whos_Home
             await UpdateItems();
 
             //Find button and add click function
-            NewListItemButton = FindViewById<Button>(Resource.Id.NewListItemButton);
-            NewListItemButton.Click += NewListItemButton_Click;
-
-            //Find listview and set adapter
+            B_NewListItem = FindViewById<Button>(Resource.Id.NewListItemButton);
+            B_NewListItem.Click += NewListItemButton_Click;
         }
 
         public async Task UpdateItems()
         {
-            listItems = new List<string>();
+            m_listItems = new List<string>();
 
             string test = Intent.GetStringExtra("ListObject");
             string trimmed = Regex.Unescape(test);
             Console.WriteLine(test);
-            list = new ListsObj().DirtyParse(JToken.Parse(test));
-            //sample code to retrieve list object from lists.cs
-            //list = JsonConvert.DeserializeObject<ListsObj>(Intent.GetStringExtra("ListObject"));
+            m_list = new ListsObj().DirtyParse(JToken.Parse(test));
 
-            ListItemObjs = await GetItems();
+            m_ListItemObjs = await GetItems();
 
-            listView = FindViewById<ListView>(Resource.Id.listitemslistview);
-            
-            listView.Adapter = new ListListAdapter(this, ListItemObjs);
+            m_listView = FindViewById<ListView>(Resource.Id.listitemslistview);          
+            m_listView.Adapter = new ListListAdapter(this, m_ListItemObjs);
 
             //sets the selection mode for the listview to multiple choice
-            listView.ChoiceMode = Android.Widget.ChoiceMode.Multiple;
+            m_listView.ChoiceMode = Android.Widget.ChoiceMode.Multiple;
 
             //Sets the function to be called on click to the custom function OnLocationItemClick
             //This Function will select and deselect location values based on the item clicked.
-
-            listView.ItemClick += ListView_ItemClick;
-            listView.ItemLongClick += ListView_ItemLongClick;
+            m_listView.ItemClick += ListView_ItemClick;
+            m_listView.ItemLongClick += ListView_ItemLongClick;
         }
 
         private void ListView_ItemLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
@@ -89,7 +83,7 @@ namespace Whos_Home
                 DB_Singleton db = DB_Singleton.Instance;
 
                 //TODO Test this when fixed on the server
-                var response = await new RequestHandler(this).DeleteListItem(db.Retrieve("Token"), db.GetActiveGroup().GroupID, ListItemObjs[e.Position].Id);
+                var response = await new RequestHandler(this).DeleteListItem(db.Retrieve("Token"), db.GetActiveGroup().GroupID, m_ListItemObjs[e.Position].Id);
 
                 if ((int)response.StatusCode == 200)
                 {
@@ -110,36 +104,33 @@ namespace Whos_Home
 
         public async void UpdateListView()
         {
-            listItems = new List<string>();
+            m_listItems = new List<string>();
 
-            //ListItemObjs = await GetItems();
-            //sample code to retrieve list object from lists.cs
-            list = JsonConvert.DeserializeObject<ListsObj>(Intent.GetStringExtra("ListObject"));
+            m_list = JsonConvert.DeserializeObject<ListsObj>(Intent.GetStringExtra("ListObject"));
 
-            ListItemObjs = await GetItems();
+            m_ListItemObjs = await GetItems();
 
            //Find listview and set adapter
-            listView = FindViewById<ListView>(Resource.Id.listitemslistview);
-            listView.Adapter = new ListListAdapter(this, ListItemObjs);
+            m_listView = FindViewById<ListView>(Resource.Id.listitemslistview);
+            m_listView.Adapter = new ListListAdapter(this, m_ListItemObjs);
 
             //sets the selection mode for the listview to multiple choice
-            listView.ChoiceMode = Android.Widget.ChoiceMode.Multiple;
+            m_listView.ChoiceMode = Android.Widget.ChoiceMode.Multiple;
 
             //Sets the function to be called on click to the custom function OnLocationItemClick
             //This Function will select and deselect location values based on the item clicked.
-
-            listView.ItemClick += ListView_ItemClick;
+            m_listView.ItemClick += ListView_ItemClick;
         }
 
         private async Task<List<ItemObj>> GetItems()
         {
-            return await new ItemList(list.Topicid).UpdateList();
+            return await new ItemList(m_list.Topicid).UpdateList();
         }
       
         private void NewListItemButton_Click(object sender, EventArgs e)
         {
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            ListAddItem NewListItemDialog = new ListAddItem(list);
+            ListAddItem NewListItemDialog = new ListAddItem(m_list);
             NewListItemDialog.Show(transaction, "dialog fragment new list item");
         }
 
@@ -149,8 +140,8 @@ namespace Whos_Home
             var position = e.Position;
 
             bool selected = listView.IsItemChecked(position);
-            ListItemObjs.ElementAt(position).IsDone = selected.ToString();
-            FireCheckItem(ListItemObjs.ElementAt(position).Id, selected);
+            m_ListItemObjs.ElementAt(position).IsDone = selected.ToString();
+            FireCheckItem(m_ListItemObjs.ElementAt(position).Id, selected);
 
             listView.SetItemChecked(position, selected);
         }
@@ -163,7 +154,7 @@ namespace Whos_Home
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");
             string groupid = db.GetActiveGroup().GroupID;
-            var response = await request.PutListItem(token, groupid, list.Topicid, itemid, selected);
+            var response = await request.PutListItem(token, groupid, m_list.Topicid, itemid, selected);
             if ((int)response.StatusCode == 200)
             {
                 Toast.MakeText(this, "Item Updated", ToastLength.Long);
@@ -187,9 +178,6 @@ namespace Whos_Home
             //editToolbar.Title = "Navigate";
             editToolbar.InflateMenu(Resource.Menu.edit_menus);
             editToolbar.MenuItemClick += NavigateMenu;
-
-
-
         }
 
         //Method is used to navigate between activities using the bottom toolbar
@@ -236,8 +224,6 @@ namespace Whos_Home
             //Loads Groups menu if selected
             if (item.ToString() == "Groups")
                 this.StartActivity(typeof(Groups));
-
-
 
             return base.OnOptionsItemSelected(item);
         }

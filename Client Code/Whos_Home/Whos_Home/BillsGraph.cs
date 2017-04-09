@@ -24,7 +24,6 @@ namespace Whos_Home
     {
         private List<Tuple<string, float>> m_bills;
 
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -38,24 +37,15 @@ namespace Whos_Home
 
             PlotView view = FindViewById<PlotView>(Resource.Id.plot_view);
             view.Model = CreatePlotModel();
-
-            
-        
         }
 
         private PlotModel CreatePlotModel()
         {
             var plotModel = new PlotModel { Title = "Monthly Expenses" };
 
-
             dynamic seriesP1 = new PieSeries { StrokeThickness = 2.0, InsideLabelPosition = 0.8, AngleSpan = 360, StartAngle = 0 };
 
-            //seriesP1.Slices.Add(new PieSlice("Africa", 1030) { IsExploded = false, Fill = OxyColors.PaleVioletRed });
-            //seriesP1.Slices.Add(new PieSlice("Rent", 350));
-            //seriesP1.Slices.Add(new PieSlice("Groceries", 150));
-            //seriesP1.Slices.Add(new PieSlice("Utilities", 50));
-            //seriesP1.Slices.Add(new PieSlice("Other", 200));
-
+            //create pie slices
             foreach(var bill in m_bills)
             {
                 seriesP1.Slices.Add(new PieSlice(bill.Item1, bill.Item2));
@@ -73,18 +63,11 @@ namespace Whos_Home
             SetActionBar(toolbar);
             ActionBar.Title = "Bulletins";
 
-
             //initialize bottom toolbar
             var editToolbar = FindViewById<Toolbar>(Resource.Id.edit_toolbar);
             //editToolbar.Title = "Navigate";
             editToolbar.InflateMenu(Resource.Menu.edit_menus);
             editToolbar.MenuItemClick += NavigateMenu;
-
-            //(sender, e) => {
-            //Toast.MakeText(this, "Bottom toolbar tapped: " + e.Item.TitleFormatted, ToastLength.Short).Show();
-            //};
-
-
         }
 
         //Method is used to navigate between activities using the bottom toolbar

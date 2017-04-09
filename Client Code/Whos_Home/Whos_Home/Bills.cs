@@ -19,10 +19,10 @@ namespace Whos_Home
     [Activity(Label = "Bills")]
     class Bills : Activity
     {
-        private ListView listview;
-        private Button BNewBill, BillsHistory, CurrentBills, CreateGraph;
-        private List<BillObj> all_bill_objs = new List<BillObj>();
-        private List<BillObj> user_bill_objs;
+        private ListView m_listview;
+        private Button B_NewBill, B_BillsHistory, B_CurrentBills, B_CreateGraph;
+        private List<BillObj> m_all_bill_objs = new List<BillObj>();
+        private List<BillObj> m_user_bill_objs;
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -36,21 +36,21 @@ namespace Whos_Home
         private async void InitializeFormat()
         {
             //Set new bill button
-            BNewBill = FindViewById<Button>(Resource.Id.buttonNewBill);
-            BNewBill.Click += BNewBill_Click;
+            B_NewBill = FindViewById<Button>(Resource.Id.buttonNewBill);
+            B_NewBill.Click += BNewBill_Click;
 
-            BillsHistory = FindViewById<Button>(Resource.Id.buttonBillHistory);
-            BillsHistory.Click += BillsHistory_Click; ;
+            B_BillsHistory = FindViewById<Button>(Resource.Id.buttonBillHistory);
+            B_BillsHistory.Click += BillsHistory_Click; ;
 
-            CurrentBills = FindViewById<Button>(Resource.Id.buttonCurrentBills);
+            B_CurrentBills = FindViewById<Button>(Resource.Id.buttonCurrentBills);
 
-            CreateGraph = FindViewById<Button>(Resource.Id.buttonBillGraph);
-            CreateGraph.Click += CreateGraph_Click;
+            B_CreateGraph = FindViewById<Button>(Resource.Id.buttonBillGraph);
+            B_CreateGraph.Click += CreateGraph_Click;
 
-            listview = FindViewById<ListView>(Resource.Id.listviewBills);
+            m_listview = FindViewById<ListView>(Resource.Id.listviewBills);
 
             await UpdateAllBills();
-            CurrentBills.Click += CurrentBills_Click;
+            B_CurrentBills.Click += CurrentBills_Click;
             //  CurrentBills.LongClick += CurrentBills_LongClick;
 
 
@@ -64,7 +64,7 @@ namespace Whos_Home
             float utilities = 0;
             float groceries = 0;
 
-            foreach (BillObj bill in all_bill_objs)
+            foreach (BillObj bill in m_all_bill_objs)
             {
                 switch(bill.Categoryid)
                 {
@@ -87,7 +87,6 @@ namespace Whos_Home
                     default:
                         Console.WriteLine("INVALID CATEGORY ID");
                         break;
-
                 }
             }
             if(other != 0)
@@ -99,9 +98,7 @@ namespace Whos_Home
             if(groceries != 0)
                 graph_vals.Add(new Tuple<string, float>("Groceries", groceries));
 
-
             Intent i = new Intent(Application.Context, typeof(BillsGraph));
-
 
             i.PutExtra("BillsList", JsonConvert.SerializeObject(graph_vals));
 
@@ -114,15 +111,15 @@ namespace Whos_Home
             RequestHandler request = new RequestHandler(this);
             var response = await request.GetBills(db.Retrieve("Token"), db.GetActiveGroup().GroupID);
 
-            Console.WriteLine("!!!!!!!!!!!!!!!!!!!BILLS!!!!!!!!!!!!!!!!!!!!!!");
+            //Console.WriteLine("!!!!!!!!!!!!!!!!!!!BILLS!!!!!!!!!!!!!!!!!!!!!!");
             JArray allbills = JArray.Parse(response.Content);
             foreach(JToken token in allbills)
             {
-                all_bill_objs.Add(new BillObj(token));
+                m_all_bill_objs.Add(new BillObj(token));
                 Console.WriteLine(new BillObj(token).ToString());
             }
 
-            listview.Adapter = new BillsListAdapter(this, all_bill_objs);
+            m_listview.Adapter = new BillsListAdapter(this, m_all_bill_objs);
         }
         /*
         public async Task UpdateUserBills()
@@ -130,8 +127,6 @@ namespace Whos_Home
             DB_Singleton db = DB_Singleton.Instance;
             RequestHandler request = new RequestHandler(this);
            // var response = request.GetBills(db.Retrieve("Token"), db.Retrieve("Username"));
-            
-            
         }
         */
 
@@ -140,7 +135,7 @@ namespace Whos_Home
             if (content != "[]" && content != "")
             {
                 JArray all_objs = JArray.Parse(content);
-                user_bill_objs = new List<BillObj>();
+                m_user_bill_objs = new List<BillObj>();
                 foreach(JToken tok in all_objs)
                 {
                     //user_bill_objs.Add(new BillObj(tok[""]))
@@ -169,9 +164,7 @@ namespace Whos_Home
             bills.Add(new Tuple<string, float>("Utilities", 60));
             bills.Add(new Tuple<string, float>("Other", 150));
 
-
             Intent i = new Intent(Application.Context, typeof(BillsGraph));
-
 
             i.PutExtra("BillsList", JsonConvert.SerializeObject(bills));
 
@@ -181,8 +174,7 @@ namespace Whos_Home
         }
 
         private void BNewBill_Click(object sender, EventArgs e)
-        {
-            
+        {           
             Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
             BillsNew NewBillDialog = new BillsNew();
             NewBillDialog.Show(transaction, "dialog fragment create new bill");
@@ -193,20 +185,13 @@ namespace Whos_Home
             //initialize top toolbar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             SetActionBar(toolbar);
-            ActionBar.Title = "Bulletins";
-
+            ActionBar.Title = "Bills";
 
             //initialize bottom toolbar
             var editToolbar = FindViewById<Toolbar>(Resource.Id.edit_toolbar);
             //editToolbar.Title = "Navigate";
             editToolbar.InflateMenu(Resource.Menu.edit_menus);
             editToolbar.MenuItemClick += NavigateMenu;
-
-            //(sender, e) => {
-            //Toast.MakeText(this, "Bottom toolbar tapped: " + e.Item.TitleFormatted, ToastLength.Short).Show();
-            //};
-
-
         }
 
         //Method is used to navigate between activities using the bottom toolbar

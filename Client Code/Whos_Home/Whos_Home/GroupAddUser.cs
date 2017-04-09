@@ -16,14 +16,14 @@ namespace Whos_Home
 {
     class GroupAddUser : DialogFragment
     {
-        private Button Confirm;
-        private Button Cancel;
-        private string invitee;
-        private string groupname; //here ya go
+        private Button B_Confirm;
+        private Button B_Cancel;
+        private string m_invitee;
+        private string m_groupname; //here ya go
 
         public GroupAddUser(string group_name)
         {
-            groupname = group_name;
+            m_groupname = group_name;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -32,12 +32,12 @@ namespace Whos_Home
 
             var view = inflater.Inflate(Resource.Layout.AddUserToGroupDialog, container, false);
 
-            Confirm = view.FindViewById<Button>(Resource.Id.buttonConfirmAddUserToGroup);
-            Cancel = view.FindViewById<Button>(Resource.Id.buttonCancelAddUserToGroup);
+            B_Confirm = view.FindViewById<Button>(Resource.Id.buttonConfirmAddUserToGroup);
+            B_Cancel = view.FindViewById<Button>(Resource.Id.buttonCancelAddUserToGroup);
 
             //add click functions for buttons
-            Confirm.Click += Confirm_Click;
-            Cancel.Click += Cancel_Click;
+            B_Confirm.Click += Confirm_Click;
+            B_Cancel.Click += Cancel_Click;
 
             return view;
         }
@@ -46,11 +46,12 @@ namespace Whos_Home
         {
             RequestHandler request = new RequestHandler(Context);
             var db = DB_Singleton.Instance;
-            var groupid = DB_Singleton.Instance.SearchGroup(groupname).GroupID;
-            invitee = View.FindViewById<EditText>(Resource.Id.edittextAddUserToGroupDialog).Text;
+            var groupid = DB_Singleton.Instance.SearchGroup(m_groupname).GroupID;
+
+            m_invitee = View.FindViewById<EditText>(Resource.Id.edittextAddUserToGroupDialog).Text;
             var token = db.Retrieve("Token");
             
-            var response = await request.SendInvitation(token, groupid, invitee);
+            var response = await request.SendInvitation(token, groupid, m_invitee);
             
             if((int)response.StatusCode == 200)
             {

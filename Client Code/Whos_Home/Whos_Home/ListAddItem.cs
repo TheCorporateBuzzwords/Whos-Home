@@ -18,10 +18,10 @@ namespace Whos_Home
 {
     class ListAddItem : DialogFragment
     {
-        private Button bConfrim, bCancel;
-        private EditText editText;
+        private Button B_Confrim, B_Cancel;
+        private EditText m_editText;
         private ListsObj m_list;
-        View view;
+        View m_view;
 
         public ListAddItem(ListsObj list)
         {
@@ -32,18 +32,18 @@ namespace Whos_Home
         {
             base.OnCreateView(inflater, container, savedInstanceState);
 
-            view = inflater.Inflate(Resource.Layout.ListAddItem, container, false);
+            m_view = inflater.Inflate(Resource.Layout.ListAddItem, container, false);
 
             //set values for private attributes
-            bConfrim = view.FindViewById<Button>(Resource.Id.buttonConfirmListAddItem);
-            bCancel = view.FindViewById<Button>(Resource.Id.buttonCancelListAddItem);
-            editText = view.FindViewById<EditText>(Resource.Id.edittextListAddItem);
+            B_Confrim = m_view.FindViewById<Button>(Resource.Id.buttonConfirmListAddItem);
+            B_Cancel = m_view.FindViewById<Button>(Resource.Id.buttonCancelListAddItem);
+            m_editText = m_view.FindViewById<EditText>(Resource.Id.edittextListAddItem);
 
             //set click functions
-            bConfrim.Click += BConfrim_Click;
-            bCancel.Click += BCancel_Click;
+            B_Confrim.Click += BConfrim_Click;
+            B_Cancel.Click += BCancel_Click;
 
-            return view;
+            return m_view;
 
         }
 
@@ -53,7 +53,7 @@ namespace Whos_Home
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");
             string groupid = db.GetActiveGroup().GroupID;
-            var response = await request.PostNewListItem(token, groupid, m_list.Topicid, editText.Text);
+            var response = await request.PostNewListItem(token, groupid, m_list.Topicid, m_editText.Text);
             if((int)response.StatusCode == 200)
             {
                 Toast.MakeText(Context, "Item Posted", ToastLength.Long);
@@ -63,8 +63,6 @@ namespace Whos_Home
                 Toast.MakeText(Context, "Post Failed", ToastLength.Long);
 
             }
-            //JArray preParse = JArray.Parse(response.Content);
-
         }
 
         private void BCancel_Click(object sender, EventArgs e)
@@ -76,12 +74,12 @@ namespace Whos_Home
         private async void BConfrim_Click(object sender, EventArgs e)
         {
             //Implement new list item functionality
-            string itemname = editText.Text;
+            string itemname = m_editText.Text;
             await PostItem();
-            Toast.MakeText(view.Context, "Item Added: " + itemname,
+            Toast.MakeText(m_view.Context, "Item Added: " + itemname,
                ToastLength.Short).Show();
 
-            editText.Text = "";
+            m_editText.Text = "";
 
             //Dismiss();
         }

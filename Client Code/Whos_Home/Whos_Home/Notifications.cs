@@ -18,26 +18,30 @@ namespace Whos_Home
     [Activity(Label = "Notifications")]
     public class Notifications : Activity
     {
-        private Button Brefresh;
-        private List<Invitations> activeInvites;
-        private ListView notificationslistview;
-        private List<string> message = new List<string>();
-        private List<string> notif_type = new List<string>();
-        private int prevent_duplicates = 0;
+        private Button B_Refresh;
+        private List<Invitations> m_activeInvites;
+        private ListView m_notificationslistview;
+        private List<string> m_message = new List<string>();
+        private List<string> m_notif_type = new List<string>();
+        private int m_prevent_duplicates = 0;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Notifications);
 
-            Brefresh = FindViewById<Button>(Resource.Id.ButtonRefresh);
-            Brefresh.Click += Brefresh_Click;
 
-            notificationslistview = FindViewById<ListView>(Resource.Id.notificationslistview);
-            notificationslistview.ItemClick += Notificationslistview_ItemClick;
-
+            InitializeFormat();
             InitializeToolbars();
+        }
 
+        private void InitializeFormat()
+        {
+            B_Refresh = FindViewById<Button>(Resource.Id.ButtonRefresh);
+            B_Refresh.Click += Brefresh_Click;
 
+            m_notificationslistview = FindViewById<ListView>(Resource.Id.notificationslistview);
+            m_notificationslistview.ItemClick += Notificationslistview_ItemClick;
         }
 
         private void Notificationslistview_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -46,20 +50,18 @@ namespace Whos_Home
             var position = e.Position;
 
             //If the notification is a group invitation
-            if(notif_type.ElementAt<string>(position).ToString() == "Group Invite")
+            if(m_notif_type.ElementAt<string>(position).ToString() == "Group Invite")
             {
                 FragmentTransaction transaction = FragmentManager.BeginTransaction();
-                InviteAcceptDialog Dialog = new InviteAcceptDialog(activeInvites.ElementAt<Invitations>(position));
+                InviteAcceptDialog Dialog = new InviteAcceptDialog(m_activeInvites.ElementAt<Invitations>(position));
                 Dialog.Show(transaction, "dialog fragment accept invite");
 
                 //After dialog box closes, remove invitations
-                message.RemoveAt(position);
-                activeInvites.RemoveAt(position);
-                notif_type.RemoveAt(position);
-                notificationslistview.Adapter = new GroupListAdapter(this, notif_type, message);
-                prevent_duplicates--;
-
-
+                m_message.RemoveAt(position);
+                m_activeInvites.RemoveAt(position);
+                m_notif_type.RemoveAt(position);
+                m_notificationslistview.Adapter = new GroupListAdapter(this, m_notif_type, m_message);
+                m_prevent_duplicates--;
             }
         }
 
@@ -71,25 +73,23 @@ namespace Whos_Home
 
             var response = await request.GetInvitations(db.Retrieve("Token"));
 
-            activeInvites = ConvertJson(response);
+            m_activeInvites = ConvertJson(response);
 
             //Prevents duplicating notifications when refreshing
-            if (prevent_duplicates != activeInvites.Count)
+            if (m_prevent_duplicates != m_activeInvites.Count)
             {
                 //create messages for the listview
-                for (int i = 0; i < activeInvites.Count; ++i)
+                for (int i = 0; i < m_activeInvites.Count; ++i)
                 {
-                    message.Insert(i, activeInvites.ElementAt<Invitations>(i).Invitee +
-                        " has invited you to join " + activeInvites.ElementAt<Invitations>(i).Groupname);
+                    m_message.Insert(i, m_activeInvites.ElementAt<Invitations>(i).Invitee +
+                        " has invited you to join " + m_activeInvites.ElementAt<Invitations>(i).Groupname);
 
-                    notif_type.Insert(i, "Group Invite");
+                    m_notif_type.Insert(i, "Group Invite");
                 }
-                notificationslistview.Adapter = new GroupListAdapter(this, notif_type, message);
+                m_notificationslistview.Adapter = new GroupListAdapter(this, m_notif_type, m_message);
             }
 
-            prevent_duplicates = activeInvites.Count;
-
-
+            m_prevent_duplicates = m_activeInvites.Count;
         }
 
         private List<Invitations> ConvertJson(IRestResponse response)
@@ -114,18 +114,11 @@ namespace Whos_Home
             SetActionBar(toolbar);
             ActionBar.Title = "Notifications";
 
-
             //initialize bottom toolbar
             var editToolbar = FindViewById<Toolbar>(Resource.Id.edit_toolbar);
             //editToolbar.Title = "Navigate";
             editToolbar.InflateMenu(Resource.Menu.edit_menus);
             editToolbar.MenuItemClick += NavigateMenu;
-
-            //(sender, e) => {
-            //Toast.MakeText(this, "Bottom toolbar tapped: " + e.Item.TitleFormatted, ToastLength.Short).Show();
-            //};
-
-
         }
 
         //Method is used to navigate between activities using the bottom toolbar
@@ -138,6 +131,10 @@ namespace Whos_Home
             //Start the Locations activity
             if (e.Item.ToString() == "Locations")
                 this.StartActivity(typeof(Locations));
+
+            //Start the Lists activity
+            if (e.Item.ToString() == "Lists")
+                this.StartActivity(typeof(Lists));
 
             //Start the Lists activity
             if (e.Item.ToString() == "Bills")

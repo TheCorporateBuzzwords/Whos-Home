@@ -22,8 +22,8 @@ namespace Whos_Home
 {
     class LocationAddFragment : DialogFragment
     {
-        ListView NetworkList;
-        Button BCancel, BConfirm;
+        ListView m_NetworkList;
+        Button B_Cancel;
         List<string> WifiNetworks = new List<string>();
         List<string> WifiNetworkKey = new List<string>();
 
@@ -33,12 +33,12 @@ namespace Whos_Home
             var view = inflater.Inflate(Resource.Layout.AddLocation, container, false);
 
             //Initialize listview and cancel button
-            NetworkList = view.FindViewById<ListView>(Resource.Id.locationlistview);
-            BCancel = view.FindViewById<Button>(Resource.Id.CancelAddNewLocationButton);
+            m_NetworkList = view.FindViewById<ListView>(Resource.Id.locationlistview);
+            B_Cancel = view.FindViewById<Button>(Resource.Id.CancelAddNewLocationButton);
 
 
-            BCancel.Click += BCancel_Click;
-            NetworkList.ItemClick += NetworkList_ItemClick;
+            B_Cancel.Click += BCancel_Click;
+            m_NetworkList.ItemClick += NetworkList_ItemClick;
 
              //Set up a wifimanager to gather wifi scan results
              WifiManager wifimanager = (WifiManager)Context.GetSystemService(Context.WifiService);
@@ -60,9 +60,8 @@ namespace Whos_Home
                 }
             }
 
-
             //Places scanned SSID values into the listview
-            NetworkList.Adapter = new ArrayAdapter<string>(Context, Android.Resource.Layout.SimpleListItem1, WifiNetworks);
+            m_NetworkList.Adapter = new ArrayAdapter<string>(Context, Android.Resource.Layout.SimpleListItem1, WifiNetworks);
             return view;
         }
 
@@ -79,8 +78,8 @@ namespace Whos_Home
             var group = db.GetActiveGroup();
 
             //adds location to the db using the db_singleton active groupID
-
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
+
             List<string> locations = await GetLocations();
             if (locations.Contains(selected))
                 SsidTaken();

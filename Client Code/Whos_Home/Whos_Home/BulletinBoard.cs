@@ -23,9 +23,10 @@ namespace Whos_Home
     [Activity(Label = "MessageBoard")]
     class BulletinBoard : Activity
     {
-        private List<BulletinPostObj> posts = new List<BulletinPostObj>();
-        private Button NewPostButton;
-        private ListView listView;
+        private List<BulletinPostObj> m_posts = new List<BulletinPostObj>();
+        private Button B_post;
+        private ListView m_listView;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -34,33 +35,31 @@ namespace Whos_Home
             SetContentView(Resource.Layout.MessageBoard);
 
             InitializeToolbars();
-
             InitializeFormat();
-
         }
         //titles and messsages will be stored and can be accessed when loading
         //a bulletin in a separate window.
  
         private async void InitializeFormat()
         {
-            NewPostButton = FindViewById<Button>(Resource.Id.NewPostButton);
-            NewPostButton.Click += NewPostButton_Click;
+            B_post = FindViewById<Button>(Resource.Id.NewPostButton);
+            B_post.Click += NewPostButton_Click;
 
-            listView = FindViewById<ListView>(Resource.Id.messagelistview);
-            listView.ItemClick += OnMessageItemClick;
-            listView.ItemLongClick += OnMessageLongClick;
+            m_listView = FindViewById<ListView>(Resource.Id.messagelistview);
+            m_listView.ItemClick += OnMessageItemClick;
+            m_listView.ItemLongClick += OnMessageLongClick;
 
             await UpdatePosts();
         }
 
         public async Task UpdatePosts()
         {
-            posts = await new BulletinList().UpdateList();
+            m_posts = await new BulletinList().UpdateList();
 
             //reverse titles and messages so they are shown correctly in bulletinboard
-            posts.Reverse();
+            m_posts.Reverse();
 
-            listView.Adapter = new BulletinListAdapter(this, posts);
+            m_listView.Adapter = new BulletinListAdapter(this, m_posts);
         }
 
         //Click method for NewPostButton
@@ -71,7 +70,7 @@ namespace Whos_Home
             BulletinNew NewMessageDialog = new BulletinNew();
             NewMessageDialog.Show(transaction, "dialog fragment new message");
 
-            listView.Adapter = new BulletinListAdapter(this, posts);
+            m_listView.Adapter = new BulletinListAdapter(this, m_posts);
         }
 
         void OnMessageLongClick(object sender, AdapterView.ItemLongClickEventArgs e)
@@ -95,7 +94,6 @@ namespace Whos_Home
             });
             Dialog dialog = alert.Create();
             dialog.Show();
-
         }
 
 
@@ -105,8 +103,9 @@ namespace Whos_Home
             
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");
-            var response = await request.DeletePost(token, db.GetActiveGroup().GroupID, posts[position].Topicid);
+            var response = await request.DeletePost(token, db.GetActiveGroup().GroupID, m_posts[position].Topicid);
         }
+
         //function is called when a message title is selected from the message board
         //the function opens the message in a new activity (Bulletin.cs)
         void OnMessageItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -117,7 +116,7 @@ namespace Whos_Home
             //creates an intent for a Bulletin activity
             Intent i = new Intent(Application.Context, typeof(Bulletin));
 
-            i.PutExtra("PostObject", JsonConvert.SerializeObject(posts[position]));
+            i.PutExtra("PostObject", JsonConvert.SerializeObject(m_posts[position]));
 
             StartActivity(i);
 
@@ -154,13 +153,11 @@ namespace Whos_Home
             SetActionBar(toolbar);
             ActionBar.Title = "Bulletins";
 
-
             //initialize bottom toolbar
             var editToolbar = FindViewById<Toolbar>(Resource.Id.edit_toolbar);
             //editToolbar.Title = "Navigate";
             editToolbar.InflateMenu(Resource.Menu.edit_menus);
-            editToolbar.MenuItemClick += NavigateMenu;
-                
+            editToolbar.MenuItemClick += NavigateMenu;              
         }
 
         //Method is used to navigate between activities using the bottom toolbar

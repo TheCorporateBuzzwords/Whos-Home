@@ -15,21 +15,21 @@ namespace Whos_Home
 {
     class BulletinCommentListAdapter : BaseAdapter<List<CommentObj>>
     {
-        private List<CommentObj> Comments;
-        private Activity context;
+        private List<CommentObj> m_Comments;
+        private Activity m_context;
 
         public BulletinCommentListAdapter(Activity context, List<CommentObj> comments) : base()
         {
-            Comments = new List<CommentObj>();
-            this.context = context;
+            m_Comments = new List<CommentObj>();
+            this.m_context = context;
             if(comments.Count != 0)
-                Comments = comments;
+                m_Comments = comments;
         }
         public override List<CommentObj> this[int position]
         {
             get
             {
-                return Comments;
+                return m_Comments;
             }
         }
 
@@ -37,7 +37,7 @@ namespace Whos_Home
         {
             get
             {
-                return Comments.Count;
+                return m_Comments.Count;
             }
         }
 
@@ -50,10 +50,10 @@ namespace Whos_Home
         {
             View view = convertView; // re-use an existing view, if one is supplied
             if (view == null) // otherwise create a new one
-                view = context.LayoutInflater.Inflate(Resource.Layout.BulletinCommentCustomView, null);
+                view = m_context.LayoutInflater.Inflate(Resource.Layout.BulletinCommentCustomView, null);
 
-            view.FindViewById<TextView>(Resource.Id.BulletinCommentText1).Text = Comments[position].Author;
-            view.FindViewById<TextView>(Resource.Id.BulletinCommentText2).Text = Comments[position].Message;
+            view.FindViewById<TextView>(Resource.Id.BulletinCommentText1).Text = m_Comments[position].Author;
+            view.FindViewById<TextView>(Resource.Id.BulletinCommentText2).Text = m_Comments[position].Message;
 
             return view;
         }

@@ -19,7 +19,6 @@ namespace Whos_Home
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.BillsNewSpecifyAmounts, container, false);
 
-
             return view;
         }
     }

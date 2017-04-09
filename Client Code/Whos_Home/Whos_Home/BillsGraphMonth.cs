@@ -14,14 +14,14 @@ namespace Whos_Home
 {
     class BillsGraphMonth : DialogFragment
     {
-        private Spinner spinner;
+        private Spinner m_spinner;
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.BillsGraphMonth, container, false);
 
-            spinner = view.FindViewById<Spinner>(Resource.Id.BillsGraphMonthSpinner);
-            spinner.Adapter = new ArrayAdapter<string>(Context, Android.Resource.Layout.SimpleSpinnerItem, GetMonths());
+            m_spinner = view.FindViewById<Spinner>(Resource.Id.BillsGraphMonthSpinner);
+            m_spinner.Adapter = new ArrayAdapter<string>(Context, Android.Resource.Layout.SimpleSpinnerItem, GetMonths());
 
             return view;
         }
@@ -44,7 +44,6 @@ namespace Whos_Home
             months.Add("December");
 
             return months;
-
         }
 
         public static implicit operator BillsGraphMonth(BillsNew v)

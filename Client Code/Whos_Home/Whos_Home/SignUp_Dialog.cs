@@ -20,8 +20,9 @@ namespace Whos_Home
 {
     class SignUp_Dialog : DialogFragment
     {
-        private Button SignUpButton;
+        private Button B_SignUp;
         private string url = null;
+
         public override Android.Views.View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
@@ -30,15 +31,13 @@ namespace Whos_Home
 
             url = Context.Resources.GetString(Resource.String.url);
 
-            SignUpButton = view.FindViewById<Button>(Resource.Id.buttonConfirm);
+            B_SignUp = view.FindViewById<Button>(Resource.Id.buttonConfirm);
 
             //sets click function for the confirm button;
-            SignUpButton.Click += SignUpAttempt;
+            B_SignUp.Click += SignUpAttempt;
 
             return view;
-
         }
-
 
         public async void SignUpAttempt(object sender, System.EventArgs e)
         {
@@ -104,8 +103,8 @@ namespace Whos_Home
             });
             Dialog dialog = alert.Create();
             dialog.Show();
-
         }
+
         private void InvalidInput()
         {
                 AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
@@ -121,9 +120,9 @@ namespace Whos_Home
                 Dialog dialog = alert.Create();
                 dialog.Show();
         }
+
         private void InsertInDB(string username, string email, string firstname, IRestResponse response)
         {
-            //DB_Singleton InitDB
 
             DB_Singleton instance = DB_Singleton.Instance;
 
@@ -134,7 +133,6 @@ namespace Whos_Home
             string token = (string)respJson["token"];
 
             instance.InitialInsert(token, username, email, firstname);
-
         }
     }
 }

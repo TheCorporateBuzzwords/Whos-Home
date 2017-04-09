@@ -15,16 +15,16 @@ namespace Whos_Home
 {
     class BulletinAddComment : DialogFragment
     {
-        private string message;
-        private Button bSubmit;
-        private EditText MessageText;
+        private string m_message;
+        private Button B_submit;
+        private EditText m_MessageText;
         //post object
-        private BulletinPostObj post;
+        private BulletinPostObj m_post;
 
         public BulletinAddComment(BulletinPostObj bulletinPost)
         {
             //post object
-            post = bulletinPost;
+            m_post = bulletinPost;
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -32,10 +32,10 @@ namespace Whos_Home
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.BulletinCommentAdd, container, false);
 
-            bSubmit = view.FindViewById<Button>(Resource.Id.buttonCreateComment);
-            bSubmit.Click += BSubmit_Click;
+            B_submit = view.FindViewById<Button>(Resource.Id.buttonCreateComment);
+            B_submit.Click += BSubmit_Click;
 
-            MessageText = view.FindViewById<EditText>(Resource.Id.edittextcomment);
+            m_MessageText = view.FindViewById<EditText>(Resource.Id.edittextcomment);
 
             return view;
         }
@@ -43,13 +43,10 @@ namespace Whos_Home
 
         private  void BSubmit_Click(object sender, EventArgs e)
         {
-            message = MessageText.Text;
+            m_message = m_MessageText.Text;
 
             AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
             alert.SetTitle("Submit Comment?");
-
-
-            //alert.SetMessage("Would you like to submit your comment?");
 
             alert.SetPositiveButton("Confirm", (senderAlert, args) => {
                 MakeReq();
@@ -72,16 +69,14 @@ namespace Whos_Home
                 string token = db.Retrieve("Token");
                 string groupid = db.GetActiveGroup().GroupID;
 
-                var response = await request.PostMessageReply(token, groupid, post.Topicid, message);
+                var response = await request.PostMessageReply(token, groupid, m_post.Topicid, m_message);
 
                 if((int)response.StatusCode == 200)
                 {
                     Toast.MakeText(Context, "Post Succesful", ToastLength.Long);
-
                 }
                 else
                 {
-
                 }
             Dismiss();
         }

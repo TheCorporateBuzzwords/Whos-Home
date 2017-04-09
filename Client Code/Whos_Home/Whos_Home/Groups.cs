@@ -19,11 +19,11 @@ namespace Whos_Home
     [Activity(Label = "Groups")]
     public class Groups : Activity
     {
-        private Button BCreateGroup;
-        private ListView listView;
-        private TextView textView;
-        private List<string> groupnames = new List<string>();
-        private List<string> nummembers = new List<string>();
+        private Button B_CreateGroup;
+        private ListView m_listView;
+        private TextView m_textView;
+        private List<string> m_groupnames = new List<string>();
+        private List<string> m_nummembers = new List<string>();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -37,8 +37,8 @@ namespace Whos_Home
         {
             UpdateGroups();
 
-            BCreateGroup = FindViewById<Button>(Resource.Id.NewGroupButton);
-            BCreateGroup.Click += BCreateGroup_Click;
+            B_CreateGroup = FindViewById<Button>(Resource.Id.NewGroupButton);
+            B_CreateGroup.Click += BCreateGroup_Click;
         }
 
         public async void UpdateGroups()
@@ -49,19 +49,21 @@ namespace Whos_Home
             foreach (UserGroup group in userGroupList)
             {
                 //number of members in each group also needs to be added here
-                groupnames.Add(group.GroupName);
+                m_groupnames.Add(group.GroupName);
             }
 
-            listView = FindViewById<ListView>(Resource.Id.listviewGroups);
-            listView.Adapter = new GroupListAdapter(this, groupnames, nummembers);
-            textView = FindViewById<TextView>(Resource.Id.textviewGroups);
+            m_listView = FindViewById<ListView>(Resource.Id.listviewGroups);
+            m_listView.Adapter = new GroupListAdapter(this, m_groupnames, m_nummembers);
+            m_textView = FindViewById<TextView>(Resource.Id.textviewGroups);
 
             try
-            { textView.Text = "Current Group: " + db.GetActiveGroup().GroupName; }
+            { m_textView.Text = "Current Group: " + db.GetActiveGroup().GroupName; }
+
             catch
             { Console.WriteLine("No active group selected: Groups"); }
+
             //Set itemclick function for when a group is selected
-            listView.ItemClick += OnGroupItemClick;
+            m_listView.ItemClick += OnGroupItemClick;
         }
 
         private async Task<List<UserGroup>> PullGroups(string token)
@@ -73,7 +75,6 @@ namespace Whos_Home
             if ((int)response.StatusCode == 200)
                 groups = ParseContent(response.Content);
             
-
             return groups;
         }
 
@@ -91,7 +92,6 @@ namespace Whos_Home
             }
 
             return groups;
-
         }
 
         private void BCreateGroup_Click(object sender, EventArgs e)
@@ -107,7 +107,7 @@ namespace Whos_Home
             var position = e.Position;
 
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            GroupSelectDialog Dialog = new GroupSelectDialog(groupnames[position]);
+            GroupSelectDialog Dialog = new GroupSelectDialog(m_groupnames[position]);
             Dialog.Show(transaction, "dialog fragment new message");
         }
 
@@ -118,18 +118,11 @@ namespace Whos_Home
             SetActionBar(toolbar);
             ActionBar.Title = "Groups";
 
-
             //initialize bottom toolbar
             var editToolbar = FindViewById<Toolbar>(Resource.Id.edit_toolbar);
             //editToolbar.Title = "Navigate";
             editToolbar.InflateMenu(Resource.Menu.edit_menus);
             editToolbar.MenuItemClick += NavigateMenu;
-
-            //(sender, e) => {
-            //Toast.MakeText(this, "Bottom toolbar tapped: " + e.Item.TitleFormatted, ToastLength.Short).Show();
-            //};
-
-
         }
 
         //Method is used to navigate between activities using the bottom toolbar
