@@ -13,7 +13,7 @@ var router = require('express').Router();
  *********************/
 
 //route for creating a new group
-router.post('/:groupid(\\d+)', auth.CheckAuthToken, function (req, res) {
+router.post('/', auth.CheckAuthToken, function (req, res) {
     //Create a connection to the database
 
 
