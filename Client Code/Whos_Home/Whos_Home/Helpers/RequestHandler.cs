@@ -16,6 +16,18 @@ using Couchbase.Lite;
 
 namespace Whos_Home.Helpers
 {
+    /***********************************
+     * Class: Request Handler
+     * 
+     * Description: This class handles all
+     * requests to the server. 
+     * 
+     * TODO: Remove Constructor that accepts
+     * a context. The reason is to make it 
+     * non-Android specific. This requires 
+     * changing the current calls to the default
+     * constructor
+     * **********************************/
     class RequestHandler
     {
         private string url = null;
@@ -25,29 +37,28 @@ namespace Whos_Home.Helpers
         {
             url = context.Resources.GetString(Resource.String.url);
             client = new RestClient(url);
+
+            //Needed, because the Certificates are self signed
+            System.Net.ServicePointManager.ServerCertificateValidationCallback += (o, certificate, chain, errors) => true;
         }
         public RequestHandler()
         {
-            url = "http://75.142.141.235:3000";
+            url = "https://75.142.141.235:4433";
             client = new RestClient(url);
         }
         //Initial Request for login and signup
         public async Task<IRestResponse> SignIn(User user)
         {
-
             request = new RestRequest("/session", Method.POST);
-
             request.AddObject(user);
 
             var response = await client.ExecuteTaskAsync(request);
-
             return response;
         }
 
         public async Task<IRestResponse> SignUp(User user)
         {
             request = new RestRequest("/users", Method.POST);
-
             request.AddObject(user);
 
             return await client.ExecuteTaskAsync(request);
@@ -62,18 +73,6 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
-
-        /*public async Task<IRestResponse> InviteToGroup(string token, string groupID, string username)
-        {
-            request = new RestRequest("/groups/{groupid}/invitation/?{recipient}", Method.GET);
-            request.AddUrlSegment("groupid", groupID);
-            request.AddUrlSegment("recipient", username);
-            request.AddHeader("x-access-token", token);
-
-            var response = await client.ExecuteTaskAsync(request);
-            return response;
-
-        }*/
 
         public async Task<IRestResponse> PullGroups(string token)
         {

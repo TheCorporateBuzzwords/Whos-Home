@@ -19,7 +19,7 @@ namespace Whos_Home
         private Button B_Confirm;
         private Button B_Cancel;
         private string m_invitee;
-        private string m_groupname; //here ya go
+        private string m_groupname; 
 
         public GroupAddUser(string group_name)
         {

@@ -176,12 +176,11 @@
     <Compile Include="Helpers\Objects\ItemObj.cs" />
     <Compile Include="Helpers\ListObjects\IListObjHelper.cs" />
     <Compile Include="Helpers\Objects\ListsObj.cs" />
-    <Compile Include="Helpers\UpdateableList.cs" />
     <Compile Include="InviteAcceptDialog.cs" />
     <Compile Include="GroupAddUser.cs" />
     <Compile Include="BulletinCommentListAdapter.cs" />
     <Compile Include="Helpers\DB_Singleton.cs" />
-    <Compile Include="Helpers\Invitations.cs" />
+    <Compile Include="Helpers\ListObjects\Invitations.cs" />
     <Compile Include="Helpers\UserDB.cs" />
     <Compile Include="Helpers\Objects\UserGroup.cs" />
     <Compile Include="Helpers\Objects\UserLocation.cs" />

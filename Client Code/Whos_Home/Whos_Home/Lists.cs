@@ -53,9 +53,10 @@ namespace Whos_Home
 
         public async Task UpdateLists()
         {
-            //listnames = new List<string>();
-            //remaining_items = new List<string>();
+            
 
+            //TODO: Add this behavior to all List Objects in activities.
+            //Simplifies from a dozen lines to one
             m_listoflists = await new ListList().UpdateList();
 
             //find listview and set adapter and click function

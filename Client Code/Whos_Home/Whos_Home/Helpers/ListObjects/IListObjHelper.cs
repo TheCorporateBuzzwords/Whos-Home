@@ -15,6 +15,14 @@ using RestSharp;
 
 namespace Whos_Home.Helpers
 {
+    /********************************
+     * Lists that implement the IListObjHelper 
+     * are lists of a specific helper object.
+     * Each of these lists have the ability to update
+     * and delete items in the list. It simplifies
+     * the activities and keeps much of the logic 
+     * away from the activity itself.
+     * ******************************/
     interface IListObjHelper<T>
     {
         Task<List<T>> UpdateList();

@@ -20,6 +20,16 @@ using Newtonsoft.Json;
 
 namespace Whos_Home
 {
+    /***************************************
+     * Class: DB_Singleton
+     * 
+     * Description: This class handles all of
+     * the CRUD operations for the client side
+     * Database. Currently just a JSON Doc
+     * 
+     * TODO: Change db from a JSON file to
+     * to an actual NoSQL DB
+     * *************************************/
     public class DB_Singleton
     {
         private static DB_Singleton instance = null;
@@ -29,6 +39,11 @@ namespace Whos_Home
         private static string fullPath = null;
         DB_Singleton(){ }
 
+        /**********************************
+         * DB is a thread safe singleton
+         * to prevent stale data from old
+         * Activities
+         * ********************************/
         public static DB_Singleton Instance
         {
             get
@@ -52,25 +67,6 @@ namespace Whos_Home
 
             fullPath = Path.Combine(filePath, fileName);
             File.Delete(fullPath);
-             
-            /*
-            Manager manager = Manager.SharedInstance;
-
-            try
-            {
-                db = manager.GetDatabase("userinformation");
-            }
-            catch (CouchbaseLiteException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            */
-
-
         }
 
         public bool IsOnline()
@@ -94,26 +90,6 @@ namespace Whos_Home
             string json = JsonConvert.SerializeObject(new UserDB(firstname, username, email, token, true));
 
             File.WriteAllText(fullPath, json);
-            /*using (var streamWriter = new StreamWriter(fullPath, true))
-            {
-                streamWriter.WriteLine(json);
-            }
-            */
-
-            /*
-            Dictionary<string, object> properties = new Dictionary<string, object>
-            {
-                {"username", username },
-                {"firstname", firstname },
-                {"email", email },
-                {"token", token },
-                {"groups", new List<Tuple<string, string>>()}
-            };
-
-            Document document = db.CreateDocument();
-            document.PutProperties(properties);
-            docID = document.Id;
-            */
         }
 
 
@@ -128,12 +104,6 @@ namespace Whos_Home
             }
 
             return (string)JObject.Parse(json)[key];
-            /*
-            var doc = db.GetDocument(docID);
-            string result = (string)doc.Properties[key];
-            Console.WriteLine(result);
-            return result;
-            */
         }
 
         public List<UserGroup> GetUserGroups()
@@ -183,6 +153,11 @@ namespace Whos_Home
             File.WriteAllText(fullPath, jsonConversiton);
         }
 
+        /****************************************
+         * Function: ChangeActiveGroup
+         * Description: Changes the current active
+         * Group
+         * **************************************/
         public void ChangeActiveGroup(UserGroup activeGroup)
         {
             string json = null;
@@ -198,6 +173,12 @@ namespace Whos_Home
             File.WriteAllText(fullPath, userDBObj.ToString());
         }
 
+        /********************************
+         * Function: GetActiveGroup
+         * Description: Gets the current active
+         * group. Use this instead of Retrieve
+         * When getting the active Group
+         * ******************************/
         public UserGroup GetActiveGroup()
         {
             string json = null;
