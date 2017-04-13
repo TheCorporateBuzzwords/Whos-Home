@@ -21,7 +21,7 @@ namespace Whos_Home.Helpers
         string amount;
         string description;
         string title;
-        string date;
+        DateTime date;
         string recipientname;
         public BillObj(JToken token)
         {
@@ -30,7 +30,7 @@ namespace Whos_Home.Helpers
             Title = (string)token["Title"];
             Description = (string)token["Description"];
             Amount = (string)token["Amount"];
-            Date = (string)token["DateDue"];
+            Date = (DateTime)token["DateDue"];
             Recipientname = (string)token["Recipient"];
             Categoryid = (string)token["CategoryID"];
         }
@@ -113,7 +113,7 @@ namespace Whos_Home.Helpers
             }
         }
 
-        public string Date
+        public DateTime Date
         {
             get
             {

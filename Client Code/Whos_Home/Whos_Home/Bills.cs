@@ -49,7 +49,7 @@ namespace Whos_Home
 
             m_listview = FindViewById<ListView>(Resource.Id.listviewBills);
 
-            await UpdateAllBills();
+            await UpdateAllBills(0);
             B_CurrentBills.Click += CurrentBills_Click;
             //  CurrentBills.LongClick += CurrentBills_LongClick;
 
@@ -105,7 +105,7 @@ namespace Whos_Home
             StartActivity(i);
         }
 
-        public async Task UpdateAllBills()
+        public async Task UpdateAllBills(int type)
         {
             DB_Singleton db = DB_Singleton.Instance;
             RequestHandler request = new RequestHandler(this);
@@ -119,16 +119,13 @@ namespace Whos_Home
                 Console.WriteLine(new BillObj(token).ToString());
             }
 
-            m_listview.Adapter = new BillsListAdapter(this, m_all_bill_objs);
+            Tuple<List<BillObj>, List<BillObj>> SortedBills = SortBills(m_all_bill_objs);
+
+            if(type == 0)
+                m_listview.Adapter = new BillsListAdapter(this, SortedBills.Item1);
+            else
+                m_listview.Adapter = new BillsListAdapter(this, SortedBills.Item2);
         }
-        /*
-        public async Task UpdateUserBills()
-        {
-            DB_Singleton db = DB_Singleton.Instance;
-            RequestHandler request = new RequestHandler(this);
-           // var response = request.GetBills(db.Retrieve("Token"), db.Retrieve("Username"));
-        }
-        */
 
         void PushNewUsserList(string content)
         {
@@ -145,32 +142,19 @@ namespace Whos_Home
 
         private void CurrentBills_LongClick(object sender, View.LongClickEventArgs e)
         {
-            throw new NotImplementedException();
-        }
-
-        private void CurrentBills_Click(object sender, EventArgs e)
-        {
             Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
             BillsGraphMonth NewBillDialog = new BillsGraphMonth();
             NewBillDialog.Show(transaction, "dialog fragment bills graph month");
         }
 
-        private void BillsHistory_Click(object sender, EventArgs e)
+        private async void CurrentBills_Click(object sender, EventArgs e)
         {
-            List<Tuple<string, float>> bills = new List<Tuple<string, float>>();
+            await UpdateAllBills(0);
+        }
 
-            bills.Add(new Tuple<string, float>("Rent", 500));
-            bills.Add(new Tuple<string, float>("Groceries", 100));
-            bills.Add(new Tuple<string, float>("Utilities", 60));
-            bills.Add(new Tuple<string, float>("Other", 150));
-
-            Intent i = new Intent(Application.Context, typeof(BillsGraph));
-
-            i.PutExtra("BillsList", JsonConvert.SerializeObject(bills));
-
-            StartActivity(i);
-
-            //this.StartActivity(typeof(BillsGraph));
+        private async void BillsHistory_Click(object sender, EventArgs e)
+        {
+            await UpdateAllBills(1);
         }
 
         private void BNewBill_Click(object sender, EventArgs e)
@@ -178,6 +162,26 @@ namespace Whos_Home
             Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
             BillsNew NewBillDialog = new BillsNew();
             NewBillDialog.Show(transaction, "dialog fragment create new bill");
+        }
+
+        private Tuple<List<BillObj>, List<BillObj>> SortBills(List<BillObj> Bills)
+        {
+            List<BillObj> Current = new List<BillObj>();
+            List<BillObj> Past = new List<BillObj>();
+
+            foreach(BillObj bill in Bills)
+            {
+                if (bill.Date > DateTime.Now)
+                {
+                    Current.Add(bill);
+                }
+                else
+                    Past.Add(bill);
+            }
+
+            Tuple<List<BillObj>, List<BillObj>> Sorted = new Tuple<List<BillObj>, List<BillObj>>(Current, Past);
+
+            return Sorted;
         }
 
         private void InitializeToolbars()

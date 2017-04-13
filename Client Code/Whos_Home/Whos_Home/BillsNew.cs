@@ -154,8 +154,8 @@ namespace Whos_Home
                 category = "1";
 
             RequestHandler request = new RequestHandler(Context);
-            await request.PutBill(db.Retrieve("Token"), db.GetActiveGroup().GroupID, userid, category, title, "description", amount, DateTime.Now.ToString());
-            await ((Bills)Activity).UpdateAllBills();
+            await request.PutBill(db.Retrieve("Token"), db.GetActiveGroup().GroupID, userid, category, title, "description", amount, DateTime.Today);
+            await ((Bills)Activity).UpdateAllBills(0);
 
             Dismiss();
         }

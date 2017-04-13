@@ -313,7 +313,7 @@ namespace Whos_Home.Helpers
 
 
         //BILLS Requests
-        public async Task<IRestResponse> PutBill(string token, string groupid, string recipientid, string category, string title, string description, string ammount, string date)
+        public async Task<IRestResponse> PutBill(string token, string groupid, string recipientid, string category, string title, string description, string ammount, DateTime date)
         {
             request = new RestRequest(string.Format("/groups/{0}/bills/", groupid), Method.POST);
             request.AddHeader("x-access-token", token);
