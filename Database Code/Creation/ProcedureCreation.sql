@@ -137,3 +137,27 @@ Begin
 End //
 Delimiter;
 
+DELIMITER //
+CREATE PROCEDURE get_personal_bills
+  (IN gId BIGINT, IN rId BIGINT)
+BEGIN
+  SELECT BillID, GroupID, u1.UserName AS Sender, u2.UserName AS Recipient, CategoryID, Title, Description, Amount, DATE_FORMAT(DateDue, '%c/%d/%Y %r:%h:%s') AS DateDue
+  FROM Bills b
+  INNER JOIN Users u1 ON b.RecipientID = u1.UserID
+  INNER JOIN Users u2 ON b.SenderID = u2.UserID
+  WHERE GroupId = gId AND RecipientId = rId;
+END//
+DELIMITER;
+
+DELIMITER //
+CREATE PROCEDURE get_group_bills
+  (IN gId BIGINT)
+BEGIN
+  SELECT BillID, GroupID, u1.UserName AS Sender, u2.UserName AS Recipient, CategoryID, Title, Description, Amount, DATE_FORMAT(DateDue, '%c/%d/%Y %r:%h:%s') AS DateDue
+  FROM Bills b
+  INNER JOIN Users u1 ON b.RecipientID = u1.UserID
+  INNER JOIN Users u2 ON b.SenderID = u2.UserID
+  WHERE GroupId = gId;
+END//
+DELIMITER;
+
