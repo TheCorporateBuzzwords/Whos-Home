@@ -34,7 +34,7 @@ module.exports = function (app) {
                 }
                 else {
                     //Get the username of a user from the users table using the new username. This is a check for if the username is already taken
-                    config.pool.query('SELECT UserName FROM Users WHERE UserName = ' + config.pool.escape(req.body.Username), function (err, result, field) {
+                    config.pool.query("CALL get_username(" + config.pool.escape(req.body.Username) + ");", function (err, result, field) {
                         if (!result.length) {
                             callback(err);
                         }
@@ -51,7 +51,7 @@ module.exports = function (app) {
                 }
                 else {
                     //Get the email of a user from the users table using the new email. This is a check for if the email is already taken
-                    config.pool.query('SELECT UserName FROM Users WHERE Email = ' + config.pool.escape(req.body.Email), function (err, result, field) {
+                    config.pool.query('CALL get_email(' + config.pool.escape(req.body.Email) + ');', function (err, result, field) {
                         if (!result.length) {
                             callback(err);
                         }
@@ -64,7 +64,7 @@ module.exports = function (app) {
             //Insert the user into the database
             function insertIntoDB(callback) {
                 hashPassword(req.body.Password, function (err, hash, salt) {
-                    var request = 'INSERT INTO Users (UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot, LocationID, LocationActive) values (' + config.pool.escape(req.body.Username) + ', ' + config.pool.escape(req.body.Firstname) + ', ' + config.pool.escape(req.body.Lastname) + ', ' + config.pool.escape(req.body.Email) + ', \'' + hash + '\', \'' + salt + '\', false, false, null, false);';
+                    var request = 'CALL insert_user(' + config.pool.escape(req.body.Username) + ', ' + config.pool.escape(req.body.Firstname) + ', ' + config.pool.escape(req.body.Lastname) + ', ' + config.pool.escape(req.body.Email) + ', \'' + hash + '\', \'' + salt + '\');';
                     config.pool.query(request, function (err, result) {
                         if(!result) {
                             res.status(502).json({ status: "error", message: "failed to connect to SQL server" });
