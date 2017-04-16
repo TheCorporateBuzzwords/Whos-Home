@@ -6,7 +6,14 @@ var validator = require('validator');
 var auth = require('./../middlewares/auth');
 var jwt = require('jsonwebtoken');
 var router = require('express').Router();
+var admin = require("firebase-admin");
 
+var serviceAccount = require("../etc/firebase/whos-home-fcb1b-firebase-adminsdk-mm1oa-7a54483f9e.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "firebase-adminsdk-mm1oa@whos-home-fcb1b.iam.gserviceaccount.com"
+});
 
 /**********************
  * Group Route Handlers
@@ -14,9 +21,6 @@ var router = require('express').Router();
 
 //route for creating a new group
 router.post('/', auth.CheckAuthToken, function (req, res) {
-    //Create a connection to the database
-
-
     //Check for valid information in incoming JSON
     if (req.body.groupName) {
         //Call the add group procedure
