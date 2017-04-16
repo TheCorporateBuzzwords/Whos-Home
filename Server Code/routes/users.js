@@ -181,7 +181,7 @@ router.post('/', function (req, res) {
         });
 });
 
-router.post('/fcm', function (req, res) {
+router.put('/fcm', function (req, res) {
     if (req.body.regToken) {
         var requst = "UPDATE Users SET FirebaseToken = " + config.pool.escape(req.body.regToken) +
                      " WHERE UserID = " + req.body.decoded.UserID;
