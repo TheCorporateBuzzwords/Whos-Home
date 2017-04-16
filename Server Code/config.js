@@ -36,7 +36,7 @@ module.exports = {
         secret: "Wh0'SHoM3jWt$3cR3t^&*)!@'#+-4m^qs7ET5pQhkw!wE2W#KE"
     },
     httpsOptions: {
-        key: fs.readFileSync('./ssl/key.pem'),
-        cert: fs.readFileSync('./ssl/certificate.pem')
+        key: fs.readFileSync('./etc/ssl/key.pem'),
+        cert: fs.readFileSync('./etc/ssl/certificate.pem')
     }
 };
