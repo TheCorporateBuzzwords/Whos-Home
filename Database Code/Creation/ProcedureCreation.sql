@@ -161,3 +161,122 @@ BEGIN
 END//
 DELIMITER;
 
+SET @GROUPID = 43;
+SET @RID = 4;
+CALL get_personal_bills(4, 43);
+CALL get_group_bills(43);
+
+
+DELIMITER //
+CREATE PROCEDURE get_invites
+  (IN uId BIGINT, IN gId BIGINT)
+BEGIN
+  SELECT * 
+  FROM Invites 
+  WHERE RecipientID = uId AND GroupID = gId;
+END//
+DELIMITER;
+CALL get_invites(4, 49)
+
+
+
+DELIMITER //
+CREATE PROCEDURE accept_invite
+  (IN uId BIGINT, IN gId BIGINT)
+BEGIN
+  INSERT INTO User_Groups(UserID, GroupID) VALUES (uid, gid);
+  DELETE FROM Invites WHERE GroupId = gid AND RecipientID = uid;
+END//
+DELIMITER;
+
+CALL accept_invite(4, 49);
+
+DELIMITER //
+CREATE PROCEDURE get_user_group
+  (IN uId BIGINT, IN gId BIGINT)
+BEGIN
+  SELECT * FROM User_Groups WHERE UserID = uid AND GroupID = gid;
+END//
+DELIMITER;
+
+CALL get_user_group(1, 43);
+
+DELIMITER //
+CREATE PROCEDURE delete_invite
+  (IN gId BIGINT, IN rId BIGINT)
+BEGIN
+  DELETE FROM Invites WHERE GroupID = gId AND RecipientID = rId;
+END//
+DELIMITER;
+
+DELIMITER //
+CREATE PROCEDURE get_userid
+  (IN uName VARCHAR(20))
+BEGIN
+  SELECT UserID
+  FROM Users 
+  WHERE UserName = uName;
+END//
+DELIMITER;
+
+CALL get_userid('ogcris');
+
+DELIMITER //
+CREATE PROCEDURE insert_invite
+  (IN gId BIGINT, IN sId BIGINT, rId BIGINT) /*where gId = groupid, sId = senderid, and rId = recipientid*/
+BEGIN
+  INSERT INTO Invites (GroupID, InviterID, RecipientID) VALUES (gId, sId, rId);
+END//
+DELIMITER;
+
+CALL insert_invite(43, 2, 1);
+
+DELIMITER //
+CREATE PROCEDURE get_list_items
+(IN lId BIGINT)
+BEGIN
+SELECT Items.ItemID, Items.ListID, Items.UserID, Items.ItemText, Items.Completed, Items.PostTime, Users.UserName, Users.FirstName, Users.LastName 
+  FROM Items 
+  INNER JOIN Users 
+  ON Items.UserID = Users.UserID 
+  WHERE ListID = lId;
+END//
+DELIMITER;
+
+CALL get_list_items(34);
+SELECT * FROM Lists;
+
+
+DELIMITER //
+CREATE PROCEDURE get_username
+(IN uName VARCHAR(20))
+BEGIN
+SELECT UserName FROM Users WHERE UserName = uName;
+END//
+DELIMITER;
+
+CALL get_username('ogcris');
+
+DELIMITER //
+CREATE PROCEDURE get_email
+(IN uEmail VARCHAR(50))
+BEGIN
+SELECT UserName, Email
+FROM Users 
+WHERE Email = uemail;
+END//
+DELIMITER;
+
+CALL get_email('Email@test.com');
+
+DELIMITER //
+CREATE PROCEDURE insert_user
+(IN uName VARCHAR(20), IN fName VARCHAR(56), IN lName VARCHAR(56), IN uEmail VARCHAR(50), IN pass CHAR(128), IN salt CHAR(32))
+BEGIN
+INSERT INTO Users (UserName, FirstName, LastName, Email, Pass, Salt, Active, PushNot, LocationID, LocationActive)
+    VALUES (uName, fName, lName, uEmail, pass, salt, false, false, null, false);
+END//
+DELIMITER;
+
+CALL insert_user('mynameismyname', 'firstname', 'lastname', 'kdsjfs@email.nill', '9a6808581ea032be04b9b1502717885f8554f5e17775ef8ab2925fd51a07f1d74ac2d4e94e5e043a552e82de048db45827e39d8daf08434622d8d3c25cd85bac', '7f3e1cd079b87bba89b62870bed7b9db');
+
