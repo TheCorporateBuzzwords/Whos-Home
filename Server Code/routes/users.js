@@ -12,7 +12,7 @@ router.get('/groups', auth.CheckAuthToken, function (req, res) {
     if (req.body.decoded) {
         var getRequest = "Select g.GroupID, g.GroupName" +
                                 "From Users as u Inner Join User_Groups as ug" +
-                                "On u.UserID = ug.UserID" +
+                                "On u.UserID = ug.UserID " +
                                 "Inner Join Groups as g" +
                                 "on ug.GroupID = g.GroupID" +
                                 "Where u.UserID = " + req.body.decoded.UserID + ";";
