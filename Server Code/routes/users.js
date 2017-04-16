@@ -181,6 +181,20 @@ router.post('/', function (req, res) {
         });
 });
 
+router.post('/fcm', function (req, res) {
+    if (req.body.regToken) {
+        var requst = "UPDATE Users SET FirebaseToken = " + config.pool.escape(req.body.regToken) +
+                     " WHERE UserID = " + req.body.decoded.UserID;
+        config.pool.query(request, function() {
+            if (err) {
+                console.log(err);
+                return res.end();
+            }
+            res.status(200).json({ status: "success", message: "successfully registered user" });
+        });
+    }
+});
+
 function hashPassword(password, callback) {
     crypto.randomBytes(config.cryptoConfig.saltBytes, function (err, salt) {
         if (err) {
