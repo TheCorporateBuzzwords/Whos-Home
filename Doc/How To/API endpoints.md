@@ -29,6 +29,16 @@ PUT /users/location (authenticated)
 ### Get information for all invites targeted at a single user
 GET /users/invites (authenticated)
 
+### Update home location
+PUT /users/home (authenticated)
+
+\*ssid: ssid of home location
+
+### Register user for FCM
+POST /users/fcm (authenticated)
+
+\*regToken: registration token for FCM
+
 ## Session
 ### Login
 POST /session
