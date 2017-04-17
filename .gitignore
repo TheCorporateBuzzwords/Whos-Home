@@ -52,3 +52,9 @@ local.properties
 Doc/PowerPoints/~$WhosHomeSprint2.pptx
 
 config
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
