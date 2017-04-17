@@ -57,7 +57,11 @@ router.post('/home', auth.CheckAuthToken, function (req, res) {
     }
     var requst = "UPDATE Users SET Home = " + config.pool.escape(req.body.ssid) + " WHERE UserID = " + req.body.decoded.UserID;
     config.pool.query(request, function (err, result) {
-        
+        if (err) {
+            console.log(err);
+            return res.end();
+        }
+        return res.status(200).json({ status: "success", message: "added new home location." });
     });
 });
 router.put('/location', auth.CheckAuthToken, function (req, res) {
@@ -94,7 +98,7 @@ router.put('/location', auth.CheckAuthToken, function (req, res) {
             console.log(err);
         }
         else {
-            return res.status(200).json({ status: "success", message: "updated user's locations." });
+            return res.status(200).json({ status: "success", message: "updated user's location." });
         }
     });
 });
