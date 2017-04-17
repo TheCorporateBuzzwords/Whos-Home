@@ -50,9 +50,17 @@ router.get('/invites', auth.CheckAuthToken, function (req, res) {
         return res.status(400).json({ status: "error", message: "missing parameter in GET request" });
     }
 });
-
+router.post('/home', auth.CheckAuthToken, function (req, res) {
+    if(!req.body.ssid || req.body.ssid === null)
+    {
+        return res.status(400).json({ status: "error", message: "missing ssid" });
+    }
+    var requst = "UPDATE Users SET Home = " + config.pool.escape(req.body.ssid) + " WHERE UserID = " + req.body.decoded.UserID;
+    config.pool.query(request, function (err, result) {
+        
+    });
+});
 router.put('/location', auth.CheckAuthToken, function (req, res) {
-    
     if (!req.body.bssid || req.body.bssid === null) {
         return res.status(409).json({ status: "error", message: "missing bssid in request." });
     }
