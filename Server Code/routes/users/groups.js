@@ -9,12 +9,7 @@ router.get('/users/groups', auth.CheckAuthToken, function (req, res) {
 
     //Check that the needed stuff is in the JSON
     if (req.body.decoded) {
-        var getRequest = "Select g.GroupID, g.GroupName \
-                                From Users as u Inner Join User_Groups as ug \
-                                On u.UserID = ug.UserID \
-                                Inner Join Groups as g \
-                                on ug.GroupID = g.GroupID \
-                                Where u.UserID = " + req.body.decoded.UserID + ";";
+        var getRequest = "CALL get_group_info(" + req.body.decoded.UserID + ");";
 
         config.pool.query(getRequest, function (err, result) {
             if (err) {

@@ -14,7 +14,7 @@ module.exports = function(app) {
             return res.status(409).json({ status: "error", message: "Invalid recipient." });
         }
         //get userid
-        var getUseridQuery = "SELECT UserID FROM Users WHERE UserName = " + config.pool.escape(recipient);
+        var getUseridQuery = "CALL get_userid(" + config.pool.escape(recipient) + ");";
         config.pool.query(getUseridQuery, function(err, result) {
             if (err) {
                 console.log(err);
@@ -23,7 +23,7 @@ module.exports = function(app) {
             else if (result.length) {
                 var recipientID = result[0].UserID;
                 //insert invitation into database
-                var insertQuery = "INSERT INTO Invites (GroupID, InviterID, RecipientID) VALUES (" + req.params.groupid + ", " + req.body.decoded.UserID + ", " + recipientID + ");";
+                var insertQuery = "CALL insert_invite(" + req.params.groupid + ", " + req.body.decoded.UserID + ", " + recipientID + ");";
                 config.pool.query(insertQuery, function(err, result) {
                     if (err) {
                         console.log(err);
