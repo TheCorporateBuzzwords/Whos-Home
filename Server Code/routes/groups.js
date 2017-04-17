@@ -13,7 +13,7 @@ var router = require('express').Router();
  *********************/
 
 //route for creating a new group
-router.post('/:groupid(\\d+)', auth.CheckAuthToken, function (req, res) {
+router.post('/', auth.CheckAuthToken, function (req, res) {
     //Create a connection to the database
 
 
@@ -51,12 +51,23 @@ router.post('/:groupid(\\d+)', auth.CheckAuthToken, function (req, res) {
 router.get('/:groupid(\\d+)', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
 
     if (req.body.decoded) { //Had to do a left join in this query or else nothing would be returned if a group had no locations.
-        var request = "SELECT UserName, GroupName, NetName, Users.UserID" +
-                            "FROM Users" +
-                            "JOIN User_Groups ON Users.UserID = User_Groups.UserID" +
-                            "JOIN Groups ON User_Groups.GroupID = Groups.GroupID" +
-                            "left join Group_Locations ON Group_Locations.GroupID = Groups.GroupID AND Users.LocationID = Group_Locations.LocationID" +
-                            "WHERE Groups.GroupID = " + config.pool.escape(req.params.groupid);
+        // var request = "SELECT UserName, GroupName, NetName, Users.UserID" +
+        //                     "FROM Users" +
+        //                     "JOIN User_Groups ON Users.UserID = User_Groups.UserID" +
+        //                     "JOIN Groups ON User_Groups.GroupID = Groups.GroupID" +
+        //                     "left join Group_Locations ON Group_Locations.GroupID = Groups.GroupID AND Users.LocationID = Group_Locations.LocationID" +
+        //                     "WHERE Groups.GroupID = " + config.pool.escape(req.params.groupid);
+        var request = "SELECT UserName, GroupName, (select NetName From Group_Locations Where LocationID = UL.LocationID) As NetName, Users.UserID " +
+                        "FROM Users " +
+                        "JOIN User_Groups ON Users.UserID = User_Groups.UserID " +
+                        "JOIN Groups ON User_Groups.GroupID = Groups.GroupID " +
+                        "left join User_Locations as UL " + 
+                        "ON UL.GroupID = Groups.GroupID " +
+                        "AND Users.UserID = UL.LocationID " +
+                        "WHERE Groups.GroupID = " + config.pool.escape(req.params.groupid);
+
+        console.log(request);
+
         config.pool.query(request, function (err, result) {
             return res.json(result);
         });
@@ -92,7 +103,7 @@ router.put('/:groupid(\\d+)/group/', [auth.CheckAuthToken, auth.CheckInGroup], f
 router.delete('/:groupid(\\d+)/:userid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
 
     //Check for all needed info
-    var deleteRequest = "";
+    var deleteRequest = "Call removeUserFromGroup(" + config.params.groupid + ", " + req.body.decoded.UserID + ")";
 
     config.pool.query(deleteRequest, function (err, result) {
         //If there is an error, log it
@@ -103,10 +114,8 @@ router.delete('/:groupid(\\d+)/:userid(\\d+)/', [auth.CheckAuthToken, auth.Check
         else {
             res.status(200);
             res.json({
-                status: "Error",
-                message: "Endpoint not finished."
-                //status: "success",
-                //message: "User successfully removed from Group."
+                status: "success",
+                message: "User successfully removed from group."
             });
         }
     });
@@ -178,7 +187,9 @@ router.post('/:groupid(\\d+)/bills/', [auth.CheckAuthToken, auth.CheckInGroup], 
 router.get('/:groupid(\\d+)/invitation/', auth.CheckAuthToken, function (req, res) {
 
     var checkInvite = "SELECT * FROM Invites WHERE RecipientID = " + req.body.decoded.UserID + " AND GroupID = " + req.params.groupid;
-    var insertQuery = "INSERT INTO User_Groups (UserID, GroupID) VALUES (" + req.body.decoded.UserID + ", " + req.params.groupid + "); DELETE FROM Invites WHERE GroupID = " + req.params.groupid + " AND RecipientID = " + req.body.decoded.UserID;
+    var insertQuery = "INSERT INTO User_Groups (UserID, GroupID) VALUES (" + req.body.decoded.UserID + ", " + req.params.groupid + "); \
+                        DELETE FROM Invites WHERE GroupID = " + req.params.groupid + " AND RecipientID = " + req.body.decoded.UserID + ";" +
+                        "Insert Into User_Locations (UserID, GroupID) Values (" + req.body.decoded.UserID + ", " + req.params.groupid + ");";
     var checkDupeQuery = "SELECT * FROM User_Groups WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + req.params.groupid;
     var deleteInvite = "DELETE FROM Invites WHERE GroupID = " + req.params.groupid + " AND RecipientID = " + req.body.decoded.UserID;
     config.pool.query(checkInvite, function (err, checkInviteResult) {

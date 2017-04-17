@@ -1,8 +1,8 @@
-USE WHOSHOME;
--- use jptest;
+-- USE WHOSHOME;
+use jptest;
 
  -- Drop table statements
-  Drop Table If Exists Bills, Category, Posts, Message_Topics, Items, Lists, User_Groups, Invites, Users, Group_Locations, Groups;
+  Drop Table If Exists Bills, Category, Posts, Message_Topics, Items, Lists, User_Groups, Invites, User_Locations, Users, Group_Locations, Groups;
 
  -- Table creaiton
 /*
@@ -52,6 +52,21 @@ Create Table Users (
   , LocationActive  bool
   , foreign key (LocationID) references Group_Locations(LocationID)
   , primary key (UserID)
+  ) ENGINE = INNODB;
+
+/*
+  Table: User_Locations
+  Purpose: Linking table to users and group locations. Allows a user to be 
+  at a single location for each group they are in.
+*/
+Create Table User_Locations (
+  UserID            bigint        not null
+  , LocationID      bigint        default null
+  , GroupID         bigint        not null
+  , foreign key (UserID) references Users(UserID)
+  , foreign key (LocationID) references Group_Locations(LocationID)
+  , foreign key (GroupID) references Groups(GroupID)
+  , primary key (UserID, GroupID)
   ) ENGINE = INNODB;
 
 /*
