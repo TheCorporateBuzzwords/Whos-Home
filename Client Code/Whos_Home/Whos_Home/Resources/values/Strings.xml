@@ -2,5 +2,5 @@
 <resources>
     <string name="Hello">Hello World, Click Me!</string>
     <string name="ApplicationName">Who\'s Home?</string>
-    <string name="url">"https://75.142.141.235:4433"</string>
+    <string name="url">"http://75.142.141.235:3000"</string>
 </resources>

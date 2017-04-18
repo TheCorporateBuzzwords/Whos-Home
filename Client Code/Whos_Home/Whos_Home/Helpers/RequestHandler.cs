@@ -43,7 +43,7 @@ namespace Whos_Home.Helpers
         }
         public RequestHandler()
         {
-            url = "https://75.142.141.235:4433";
+            url = "http://75.142.141.235:3000";
             client = new RestClient(url);
         }
         //Initial Request for login and signup
@@ -79,7 +79,15 @@ namespace Whos_Home.Helpers
             request = new RestRequest("/users/groups", Method.GET);
             request.AddHeader("x-access-token", token);
 
-            var response = await client.ExecuteTaskAsync(request);
+            IRestResponse response = new RestResponse();
+            try
+            {
+                response = await client.ExecuteTaskAsync(request);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
             return response;
         }
 
