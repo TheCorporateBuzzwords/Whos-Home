@@ -331,7 +331,7 @@ namespace Whos_Home.Helpers
             request.AddParameter("title", title);
             request.AddParameter("description", description);
             request.AddParameter("amount", ammount);
-            request.AddParameter("date", date);
+            request.AddParameter("date", date.ToString());
 
             var response = await client.ExecuteTaskAsync(request);
             return response;

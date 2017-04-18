@@ -49,60 +49,17 @@ namespace Whos_Home
 
             m_listview = FindViewById<ListView>(Resource.Id.listviewBills);
 
+            m_all_bill_objs.Clear();
             await UpdateAllBills(0);
             B_CurrentBills.Click += CurrentBills_Click;
-            //  CurrentBills.LongClick += CurrentBills_LongClick;
-
-
+            B_CurrentBills.LongClick += CurrentBills_LongClick;
         }
 
         private void CreateGraph_Click(object sender, EventArgs e)
         {
-            List<Tuple<string, float>> graph_vals = new List<Tuple<string, float>>();
-            float other = 0;
-            float rent = 0;
-            float utilities = 0;
-            float groceries = 0;
-
-            foreach (BillObj bill in m_all_bill_objs)
-            {
-                switch(bill.Categoryid)
-                {
-                    case "1":
-                        other += Convert.ToSingle(bill.Amount);
-                        break;
-
-                    case "2":
-                        rent += Convert.ToSingle(bill.Amount);
-                        break;
-
-                    case "3":
-                        utilities += Convert.ToSingle(bill.Amount);
-                        break;
-
-                    case "4":
-                        groceries += Convert.ToSingle(bill.Amount);
-                        break;
-
-                    default:
-                        Console.WriteLine("INVALID CATEGORY ID");
-                        break;
-                }
-            }
-            if(other != 0)
-                graph_vals.Add(new Tuple<string, float>("Other", other));
-            if(rent != 0)
-                graph_vals.Add(new Tuple<string, float>("Rent", rent));
-            if(utilities != 0)
-                graph_vals.Add(new Tuple<string, float>("Utilities", utilities));
-            if(groceries != 0)
-                graph_vals.Add(new Tuple<string, float>("Groceries", groceries));
-
-            Intent i = new Intent(Application.Context, typeof(BillsGraph));
-
-            i.PutExtra("BillsList", JsonConvert.SerializeObject(graph_vals));
-
-            StartActivity(i);
+            Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            BillsGraphMonth NewBillDialog = new BillsGraphMonth(m_all_bill_objs);
+            NewBillDialog.Show(transaction, "dialog fragment bills graph month");
         }
 
         public async Task UpdateAllBills(int type)
@@ -142,23 +99,67 @@ namespace Whos_Home
 
         private void CurrentBills_LongClick(object sender, View.LongClickEventArgs e)
         {
-            Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
-            BillsGraphMonth NewBillDialog = new BillsGraphMonth();
-            NewBillDialog.Show(transaction, "dialog fragment bills graph month");
+            List<Tuple<string, float>> graph_vals = new List<Tuple<string, float>>();
+            float other = 0;
+            float rent = 0;
+            float utilities = 0;
+            float groceries = 0;
+
+            foreach (BillObj bill in m_all_bill_objs)
+            {
+                switch (bill.Categoryid)
+                {
+                    case "1":
+                        other += Convert.ToSingle(bill.Amount);
+                        break;
+
+                    case "2":
+                        rent += Convert.ToSingle(bill.Amount);
+                        break;
+
+                    case "3":
+                        utilities += Convert.ToSingle(bill.Amount);
+                        break;
+
+                    case "4":
+                        groceries += Convert.ToSingle(bill.Amount);
+                        break;
+
+                    default:
+                        Console.WriteLine("INVALID CATEGORY ID");
+                        break;
+                }
+            }
+            if (other != 0)
+                graph_vals.Add(new Tuple<string, float>("Other", other));
+            if (rent != 0)
+                graph_vals.Add(new Tuple<string, float>("Rent", rent));
+            if (utilities != 0)
+                graph_vals.Add(new Tuple<string, float>("Utilities", utilities));
+            if (groceries != 0)
+                graph_vals.Add(new Tuple<string, float>("Groceries", groceries));
+
+            Intent i = new Intent(Application.Context, typeof(BillsGraph));
+
+            i.PutExtra("BillsList", JsonConvert.SerializeObject(graph_vals));
+
+            StartActivity(i);
         }
 
         private async void CurrentBills_Click(object sender, EventArgs e)
         {
+            m_all_bill_objs.Clear();
             await UpdateAllBills(0);
         }
 
         private async void BillsHistory_Click(object sender, EventArgs e)
         {
+            m_all_bill_objs.Clear();
             await UpdateAllBills(1);
         }
 
         private void BNewBill_Click(object sender, EventArgs e)
-        {           
+        {
             Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
             BillsNew NewBillDialog = new BillsNew();
             NewBillDialog.Show(transaction, "dialog fragment create new bill");

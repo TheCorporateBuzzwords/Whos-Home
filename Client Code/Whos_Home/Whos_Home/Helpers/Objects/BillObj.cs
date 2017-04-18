@@ -11,6 +11,8 @@ using Android.Views;
 using Android.Widget;
 
 using Newtonsoft.Json.Linq;
+using System.Globalization;
+
 namespace Whos_Home.Helpers
 {
     class BillObj
@@ -25,12 +27,15 @@ namespace Whos_Home.Helpers
         string recipientname;
         public BillObj(JToken token)
         {
+            string temp;
             Billid = (string)token["BillID"];
             Sendername = (string)token["Sender"];
             Title = (string)token["Title"];
             Description = (string)token["Description"];
             Amount = (string)token["Amount"];
-            Date = (DateTime)token["DateDue"];
+            temp = (string)token["DateDue"];
+            temp = temp.Remove(21, 6);
+            Date = Convert.ToDateTime(temp);
             Recipientname = (string)token["Recipient"];
             Categoryid = (string)token["CategoryID"];
         }

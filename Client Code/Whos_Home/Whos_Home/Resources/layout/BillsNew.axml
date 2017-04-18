@@ -76,8 +76,20 @@
     <ListView
         android:id="@+id/BillsNewListView"
         android:layout_width="fill_parent"
-        android:layout_weight="50"
+        android:layout_weight="40"
         android:layout_height="0dp" />
+    <Button
+        android:background="@drawable/blue_button"
+        android:text="Select Date"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:layout_weight="10"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/buttonBillsNewDateSelect"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:layout_marginBottom="5dip"   
+        android:textSize="15sp" />
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

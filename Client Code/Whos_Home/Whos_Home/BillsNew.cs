@@ -10,7 +10,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-
 using Whos_Home.Helpers;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
@@ -21,9 +20,10 @@ namespace Whos_Home
     {
         private ListView m_listview;
         private CheckBox m_checkbox;
-        private Button B_confirm, B_cancel;
+        private Button B_confirm, B_cancel, B_date;
         private EditText m_title, m_amount;
         private Spinner m_select_user;
+        private DateTime m_date;
         private List<string> m_users;
         private List<string> m_userIDs = new List<string>();
 
@@ -31,6 +31,10 @@ namespace Whos_Home
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.BillsNew, container, false);
+
+            //set date to end of month by default
+            DateTime date = DateTime.Now;
+            m_date = new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month));
             
             InitializeFormat(view);
 
@@ -42,6 +46,7 @@ namespace Whos_Home
             //initialize all components of dialog box
             B_cancel = view.FindViewById<Button>(Resource.Id.buttonBillsNewCancel);
             B_confirm = view.FindViewById<Button>(Resource.Id.buttonBillsNewConfirm);
+            B_date = view.FindViewById<Button>(Resource.Id.buttonBillsNewDateSelect);
 
             m_checkbox = view.FindViewById<CheckBox>(Resource.Id.BillsNewCheckbox);
             m_listview = view.FindViewById<ListView>(Resource.Id.BillsNewListView);
@@ -57,8 +62,9 @@ namespace Whos_Home
 
             //set click functions
             m_listview.ItemClick += M_listview_ItemClick;
-            B_cancel.Click += M_Bcancel_Click;
-            B_confirm.Click += M_Bconfirm_Click;
+            B_cancel.Click += Bcancel_Click;
+            B_date.Click += Bdate_Click;
+            B_confirm.Click += Bconfirm_Click;
 
             //get categories for bill type
             var categories = GetCategories();
@@ -113,7 +119,7 @@ namespace Whos_Home
             return users;
         }
 
-        private async void M_Bconfirm_Click(object sender, EventArgs e)
+        private async void Bconfirm_Click(object sender, EventArgs e)
         {       
             string user = "";
             string userid = "";
@@ -154,13 +160,14 @@ namespace Whos_Home
                 category = "1";
 
             RequestHandler request = new RequestHandler(Context);
-            await request.PutBill(db.Retrieve("Token"), db.GetActiveGroup().GroupID, userid, category, title, "description", amount, DateTime.Today);
+            await request.PutBill(db.Retrieve("Token"), db.GetActiveGroup().GroupID, userid, category, title, "description", amount, m_date);
+
             await ((Bills)Activity).UpdateAllBills(0);
 
             Dismiss();
         }
 
-        private void M_Bcancel_Click(object sender, EventArgs e)
+        private void Bcancel_Click(object sender, EventArgs e)
         {
             Dismiss();
         }
@@ -174,6 +181,15 @@ namespace Whos_Home
 
             RequestHandler request = new RequestHandler(Context);
             var response = await request.PutBill(token, groupid, bill.Recipientname, bill.Categoryid, bill.Title, bill.Description, bill.Amount, bill.Date);
+        }
+
+        void Bdate_Click(object sender, EventArgs eventArgs)
+        {
+            DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
+            {
+                m_date = time;
+            });
+            frag.Show(FragmentManager, DatePickerFragment.TAG);
         }
     }
 }

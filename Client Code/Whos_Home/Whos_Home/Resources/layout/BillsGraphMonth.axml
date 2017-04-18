@@ -6,7 +6,7 @@
     android:weightSum="26">
     <TextView
         android:id="@+id/BillsGraphCategoryTextviewMonth"
-        android:text="Select Month:"
+        android:text="Select Month to Graph Expenses:"
         android:gravity="center_horizontal"
         android:minWidth="400dp"
         android:layout_width="wrap_content"
@@ -17,7 +17,12 @@
         android:textStyle="bold" />
     <Spinner
         android:id="@+id/BillsGraphMonthSpinner"
-        android:layout_weight="8"
+        android:layout_weight="10"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <Spinner
+        android:id="@+id/BillsGraphYearSpinner"
+        android:layout_weight="10"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
     <LinearLayout

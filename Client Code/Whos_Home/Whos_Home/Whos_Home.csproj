@@ -161,6 +161,7 @@
   <ItemGroup>
     <Compile Include="BillsGraph.cs" />
     <Compile Include="BillsGraphMonth.cs" />
+    <Compile Include="DatePickerFragment.cs" />
     <Compile Include="ListAdapters\BillsListAdapter.cs" />
     <Compile Include="BillsNew.cs" />
     <Compile Include="BillsNewSpecifyAmountListAdapter.cs" />
