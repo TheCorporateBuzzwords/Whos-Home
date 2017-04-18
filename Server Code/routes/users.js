@@ -91,25 +91,16 @@ router.put('/location', auth.CheckAuthToken, function (req, res) {
     //         });
     //     }
     // });
-    var checkHome = "SELECT UserID FROM Users WHERE Home = " + config.pool.escape(req.body.ssid) + " AND UserID = " + req.body.decoded.UserID;
     var updateRequest = "Call updateUserLocations(" + req.body.decoded.UserID + ", " + config.pool.escape(req.body.bssid) + ");";
-    config.pool.query(checkHome, function(err, result) {
+
+    config.pool.query(updateRequest, function (err, result) {
         if (err) {
             console.log(err);
             return res.end();
         }
-        if(result.length > 0) {
-            //update
+        else {
+            return res.status(200).json({ status: "success", message: "updated user's location." });
         }
-        config.pool.query(updateRequest, function (err, result) {
-            if(err) {
-                console.log(err);
-                return res.end();
-            }
-            else {
-                return res.status(200).json({ status: "success", message: "updated user's location." });
-            }
-        });
     });
 });
 

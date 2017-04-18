@@ -60,13 +60,15 @@ router.get('/:groupid(\\d+)', [auth.CheckAuthToken, auth.CheckInGroup], function
         //                     "JOIN Groups ON User_Groups.GroupID = Groups.GroupID" +
         //                     "left join Group_Locations ON Group_Locations.GroupID = Groups.GroupID AND Users.LocationID = Group_Locations.LocationID" +
         //                     "WHERE Groups.GroupID = " + config.pool.escape(req.params.groupid);
+        //var checkHome = "SELECT LocationID FROM Group_Locations WHERE GroupID = ";
         var request = "SELECT UserName, GroupName, (select NetName From Group_Locations Where LocationID = UL.LocationID) As NetName, Users.UserID " +
                         "FROM Users " +
                         "JOIN User_Groups ON Users.UserID = User_Groups.UserID " +
                         "JOIN Groups ON User_Groups.GroupID = Groups.GroupID " +
                         "left join User_Locations as UL " + 
                         "ON UL.GroupID = Groups.GroupID " +
-                        "AND Users.UserID = UL.LocationID " +
+                        "AND Users.UserID = UL.UserID " +
+                        "AND UL.GroupID = User_Groups.GroupID " +
                         "WHERE Groups.GroupID = " + config.pool.escape(req.params.groupid);
 
         config.pool.query(request, function (err, result) {
