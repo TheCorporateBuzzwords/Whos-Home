@@ -34,7 +34,7 @@ router.post('/', auth.CheckAuthToken, function (req, res) {
             }
             else {
                 config.pool.query("SELECT LAST_INSERT_ID() AS id", function (err, result, field) {
-                    GroupID = result[0].id;
+                    GroupID = result[0][0].id;
                     if (err) {
                         console.log(err);
                     } else {
