@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
@@ -12,6 +13,9 @@ using Android.Widget;
 using Whos_Home.Helpers;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using Android.Gms.Common;
+using Firebase.Iid;
+using Android.Util;
 
 namespace Whos_Home
 {
@@ -24,7 +28,7 @@ namespace Whos_Home
         private List<string> m_message = new List<string>();
         private List<string> m_notif_type = new List<string>();
         private int m_prevent_duplicates = 0;
-
+        TextView msgText;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -35,10 +39,13 @@ namespace Whos_Home
             InitializeToolbars();
         }
 
-        private void InitializeFormat()
+        private async void InitializeFormat()
         {
+            msgText = FindViewById<TextView>(Resource.Id.msgText);
             B_Refresh = FindViewById<Button>(Resource.Id.ButtonRefresh);
             B_Refresh.Click += Brefresh_Click;
+
+            bool isavail = await IsPlayServicesAvailable();
 
             m_notificationslistview = FindViewById<ListView>(Resource.Id.notificationslistview);
             m_notificationslistview.ItemClick += Notificationslistview_ItemClick;
@@ -62,6 +69,31 @@ namespace Whos_Home
                 m_notif_type.RemoveAt(position);
                 m_notificationslistview.Adapter = new GroupListAdapter(this, m_notif_type, m_message);
                 m_prevent_duplicates--;
+            }
+        }
+
+        public async Task<bool> IsPlayServicesAvailable()
+        {
+            int resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
+            if (resultCode != ConnectionResult.Success)
+            {
+                if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
+                    msgText.Text = GoogleApiAvailability.Instance.GetErrorString(resultCode);
+                else
+                {
+                    msgText.Text = "This device is not supported";
+                    Finish();
+                }
+                return false;
+            }
+            else
+            {
+                msgText.Text = "Google Play Services is available.";
+                RequestHandler request = new RequestHandler();
+                string fcmToken = FirebaseInstanceId.Instance.Token;
+                Console.WriteLine(fcmToken);
+                await request.FCMRegister(DB_Singleton.Instance.Retrieve("Token"), fcmToken);
+                return true;
             }
         }
 

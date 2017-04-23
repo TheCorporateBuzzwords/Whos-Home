@@ -43,6 +43,7 @@ namespace Whos_Home
 
         public async void UpdateGroups()
         {
+            m_groupnames = new List<string>();
             DB_Singleton db = DB_Singleton.Instance;
             string token = db.Retrieve("Token");
             List<UserGroup> userGroupList = await PullGroups(token);
@@ -99,6 +100,7 @@ namespace Whos_Home
             FragmentTransaction transaction = FragmentManager.BeginTransaction();
             GroupNew Dialog = new GroupNew();
             Dialog.Show(transaction, "dialog fragment new group");
+            UpdateGroups();
         }
 
         private void OnGroupItemClick(object sender, AdapterView.ItemClickEventArgs e)

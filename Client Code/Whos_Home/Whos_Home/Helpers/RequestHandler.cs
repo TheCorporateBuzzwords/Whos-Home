@@ -345,5 +345,17 @@ namespace Whos_Home.Helpers
             var response = await client.ExecuteTaskAsync(request);
             return response;
         }
+
+        //Firebase Requests
+        public async Task<IRestResponse> FCMRegister(string token, string fcmToken)
+        {
+            request = new RestRequest(string.Format("/users/fcm/"), Method.POST);
+            request.AddHeader("x-access-token", token);
+            request.AddParameter("regToken", fcmToken);
+
+            var response = await client.ExecuteTaskAsync(request);
+            return response;
+        }
+
     }   
 }

@@ -16,6 +16,7 @@ using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text.RegularExpressions;
 using Whos_Home.Helpers;
+using Firebase.Iid;
 
 namespace Whos_Home
 {
@@ -65,11 +66,12 @@ namespace Whos_Home
                 InvalidInput();
         }
 
-        public void Success(IRestResponse response)
+        public async void Success(IRestResponse response)
         {
             Toast.MakeText(this.Context, "Login Successful", ToastLength.Long).Show();
             InsertInDB(DecodeToken(response));
             UpdateGroups();
+            new RequestHandler().FCMRegister(DB_Singleton.Instance.Retrieve("Token"), FirebaseInstanceId.Instance.Token);
             Activity.StartActivity(typeof(Groups));
         }
 

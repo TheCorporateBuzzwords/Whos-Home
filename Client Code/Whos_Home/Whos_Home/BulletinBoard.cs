@@ -54,10 +54,17 @@ namespace Whos_Home
 
         public async Task UpdatePosts()
         {
-            m_posts = await new BulletinList().UpdateList();
+            try
+            {
+                m_posts = await new BulletinList().UpdateList();
+            }
+            catch(Exception e)
+            {
+                m_posts = new List<BulletinPostObj>();
+                Console.WriteLine(e.ToString());
+            }
 
             //reverse titles and messages so they are shown correctly in bulletinboard
-            m_posts.Reverse();
 
             m_listView.Adapter = new BulletinListAdapter(this, m_posts);
         }

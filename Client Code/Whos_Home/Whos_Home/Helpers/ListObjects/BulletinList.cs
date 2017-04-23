@@ -64,6 +64,7 @@ namespace Whos_Home.Helpers.ListObjects
                     //Will break Activity
                     foreach (JToken token in JPosts)
                         m_list.Add(new BulletinPostObj().BuildPostToken(token));
+                    m_list.Reverse();
                 }
             }
             else

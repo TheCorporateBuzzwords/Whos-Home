@@ -51,6 +51,11 @@ namespace Whos_Home
 
             //This block asks the user for location permissions
             //Or checks if the user already gave permissions
+            UpdateAllLocations();
+        }
+
+        async void UpdateAllLocations()
+        {
             string permission = Manifest.Permission.AccessFineLocation;
             if (CheckSelfPermission(permission) != (int)Permission.Granted)
             {
@@ -73,6 +78,7 @@ namespace Whos_Home
             var GroupMemberLocs = await GetActiveUsers();
 
             m_LocationList.Adapter = new LocationsListAdapter(this, GroupMemberLocs);
+
         }
 
         private async Task GetLocations()
@@ -134,7 +140,7 @@ namespace Whos_Home
                     }
                 }
 
-                RequestHandler request = new RequestHandler(this);
+                RequestHandler request = new RequestHandler();
 
                 var results = m_WifiNetworks.Intersect(m_db_locations);
 
@@ -170,6 +176,7 @@ namespace Whos_Home
             Android.App.FragmentTransaction transaction = FragmentManager.BeginTransaction();
             LocationAddFragment AddLocationDialog = new LocationAddFragment();
             AddLocationDialog.Show(transaction, "dialog fragment create account");
+            UpdateAllLocations();
         }
 
         private void InitializeToolbars()

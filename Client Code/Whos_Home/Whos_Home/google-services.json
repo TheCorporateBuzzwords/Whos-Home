@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "162304156377",
+    "firebase_url": "https://whos-home-fcb1b.firebaseio.com",
+    "project_id": "whos-home-fcb1b",
+    "storage_bucket": "whos-home-fcb1b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:162304156377:android:c5ec0cc6cd535e91",
+        "android_client_info": {
+          "package_name": "Whos_Home.Whos_Home"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "162304156377-rq9q4qbps1annhitvs8bne23g8ajld38.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUU7AYlgARlaS8JhH48mPcXRhx01uc9AM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
