@@ -4,18 +4,22 @@
   <item
        android:id="@+id/menu_Locations"
        android:showAsAction="always"
+       android:icon="@drawable/Locations"
        android:title="Locations" />
   <item
        android:id="@+id/menu_MessageBoard"
        android:showAsAction="always"
+       android:icon="@drawable/Bulletins"
        android:title="Bulletins" />
   <item
        android:id="@+id/menu_Lists"
        android:showAsAction="always"
+       android:icon="@drawable/Lists"
        android:title="Lists" />
   <item
        android:id="@+id/menu_Bills"
        android:showAsAction="always"
+       android:icon="@drawable/Bills"
        android:title="Bills" />
   <item
        android:id="@+id/menu_SpaceRight"
