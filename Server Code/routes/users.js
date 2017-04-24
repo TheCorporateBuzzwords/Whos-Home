@@ -34,8 +34,8 @@ router.get('/invites', auth.CheckAuthToken, function (req, res) {
                             ", (Select LastName From Users as t Where t.UserID = u.InviterID) as LastName" +
                             ", u.GroupID" +
                             ", (Select GroupName From Groups as t Where t.GroupID = u.GroupID) as GroupName" +
-                            "From Invites as u" +
-                            "Where RecipientID = " + req.body.decoded.UserID + ";";
+                            " From Invites as u" +
+                            " Where RecipientID = " + req.body.decoded.UserID + ";";
 
         config.pool.query(getRequest, function (err, result) {
             if (err) {
