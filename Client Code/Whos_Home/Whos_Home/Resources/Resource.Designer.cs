@@ -916,6 +916,9 @@ namespace Whos_Home
 			// aapt resource value: 0x7f070001
 			public const int ToolBarStyle = 2131165185;
 			
+			// aapt resource value: 0x7f070002
+			public const int button_text = 2131165186;
+			
 			static Style()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

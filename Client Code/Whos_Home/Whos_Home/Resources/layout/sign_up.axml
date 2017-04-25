@@ -92,6 +92,7 @@
 <!--Confirm-->
     <Button
         android:background="@drawable/blue_button"
+        style="@style/button_text"
         android:text="Create Account"
         android:layout_width="match_parent"
         android:layout_height="0dp"

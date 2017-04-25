@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:minWidth="25px"
     android:minHeight="25px"
-
     android:weightSum="100">
     <TextView
         android:text="Welcome to Who's Home!"
@@ -17,9 +16,9 @@
         android:id="@+id/textCreateAccount"
         android:textStyle="bold"
         android:textSize="26sp" />
-  
     <Button
         android:background="@drawable/blue_button"
+        style="@style/button_text"
         android:text="Sign In"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -39,6 +38,7 @@
         android:id="@+id/textOR" />
     <Button
         android:background="@drawable/blue_button"
+        style="@style/button_text"
         android:text="Create an Account"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -58,7 +58,4 @@
         android:layout_marginLeft="15px"
         android:layout_marginRight="15px"
         android:textSize="15sp" />-->
-
-  
-  
 </LinearLayout>
