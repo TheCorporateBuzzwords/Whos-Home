@@ -78,7 +78,6 @@ namespace Whos_Home
             var GroupMemberLocs = await GetActiveUsers();
 
             m_LocationList.Adapter = new LocationsListAdapter(this, GroupMemberLocs);
-
         }
 
         private async Task GetLocations()

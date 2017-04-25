@@ -20,9 +20,9 @@ namespace Whos_Home
         public LocationsListAdapter(Activity context, List<Tuple<string, string>> users)
         {
             m_context = context;
-            m_users = users;     
-        }
+            m_users = users;
 
+        }
         public override List<Tuple<string, string>> this[int position]
         {
             get
@@ -53,9 +53,15 @@ namespace Whos_Home
             view.FindViewById<TextView>(Resource.Id.LocationsUsername).Text = m_users[position].Item1;
 
             if (m_users[position].Item2 != null)
+            {
                 view.FindViewById<TextView>(Resource.Id.LocationsLocation).Text = m_users[position].Item2;
+                view.FindViewById<TextView>(Resource.Id.LocationsLocation).SetTextColor(Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Green));
+            }
             else
+            {
                 view.FindViewById<TextView>(Resource.Id.LocationsLocation).Text = "offline";
+                view.FindViewById<TextView>(Resource.Id.LocationsLocation).SetTextColor(Android.Content.Res.ColorStateList.ValueOf(Android.Graphics.Color.Red));
+            }
 
 
 

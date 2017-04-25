@@ -209,7 +209,6 @@
     <Compile Include="BillsGraph.cs" />
     <Compile Include="BillsGraphMonth.cs" />
     <Compile Include="DatePickerFragment.cs" />
-    <Compile Include="FCMClient.cs" />
     <Compile Include="ListAdapters\BillsListAdapter.cs" />
     <Compile Include="BillsNew.cs" />
     <Compile Include="BillsNewSpecifyAmountListAdapter.cs" />
@@ -267,7 +266,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <GoogleServicesJson Include="google-services.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -511,13 +509,19 @@
     <AndroidResource Include="Resources\drawable\gray_button.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Resources\drawable\drawable-xxxhdpi\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_bills.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Lists.png" />
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\drawable\Bulletins.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Bills.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Lists.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Locations.png" />

@@ -185,43 +185,46 @@ namespace Whos_Home
 			public const int gray_button = 2130837529;
 			
 			// aapt resource value: 0x7f02001a
-			public const int ic_action_content_create = 2130837530;
+			public const int ic_action_bills = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int ic_action_content_save = 2130837531;
+			public const int ic_action_content_create = 2130837531;
 			
 			// aapt resource value: 0x7f02001c
-			public const int ic_menu_copy_holo_dark = 2130837532;
+			public const int ic_action_content_save = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int ic_menu_cut_holo_dark = 2130837533;
+			public const int ic_menu_copy_holo_dark = 2130837533;
 			
 			// aapt resource value: 0x7f02001e
-			public const int ic_menu_paste_holo_dark = 2130837534;
+			public const int ic_menu_cut_holo_dark = 2130837534;
 			
 			// aapt resource value: 0x7f02001f
-			public const int ic_menu_search_holo_dark = 2130837535;
+			public const int ic_menu_paste_holo_dark = 2130837535;
 			
 			// aapt resource value: 0x7f020020
-			public const int Icon = 2130837536;
+			public const int ic_menu_search_holo_dark = 2130837536;
 			
 			// aapt resource value: 0x7f020021
-			public const int Lists = 2130837537;
+			public const int Icon = 2130837537;
 			
 			// aapt resource value: 0x7f020022
-			public const int Locations = 2130837538;
+			public const int Lists = 2130837538;
 			
 			// aapt resource value: 0x7f020023
-			public const int notification = 2130837539;
+			public const int Locations = 2130837539;
 			
 			// aapt resource value: 0x7f020024
-			public const int refresh = 2130837540;
+			public const int notification = 2130837540;
 			
 			// aapt resource value: 0x7f020025
-			public const int WhosHome = 2130837541;
+			public const int refresh = 2130837541;
 			
 			// aapt resource value: 0x7f020026
-			public const int WhosHomeIcon = 2130837542;
+			public const int WhosHome = 2130837542;
+			
+			// aapt resource value: 0x7f020027
+			public const int WhosHomeIcon = 2130837543;
 			
 			static Drawable()
 			{
@@ -831,11 +834,11 @@ namespace Whos_Home
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f05001a
-			public const int ApplicationName = 2131034138;
+			// aapt resource value: 0x7f050013
+			public const int ApplicationName = 2131034131;
 			
-			// aapt resource value: 0x7f050019
-			public const int Hello = 2131034137;
+			// aapt resource value: 0x7f050012
+			public const int Hello = 2131034130;
 			
 			// aapt resource value: 0x7f050000
 			public const int common_google_play_services_enable_button = 2131034112;
@@ -888,32 +891,11 @@ namespace Whos_Home
 			// aapt resource value: 0x7f05000f
 			public const int common_signin_button_text_long = 2131034127;
 			
-			// aapt resource value: 0x7f050014
-			public const int default_web_client_id = 2131034132;
-			
-			// aapt resource value: 0x7f050015
-			public const int firebase_database_url = 2131034133;
-			
-			// aapt resource value: 0x7f050012
-			public const int gcm_defaultSenderId = 2131034130;
-			
-			// aapt resource value: 0x7f050016
-			public const int google_api_key = 2131034134;
-			
-			// aapt resource value: 0x7f050013
-			public const int google_app_id = 2131034131;
-			
-			// aapt resource value: 0x7f050017
-			public const int google_crash_reporting_api_key = 2131034135;
-			
-			// aapt resource value: 0x7f050018
-			public const int google_storage_bucket = 2131034136;
-			
 			// aapt resource value: 0x7f050011
 			public const int library_name = 2131034129;
 			
-			// aapt resource value: 0x7f05001b
-			public const int url = 2131034139;
+			// aapt resource value: 0x7f050014
+			public const int url = 2131034132;
 			
 			static String()
 			{

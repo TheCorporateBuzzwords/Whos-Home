@@ -71,7 +71,8 @@ namespace Whos_Home
             Toast.MakeText(this.Context, "Login Successful", ToastLength.Long).Show();
             InsertInDB(DecodeToken(response));
             UpdateGroups();
-            new RequestHandler().FCMRegister(DB_Singleton.Instance.Retrieve("Token"), FirebaseInstanceId.Instance.Token);
+            //UNCOMMENT IN RELEASE
+            //new RequestHandler().FCMRegister(DB_Singleton.Instance.Retrieve("Token"), FirebaseInstanceId.Instance.Token);
             Activity.StartActivity(typeof(Groups));
         }
 

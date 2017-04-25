@@ -45,7 +45,8 @@ namespace Whos_Home
             B_Refresh = FindViewById<Button>(Resource.Id.ButtonRefresh);
             B_Refresh.Click += Brefresh_Click;
 
-            bool isavail = await IsPlayServicesAvailable();
+            //UNCOMMENT IN RELEASE
+            //bool isavail = await IsPlayServicesAvailable();
 
             m_notificationslistview = FindViewById<ListView>(Resource.Id.notificationslistview);
             m_notificationslistview.ItemClick += Notificationslistview_ItemClick;
