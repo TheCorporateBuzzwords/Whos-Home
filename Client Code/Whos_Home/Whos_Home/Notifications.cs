@@ -45,8 +45,7 @@ namespace Whos_Home
             B_Refresh = FindViewById<Button>(Resource.Id.ButtonRefresh);
             B_Refresh.Click += Brefresh_Click;
 
-            //UNCOMMENT IN RELEASE
-            //bool isavail = await IsPlayServicesAvailable();
+            bool isavail = await IsPlayServicesAvailable();
 
             m_notificationslistview = FindViewById<ListView>(Resource.Id.notificationslistview);
             m_notificationslistview.ItemClick += Notificationslistview_ItemClick;
@@ -93,7 +92,7 @@ namespace Whos_Home
                 RequestHandler request = new RequestHandler();
                 string fcmToken = FirebaseInstanceId.Instance.Token;
                 Console.WriteLine(fcmToken);
-                await request.FCMRegister(DB_Singleton.Instance.Retrieve("Token"), fcmToken);
+                //await request.FCMRegister(DB_Singleton.Instance.Retrieve("Token"), fcmToken);
                 return true;
             }
         }
