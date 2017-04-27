@@ -179,7 +179,7 @@ namespace Whos_Home.Helpers
         //MESSAGE Requests
         public async Task<IRestResponse> GetMessages(string token, string groupid)
         {
-            request = new RestRequest(string.Format("/groups/{0}/messagetopic", groupid), Method.GET);
+            request = new RestRequest(string.Format("/groups/{0}/messageboard", groupid), Method.GET);
             request.AddHeader("x-access-token", token);
 
             var response = await client.ExecuteTaskAsync(request);
@@ -187,7 +187,7 @@ namespace Whos_Home.Helpers
         }
         public async Task<IRestResponse> PostMessages(string token, string groupid, string title, string message)
         {
-            request = new RestRequest(string.Format("/groups/{0}/messagetopic", groupid), Method.POST);
+            request = new RestRequest(string.Format("/groups/{0}/messageboard", groupid), Method.POST);
             request.AddHeader("x-access-token", token);
             request.AddParameter("title", title);
             request.AddParameter("msg", message);
@@ -197,7 +197,7 @@ namespace Whos_Home.Helpers
         }
         public async Task<IRestResponse> GetMessageReplies(string token, string groupid, string topicid)
         {
-            request = new RestRequest(string.Format("/groups/{0}/messages/{1}", groupid, topicid), Method.GET);
+            request = new RestRequest(string.Format("/groups/{0}/messageboard/{1}", groupid, topicid), Method.GET);
             request.AddHeader("x-access-token", token);
 
             var response = await client.ExecuteTaskAsync(request);
@@ -206,7 +206,7 @@ namespace Whos_Home.Helpers
         }
         public async Task<IRestResponse> PostMessageReply(string token, string groupid, string topicid, string message)
         {
-            request = new RestRequest(string.Format("/groups/{0}/messages", groupid), Method.POST);
+            request = new RestRequest(string.Format("/groups/{0}/messageboard/{1}", groupid, topicid), Method.POST);
             request.AddHeader("x-access-token", token);
             request.AddParameter("topicid", topicid);
             request.AddParameter("msg", message);

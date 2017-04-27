@@ -4,7 +4,7 @@
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="25" />
-	<application android:label="@string/ApplicationName" android:theme="@style/MyTheme" android:icon="@drawable/WhosHome"></application>
+	<application android:label="@string/ApplicationName" android:theme="@style/MyTheme" android:icon="@drawable/WhosHome">
   <receiver
      android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver"
      android:exported="false" />
@@ -18,4 +18,5 @@
       <category android:name="${applicationId}" />
     </intent-filter>
   </receiver>
+  </application>
 </manifest>

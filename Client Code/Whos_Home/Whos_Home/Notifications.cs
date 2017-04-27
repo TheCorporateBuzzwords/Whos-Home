@@ -92,7 +92,7 @@ namespace Whos_Home
                 RequestHandler request = new RequestHandler();
                 string fcmToken = FirebaseInstanceId.Instance.Token;
                 Console.WriteLine(fcmToken);
-                //await request.FCMRegister(DB_Singleton.Instance.Retrieve("Token"), fcmToken);
+                await request.FCMRegister(DB_Singleton.Instance.Retrieve("Token"), fcmToken);
                 return true;
             }
         }
