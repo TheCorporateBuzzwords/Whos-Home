@@ -51,7 +51,7 @@ local.properties
 .recommenders/
 Doc/PowerPoints/~$WhosHomeSprint2.pptx
 
-config
+/server/config.js
 
 .vscode/*
 !.vscode/settings.json
