@@ -16,6 +16,7 @@ namespace Whos_Home
 {
     class BillsGraphMonth : DialogFragment
     {
+        private Button m_BCreateGraph, m_BCancel;
         private Spinner m_month_spinner, m_year_spinner;
         private List<BillObj> m_bills;
 
@@ -29,17 +30,38 @@ namespace Whos_Home
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(Resource.Layout.BillsGraphMonth, container, false);
 
+            m_BCreateGraph = view.FindViewById<Button>(Resource.Id.buttonBillsGraphMonthConfirm);
+            m_BCancel = view.FindViewById<Button>(Resource.Id.buttonBillsGraphMonthCancel);
+
             m_month_spinner = view.FindViewById<Spinner>(Resource.Id.BillsGraphMonthSpinner);
             m_year_spinner = view.FindViewById<Spinner>(Resource.Id.BillsGraphYearSpinner);
 
             m_month_spinner.Adapter = new ArrayAdapter<string>(Context, Android.Resource.Layout.SimpleSpinnerItem, GetMonths());
             m_year_spinner.Adapter = new ArrayAdapter<string>(Context, Android.Resource.Layout.SimpleSpinnerItem, GetYears());
 
+            m_BCreateGraph.Click += M_BCreateGraph_Click;
+            m_BCancel.Click += M_BCancel_Click;
 
             return view;
         }
 
-        private void CreateGraph()
+        private void M_BCancel_Click(object sender, EventArgs e)
+        {
+            Dismiss();
+        }
+
+        private void M_BCreateGraph_Click(object sender, EventArgs e)
+        {
+            string month, year;
+
+            //month = m_month_spinner.SelectedItem.ToString();
+            month = (m_month_spinner.SelectedItemPosition + 1).ToString();
+            year = m_year_spinner.SelectedItem.ToString();
+
+            CreateGraph(month, year);
+        }
+
+        private void CreateGraph(string month, string year)
         {
             List<Tuple<string, float>> graph_vals = new List<Tuple<string, float>>();
             float other = 0;
@@ -49,29 +71,33 @@ namespace Whos_Home
 
             foreach (BillObj bill in m_bills)
             {
-                switch (bill.Categoryid)
+                if (bill.Date.Year.ToString() == year && bill.Date.Month.ToString() == month)
                 {
-                    case "1":
-                        other += Convert.ToSingle(bill.Amount);
-                        break;
+                    switch (bill.Categoryid)
+                    {
+                        case "1":
+                            other += Convert.ToSingle(bill.Amount);
+                            break;
 
-                    case "2":
-                        rent += Convert.ToSingle(bill.Amount);
-                        break;
+                        case "2":
+                            rent += Convert.ToSingle(bill.Amount);
+                            break;
 
-                    case "3":
-                        utilities += Convert.ToSingle(bill.Amount);
-                        break;
+                        case "3":
+                            utilities += Convert.ToSingle(bill.Amount);
+                            break;
 
-                    case "4":
-                        groceries += Convert.ToSingle(bill.Amount);
-                        break;
+                        case "4":
+                            groceries += Convert.ToSingle(bill.Amount);
+                            break;
 
-                    default:
-                        Console.WriteLine("INVALID CATEGORY ID");
-                        break;
+                        default:
+                            Console.WriteLine("INVALID CATEGORY ID");
+                            break;
+                    }
                 }
             }
+
             if (other != 0)
                 graph_vals.Add(new Tuple<string, float>("Other", other));
             if (rent != 0)

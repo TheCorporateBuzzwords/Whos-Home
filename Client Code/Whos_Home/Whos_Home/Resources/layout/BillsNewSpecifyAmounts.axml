@@ -43,7 +43,7 @@
             android:layout_width="200dp"
             android:layout_height="45dp"
             android:layout_weight="10"
-            android:id="@+id/buttonBillsSpecifyAmountsNewConfirm"
+            android:id="@+id/buttonBillsNewSpecifyAmountsConfirm"
             android:layout_marginLeft="15px"
             android:layout_marginRight="15px"
             android:textSize="15sp" />

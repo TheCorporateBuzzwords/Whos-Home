@@ -387,7 +387,7 @@ namespace Whos_Home
 			public const int buttonBillsNewSpecifyAmountsCancel = 2131296307;
 			
 			// aapt resource value: 0x7f090034
-			public const int buttonBillsSpecifyAmountsNewConfirm = 2131296308;
+			public const int buttonBillsNewSpecifyAmountsConfirm = 2131296308;
 			
 			// aapt resource value: 0x7f090013
 			public const int buttonCancelAddUserToGroup = 2131296275;

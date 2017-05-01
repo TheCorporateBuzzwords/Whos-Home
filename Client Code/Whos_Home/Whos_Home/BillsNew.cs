@@ -144,27 +144,29 @@ namespace Whos_Home
             if (!m_checkbox.Checked)
             {
                 FragmentTransaction transaction = FragmentManager.BeginTransaction();
-                BillsNewSpecifyAmounts Dialog = new BillsNewSpecifyAmounts();
+                BillsNewSpecifyAmounts Dialog = new BillsNewSpecifyAmounts(m_users);
                 Dialog.Show(transaction, "dialog fragment specify bill amounts");
             }
-
-            DB_Singleton db = DB_Singleton.Instance;
-
-            if (category == "Rent")
-                category = "2";
-            else if (category == "Utilities")
-                category = "3";
-            else if (category == "Groceries")
-                category = "4";
             else
-                category = "1";
+            {
+                DB_Singleton db = DB_Singleton.Instance;
 
-            RequestHandler request = new RequestHandler(Context);
-            await request.PutBill(db.Retrieve("Token"), db.GetActiveGroup().GroupID, userid, category, title, "description", amount, m_date);
+                if (category == "Rent")
+                    category = "2";
+                else if (category == "Utilities")
+                    category = "3";
+                else if (category == "Groceries")
+                    category = "4";
+                else
+                    category = "1";
 
-            await ((Bills)Activity).UpdateAllBills(0);
+                RequestHandler request = new RequestHandler(Context);
+                await request.PutBill(db.Retrieve("Token"), db.GetActiveGroup().GroupID, userid, category, title, "description", amount, m_date);
 
-            Dismiss();
+                await ((Bills)Activity).UpdateAllBills(0);
+
+                Dismiss();
+            }
         }
 
         private void Bcancel_Click(object sender, EventArgs e)

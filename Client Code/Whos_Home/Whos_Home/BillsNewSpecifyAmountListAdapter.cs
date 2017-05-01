@@ -13,13 +13,22 @@ using Whos_Home.Helpers;
 
 namespace Whos_Home
 {
-    class BillsNewSpecifyAmountListAdapter : BaseAdapter<List<User>>
+    class BillsNewSpecifyAmountListAdapter : BaseAdapter<List<string>>
     {
-        public override List<User> this[int position]
+        private List<string> m_users;
+        private Activity m_context;
+
+        public BillsNewSpecifyAmountListAdapter(Activity Context, List<string> users)
+        {
+            m_users = users;
+            m_context = Context;
+        }
+
+        public override List<string> this[int position]
         {
             get
             {
-                throw new NotImplementedException();
+                return m_users;
             }
         }
 
@@ -27,18 +36,25 @@ namespace Whos_Home
         {
             get
             {
-                throw new NotImplementedException();
+                return m_users.Count;
             }
         }
 
         public override long GetItemId(int position)
         {
-            throw new NotImplementedException();
+            return position;
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            throw new NotImplementedException();
+            View view = convertView; // re-use an existing view, if one is supplied
+            if (view == null) // otherwise create a new one
+                view = m_context.LayoutInflater.Inflate(Resource.Layout.BillsNewSpecifyAmountsCustomView, null);
+
+            view.FindViewById<TextView>(Resource.Id.BillsNewSpecifyAmountCustomViewTextView).Text = "Amount for " + m_users[position] + ":";
+
+
+            return view;
         }
     }
 }
