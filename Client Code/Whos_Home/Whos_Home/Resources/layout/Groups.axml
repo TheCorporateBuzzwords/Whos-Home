@@ -42,6 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:contentInsetLeft="20dp"
+         
         android:buttonGravity="top"
         android:layout_gravity="center" />
 </LinearLayout>

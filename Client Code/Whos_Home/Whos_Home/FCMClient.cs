@@ -3,6 +3,7 @@ using Android.App;
 using Firebase.Iid;
 using Android.Util;
 using Whos_Home.Helpers;
+using Firebase.Messaging;
 
 namespace Whos_Home 
 {
@@ -24,6 +25,5 @@ namespace Whos_Home
             string jToken = DB_Singleton.Instance.Retrieve("Token");
             var response = request.FCMRegister(jToken, fcmToken);
         }
-
     }
 }

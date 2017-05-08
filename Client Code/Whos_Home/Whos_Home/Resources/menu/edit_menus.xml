@@ -1,29 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      android:gravity="center">
+      android:gravity="center"
+      android:layoutDirection="ltr">
   <item
        android:id="@+id/menu_Locations"
-       android:showAsAction="always"
+       android:layout_gravity="left"
+       android:showAsAction="always|withText"
        android:icon="@drawable/Locations"
        android:title="Locations" />
   <item
        android:id="@+id/menu_MessageBoard"
-       android:showAsAction="always"
+       android:showAsAction="always|withText"
        android:icon="@drawable/Bulletins"
        android:title="Bulletins" />
   <item
        android:id="@+id/menu_Lists"
-       android:showAsAction="always"
+       android:showAsAction="always|withText"
        android:icon="@drawable/Lists"
        android:title="Lists" />
   <item
        android:id="@+id/menu_Bills"
-       android:showAsAction="always"
+       android:showAsAction="always|withText"
        android:icon="@drawable/Bills"
        android:title="Bills" />
   <item
-       android:id="@+id/menu_SpaceRight"
+       android:id="@+id/menu_Space"
        android:showAsAction="always"
-       android:title="          " />
+       android:title="                     " />
 
 </menu>
