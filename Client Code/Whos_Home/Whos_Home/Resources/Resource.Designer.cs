@@ -398,8 +398,8 @@ namespace Whos_Home
 			// aapt resource value: 0x7f090066
 			public const int NewPostButton = 2131296358;
 			
-			// aapt resource value: 0x7f090083
-			public const int SwitchSettingsMenu = 2131296387;
+			// aapt resource value: 0x7f090082
+			public const int SwitchSettingsMenu = 2131296386;
 			
 			// aapt resource value: 0x7f090035
 			public const int Text = 2131296309;
@@ -464,8 +464,8 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09004a
 			public const int buttonCancelSelectGroup = 2131296330;
 			
-			// aapt resource value: 0x7f090096
-			public const int buttonConfirm = 2131296406;
+			// aapt resource value: 0x7f090095
+			public const int buttonConfirm = 2131296405;
 			
 			// aapt resource value: 0x7f090014
 			public const int buttonConfirmAddUserToGroup = 2131296276;
@@ -506,11 +506,8 @@ namespace Whos_Home
 			// aapt resource value: 0x7f090063
 			public const int buttonSignIn = 2131296355;
 			
-			// aapt resource value: 0x7f090089
-			public const int buttonlogin = 2131296393;
-			
-			// aapt resource value: 0x7f090072
-			public const int container = 2131296370;
+			// aapt resource value: 0x7f090088
+			public const int buttonlogin = 2131296392;
 			
 			// aapt resource value: 0x7f090007
 			public const int dark = 2131296263;
@@ -542,23 +539,23 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09006b
 			public const int edittexttitle = 2131296363;
 			
-			// aapt resource value: 0x7f090095
-			public const int emailtext = 2131296405;
+			// aapt resource value: 0x7f090094
+			public const int emailtext = 2131296404;
 			
-			// aapt resource value: 0x7f09008b
-			public const int firstnametext = 2131296395;
-			
-			// aapt resource value: 0x7f090074
-			public const int footer = 2131296372;
+			// aapt resource value: 0x7f09008a
+			public const int firstnametext = 2131296394;
 			
 			// aapt resource value: 0x7f090073
-			public const int footer_border = 2131296371;
+			public const int footer = 2131296371;
+			
+			// aapt resource value: 0x7f090072
+			public const int footer_border = 2131296370;
 			
 			// aapt resource value: 0x7f090003
 			public const int icon_only = 2131296259;
 			
-			// aapt resource value: 0x7f09008d
-			public const int lastnametext = 2131296397;
+			// aapt resource value: 0x7f09008c
+			public const int lastnametext = 2131296396;
 			
 			// aapt resource value: 0x7f090008
 			public const int light = 2131296264;
@@ -578,26 +575,26 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09000d
 			public const int locationlistview = 2131296269;
 			
-			// aapt resource value: 0x7f09009a
-			public const int menu_Bills = 2131296410;
-			
 			// aapt resource value: 0x7f090099
-			public const int menu_Lists = 2131296409;
-			
-			// aapt resource value: 0x7f090097
-			public const int menu_Locations = 2131296407;
+			public const int menu_Bills = 2131296409;
 			
 			// aapt resource value: 0x7f090098
-			public const int menu_MessageBoard = 2131296408;
+			public const int menu_Lists = 2131296408;
+			
+			// aapt resource value: 0x7f090096
+			public const int menu_Locations = 2131296406;
+			
+			// aapt resource value: 0x7f090097
+			public const int menu_MessageBoard = 2131296407;
+			
+			// aapt resource value: 0x7f09009a
+			public const int menu_Space = 2131296410;
 			
 			// aapt resource value: 0x7f09009b
-			public const int menu_Space = 2131296411;
+			public const int menu_notifications = 2131296411;
 			
 			// aapt resource value: 0x7f09009c
-			public const int menu_notifications = 2131296412;
-			
-			// aapt resource value: 0x7f09009d
-			public const int menu_preferences = 2131296413;
+			public const int menu_preferences = 2131296412;
 			
 			// aapt resource value: 0x7f090067
 			public const int messagelistview = 2131296359;
@@ -611,59 +608,59 @@ namespace Whos_Home
 			// aapt resource value: 0x7f090071
 			public const int notificationslistview = 2131296369;
 			
-			// aapt resource value: 0x7f090091
-			public const int passwordtext = 2131296401;
+			// aapt resource value: 0x7f090090
+			public const int passwordtext = 2131296400;
 			
 			// aapt resource value: 0x7f09001f
 			public const int plot_view = 2131296287;
 			
-			// aapt resource value: 0x7f090093
-			public const int repeatpasswordtext = 2131296403;
+			// aapt resource value: 0x7f090092
+			public const int repeatpasswordtext = 2131296402;
 			
-			// aapt resource value: 0x7f090088
-			public const int signinpassword = 2131296392;
+			// aapt resource value: 0x7f090087
+			public const int signinpassword = 2131296391;
 			
-			// aapt resource value: 0x7f090086
-			public const int signinusername = 2131296390;
+			// aapt resource value: 0x7f090085
+			public const int signinusername = 2131296389;
 			
 			// aapt resource value: 0x7f090004
 			public const int standard = 2131296260;
 			
+			// aapt resource value: 0x7f090074
+			public const int tab1 = 2131296372;
+			
 			// aapt resource value: 0x7f090075
-			public const int tab1 = 2131296373;
+			public const int tab1_icon = 2131296373;
 			
 			// aapt resource value: 0x7f090076
-			public const int tab1_icon = 2131296374;
+			public const int tab1_text = 2131296374;
 			
 			// aapt resource value: 0x7f090077
-			public const int tab1_text = 2131296375;
+			public const int tab2 = 2131296375;
 			
 			// aapt resource value: 0x7f090078
-			public const int tab2 = 2131296376;
+			public const int tab2_icon = 2131296376;
 			
 			// aapt resource value: 0x7f090079
-			public const int tab2_icon = 2131296377;
+			public const int tab2_text = 2131296377;
 			
 			// aapt resource value: 0x7f09007a
-			public const int tab2_text = 2131296378;
+			public const int tab3 = 2131296378;
 			
 			// aapt resource value: 0x7f09007b
-			public const int tab3 = 2131296379;
+			public const int tab3_icon = 2131296379;
 			
 			// aapt resource value: 0x7f09007c
-			public const int tab3_icon = 2131296380;
+			public const int tab3_text = 2131296380;
 			
 			// aapt resource value: 0x7f09007d
-			public const int tab3_text = 2131296381;
+			public const int tab4 = 2131296381;
 			
 			// aapt resource value: 0x7f09007e
-			public const int tab4 = 2131296382;
+			public const int tab4_icon = 2131296382;
 			
 			// aapt resource value: 0x7f09007f
-			public const int tab4_icon = 2131296383;
-			
-			// aapt resource value: 0x7f090080
-			public const int tab4_text = 2131296384;
+			public const int tab4_text = 2131296383;
 			
 			// aapt resource value: 0x7f090062
 			public const int textCreateAccount = 2131296354;
@@ -677,29 +674,29 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09003e
 			public const int textcommententer = 2131296318;
 			
-			// aapt resource value: 0x7f090092
-			public const int textconfirmpassword = 2131296402;
+			// aapt resource value: 0x7f090091
+			public const int textconfirmpassword = 2131296401;
 			
-			// aapt resource value: 0x7f090094
-			public const int textemail = 2131296404;
+			// aapt resource value: 0x7f090093
+			public const int textemail = 2131296403;
 			
-			// aapt resource value: 0x7f09008a
-			public const int textfirstname = 2131296394;
+			// aapt resource value: 0x7f090089
+			public const int textfirstname = 2131296393;
 			
-			// aapt resource value: 0x7f09008c
-			public const int textlastname = 2131296396;
+			// aapt resource value: 0x7f09008b
+			public const int textlastname = 2131296395;
 			
 			// aapt resource value: 0x7f09006c
 			public const int textmessage = 2131296364;
 			
-			// aapt resource value: 0x7f090090
-			public const int textpassword = 2131296400;
+			// aapt resource value: 0x7f09008f
+			public const int textpassword = 2131296399;
 			
 			// aapt resource value: 0x7f09006a
 			public const int texttitle = 2131296362;
 			
-			// aapt resource value: 0x7f09008e
-			public const int textusername = 2131296398;
+			// aapt resource value: 0x7f09008d
+			public const int textusername = 2131296397;
 			
 			// aapt resource value: 0x7f090009
 			public const int textviewAcceptInvite = 2131296265;
@@ -746,26 +743,26 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09000f
 			public const int textviewNewGroup = 2131296271;
 			
-			// aapt resource value: 0x7f090082
-			public const int textviewSettingsMenuEmail = 2131296386;
-			
 			// aapt resource value: 0x7f090081
-			public const int textviewSettingsMenuUsername = 2131296385;
+			public const int textviewSettingsMenuEmail = 2131296385;
+			
+			// aapt resource value: 0x7f090080
+			public const int textviewSettingsMenuUsername = 2131296384;
+			
+			// aapt resource value: 0x7f090083
+			public const int textviewSettingsSpace = 2131296387;
+			
+			// aapt resource value: 0x7f090086
+			public const int textviewpassword = 2131296390;
 			
 			// aapt resource value: 0x7f090084
-			public const int textviewSettingsSpace = 2131296388;
-			
-			// aapt resource value: 0x7f090087
-			public const int textviewpassword = 2131296391;
-			
-			// aapt resource value: 0x7f090085
-			public const int textviewusername = 2131296389;
+			public const int textviewusername = 2131296388;
 			
 			// aapt resource value: 0x7f090015
 			public const int toolbar = 2131296277;
 			
-			// aapt resource value: 0x7f09008f
-			public const int usernametext = 2131296399;
+			// aapt resource value: 0x7f09008e
+			public const int usernametext = 2131296398;
 			
 			// aapt resource value: 0x7f090005
 			public const int wide = 2131296261;

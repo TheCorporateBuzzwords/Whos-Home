@@ -36,20 +36,20 @@ namespace Whos_Home
             SetContentView(Resource.Layout.Notifications);
 
 
-            InitializeFormat();
+            //InitializeFormat();
             TestTabs();
             //InitializeToolbars();
         }
 
         private async void InitializeFormat()
         {
-            msgText = FindViewById<TextView>(Resource.Id.msgText);
-            B_Refresh = FindViewById<Button>(Resource.Id.ButtonRefresh);
+            //msgText = FindViewById<TextView>(Resource.Id.msgText);
+            //B_Refresh = FindViewById<Button>(Resource.Id.ButtonRefresh);
             B_Refresh.Click += Brefresh_Click;
 
             bool isavail = await IsPlayServicesAvailable();
 
-            m_notificationslistview = FindViewById<ListView>(Resource.Id.notificationslistview);
+            //m_notificationslistview = FindViewById<ListView>(Resource.Id.notificationslistview);
             m_notificationslistview.ItemClick += Notificationslistview_ItemClick;
         }
 
@@ -241,7 +241,7 @@ namespace Whos_Home
                 showTab4();
             };
 
-            showTab1();
+            //showTab1();
 
         }
 
@@ -261,9 +261,9 @@ namespace Whos_Home
 
         private void showFragment(Fragment fragment)
         {
-            var ft = FragmentManager.BeginTransaction();
-            ft.Replace(Resource.Id.container, fragment);
-            ft.Commit();
+            //var ft = FragmentManager.BeginTransaction();
+            //ft.Replace(Resource.Id.container, fragment);
+            //ft.Commit();
         }
 
 
@@ -271,24 +271,49 @@ namespace Whos_Home
         {
             deselectAll();
 
+            //headingText.Text = "Tab 1";
+
+            tab1Button.SetColorFilter(selectedColor);
+            tab1Text.SetTextColor(selectedColor);
+
+            //this.StartActivity(typeof(Locations));
+
         }
 
         private void showTab2()
         {
             deselectAll();
 
+            //headingText.Text = "Tab 1";
+
+            tab2Button.SetColorFilter(selectedColor);
+            tab2Text.SetTextColor(selectedColor);
+
+            //this.StartActivity(typeof(Locations));
         }
 
         private void showTab3()
         {
             deselectAll();
 
+            //headingText.Text = "Tab 1";
+
+            tab3Button.SetColorFilter(selectedColor);
+            tab3Text.SetTextColor(selectedColor);
+
+            //this.StartActivity(typeof(Locations));
         }
 
         private void showTab4()
         {
             deselectAll();
 
+            //headingText.Text = "Tab 1";
+
+            tab4Button.SetColorFilter(selectedColor);
+            tab4Text.SetTextColor(selectedColor);
+
+            //this.StartActivity(typeof(Locations));
         }
     }
 }
