@@ -9,7 +9,12 @@ module.exports = {
             if(err) {
                 return callback(err);
             }
-            callback(null, result[0].FirebaseToken);
+            else if (result.length) {
+                callback(null, result[0].FirebaseToken);
+            }
+            else {
+                callback(new Error("User does not exist"));
+            }
         });
     },
     getUsernameFromId: function (userid, callback) {
@@ -18,7 +23,12 @@ module.exports = {
             if(err) {
                 return callback(err);
             }
-            callback(null, result[0].UserName);
+            else if(result.length) {
+                return callback(null, result[0].UserName);
+            }
+            else {
+                callback(new Error("User does not exist"));
+            }
         });
     },
     getUserIdFromUsername: function (username, callback) {
@@ -27,7 +37,12 @@ module.exports = {
             if(err) {
                 return callback(err);
             }
-            callback(null, result[0].UserID);
+            else if(result.length) {
+                return callback(null, result[0].UserID);
+            }
+            else {
+                return callback(new Error("Username doesn't exist"));
+            }
         }); 
     },
     sendNotification: function (userid, title, message) {
@@ -42,11 +57,7 @@ module.exports = {
                 priority: "high",
                 timeToLive: 60 * 60 * 24
             };
-            if(err)
-            {
-                console.log(err);
-            }
-            else
+            if(!err)
             {
                 admin.messaging().sendToDevice(registrationToken, payload, options)
                     .then(function(response) {
