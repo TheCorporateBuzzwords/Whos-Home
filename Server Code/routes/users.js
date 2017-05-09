@@ -92,7 +92,7 @@ router.put('/location', auth.CheckAuthToken, function (req, res) {
     //     }
     // });
     var updateRequest = "Call updateUserLocations(" + req.body.decoded.UserID + ", " + config.pool.escape(req.body.bssid) + ");";
-
+    var isHome = "SELECT UserId FROM Users WHERE Home = " + config.pool.escape(req.body.bssid) + " AND UserID = " + req.body.decoded.UserId;
     config.pool.query(updateRequest, function (err, result) {
         if (err) {
             console.log(err);

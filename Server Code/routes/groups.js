@@ -7,6 +7,7 @@ var auth = require('./../middlewares/auth');
 var jwt = require('jsonwebtoken');
 var router = require('express').Router();
 var admin = require("firebase-admin");
+var helper = require('./helper');
 
 var serviceAccount = require("../etc/firebase/whos-home-fcb1b-firebase-adminsdk-mm1oa-7a54483f9e.json");
 
@@ -177,6 +178,8 @@ router.post('/:groupid(\\d+)/bills/', [auth.CheckAuthToken, auth.CheckInGroup], 
             return res.status(500).json({ status: "error", message: "error processing request" });
         }
         else {
+            helper.sendNotification(req.body.recipient, "New bill", "Someone has sent you a bill");
+            
             return res.status(200).json({ status: "success", message: "successfully added bill" });
         }
     });
@@ -260,6 +263,7 @@ router.post('/:groupid(\\d+)/invitation/', [auth.CheckAuthToken, auth.CheckInGro
                     console.log(err);
                     return res.end();
                 } else {
+                    helper.sendNotification(recipientID, "New group invite", "You have a new invitation to a group");
                     return res.status(200).json({ status: "success", message: "invitation created" });
                 }
             });

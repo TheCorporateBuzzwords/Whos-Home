@@ -67,7 +67,11 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var http = require('http');
 var https = require('https');
+var test = require('./helper');
 
+test.getUserIdFromUsername('michael', function(err, result) {
+    console.log(result);
+});
 app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
