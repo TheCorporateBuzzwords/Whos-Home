@@ -37,19 +37,18 @@ namespace Whos_Home
 
 
             //InitializeFormat();
-            TestTabs();
-            //InitializeToolbars();
+            InitializeToolbars();
         }
 
         private async void InitializeFormat()
         {
-            //msgText = FindViewById<TextView>(Resource.Id.msgText);
-            //B_Refresh = FindViewById<Button>(Resource.Id.ButtonRefresh);
+            msgText = FindViewById<TextView>(Resource.Id.msgText);
+            B_Refresh = FindViewById<Button>(Resource.Id.ButtonRefresh);
             B_Refresh.Click += Brefresh_Click;
 
             bool isavail = await IsPlayServicesAvailable();
 
-            //m_notificationslistview = FindViewById<ListView>(Resource.Id.notificationslistview);
+            m_notificationslistview = FindViewById<ListView>(Resource.Id.notificationslistview);
             m_notificationslistview.ItemClick += Notificationslistview_ItemClick;
         }
 
@@ -148,11 +147,13 @@ namespace Whos_Home
             SetActionBar(toolbar);
             ActionBar.Title = "Notifications";
 
+            InitializeTabs();
+
             //initialize bottom toolbar
-            var editToolbar = FindViewById<Toolbar>(Resource.Id.edit_toolbar);
+            //var editToolbar = FindViewById<Toolbar>(Resource.Id.edit_toolbar);
             //editToolbar.Title = "Navigate";
-            editToolbar.InflateMenu(Resource.Menu.edit_menus);
-            editToolbar.MenuItemClick += NavigateMenu;
+            //editToolbar.InflateMenu(Resource.Menu.edit_menus);
+            //editToolbar.MenuItemClick += NavigateMenu;
         }
 
         //Method is used to navigate between activities using the bottom toolbar
@@ -208,22 +209,23 @@ namespace Whos_Home
         private TextView tab1Text, tab2Text, tab3Text, tab4Text, headingText;
         private Color selectedColor, deselectedColor;
 
-        void TestTabs()
+        void InitializeTabs()
         {
+
             tab1Button = FindViewById<ImageButton>(Resource.Id.tab1_icon);
             tab2Button = this.FindViewById<ImageButton>(Resource.Id.tab2_icon);
             tab3Button = this.FindViewById<ImageButton>(Resource.Id.tab3_icon);
             tab4Button = this.FindViewById<ImageButton>(Resource.Id.tab4_icon);
-
-            //headingText = this.FindViewById<TextView>(Resource.Id.heading_text);
 
             tab1Text = this.FindViewById<TextView>(Resource.Id.tab1_text);
             tab2Text = this.FindViewById<TextView>(Resource.Id.tab2_text);
             tab3Text = this.FindViewById<TextView>(Resource.Id.tab3_text);
             tab4Text = this.FindViewById<TextView>(Resource.Id.tab3_text);
 
-            selectedColor = Resources.GetColor(Resource.Color.white);
-            deselectedColor = Resources.GetColor(Resource.Color.theme_blue);
+            selectedColor = Resources.GetColor(Resource.Color.theme_blue);
+            deselectedColor = Resources.GetColor(Resource.Color.white);
+
+            deselectAll();
 
             tab1Button.Click += delegate {
                 showTab1();
@@ -240,9 +242,6 @@ namespace Whos_Home
             tab4Button.Click += delegate {
                 showTab4();
             };
-
-            //showTab1();
-
         }
 
         private void deselectAll()
@@ -271,8 +270,6 @@ namespace Whos_Home
         {
             deselectAll();
 
-            //headingText.Text = "Tab 1";
-
             tab1Button.SetColorFilter(selectedColor);
             tab1Text.SetTextColor(selectedColor);
 
@@ -284,8 +281,6 @@ namespace Whos_Home
         {
             deselectAll();
 
-            //headingText.Text = "Tab 1";
-
             tab2Button.SetColorFilter(selectedColor);
             tab2Text.SetTextColor(selectedColor);
 
@@ -296,8 +291,6 @@ namespace Whos_Home
         {
             deselectAll();
 
-            //headingText.Text = "Tab 1";
-
             tab3Button.SetColorFilter(selectedColor);
             tab3Text.SetTextColor(selectedColor);
 
@@ -307,8 +300,6 @@ namespace Whos_Home
         private void showTab4()
         {
             deselectAll();
-
-            //headingText.Text = "Tab 1";
 
             tab4Button.SetColorFilter(selectedColor);
             tab4Text.SetTextColor(selectedColor);

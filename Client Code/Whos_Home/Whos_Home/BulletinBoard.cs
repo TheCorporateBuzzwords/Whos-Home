@@ -140,7 +140,7 @@ namespace Whos_Home
             builder.SetContentIntent(pendingIntent);
             builder.SetContentTitle("Who's Home?");
             builder.SetContentText(text + group);
-            builder.SetSmallIcon(Resource.Drawable.ic_action_content_save);
+            builder.SetSmallIcon(Resource.Drawable.notification);
 
             // Build the notification
             Notification notification = builder.Build();

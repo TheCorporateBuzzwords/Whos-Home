@@ -242,46 +242,25 @@ namespace Whos_Home
 			public const int gray_button = 2130837529;
 			
 			// aapt resource value: 0x7f02001a
-			public const int ic_action_bills = 2130837530;
+			public const int Icon = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int ic_action_content_create = 2130837531;
+			public const int Lists = 2130837531;
 			
 			// aapt resource value: 0x7f02001c
-			public const int ic_action_content_save = 2130837532;
+			public const int Locations = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int ic_menu_copy_holo_dark = 2130837533;
+			public const int notification = 2130837533;
 			
 			// aapt resource value: 0x7f02001e
-			public const int ic_menu_cut_holo_dark = 2130837534;
+			public const int refresh = 2130837534;
 			
 			// aapt resource value: 0x7f02001f
-			public const int ic_menu_paste_holo_dark = 2130837535;
+			public const int WhosHome = 2130837535;
 			
 			// aapt resource value: 0x7f020020
-			public const int ic_menu_search_holo_dark = 2130837536;
-			
-			// aapt resource value: 0x7f020021
-			public const int Icon = 2130837537;
-			
-			// aapt resource value: 0x7f020022
-			public const int Lists = 2130837538;
-			
-			// aapt resource value: 0x7f020023
-			public const int Locations = 2130837539;
-			
-			// aapt resource value: 0x7f020024
-			public const int notification = 2130837540;
-			
-			// aapt resource value: 0x7f020025
-			public const int refresh = 2130837541;
-			
-			// aapt resource value: 0x7f020026
-			public const int WhosHome = 2130837542;
-			
-			// aapt resource value: 0x7f020027
-			public const int WhosHomeIcon = 2130837543;
+			public const int WhosHomeIcon = 2130837536;
 			
 			static Drawable()
 			{
