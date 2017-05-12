@@ -34,7 +34,7 @@ namespace Whos_Home
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Notifications);
-
+            Console.WriteLine(FirebaseInstanceId.Instance.Token);
             if (Intent.Extras != null)
             {
                 foreach (var key in Intent.Extras.KeySet())
