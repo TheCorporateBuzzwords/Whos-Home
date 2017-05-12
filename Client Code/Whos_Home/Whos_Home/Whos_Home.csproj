@@ -209,6 +209,7 @@
     <Compile Include="BillsGraph.cs" />
     <Compile Include="BillsGraphMonth.cs" />
     <Compile Include="DatePickerFragment.cs" />
+    <Compile Include="Helpers\CredentialHandler.cs" />
     <Compile Include="ListAdapters\BillsListAdapter.cs" />
     <Compile Include="BillsNew.cs" />
     <Compile Include="BillsNewSpecifyAmountListAdapter.cs" />
@@ -270,6 +271,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <GoogleServicesJson Include="google-services.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

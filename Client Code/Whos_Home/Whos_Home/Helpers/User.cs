@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace Whos_Home.Helpers
 {
-    class User
+    public class User
     {
         private string firstname, lastname, username, email, password, confirm;
 

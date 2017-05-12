@@ -50,60 +50,12 @@ namespace Whos_Home
             var password = view.FindViewById<EditText>(Resource.Id.passwordtext).Text;
             var passCheck = view.FindViewById<EditText>(Resource.Id.repeatpasswordtext).Text;
 
-            bool fname_valid = (firstname != null && firstname != "");
-            bool lname_valid = (lastname != null && lastname != "");
-            bool email_valid = (email != null && email != "");
-            bool uname_valid = (username != null && username != "");
-            bool pass_valid = (password != null && password != "");
-            bool all_valid = (fname_valid && lname_valid && email_valid && uname_valid && pass_valid);
-            //create an alert box to show data that was entered (For testing)
-            if (all_valid && password == passCheck)
-            {
-                User user = new User(firstname, lastname, username, email, password, passCheck);
+            User user = new User(firstname, lastname, username, email, password, passCheck);
+            if (await CredentialHandler.SignUp(user))
+                this.Activity.StartActivity(typeof(Locations));
 
-                RequestHandler request = new RequestHandler(Context);
-
-                IRestResponse response = await request.SignUp(user);
-
-                HttpStatusCode code = response.StatusCode;
-                int code_num = (int)code;
-                if (code_num == 201)
-                {
-                    Toast.MakeText(this.Context, "Account Created!", ToastLength.Long).Show();
-                    this.Activity.StartActivity(typeof(BulletinBoard));
-
-                    InsertInDB(username, email, firstname, response);
-                }
-                else
-                {
-                    InvalidResponse(response);
-                }
-            }
-            else
-            {
-                InvalidInput();
-            }
         }
-
-        private void InvalidResponse(IRestResponse response)
-        {
-            AlertDialog.Builder alert = new AlertDialog.Builder(this.Context);
-            alert.SetTitle("Signup Failed");
-
-            if (response.Content != "")
-                alert.SetMessage(response.Content);
-            else
-                alert.SetMessage("Connection Error");
-
-            alert.SetPositiveButton("Retry", (senderAlert, args) => { });
-
-            alert.SetNegativeButton("Cancel", (senderAlert, args) =>
-            {
-                Dismiss();
-            });
-            Dialog dialog = alert.Create();
-            dialog.Show();
-        }
+            
 
         private void InvalidInput()
         {
@@ -121,18 +73,5 @@ namespace Whos_Home
                 dialog.Show();
         }
 
-        private void InsertInDB(string username, string email, string firstname, IRestResponse response)
-        {
-
-            DB_Singleton instance = DB_Singleton.Instance;
-
-            instance.InitDB();
-
-            JObject respJson = JObject.Parse(response.Content);
-
-            string token = (string)respJson["token"];
-
-            instance.InitialInsert(token, username, email, firstname);
-        }
     }
 }

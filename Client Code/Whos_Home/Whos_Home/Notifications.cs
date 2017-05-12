@@ -35,8 +35,16 @@ namespace Whos_Home
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Notifications);
 
+            if (Intent.Extras != null)
+            {
+                foreach (var key in Intent.Extras.KeySet())
+                {
+                    var value = Intent.Extras.GetString(key);
+                    Console.WriteLine("Key: {0} Value: {1}", key, value);
+                }
+            }
 
-            //InitializeFormat();
+            InitializeFormat();
             InitializeToolbars();
         }
 
