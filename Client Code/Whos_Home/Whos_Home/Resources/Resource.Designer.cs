@@ -338,8 +338,8 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09003c
 			public const int BulletinCommentsListView = 2131296316;
 			
-			// aapt resource value: 0x7f090070
-			public const int ButtonRefresh = 2131296368;
+			// aapt resource value: 0x7f09007e
+			public const int ButtonRefresh = 2131296382;
 			
 			// aapt resource value: 0x7f09000e
 			public const int CancelAddNewLocationButton = 2131296270;
@@ -353,11 +353,11 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09001c
 			public const int LocationsLinearLayout = 2131296284;
 			
-			// aapt resource value: 0x7f090061
-			public const int LocationsLocation = 2131296353;
+			// aapt resource value: 0x7f09006f
+			public const int LocationsLocation = 2131296367;
 			
-			// aapt resource value: 0x7f090060
-			public const int LocationsUsername = 2131296352;
+			// aapt resource value: 0x7f09006e
+			public const int LocationsUsername = 2131296366;
 			
 			// aapt resource value: 0x7f09003d
 			public const int NewCommentButton = 2131296317;
@@ -365,17 +365,17 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09004c
 			public const int NewGroupButton = 2131296332;
 			
-			// aapt resource value: 0x7f090058
-			public const int NewListButton = 2131296344;
-			
-			// aapt resource value: 0x7f09004e
-			public const int NewListItemButton = 2131296334;
-			
-			// aapt resource value: 0x7f09005f
-			public const int NewLocationButton = 2131296351;
-			
 			// aapt resource value: 0x7f090066
-			public const int NewPostButton = 2131296358;
+			public const int NewListButton = 2131296358;
+			
+			// aapt resource value: 0x7f09005c
+			public const int NewListItemButton = 2131296348;
+			
+			// aapt resource value: 0x7f09006d
+			public const int NewLocationButton = 2131296365;
+			
+			// aapt resource value: 0x7f090074
+			public const int NewPostButton = 2131296372;
 			
 			// aapt resource value: 0x7f090082
 			public const int SwitchSettingsMenu = 2131296386;
@@ -428,17 +428,17 @@ namespace Whos_Home
 			// aapt resource value: 0x7f090013
 			public const int buttonCancelAddUserToGroup = 2131296275;
 			
-			// aapt resource value: 0x7f090069
-			public const int buttonCancelCreateGroup = 2131296361;
+			// aapt resource value: 0x7f090077
+			public const int buttonCancelCreateGroup = 2131296375;
 			
-			// aapt resource value: 0x7f090052
-			public const int buttonCancelListAddItem = 2131296338;
+			// aapt resource value: 0x7f090060
+			public const int buttonCancelListAddItem = 2131296352;
 			
-			// aapt resource value: 0x7f090056
-			public const int buttonCancelListNew = 2131296342;
+			// aapt resource value: 0x7f090064
+			public const int buttonCancelListNew = 2131296356;
 			
-			// aapt resource value: 0x7f09005c
-			public const int buttonCancelLocationAddName = 2131296348;
+			// aapt resource value: 0x7f09006a
+			public const int buttonCancelLocationAddName = 2131296362;
 			
 			// aapt resource value: 0x7f09004a
 			public const int buttonCancelSelectGroup = 2131296330;
@@ -449,26 +449,26 @@ namespace Whos_Home
 			// aapt resource value: 0x7f090014
 			public const int buttonConfirmAddUserToGroup = 2131296276;
 			
-			// aapt resource value: 0x7f090053
-			public const int buttonConfirmListAddItem = 2131296339;
-			
-			// aapt resource value: 0x7f090057
-			public const int buttonConfirmListNew = 2131296343;
-			
-			// aapt resource value: 0x7f09005d
-			public const int buttonConfirmLocationAddName = 2131296349;
+			// aapt resource value: 0x7f090061
+			public const int buttonConfirmListAddItem = 2131296353;
 			
 			// aapt resource value: 0x7f090065
-			public const int buttonCreateAccount = 2131296357;
+			public const int buttonConfirmListNew = 2131296357;
+			
+			// aapt resource value: 0x7f09006b
+			public const int buttonConfirmLocationAddName = 2131296363;
+			
+			// aapt resource value: 0x7f090073
+			public const int buttonCreateAccount = 2131296371;
 			
 			// aapt resource value: 0x7f090040
 			public const int buttonCreateComment = 2131296320;
 			
-			// aapt resource value: 0x7f090068
-			public const int buttonCreateGroup = 2131296360;
+			// aapt resource value: 0x7f090076
+			public const int buttonCreateGroup = 2131296374;
 			
-			// aapt resource value: 0x7f09006e
-			public const int buttonCreateMessage = 2131296366;
+			// aapt resource value: 0x7f09007c
+			public const int buttonCreateMessage = 2131296380;
 			
 			// aapt resource value: 0x7f090016
 			public const int buttonCurrentBills = 2131296278;
@@ -482,8 +482,8 @@ namespace Whos_Home
 			// aapt resource value: 0x7f090048
 			public const int buttonSelectGroup = 2131296328;
 			
-			// aapt resource value: 0x7f090063
-			public const int buttonSignIn = 2131296355;
+			// aapt resource value: 0x7f090071
+			public const int buttonSignIn = 2131296369;
 			
 			// aapt resource value: 0x7f090088
 			public const int buttonlogin = 2131296392;
@@ -497,14 +497,14 @@ namespace Whos_Home
 			// aapt resource value: 0x7f090012
 			public const int edittextAddUserToGroupDialog = 2131296274;
 			
-			// aapt resource value: 0x7f090051
-			public const int edittextListAddItem = 2131296337;
+			// aapt resource value: 0x7f09005f
+			public const int edittextListAddItem = 2131296351;
 			
-			// aapt resource value: 0x7f090055
-			public const int edittextListNew = 2131296341;
+			// aapt resource value: 0x7f090063
+			public const int edittextListNew = 2131296355;
 			
-			// aapt resource value: 0x7f09005b
-			public const int edittextLocationAddName = 2131296347;
+			// aapt resource value: 0x7f090069
+			public const int edittextLocationAddName = 2131296361;
 			
 			// aapt resource value: 0x7f090010
 			public const int edittextNewGroup = 2131296272;
@@ -512,11 +512,11 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09003f
 			public const int edittextcomment = 2131296319;
 			
-			// aapt resource value: 0x7f09006d
-			public const int edittextmessage = 2131296365;
+			// aapt resource value: 0x7f09007b
+			public const int edittextmessage = 2131296379;
 			
-			// aapt resource value: 0x7f09006b
-			public const int edittexttitle = 2131296363;
+			// aapt resource value: 0x7f090079
+			public const int edittexttitle = 2131296377;
 			
 			// aapt resource value: 0x7f090094
 			public const int emailtext = 2131296404;
@@ -524,11 +524,11 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09008a
 			public const int firstnametext = 2131296394;
 			
-			// aapt resource value: 0x7f090073
-			public const int footer = 2131296371;
+			// aapt resource value: 0x7f09004f
+			public const int footer = 2131296335;
 			
-			// aapt resource value: 0x7f090072
-			public const int footer_border = 2131296370;
+			// aapt resource value: 0x7f09004e
+			public const int footer_border = 2131296334;
 			
 			// aapt resource value: 0x7f090003
 			public const int icon_only = 2131296259;
@@ -539,11 +539,11 @@ namespace Whos_Home
 			// aapt resource value: 0x7f090008
 			public const int light = 2131296264;
 			
-			// aapt resource value: 0x7f09004f
-			public const int listitemslistview = 2131296335;
+			// aapt resource value: 0x7f09005d
+			public const int listitemslistview = 2131296349;
 			
-			// aapt resource value: 0x7f090059
-			public const int listlistview = 2131296345;
+			// aapt resource value: 0x7f090067
+			public const int listlistview = 2131296359;
 			
 			// aapt resource value: 0x7f090019
 			public const int listviewBills = 2131296281;
@@ -575,17 +575,17 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09009c
 			public const int menu_preferences = 2131296412;
 			
-			// aapt resource value: 0x7f090067
-			public const int messagelistview = 2131296359;
+			// aapt resource value: 0x7f090075
+			public const int messagelistview = 2131296373;
 			
-			// aapt resource value: 0x7f09006f
-			public const int msgText = 2131296367;
+			// aapt resource value: 0x7f09007d
+			public const int msgText = 2131296381;
 			
 			// aapt resource value: 0x7f090002
 			public const int none = 2131296258;
 			
-			// aapt resource value: 0x7f090071
-			public const int notificationslistview = 2131296369;
+			// aapt resource value: 0x7f09007f
+			public const int notificationslistview = 2131296383;
 			
 			// aapt resource value: 0x7f090090
 			public const int passwordtext = 2131296400;
@@ -605,50 +605,50 @@ namespace Whos_Home
 			// aapt resource value: 0x7f090004
 			public const int standard = 2131296260;
 			
-			// aapt resource value: 0x7f090074
-			public const int tab1 = 2131296372;
+			// aapt resource value: 0x7f090050
+			public const int tab1 = 2131296336;
 			
-			// aapt resource value: 0x7f090075
-			public const int tab1_icon = 2131296373;
+			// aapt resource value: 0x7f090051
+			public const int tab1_icon = 2131296337;
 			
-			// aapt resource value: 0x7f090076
-			public const int tab1_text = 2131296374;
+			// aapt resource value: 0x7f090052
+			public const int tab1_text = 2131296338;
 			
-			// aapt resource value: 0x7f090077
-			public const int tab2 = 2131296375;
+			// aapt resource value: 0x7f090053
+			public const int tab2 = 2131296339;
 			
-			// aapt resource value: 0x7f090078
-			public const int tab2_icon = 2131296376;
+			// aapt resource value: 0x7f090054
+			public const int tab2_icon = 2131296340;
 			
-			// aapt resource value: 0x7f090079
-			public const int tab2_text = 2131296377;
+			// aapt resource value: 0x7f090055
+			public const int tab2_text = 2131296341;
 			
-			// aapt resource value: 0x7f09007a
-			public const int tab3 = 2131296378;
+			// aapt resource value: 0x7f090056
+			public const int tab3 = 2131296342;
 			
-			// aapt resource value: 0x7f09007b
-			public const int tab3_icon = 2131296379;
+			// aapt resource value: 0x7f090057
+			public const int tab3_icon = 2131296343;
 			
-			// aapt resource value: 0x7f09007c
-			public const int tab3_text = 2131296380;
+			// aapt resource value: 0x7f090058
+			public const int tab3_text = 2131296344;
 			
-			// aapt resource value: 0x7f09007d
-			public const int tab4 = 2131296381;
+			// aapt resource value: 0x7f090059
+			public const int tab4 = 2131296345;
 			
-			// aapt resource value: 0x7f09007e
-			public const int tab4_icon = 2131296382;
+			// aapt resource value: 0x7f09005a
+			public const int tab4_icon = 2131296346;
 			
-			// aapt resource value: 0x7f09007f
-			public const int tab4_text = 2131296383;
+			// aapt resource value: 0x7f09005b
+			public const int tab4_text = 2131296347;
 			
-			// aapt resource value: 0x7f090062
-			public const int textCreateAccount = 2131296354;
+			// aapt resource value: 0x7f090070
+			public const int textCreateAccount = 2131296368;
 			
-			// aapt resource value: 0x7f09005e
-			public const int textCurrentLocation = 2131296350;
+			// aapt resource value: 0x7f09006c
+			public const int textCurrentLocation = 2131296364;
 			
-			// aapt resource value: 0x7f090064
-			public const int textOR = 2131296356;
+			// aapt resource value: 0x7f090072
+			public const int textOR = 2131296370;
 			
 			// aapt resource value: 0x7f09003e
 			public const int textcommententer = 2131296318;
@@ -665,14 +665,14 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09008b
 			public const int textlastname = 2131296395;
 			
-			// aapt resource value: 0x7f09006c
-			public const int textmessage = 2131296364;
+			// aapt resource value: 0x7f09007a
+			public const int textmessage = 2131296378;
 			
 			// aapt resource value: 0x7f09008f
 			public const int textpassword = 2131296399;
 			
-			// aapt resource value: 0x7f09006a
-			public const int texttitle = 2131296362;
+			// aapt resource value: 0x7f090078
+			public const int texttitle = 2131296376;
 			
 			// aapt resource value: 0x7f09008d
 			public const int textusername = 2131296397;
@@ -710,14 +710,14 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09004b
 			public const int textviewGroups = 2131296331;
 			
-			// aapt resource value: 0x7f090050
-			public const int textviewListAddItem = 2131296336;
+			// aapt resource value: 0x7f09005e
+			public const int textviewListAddItem = 2131296350;
 			
-			// aapt resource value: 0x7f090054
-			public const int textviewListNew = 2131296340;
+			// aapt resource value: 0x7f090062
+			public const int textviewListNew = 2131296354;
 			
-			// aapt resource value: 0x7f09005a
-			public const int textviewLocationAddName = 2131296346;
+			// aapt resource value: 0x7f090068
+			public const int textviewLocationAddName = 2131296360;
 			
 			// aapt resource value: 0x7f09000f
 			public const int textviewNewGroup = 2131296271;
