@@ -209,6 +209,7 @@
     <Compile Include="BillsGraph.cs" />
     <Compile Include="BillsGraphMonth.cs" />
     <Compile Include="DatePickerFragment.cs" />
+    <Compile Include="FCMClient.cs" />
     <Compile Include="Helpers\BaseActivity.cs" />
     <Compile Include="Helpers\CredentialHandler.cs" />
     <Compile Include="ListAdapters\BillsListAdapter.cs" />
@@ -544,6 +545,9 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\action_menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <GoogleServicesJson Include="google-services.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Mono.Data.Sqlite.Portable.1.0.3.5\tools\Mono.Data.Sqlite.Portable.targets" Condition="Exists('..\packages\Mono.Data.Sqlite.Portable.1.0.3.5\tools\Mono.Data.Sqlite.Portable.targets')" />

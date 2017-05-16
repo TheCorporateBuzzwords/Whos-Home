@@ -104,7 +104,7 @@ namespace Whos_Home.Helpers
         {
             InsertInDB(DecodeToken(response));
             UpdateGroups();
-            //await new RequestHandler().FCMRegister(DB_Singleton.Instance.Retrieve("Token"), FirebaseInstanceId.Instance.Token);
+            await new RequestHandler().FCMRegister(DB_Singleton.Instance.Retrieve("Token"), FirebaseInstanceId.Instance.Token);
         }
 
         static private async void UpdateGroups()

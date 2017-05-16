@@ -34,7 +34,7 @@ namespace Whos_Home
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Notifications);
-            //Console.WriteLine(FirebaseInstanceId.Instance.Token);
+            Console.WriteLine(FirebaseInstanceId.Instance.Token);
             if (Intent.Extras != null)
             {
                 foreach (var key in Intent.Extras.KeySet())
@@ -102,7 +102,7 @@ namespace Whos_Home
                 RequestHandler request = new RequestHandler();
                 string fcmToken = FirebaseInstanceId.Instance.Token;
                 Console.WriteLine(fcmToken);
-                //await request.FCMRegister(DB_Singleton.Instance.Retrieve("Token"), fcmToken);
+                await request.FCMRegister(DB_Singleton.Instance.Retrieve("Token"), fcmToken);
                 return true;
             }
         }
