@@ -209,7 +209,7 @@
     <Compile Include="BillsGraph.cs" />
     <Compile Include="BillsGraphMonth.cs" />
     <Compile Include="DatePickerFragment.cs" />
-    <Compile Include="FCMClient.cs" />
+    <Compile Include="Helpers\BaseActivity.cs" />
     <Compile Include="Helpers\CredentialHandler.cs" />
     <Compile Include="ListAdapters\BillsListAdapter.cs" />
     <Compile Include="BillsNew.cs" />
@@ -265,14 +265,9 @@
     <Compile Include="SignIn_Dialog.cs" />
     <Compile Include="SignUp_Dialog.cs" />
     <Compile Include="Helpers\User.cs" />
-    <Compile Include="ToolbarFragments\FirstFragment.cs" />
-    <Compile Include="ToolbarFragments\FourthFragment.cs" />
-    <Compile Include="ToolbarFragments\SecondFragment.cs" />
-    <Compile Include="ToolbarFragments\ThirdFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <GoogleServicesJson Include="google-services.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -459,18 +454,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Colors.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\FirstFragment.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\SecondFragment.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\ThirdFragment.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\FourthFragment.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-mdpi\Locations.png" />

@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minHeight="400dp"
-    android:minWidth="400dp"
-    android:weightSum="100">
+    android:minWidth="400dp">
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
@@ -56,7 +55,7 @@
         android:layout_width="fill_parent"
         android:layout_weight="80"
         android:layout_height="0dp" />
-  <Button
+    <Button
         android:background="@drawable/blue_button"
         style="@style/button_text"
         android:text="Create Graph"
@@ -70,14 +69,121 @@
         android:layout_marginRight="15px"
         android:layout_marginBottom="5dip"
         android:textSize="15sp" />
-    <Toolbar
-        android:id="@+id/edit_toolbar"
-        android:minHeight="?android:attr/actionBarSize"
-        android:background="?android:attr/colorAccent"
-        android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
+    <!--Start Toolbar-->
+    <LinearLayout
+        android:id="@+id/footer_border"
+        android:background="@color/dark_grey"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:buttonGravity="top"
-        android:layout_gravity="center" />
+        android:layout_height="1px"
+        android:layout_above="@+id/footer" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="#0347b5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="12"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/footer">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:id="@+id/tab1">
+            <ImageButton
+                android:id="@+id/tab1_icon"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:background="#0347b5"
+                android:src="@drawable/Locations"
+                android:clickable="true"
+                android:fontFamily="sans-serif-light" />
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tab1_text"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textSize="8dp"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:text="Locations" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/tab2">
+            <ImageButton
+                android:id="@+id/tab2_icon"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:background="#0347b5"
+                android:src="@drawable/Bulletins"
+                android:clickable="true"
+                android:fontFamily="sans-serif-light" />
+            <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:id="@+id/tab2_text"
+                android:textColor="@color/white"
+                android:textSize="8dp"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:text="Bulletins" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/tab3">
+            <ImageButton
+                android:id="@+id/tab3_icon"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#0347b5"
+                android:src="@drawable/Lists"
+                android:clickable="true"
+                android:fontFamily="sans-serif-light" />
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tab3_text"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textSize="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="Lists" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:id="@+id/tab4">
+            <ImageButton
+                android:id="@+id/tab4_icon"
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#0347b5"
+                android:src="@drawable/Bills"
+                android:clickable="true"
+                android:fontFamily="sans-serif-light" />
+            <TextView
+                android:gravity="center"
+                android:id="@+id/tab4_text"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textSize="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:text="Bills" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

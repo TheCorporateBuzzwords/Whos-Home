@@ -21,7 +21,7 @@ using Android.Graphics;
 namespace Whos_Home
 {
     [Activity(Label = "Notifications")]
-    public class Notifications : Activity
+    public class Notifications : BaseActivity
     {
         private Button B_Refresh;
         private List<Invitations> m_activeInvites;
@@ -34,7 +34,7 @@ namespace Whos_Home
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Notifications);
-            Console.WriteLine(FirebaseInstanceId.Instance.Token);
+            //Console.WriteLine(FirebaseInstanceId.Instance.Token);
             if (Intent.Extras != null)
             {
                 foreach (var key in Intent.Extras.KeySet())
@@ -46,6 +46,7 @@ namespace Whos_Home
 
             InitializeFormat();
             InitializeToolbars();
+            ActionBar.Title = "Notifications";
         }
 
         private async void InitializeFormat()
@@ -146,173 +147,6 @@ namespace Whos_Home
             }
 
             return invites;
-        }
-
-        private void InitializeToolbars()
-        {
-            //initialize top toolbar
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            SetActionBar(toolbar);
-            ActionBar.Title = "Notifications";
-
-            InitializeTabs();
-
-            //initialize bottom toolbar
-            //var editToolbar = FindViewById<Toolbar>(Resource.Id.edit_toolbar);
-            //editToolbar.Title = "Navigate";
-            //editToolbar.InflateMenu(Resource.Menu.edit_menus);
-            //editToolbar.MenuItemClick += NavigateMenu;
-        }
-
-        //Method is used to navigate between activities using the bottom toolbar
-        private void NavigateMenu(object sender, Toolbar.MenuItemClickEventArgs e)
-        {
-            //Start the bulletin activity
-            if (e.Item.ToString() == "Bulletins")
-                this.StartActivity(typeof(BulletinBoard));
-
-            //Start the Locations activity
-            if (e.Item.ToString() == "Locations")
-                this.StartActivity(typeof(Locations));
-
-            //Start the Lists activity
-            if (e.Item.ToString() == "Lists")
-                this.StartActivity(typeof(Lists));
-
-            //Start the Lists activity
-            if (e.Item.ToString() == "Bills")
-                this.StartActivity(typeof(Bills));
-
-        }
-
-        //called to specify menu resources for an activity
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            MenuInflater.Inflate(Resource.Menu.top_menus, menu);
-            return base.OnCreateOptionsMenu(menu);
-        }
-
-        //called when a menu item is tapped
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
-                ToastLength.Short).Show();
-
-            //loads notifications
-            if (item.ToString() == "Notifications")
-                this.StartActivity(typeof(Notifications));
-
-            //Loads settings menu if preferences is selected
-            if (item.ToString() == "Preferences")
-                this.StartActivity(typeof(SettingsMenu));
-
-            //Loads Groups menu if selected
-            if (item.ToString() == "Groups")
-                this.StartActivity(typeof(Groups));
-
-            return base.OnOptionsItemSelected(item);
-        }
-
-        private ImageButton tab1Button, tab2Button, tab3Button, tab4Button;
-        private TextView tab1Text, tab2Text, tab3Text, tab4Text, headingText;
-        private Color selectedColor, deselectedColor;
-
-        void InitializeTabs()
-        {
-
-            tab1Button = FindViewById<ImageButton>(Resource.Id.tab1_icon);
-            tab2Button = this.FindViewById<ImageButton>(Resource.Id.tab2_icon);
-            tab3Button = this.FindViewById<ImageButton>(Resource.Id.tab3_icon);
-            tab4Button = this.FindViewById<ImageButton>(Resource.Id.tab4_icon);
-
-            tab1Text = this.FindViewById<TextView>(Resource.Id.tab1_text);
-            tab2Text = this.FindViewById<TextView>(Resource.Id.tab2_text);
-            tab3Text = this.FindViewById<TextView>(Resource.Id.tab3_text);
-            tab4Text = this.FindViewById<TextView>(Resource.Id.tab3_text);
-
-            selectedColor = Resources.GetColor(Resource.Color.theme_blue);
-            deselectedColor = Resources.GetColor(Resource.Color.white);
-
-            deselectAll();
-
-            tab1Button.Click += delegate {
-                showTab1();
-            };
-
-            tab2Button.Click += delegate {
-                showTab2();
-            };
-
-            tab3Button.Click += delegate {
-                showTab3();
-            };
-
-            tab4Button.Click += delegate {
-                showTab4();
-            };
-        }
-
-        private void deselectAll()
-        {
-            tab1Button.SetColorFilter(deselectedColor);
-            tab2Button.SetColorFilter(deselectedColor);
-            tab3Button.SetColorFilter(deselectedColor);
-            tab4Button.SetColorFilter(deselectedColor);
-
-            tab1Text.SetTextColor(deselectedColor);
-            tab2Text.SetTextColor(deselectedColor);
-            tab3Text.SetTextColor(deselectedColor);
-            tab4Text.SetTextColor(deselectedColor);
-
-        }
-
-        private void showFragment(Fragment fragment)
-        {
-            //var ft = FragmentManager.BeginTransaction();
-            //ft.Replace(Resource.Id.container, fragment);
-            //ft.Commit();
-        }
-
-
-        private void showTab1()
-        {
-            deselectAll();
-
-            tab1Button.SetColorFilter(selectedColor);
-            tab1Text.SetTextColor(selectedColor);
-
-            //this.StartActivity(typeof(Locations));
-
-        }
-
-        private void showTab2()
-        {
-            deselectAll();
-
-            tab2Button.SetColorFilter(selectedColor);
-            tab2Text.SetTextColor(selectedColor);
-
-            //this.StartActivity(typeof(Locations));
-        }
-
-        private void showTab3()
-        {
-            deselectAll();
-
-            tab3Button.SetColorFilter(selectedColor);
-            tab3Text.SetTextColor(selectedColor);
-
-            //this.StartActivity(typeof(Locations));
-        }
-
-        private void showTab4()
-        {
-            deselectAll();
-
-            tab4Button.SetColorFilter(selectedColor);
-            tab4Text.SetTextColor(selectedColor);
-
-            //this.StartActivity(typeof(Locations));
         }
     }
 }
