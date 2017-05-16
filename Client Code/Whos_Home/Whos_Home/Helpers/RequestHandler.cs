@@ -349,7 +349,7 @@ namespace Whos_Home.Helpers
         //Firebase Requests
         public async Task<IRestResponse> FCMRegister(string token, string fcmToken)
         {
-            request = new RestRequest(string.Format("/users/fcm/"), Method.POST);
+            request = new RestRequest(string.Format("/users/fcm/"), Method.PUT);
             request.AddHeader("x-access-token", token);
             request.AddParameter("regToken", fcmToken);
 
