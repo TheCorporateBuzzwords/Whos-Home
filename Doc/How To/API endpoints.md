@@ -35,7 +35,7 @@ PUT /users/home (authenticated)
 \*ssid: ssid of home location
 
 ### Register user for FCM
-POST /users/fcm (authenticated)
+PUY /users/fcm (authenticated)
 
 \*regToken: registration token for FCM
 
