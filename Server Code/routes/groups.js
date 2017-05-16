@@ -7,7 +7,7 @@ var auth = require('./../middlewares/auth');
 var jwt = require('jsonwebtoken');
 var router = require('express').Router();
 var admin = require("firebase-admin");
-var helper = require('./helper');
+var helper = require('./../helper');
 
 var serviceAccount = require("../etc/firebase/whos-home-fcb1b-firebase-adminsdk-mm1oa-7a54483f9e.json");
 
