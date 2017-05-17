@@ -202,7 +202,7 @@ router.post('/', function (req, res) {
 
 router.put('/fcm', auth.CheckAuthToken, function (req, res) {
     if (req.body.regToken) {
-        var requst = "UPDATE Users SET FirebaseToken = " + config.pool.escape(req.body.regToken) +
+        var request = "UPDATE Users SET FirebaseToken = " + config.pool.escape(req.body.regToken) +
                      " WHERE UserID = " + req.body.decoded.UserID;
         config.pool.query(request, function(err, result) {
             if (err) {
