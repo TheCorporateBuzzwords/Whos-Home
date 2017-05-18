@@ -72,19 +72,27 @@ namespace Whos_Home
             var response = await request.GetBills(db.Retrieve("Token"), db.GetActiveGroup().GroupID);
 
             //Console.WriteLine("!!!!!!!!!!!!!!!!!!!BILLS!!!!!!!!!!!!!!!!!!!!!!");
-            JArray allbills = JArray.Parse(response.Content);
-            foreach(JToken token in allbills)
+            try
             {
-                m_all_bill_objs.Add(new BillObj(token));
-                Console.WriteLine(new BillObj(token).ToString());
+
+                JArray allbills = JArray.Parse(response.Content);
+                foreach (JToken token in allbills)
+                {
+                    m_all_bill_objs.Add(new BillObj(token));
+                    Console.WriteLine(new BillObj(token).ToString());
+                }
+
+                Tuple<List<BillObj>, List<BillObj>> SortedBills = SortBills(m_all_bill_objs);
+
+                if (type == 0)
+                    m_listview.Adapter = new BillsListAdapter(this, SortedBills.Item1);
+                else
+                    m_listview.Adapter = new BillsListAdapter(this, SortedBills.Item2);
             }
-
-            Tuple<List<BillObj>, List<BillObj>> SortedBills = SortBills(m_all_bill_objs);
-
-            if(type == 0)
-                m_listview.Adapter = new BillsListAdapter(this, SortedBills.Item1);
-            else
-                m_listview.Adapter = new BillsListAdapter(this, SortedBills.Item2);
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         void PushNewUsserList(string content)

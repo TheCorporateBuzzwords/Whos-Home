@@ -32,19 +32,19 @@ namespace Whos_Home
         private string m_current_location;
         private List<string> m_WifiNetworks = new List<string>();
 
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected async override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.Locations);
 
             InitializeToolbars();
-            InitializeFormat();
+            await InitializeFormat();
 
             tab1Button.SetColorFilter(selectedColor);
             ActionBar.Title = "Locations";
         }
-        private async void InitializeFormat()
+        private async Task InitializeFormat()
         {
             B_AddLocation = FindViewById<Button>(Resource.Id.NewLocationButton);
             B_AddLocation.Click += AddLocation_Click;
@@ -55,10 +55,10 @@ namespace Whos_Home
 
             //This block asks the user for location permissions
             //Or checks if the user already gave permissions
-            UpdateAllLocations();
+            await UpdateAllLocations();
         }
 
-        async void UpdateAllLocations()
+        async Task UpdateAllLocations()
         {
             string permission = Manifest.Permission.AccessFineLocation;
             if (CheckSelfPermission(permission) != (int)Permission.Granted)
@@ -68,18 +68,19 @@ namespace Whos_Home
                 ActivityCompat.RequestPermissions(this, request_permissions, 0);
             }
             DB_Singleton db = DB_Singleton.Instance;
-
+            List<Tuple<string, string>> GroupMemberLocs = new List<Tuple<string, string>>();
             try
             {
                 db.GetActiveGroup();
+                await GetLocations();
+                GroupMemberLocs = await GetActiveUsers();
+
             }
             catch
             {
                 Console.WriteLine("No active group selected: Locations");
+                GroupMemberLocs.Add(new Tuple<string, string>("No active group selected", ""));
             }
-
-            await GetLocations();
-            var GroupMemberLocs = await GetActiveUsers();
 
             m_LocationList.Adapter = new LocationsListAdapter(this, GroupMemberLocs);
         }
