@@ -36,6 +36,10 @@ Begin
   -- Add the the user to user_locations linking table for that group
   Insert Into User_Locations (UserID, GroupID) Values (uID, @gID);
 
+  Select GroupID
+    From Groups
+    Where GroupID = @gID;
+
 End //
 Delimiter;
 

@@ -27,6 +27,24 @@ router.post('/', auth.CheckAuthToken, function (req, res) {
         //Call the add group procedure
         var insertRequest = "Call addGroup(" + config.pool.escape(req.body.groupName) + ", " + config.pool.escape(req.body.decoded.UserID) + ")";
 
+        // //Perform the request
+        // config.pool.query(insertRequest, function (err, result) {
+        //     if (err) {
+        //         //If error, log and handle
+        //         console.log(err);
+        //     }
+        //     else {
+        //         config.pool.query("SELECT LAST_INSERT_ID() AS id", function (err, result, field) {
+        //             GroupID = result[0].id;
+        //             if (err) {
+        //                 console.log(err);
+        //             } else {
+        //                 res.status(200).json({ status: "success", groupID: GroupID });
+        //             }
+        //         });
+        //     }
+        // });
+
         //Perform the request
         config.pool.query(insertRequest, function (err, result) {
             if (err) {
@@ -34,14 +52,16 @@ router.post('/', auth.CheckAuthToken, function (req, res) {
                 console.log(err);
             }
             else {
-                config.pool.query("SELECT LAST_INSERT_ID() AS id", function (err, result, field) {
-                    GroupID = result[0].id;
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        res.status(200).json({ status: "success", groupID: GroupID });
-                    }
-                });
+                // config.pool.query("SELECT LAST_INSERT_ID() AS id", function (err, result, field) {
+                //     GroupID = result[0].id;
+                //     if (err) {
+                //         console.log(err);
+                //     } else {
+                //         res.status(200).json({ status: "success", groupID: GroupID });
+                //     }
+                // });
+
+                res.status(200).json(result[1]);
             }
         });
     }
@@ -804,3 +824,6 @@ router.delete('/:groupid(\\d+)/messageboard/:topicid(\\d+)/:postid(\\d+)/', [aut
 
 
 module.exports = router;
+
+
+
