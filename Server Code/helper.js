@@ -1,6 +1,7 @@
 var config = require("./config");
 var mysql = require("mysql");
 var router = require('express').Router();
+var admin = require("firebase-admin");
 
 module.exports = {
     getRegToken: function (userid, callback) {
@@ -46,7 +47,7 @@ module.exports = {
         }); 
     },
     sendNotification: function (userid, title, message) {
-        getRegToken(userid, function(err, token) {
+        module.exports.getRegToken(userid, function(err, token) {
             var payload = {
                 notification: {
                     title: title,
@@ -59,7 +60,7 @@ module.exports = {
             };
             if(!err)
             {
-                admin.messaging().sendToDevice(registrationToken, payload, options)
+                admin.messaging().sendToDevice(token, payload, options)
                     .then(function(response) {
                         console.log("Successfully sent message:", response);
                     })

@@ -80,6 +80,7 @@ app.use('/session', require('./routes/session'));
 app.use('/groups', require('./routes/groups'));
 app.use('/users', require('./routes/users'));
 app.use('/', require('./routes'));
+app.use('/ping/', require('./routes/ping'));
 /*app.use('/users', require('./routes/users/signup'));
 app.use('/users', require('./routes/users/groups'));
 app.use('/users', require('./routes/groups/invitation/acceptinvite'));
