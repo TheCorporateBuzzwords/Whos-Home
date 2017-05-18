@@ -12,8 +12,8 @@ var helper = require('./../helper');
 var serviceAccount = require("../etc/firebase/whos-home-fcb1b-firebase-adminsdk-mm1oa-7a54483f9e.json");
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "firebase-adminsdk-mm1oa@whos-home-fcb1b.iam.gserviceaccount.com"
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "firebase-adminsdk-mm1oa@whos-home-fcb1b.iam.gserviceaccount.com"
 });
 
 /**********************
@@ -63,14 +63,14 @@ router.get('/:groupid(\\d+)', [auth.CheckAuthToken, auth.CheckInGroup], function
         //                     "WHERE Groups.GroupID = " + config.pool.escape(req.params.groupid);
         //var checkHome = "SELECT LocationID FROM Group_Locations WHERE GroupID = ";
         var request = "SELECT UserName, GroupName, IF(EXISTS(SELECT UserId FROM Users WHERE Home = Users.Home AND UserID = UL.UserID), 'Home', (select NetName From Group_Locations Where LocationID = UL.LocationID)) As NetName, Users.UserID " +
-                        "FROM Users " +
-                        "JOIN User_Groups ON Users.UserID = User_Groups.UserID " +
-                        "JOIN Groups ON User_Groups.GroupID = Groups.GroupID " +
-                        "left join User_Locations as UL " + 
-                        "ON UL.GroupID = Groups.GroupID " +
-                        "AND Users.UserID = UL.UserID " +
-                        "AND UL.GroupID = User_Groups.GroupID " +
-                        "WHERE Groups.GroupID = " + config.pool.escape(req.params.groupid);
+            "FROM Users " +
+            "JOIN User_Groups ON Users.UserID = User_Groups.UserID " +
+            "JOIN Groups ON User_Groups.GroupID = Groups.GroupID " +
+            "left join User_Locations as UL " +
+            "ON UL.GroupID = Groups.GroupID " +
+            "AND Users.UserID = UL.UserID " +
+            "AND UL.GroupID = User_Groups.GroupID " +
+            "WHERE Groups.GroupID = " + config.pool.escape(req.params.groupid);
 
         config.pool.query(request, function (err, result) {
             return res.json(result);
@@ -84,8 +84,8 @@ router.put('/:groupid(\\d+)/group/', [auth.CheckAuthToken, auth.CheckInGroup], f
     //Check for all needed info
     if (req.body.newName) {
         var editRequest = "Update Groups" +
-                           " Set GroupName = " + config.pool.escape(req.body.newName) +
-                           " Where GroupID = " + config.pool.escape(req.params.groupid) + ";";
+            " Set GroupName = " + config.pool.escape(req.body.newName) +
+            " Where GroupID = " + config.pool.escape(req.params.groupid) + ";";
 
         config.pool.query(editRequest, function (err, result) {
             //If there is an error, log it
@@ -132,21 +132,19 @@ router.delete('/:groupid(\\d+)/:userid(\\d+)/', [auth.CheckAuthToken, auth.Check
 //Get Bills for group
 router.get('/:groupid(\\d+)/bills/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
     var selectQuery = "";
-    if (req.query.recipient)
-    {
+    if (req.query.recipient) {
         selectQuery = "SELECT BillID, GroupID, u1.UserName AS Sender, u2.UserName AS Recipient, CategoryID, Title, Description, Amount, DATE_FORMAT(DateDue, '%c/%d/%Y %r:%h:%s') AS DateDue" +
-                               " FROM Bills b" +
-                               " INNER JOIN Users u1 ON b.RecipientID = u1.UserID" +
-                               " INNER JOIN Users u2 ON b.SenderID = u2.UserID" +
-                               " WHERE GroupId = " + req.params.groupid + " AND RecipientId = " + req.query.recipient;
+            " FROM Bills b" +
+            " INNER JOIN Users u1 ON b.RecipientID = u1.UserID" +
+            " INNER JOIN Users u2 ON b.SenderID = u2.UserID" +
+            " WHERE GroupId = " + req.params.groupid + " AND RecipientId = " + req.query.recipient;
     }
-    else
-    {
+    else {
         selectQuery = "SELECT BillID, GroupID, u1.UserName AS Sender, u2.UserName AS Recipient, CategoryID, Title, Description, Amount, DATE_FORMAT(DateDue, '%c/%d/%Y %r:%h:%s') AS DateDue" +
-                               " FROM Bills b" +
-                               " INNER JOIN Users u1 ON b.RecipientID = u1.UserID" +
-                               " INNER JOIN Users u2 ON b.SenderID = u2.UserID" +
-                               " WHERE GroupId = " + req.params.groupid;
+            " FROM Bills b" +
+            " INNER JOIN Users u1 ON b.RecipientID = u1.UserID" +
+            " INNER JOIN Users u2 ON b.SenderID = u2.UserID" +
+            " WHERE GroupId = " + req.params.groupid;
     }
     config.pool.query(selectQuery, function (err, result) {
         if (err) {
@@ -169,17 +167,17 @@ router.post('/:groupid(\\d+)/bills/', [auth.CheckAuthToken, auth.CheckInGroup], 
         return res.status(400).json({ status: "error", message: "invalid data type for one or more parameters" });
     }
     var insertQuery = "INSERT INTO Bills (GroupID, SenderID, RecipientID, CategoryID, Title, Description, Amount, DateDue)" +
-                       " VALUES (" + req.params.groupid + "," + req.body.decoded.UserID +
-                       "," + req.body.recipient + "," + req.body.category + "," + config.pool.escape(req.body.title) + "," +
-                       config.pool.escape(req.body.description) + "," + req.body.amount + "," + "STR_TO_DATE(" + config.pool.escape(req.body.date) +
-                    ", '%c/%d/%Y %r:%h:%s'));";
+        " VALUES (" + req.params.groupid + "," + req.body.decoded.UserID +
+        "," + req.body.recipient + "," + req.body.category + "," + config.pool.escape(req.body.title) + "," +
+        config.pool.escape(req.body.description) + "," + req.body.amount + "," + "STR_TO_DATE(" + config.pool.escape(req.body.date) +
+        ", '%c/%d/%Y %r:%h:%s'));";
     config.pool.query(insertQuery, function (err, result) {
         if (err) {
             return res.status(500).json({ status: "error", message: "error processing request" });
         }
         else {
             helper.sendNotification(req.body.recipient, "New bill", "Someone has sent you a bill");
-            
+
             return res.status(200).json({ status: "success", message: "successfully added bill" });
         }
     });
@@ -194,8 +192,8 @@ router.get('/:groupid(\\d+)/invitation/', auth.CheckAuthToken, function (req, re
 
     var checkInvite = "SELECT * FROM Invites WHERE RecipientID = " + req.body.decoded.UserID + " AND GroupID = " + req.params.groupid;
     var insertQuery = "INSERT INTO User_Groups (UserID, GroupID) VALUES (" + req.body.decoded.UserID + ", " + req.params.groupid + ");" +
-                        " DELETE FROM Invites WHERE GroupID = " + req.params.groupid + " AND RecipientID = " + req.body.decoded.UserID + ";" +
-                        " Insert Into User_Locations (UserID, GroupID) Values (" + req.body.decoded.UserID + ", " + req.params.groupid + ");";
+        " DELETE FROM Invites WHERE GroupID = " + req.params.groupid + " AND RecipientID = " + req.body.decoded.UserID + ";" +
+        " Insert Into User_Locations (UserID, GroupID) Values (" + req.body.decoded.UserID + ", " + req.params.groupid + ");";
     var checkDupeQuery = "SELECT * FROM User_Groups WHERE UserID = " + req.body.decoded.UserID + " AND GroupID = " + req.params.groupid;
     var deleteInvite = "DELETE FROM Invites WHERE GroupID = " + req.params.groupid + " AND RecipientID = " + req.body.decoded.UserID;
     config.pool.query(checkInvite, function (err, checkInviteResult) {
@@ -217,23 +215,25 @@ router.get('/:groupid(\\d+)/invitation/', auth.CheckAuthToken, function (req, re
                 return res.status(200).json({ status: "success", message: "invitation denied" });
             });
         }
-        config.pool.query(checkDupeQuery, function (err, checkDupeResult) {
-            if (err) {
-                console.log(err);
-                return res.end();
-            }
-            else if (checkDupeResult.length) {
-                //User has invitation, but is already part of the group.
-                return res.status(409).json({ status: "error", message: "you are already part of this group" });
-            }
-            config.pool.query(insertQuery, function (err, insertResult) {
+        else {
+            config.pool.query(checkDupeQuery, function (err, checkDupeResult) {
                 if (err) {
                     console.log(err);
                     return res.end();
                 }
-                return res.status(200).json({ status: "success", message: "you are now part of this group" });
+                else if (checkDupeResult.length) {
+                    //User has invitation, but is already part of the group.
+                    return res.status(409).json({ status: "error", message: "you are already part of this group" });
+                }
+                config.pool.query(insertQuery, function (err, insertResult) {
+                    if (err) {
+                        console.log(err);
+                        return res.end();
+                    }
+                    return res.status(200).json({ status: "success", message: "you are now part of this group" });
+                });
             });
-        });
+        }
     });
 });
 
@@ -324,10 +324,10 @@ router.put('/:groupid(\\d+)/lists/:listid(\\d+)/', [auth.CheckAuthToken, auth.Ch
     //Check for all needed information
     if (req.body.decoded.UserID && req.params.groupid && req.params.listid && req.body.newTitle && req.body.completed !== 1 && req.body.completed !== 0) {
         var editRequst = "Update Lists" +
-                         " Set Title = " + config.pool.escape(req.body.newTitle) +
-                         " AND Completed = " + req.body.completed +
-                         " Where ListID = " + config.pool.escape(req.params.listid) +
-                         " And GroupID = " + config.pool.escape(req.params.groupid) + ";";
+            " Set Title = " + config.pool.escape(req.body.newTitle) +
+            " AND Completed = " + req.body.completed +
+            " Where ListID = " + config.pool.escape(req.params.listid) +
+            " And GroupID = " + config.pool.escape(req.params.groupid) + ";";
 
         config.pool.query(editRequst, function (err, result) {
             //If there is an error, log it
@@ -435,8 +435,8 @@ router.put('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckAuth
     if (req.body.decoded.UserID && req.params.groupid && req.params.itemid && req.body.newText) {
         //Create the request
         var editRequst = "Update Items" +
-                         " Set ItemText = " + config.pool.escape(req.body.newText) +
-                         " Where ItemID = " + config.pool.escape(req.params.itemid) + ";";
+            " Set ItemText = " + config.pool.escape(req.body.newText) +
+            " Where ItemID = " + config.pool.escape(req.params.itemid) + ";";
 
         config.pool.query(editRequst, function (err, result) {
             //If there is an error, log it
@@ -476,7 +476,7 @@ router.delete('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckA
     //Check for all needed information
     //Create the request
     var deleteRequest = "Delete From Items" +
-                        " Where ItemID = " + config.pool.escape(req.params.itemid) + ";";
+        " Where ItemID = " + config.pool.escape(req.params.itemid) + ";";
 
     config.pool.query(deleteRequest, function (err, result) {
         //If there is an error, log it
@@ -503,9 +503,9 @@ router.delete('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckA
 router.get('/:groupid(\\d+)/locations', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
 
     var request = "SELECT g.GroupName, gl.SSID, gl.NetName" +
-                  " FROM Groups g" +
-                  " INNER JOIN Group_Locations gl ON g.GroupID = gl.GroupID" +
-                  " WHERE g.GroupID = " + config.pool.escape(req.params.groupid);
+        " FROM Groups g" +
+        " INNER JOIN Group_Locations gl ON g.GroupID = gl.GroupID" +
+        " WHERE g.GroupID = " + config.pool.escape(req.params.groupid);
     config.pool.query(request, function (err, result) {
         return res.json(result);
     });
@@ -540,11 +540,11 @@ router.post('/:groupid(\\d+)/location/', [auth.CheckAuthToken, auth.CheckInGroup
 router.get('/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
     //Create the request
     var getRequest = "Select PostID, Msg, PostTime," +
-                      " (Select UserName" +
-                      " From Users" + 
-                      " Where UserID = p.UserID) as PostersName" +
-                      " From Posts as p" +
-                      " Where TopicID = " + config.pool.escape(req.params.topicid);
+        " (Select UserName" +
+        " From Users" +
+        " Where UserID = p.UserID) as PostersName" +
+        " From Posts as p" +
+        " Where TopicID = " + config.pool.escape(req.params.topicid);
 
     //Perform the request
     config.pool.query(getRequest, function (err, result) {
@@ -569,36 +569,36 @@ router.get('/:groupid(\\d+)/messageboard/', [auth.CheckAuthToken, auth.CheckInGr
         //Super gross, clean up later
         //Create a var that has the call to the procedure
         var getRequest = "Select mt.TopicID, mt.Title," +
-                                " (Select MIN(p2.PostTime)" +
-                                    " From Posts as p2" +
-                                    " Where p2.TopicID = mt.TopicID) as DatePosted," +
-                                    " (Select Msg" +
-                                        " From Posts as p3" +
-                                        " Where p3.TopicID = mt.TopicID" +
-                                            " AND p3.PostTime = DatePosted) as Message," +
-                                    " (Select UserName" +
-                                        " From Users" +
-                                        " Where UserID =" +
-                                        " (Select UserID" +
-                                            " From Posts as p" +
-                                            " Where p.TopicID = mt.TopicID" +
-                                                " And p.PostTime = DatePosted)) as PosterName," +
-                                    " (Select FirstName" +
-                                        " From Users" +
-                                        " Where UserID =" +
-                                        " (Select UserID" +
-                                            " From Posts as p" +
-                                            " Where p.TopicID = mt.TopicID" +
-                                                " And p.PostTime = DatePosted)) as FirstName," +
-                                    " (Select LastName" +
-                                        " From Users" +
-                                        " Where UserID =" +
-                                        " (Select UserID" +
-                                            " From Posts as p" +
-                                            " Where p.TopicID = mt.TopicID" +
-                                                " And p.PostTime = DatePosted)) as LastName" +
-                                " From Message_Topics as mt" +
-                                " Where mt.GroupID = " + config.pool.escape(req.params.groupid);
+            " (Select MIN(p2.PostTime)" +
+            " From Posts as p2" +
+            " Where p2.TopicID = mt.TopicID) as DatePosted," +
+            " (Select Msg" +
+            " From Posts as p3" +
+            " Where p3.TopicID = mt.TopicID" +
+            " AND p3.PostTime = DatePosted) as Message," +
+            " (Select UserName" +
+            " From Users" +
+            " Where UserID =" +
+            " (Select UserID" +
+            " From Posts as p" +
+            " Where p.TopicID = mt.TopicID" +
+            " And p.PostTime = DatePosted)) as PosterName," +
+            " (Select FirstName" +
+            " From Users" +
+            " Where UserID =" +
+            " (Select UserID" +
+            " From Posts as p" +
+            " Where p.TopicID = mt.TopicID" +
+            " And p.PostTime = DatePosted)) as FirstName," +
+            " (Select LastName" +
+            " From Users" +
+            " Where UserID =" +
+            " (Select UserID" +
+            " From Posts as p" +
+            " Where p.TopicID = mt.TopicID" +
+            " And p.PostTime = DatePosted)) as LastName" +
+            " From Message_Topics as mt" +
+            " Where mt.GroupID = " + config.pool.escape(req.params.groupid);
 
         //Change request to return topics and responses by "pages"? groups of 10 or something? grouped by date
 
@@ -660,9 +660,9 @@ router.post('/:groupid(\\d+)/messageboard/', [auth.CheckAuthToken, auth.CheckInG
     if (req.params.groupid && req.body.title && req.body.decoded.UserID && req.body.msg) {
         //Create a var that has the call to the procedure
         var insertRequest = "Call addTopic(" + config.pool.escape(req.params.groupid) +
-                            ", " + config.pool.escape(req.body.title) +
-                            ", " + config.pool.escape(req.body.decoded.UserID) +
-                            ", " + config.pool.escape(req.body.msg) + ")";
+            ", " + config.pool.escape(req.body.title) +
+            ", " + config.pool.escape(req.body.decoded.UserID) +
+            ", " + config.pool.escape(req.body.msg) + ")";
 
         //Perform the request
         config.pool.query(insertRequest, function (err, result) {
@@ -689,9 +689,9 @@ router.put('/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthToken,
     if (req.body.newTitle) {
         //Create the request
         var editRequest = "Update Message_Topics" +
-                          " Set Title = " + config.pool.escape(req.body.newTitle) +
-                          " Where TopicID = " + config.pool.escape(req.params.topicid) +
-                          " And GroupID = " + config.pool.escape(req.params.groupid) + ";";
+            " Set Title = " + config.pool.escape(req.body.newTitle) +
+            " Where TopicID = " + config.pool.escape(req.params.topicid) +
+            " And GroupID = " + config.pool.escape(req.params.groupid) + ";";
 
         config.pool.query(editRequest, function (err, result) {
             //If there is an error, log it
@@ -728,8 +728,8 @@ router.put('/:groupid(\\d+)/messageboard/:topicid(\\d+)/:postid(\\d+)/', [auth.C
 
         //Create the request
         var editRequst = "Update Posts" +
-                         " Set Msg = " + config.pool.escape(req.body.newMsg) +
-                         " Where PostID = " + config.pool.escape(req.params.postid) + ";";
+            " Set Msg = " + config.pool.escape(req.body.newMsg) +
+            " Where PostID = " + config.pool.escape(req.params.postid) + ";";
 
         config.pool.query(editRequst, function (err, result) {
             //If there is an error, log it
@@ -783,7 +783,7 @@ router.delete('/:groupid(\\d+)/messageboard/:topicid(\\d+)/', [auth.CheckAuthTok
 //Endpoint for deleting a message board response
 router.delete('/:groupid(\\d+)/messageboard/:topicid(\\d+)/:postid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
     var deleteRequest = "Delete from Posts" +
-                                 "Where PostID = " + config.pool.escape(req.params.postid) + ";";
+        "Where PostID = " + config.pool.escape(req.params.postid) + ";";
 
     config.pool.query(deleteRequest, function (err, result) {
         //If there is an error, log it
