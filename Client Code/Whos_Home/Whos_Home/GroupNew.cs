@@ -56,8 +56,19 @@ namespace Whos_Home
             int statusCode = (int)response.StatusCode;
             if ((int)response.StatusCode == 200)
             {
-                db.AddGroup(groupname, (string)JObject.Parse(response.Content)["groupID"]);
-                Success();
+                string groupid;
+                try
+                {
+                    JArray temp = JArray.Parse(response.Content);
+                    groupid = (string)temp[0]["GroupID"];
+                    db.AddGroup(groupname, groupid);
+                    Success();
+                }
+                catch(Exception parseError)
+                {
+                    Console.WriteLine(parseError.Message);
+                    Failure();
+                }
             }
             else
                 Failure();
