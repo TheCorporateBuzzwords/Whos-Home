@@ -6,6 +6,7 @@ var validator = require('validator');
 var jwt = require('jsonwebtoken');
 var auth = require('./../middlewares/auth');
 var router = require('express').Router();
+var schedule = require('./../schedule');
 
 router.get('/groups', auth.CheckAuthToken, function (req, res) {
     //Check that the needed stuff is in the JSON
@@ -93,12 +94,23 @@ router.put('/location', auth.CheckAuthToken, function (req, res) {
     // });
     var updateRequest = "Call updateUserLocations(" + req.body.decoded.UserID + ", " + config.pool.escape(req.body.bssid) + ");";
     var isHome = "SELECT UserId FROM Users WHERE Home = " + config.pool.escape(req.body.bssid) + " AND UserID = " + req.body.decoded.UserId;
+    //var locationValid = "SELECT LocationID FROM Group_Locations WHERE SSID = " + req.body.bssid + " AND GroupID = " + ;
+    var isAtLocation = "SELECT LocationID FROM User_Locations WHERE UserID = " + req.body.decoded.UserID + " AND LocationID IS NOT NULL";
     config.pool.query(updateRequest, function (err, result) {
         if (err) {
             console.log(err);
             return res.end();
         }
         else {
+            //check result, then update list
+            console.log(result);
+            config.pool.query(isAtLocation, function (err, result) {
+                if(err) {
+                    console.log(err);
+                    return res.end();
+                }
+                schedule.addUserToLocationList(req.body.decoded.UserID);
+            });
             return res.status(200).json({ status: "success", message: "updated user's location." });
         }
     });
