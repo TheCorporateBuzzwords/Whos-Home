@@ -451,16 +451,7 @@ router.post('/:groupid(\\d+)/lists/:listid(\\d+)', [auth.CheckAuthToken, auth.Ch
 router.put('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
 
     //Check for all needed information
-    if (req.body.newText || (req.body.completed && req.body.completed === "true" || req.body.completed === "false")) {
-        var completed;
-
-        if (req.body.completed) {
-            if(req.body.completed === "true") 
-                completed = 1;
-            else   
-                completed = 0;
-        }
-
+    if (req.body.newText || (req.body.completed && req.body.completed === 1 || req.body.completed === 0)) {
         var editRequest = "Update Items SET ";
         if (req.body.newText)
         {
@@ -472,12 +463,10 @@ router.put('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckAuth
         }
         if (req.body.completed)
         {
-            editRequest += "Completed = " + completed + " ";
+            editRequest += "Completed = " + req.body.completed + " ";
         }
         editRequest += "Where ItemID = " + config.pool.escape(req.params.itemid) + " AND ListID = " + req.body.listid + ";";
-
-        console.log("SQL Request: " + editRequest);
-
+        
         config.pool.query(editRequest, function (err, result) {
             //If there is an error, log it
             if (err) {
