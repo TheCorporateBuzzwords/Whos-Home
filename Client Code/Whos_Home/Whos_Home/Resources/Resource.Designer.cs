@@ -428,8 +428,8 @@ namespace Whos_Home
 			// aapt resource value: 0x7f090013
 			public const int buttonCancelAddUserToGroup = 2131296275;
 			
-			// aapt resource value: 0x7f090076
-			public const int buttonCancelCreateGroup = 2131296374;
+			// aapt resource value: 0x7f090075
+			public const int buttonCancelCreateGroup = 2131296373;
 			
 			// aapt resource value: 0x7f09005f
 			public const int buttonCancelListAddItem = 2131296351;
@@ -464,8 +464,8 @@ namespace Whos_Home
 			// aapt resource value: 0x7f09004d
 			public const int buttonCreateComment = 2131296333;
 			
-			// aapt resource value: 0x7f090075
-			public const int buttonCreateGroup = 2131296373;
+			// aapt resource value: 0x7f090076
+			public const int buttonCreateGroup = 2131296374;
 			
 			// aapt resource value: 0x7f09007b
 			public const int buttonCreateMessage = 2131296379;
@@ -683,8 +683,8 @@ namespace Whos_Home
 			// aapt resource value: 0x7f090011
 			public const int textviewAddUserToGroupDialog = 2131296273;
 			
-			// aapt resource value: 0x7f090045
-			public const int textviewBulletinAuthor = 2131296325;
+			// aapt resource value: 0x7f090046
+			public const int textviewBulletinAuthor = 2131296326;
 			
 			// aapt resource value: 0x7f090048
 			public const int textviewBulletinDate = 2131296328;
@@ -695,8 +695,8 @@ namespace Whos_Home
 			// aapt resource value: 0x7f090051
 			public const int textviewBulletinMessageDialog = 2131296337;
 			
-			// aapt resource value: 0x7f090046
-			public const int textviewBulletinTitle = 2131296326;
+			// aapt resource value: 0x7f090045
+			public const int textviewBulletinTitle = 2131296325;
 			
 			// aapt resource value: 0x7f090050
 			public const int textviewBulletinTitleDialog = 2131296336;
@@ -909,11 +909,11 @@ namespace Whos_Home
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f05001a
-			public const int ApplicationName = 2131034138;
+			// aapt resource value: 0x7f050013
+			public const int ApplicationName = 2131034131;
 			
-			// aapt resource value: 0x7f050019
-			public const int Hello = 2131034137;
+			// aapt resource value: 0x7f050012
+			public const int Hello = 2131034130;
 			
 			// aapt resource value: 0x7f050000
 			public const int common_google_play_services_enable_button = 2131034112;
@@ -966,32 +966,29 @@ namespace Whos_Home
 			// aapt resource value: 0x7f05000f
 			public const int common_signin_button_text_long = 2131034127;
 			
-			// aapt resource value: 0x7f050014
-			public const int default_web_client_id = 2131034132;
-			
 			// aapt resource value: 0x7f050015
-			public const int firebase_database_url = 2131034133;
-			
-			// aapt resource value: 0x7f050012
-			public const int gcm_defaultSenderId = 2131034130;
-			
-			// aapt resource value: 0x7f050016
-			public const int google_api_key = 2131034134;
-			
-			// aapt resource value: 0x7f050013
-			public const int google_app_id = 2131034131;
+			public const int default_web_client_id = 2131034133;
 			
 			// aapt resource value: 0x7f050017
-			public const int google_crash_reporting_api_key = 2131034135;
+			public const int firebase_database_url = 2131034135;
+			
+			// aapt resource value: 0x7f050016
+			public const int gcm_defaultSenderId = 2131034134;
+			
+			// aapt resource value: 0x7f050019
+			public const int google_api_key = 2131034137;
 			
 			// aapt resource value: 0x7f050018
-			public const int google_storage_bucket = 2131034136;
+			public const int google_app_id = 2131034136;
+			
+			// aapt resource value: 0x7f05001a
+			public const int google_storage_bucket = 2131034138;
 			
 			// aapt resource value: 0x7f050011
 			public const int library_name = 2131034129;
 			
-			// aapt resource value: 0x7f05001b
-			public const int url = 2131034139;
+			// aapt resource value: 0x7f050014
+			public const int url = 2131034132;
 			
 			static String()
 			{

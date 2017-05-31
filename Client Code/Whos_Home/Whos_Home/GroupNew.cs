@@ -63,6 +63,7 @@ namespace Whos_Home
                     groupid = (string)temp[0]["GroupID"];
                     db.AddGroup(groupname, groupid);
                     Success();
+                    Dismiss();
                 }
                 catch(Exception parseError)
                 {

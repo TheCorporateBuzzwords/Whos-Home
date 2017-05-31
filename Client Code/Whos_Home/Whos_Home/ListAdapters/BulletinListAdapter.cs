@@ -51,10 +51,10 @@ namespace Whos_Home
         {
             View view = convertView; // re-use an existing view, if one is supplied
             if (view == null) // otherwise create a new one
-                view = context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItem2, null);
+                view = context.LayoutInflater.Inflate(Resource.Layout.CustomGroupView, null);
 
             // set view properties to reflect data for the given row
-            view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = m_posts[position].Title;
+            view.FindViewById<TextView>(Resource.Id.GroupText1).Text = m_posts[position].Title;
 
             string temp;
             //limit the size of the message preview to 100 characters
@@ -62,11 +62,11 @@ namespace Whos_Home
             {
                temp = m_posts[position].Message.Substring(0, 99);
                temp += "...";
-               view.FindViewById<TextView>(Android.Resource.Id.Text2).Text = temp;
+               view.FindViewById<TextView>(Resource.Id.GroupText2).Text = temp;
 
             }
             else
-                view.FindViewById<TextView>(Android.Resource.Id.Text2).Text = m_posts[position].Message;
+                view.FindViewById<TextView>(Resource.Id.GroupText2).Text = m_posts[position].Message;
             // return the view, populated with data, for display
             return view;
         }

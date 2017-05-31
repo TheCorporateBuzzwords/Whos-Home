@@ -27,6 +27,18 @@
         android:layout_height="wrap_content"
         android:layout_weight="87"
         android:orientation="horizontal">
+      <Button
+            android:background="@drawable/blue_button"
+            style="@style/button_text"
+            android:text="Cancel"
+            android:layout_gravity="bottom"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:layout_weight="10"
+            android:id="@+id/buttonCancelCreateGroup"
+            android:layout_marginLeft="15px"
+            android:layout_marginRight="15px"
+            android:textSize="15sp" />
         <Button
             android:background="@drawable/blue_button"
             style="@style/button_text"
@@ -36,18 +48,6 @@
             android:layout_height="45dp"
             android:layout_weight="10"
             android:id="@+id/buttonCreateGroup"
-            android:layout_marginLeft="15px"
-            android:layout_marginRight="15px"
-            android:textSize="15sp" />
-        <Button
-            android:background="@drawable/blue_button"
-            style="@style/button_text"
-            android:text="Cancel"
-            android:layout_gravity="bottom"
-            android:layout_width="200dp"
-            android:layout_height="45dp"
-            android:layout_weight="10"
-            android:id="@+id/buttonCancelCreateGroup"
             android:layout_marginLeft="15px"
             android:layout_marginRight="15px"
             android:textSize="15sp" />
