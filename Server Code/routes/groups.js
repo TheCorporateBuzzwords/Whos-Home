@@ -476,6 +476,8 @@ router.put('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckAuth
         }
         editRequest += "Where ItemID = " + config.pool.escape(req.params.itemid) + " AND ListID = " + req.body.listid + ";";
 
+        console.log("SQL Request: " + editRequest);
+
         config.pool.query(editRequest, function (err, result) {
             //If there is an error, log it
             if (err) {
