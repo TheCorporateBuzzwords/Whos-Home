@@ -286,8 +286,14 @@ namespace Whos_Home.Helpers
         //public async Task<IRestResponse> UpdateListItem(string token, string groupid, string item) { }
         public async Task<IRestResponse> PutListItem(string token, string groupid, string listid, string itemid, bool completed)
         {
-            request = new RestRequest(string.Format("/groups/{0}/lists/{1}", groupid, listid), Method.PUT);
+            request = new RestRequest(string.Format("/groups/{0}/lists/{1}/{2}", groupid, listid, itemid), Method.PUT);
             request.AddHeader("x-access-token", token);
+
+            int isdone = 0;
+            if (completed)
+                isdone = 1;
+            request.AddParameter("completed", isdone);
+            //request.AddParameter("listid", listid);
             //this is kinda weird and breaking 
             //My design, but it's the way the api
             //is set up right now
