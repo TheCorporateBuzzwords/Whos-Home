@@ -449,7 +449,7 @@ router.post('/:groupid(\\d+)/lists/:listid(\\d+)', [auth.CheckAuthToken, auth.Ch
 
 //Endpoint for editing a single item in a list
 router.put('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
-    console.log("body: " + req.body);
+    console.log("body: ", req.body);
     //Check for all needed information
     if (req.body.newText || (req.body.completed && (req.body.completed === 1 || req.body.completed === 0))) {
         var editRequest = "Update Items SET ";
