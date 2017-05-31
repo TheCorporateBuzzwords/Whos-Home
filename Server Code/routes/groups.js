@@ -342,13 +342,22 @@ router.post('/:groupid(\\d+)/lists/', [auth.CheckAuthToken, auth.CheckInGroup], 
 router.put('/:groupid(\\d+)/lists/:listid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
 
     //Check for all needed information
-    if (req.body.decoded.UserID && req.params.groupid && req.params.listid && req.body.newTitle && req.body.completed !== 1 && req.body.completed !== 0) {
-        var editRequst = "Update Lists" +
-            " Set Title = " + config.pool.escape(req.body.newTitle) +
-            " AND Completed = " + req.body.completed +
-            " Where ListID = " + config.pool.escape(req.params.listid) +
-            " And GroupID = " + config.pool.escape(req.params.groupid) + ";";
-
+    if (req.body.decoded.UserID && req.params.groupid && req.params.listid && req.body.completed !== 1 && req.body.completed !== 0) {
+        var editRequst;
+        if(req.body.newTitle)
+        {
+            editRequst = "Update Lists" +
+                " Set Title = " + config.pool.escape(req.body.newTitle) +
+                " AND Completed = " + req.body.completed +
+                " Where ListID = " + config.pool.escape(req.params.listid) +
+                " And GroupID = " + config.pool.escape(req.params.groupid) + ";";
+        }
+        else {
+            editRequst = "Update Lists" +
+                " Set Completed = " + req.body.completed +
+                " Where ListID = " + config.pool.escape(req.params.listid) +
+                " And GroupID = " + config.pool.escape(req.params.groupid) + ";";
+        }
         config.pool.query(editRequst, function (err, result) {
             //If there is an error, log it
             if (err) {
@@ -535,7 +544,7 @@ router.get('/:groupid(\\d+)/locations', [auth.CheckAuthToken, auth.CheckInGroup]
 router.post('/:groupid(\\d+)/location/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
 
     if (req.params.groupid && req.body.ssid && req.body.locationName) {
-        console.log("executing");
+        //console.log("executing");
         var insertRequest = "INSERT INTO Group_Locations (GroupID, SSID, NetName) values (" + config.pool.escape(req.params.groupid) + ", " + config.pool.escape(req.body.ssid) + ", " + config.pool.escape(req.body.locationName) + ");";
         config.pool.query(insertRequest, function (err, result) {
             if (err) {
