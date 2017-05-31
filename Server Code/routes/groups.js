@@ -466,11 +466,15 @@ router.put('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckAuth
         {
             editRequest += "ItemText = " + config.pool.escape(req.body.newText) + " ";
         }
+        if (req.body.newText && req.body.completed)
+        {
+            editRequest += "AND ";
+        }
         if (req.body.completed)
         {
             editRequest += "Completed = " + completed + " ";
         }
-        editRequest += "Where ItemID = " + config.pool.escape(req.params.itemid) + ";";
+        editRequest += "Where ItemID = " + config.pool.escape(req.params.itemid) + " AND ListID = " + req.body.listid + ";";
 
         config.pool.query(editRequest, function (err, result) {
             //If there is an error, log it
@@ -482,6 +486,9 @@ router.put('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckAuth
                 res.status(200).json({ status: "success", message: "Edit successfully made to list item." });
             }
         });
+    }
+    else {
+        res.status(400).json({ status: "error", message: "missing parameter in PUT request" });
     }
     /*else if (req.params.itemid && req.body.completed) {
         if (req.body.completed !== 1 && req.body.completed !== 0) {
