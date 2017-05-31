@@ -342,22 +342,12 @@ router.post('/:groupid(\\d+)/lists/', [auth.CheckAuthToken, auth.CheckInGroup], 
 router.put('/:groupid(\\d+)/lists/:listid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
 
     //Check for all needed information
-    if (req.body.decoded.UserID && req.params.groupid && req.params.listid && req.body.completed !== 1 && req.body.completed !== 0) {
-        var editRequst;
-        if(req.body.newTitle)
-        {
-            editRequst = "Update Lists" +
-                " Set Title = " + config.pool.escape(req.body.newTitle) +
-                " AND Completed = " + req.body.completed +
-                " Where ListID = " + config.pool.escape(req.params.listid) +
-                " And GroupID = " + config.pool.escape(req.params.groupid) + ";";
-        }
-        else {
-            editRequst = "Update Lists" +
-                " Set Completed = " + req.body.completed +
-                " Where ListID = " + config.pool.escape(req.params.listid) +
-                " And GroupID = " + config.pool.escape(req.params.groupid) + ";";
-        }
+    if (req.body.decoded.UserID && req.params.groupid && req.params.listid) {
+        var editRequst = "Update Lists" +
+            " Set Title = " + config.pool.escape(req.body.newTitle) +
+            " Where ListID = " + config.pool.escape(req.params.listid) +
+            " And GroupID = " + config.pool.escape(req.params.groupid) + ";";
+
         config.pool.query(editRequst, function (err, result) {
             //If there is an error, log it
             if (err) {
@@ -461,11 +451,26 @@ router.post('/:groupid(\\d+)/lists/:listid(\\d+)', [auth.CheckAuthToken, auth.Ch
 router.put('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckAuthToken, auth.CheckInGroup], function (req, res) {
 
     //Check for all needed information
-    if (req.body.decoded.UserID && req.params.groupid && req.params.itemid && req.body.newText) {
-        //Create the request
-        var editRequst = "Update Items" +
-            " Set ItemText = " + config.pool.escape(req.body.newText) +
-            " Where ItemID = " + config.pool.escape(req.params.itemid) + ";";
+    if (req.body.newText || (req.body.completed && req.body.completed === "true" || req.body.completed === "false")) {
+        var completed;
+
+        if (req.body.completed) {
+            if(req.body.completed === "true") 
+                completed = 1;
+            else   
+                completed = 0;
+        }
+
+        var editRequest = "Update Items SET ";
+        if (req.body.newText)
+        {
+            editRequest += "ItemText = " + config.pool.escape(req.body.newText) + " ";
+        }
+        if (req.body.completed)
+        {
+            editRequest += "Completed = " + completed + " ";
+        }
+        editRequest += "Where ItemID = " + config.pool.escape(req.params.itemid) + ";";
 
         config.pool.query(editRequst, function (err, result) {
             //If there is an error, log it
@@ -478,7 +483,7 @@ router.put('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckAuth
             }
         });
     }
-    else if (req.params.itemid && req.body.completed) {
+    /*else if (req.params.itemid && req.body.completed) {
         if (req.body.completed !== 1 && req.body.completed !== 0) {
             return res.status(400).json({ status: "error", message: "invalid completed value" });
         }
@@ -496,7 +501,7 @@ router.put('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckAuth
     //If the request is missing params, send back an error
     else {
         res.status(400).json({ status: "error", message: "missing parameter in PUT request" });
-    }
+    }*/
 });
 
 //Endpoint for deleting a single item in a list
