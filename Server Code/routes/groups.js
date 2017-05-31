@@ -465,7 +465,7 @@ router.put('/:groupid(\\d+)/lists/:listid(\\d+)/:itemid(\\d+)/', [auth.CheckAuth
         {
             editRequest += "Completed = " + req.body.completed + " ";
         }
-        editRequest += "Where ItemID = " + config.pool.escape(req.params.itemid) + " AND ListID = " + req.body.listid + ";";
+        editRequest += "Where ItemID = " + config.pool.escape(req.params.itemid) + " AND ListID = " + req.params.listid + ";";
 
         console.log("SQL Request: " + editRequest);
 
