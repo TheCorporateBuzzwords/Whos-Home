@@ -51,7 +51,9 @@ namespace Whos_Home
                 view = m_context.LayoutInflater.Inflate(Android.Resource.Layout.SimpleListItemChecked, null);
 
             view.FindViewById<TextView>(Android.Resource.Id.Text1).Text = m_items[position].Message;
-
+            //if (m_items[position].IsDone == "1")
+                
+            
             return view;
         }
     }

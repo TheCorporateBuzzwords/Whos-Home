@@ -60,10 +60,16 @@ namespace Whos_Home
             m_ListItemObjs = await GetItems();
 
             m_listView = FindViewById<ListView>(Resource.Id.listitemslistview);          
-            m_listView.Adapter = new ListListAdapter(this, m_ListItemObjs);
+            m_listView.Adapter = new ListListAdapter(this, m_ListItemObjs);   
 
             //sets the selection mode for the listview to multiple choice
             m_listView.ChoiceMode = Android.Widget.ChoiceMode.Multiple;
+
+            for (int i = 0; i < m_ListItemObjs.Count; ++i)
+            {
+                if (m_ListItemObjs[i].IsDone == "1")
+                    m_listView.SetItemChecked(i, true);
+            }
 
             //Sets the function to be called on click to the custom function OnLocationItemClick
             //This Function will select and deselect location values based on the item clicked.
@@ -116,6 +122,12 @@ namespace Whos_Home
 
             //sets the selection mode for the listview to multiple choice
             m_listView.ChoiceMode = Android.Widget.ChoiceMode.Multiple;
+
+            for (int i = 0; i < m_ListItemObjs.Count; ++i)
+            {
+                if (m_ListItemObjs[i].IsDone == "1")
+                    m_listView.SetItemChecked(i, true);
+            }
 
             //Sets the function to be called on click to the custom function OnLocationItemClick
             //This Function will select and deselect location values based on the item clicked.

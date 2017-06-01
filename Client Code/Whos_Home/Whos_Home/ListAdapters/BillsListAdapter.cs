@@ -53,6 +53,15 @@ namespace Whos_Home
             view.FindViewById<TextView>(Resource.Id.BillsCustomBillTitle).Text = Bills[position].Title;
             view.FindViewById<TextView>(Resource.Id.BillsCustomAmount).Text = "$" + Bills[position].Amount;
 
+            view.FindViewById<TextView>(Resource.Id.BillsCustomBillDate).Text = "Due: " + Bills[position].Date.ToShortDateString();
+
+            if (Bills[position].Date <= DateTime.Now)
+                view.FindViewById<TextView>(Resource.Id.BillsCustomBillDate).SetTextColor(Android.Graphics.Color.Red);
+            else
+                view.FindViewById<TextView>(Resource.Id.BillsCustomBillDate).SetTextColor(Android.Graphics.Color.Green);
+
+
+
             return view;
         }
     }

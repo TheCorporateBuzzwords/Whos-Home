@@ -15,19 +15,27 @@
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/BillsCustomBillTitle"
-                android:text="Bill Title ok here is a longer title"
+                android:text=" "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#368DEB"
                 android:textSize="16dip" />
+            <TextView
+                android:id="@+id/BillsCustomAmount"
+                android:text="Amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:textSize="16dip"
+                android:textColor="#000000"
+                android:paddingBottom="10dip" />
         </LinearLayout>
         <TextView
-            android:id="@+id/BillsCustomAmount"
-            android:text="Amount"
+            android:id="@+id/BillsCustomBillDate"
+            android:text=" "
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16dip"
-            android:textColor="#000000"
-            android:paddingBottom="10dip" />
+            android:textColor="#368DEB"
+            android:textSize="16dip" />
     </LinearLayout>
 </RelativeLayout>
