@@ -52,6 +52,15 @@ namespace Whos_Home.Helpers
                 IsDone = false.ToString();
         }
 
+        public bool IsItemChecked()
+        {
+            bool ret = false;
+            if (isDone == true.ToString())
+                ret = true;
+
+            //this is bad I know
+            return ret;
+        }
         public string Author
         {
             get
