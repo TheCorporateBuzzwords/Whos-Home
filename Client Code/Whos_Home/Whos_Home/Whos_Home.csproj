@@ -269,6 +269,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <GoogleServicesJson Include="google-services.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
